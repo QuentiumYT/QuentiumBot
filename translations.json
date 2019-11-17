@@ -1,0 +1,1165 @@
+{
+    "ANCHOR FR": null,
+    "fr": {
+        "GLOBAL": {
+            "dashes": "--------------------------",
+            "msg_bot_admin": ":x: Il manque la permissions **Administrateur** au bot.",
+            "msg_bot_user": ":x: **",
+            "asked_by": "Demandé par : {ctx.message.author.name}"
+        },
+        "help": {
+            "msg_title_infos": " Commandes **INFORMATIONS** :",
+            "infos_help": {
+                "type": "info / Informations",
+                "description": "Affiche la liste des commandes ou documente sur l'utilisation d'une commande spécifique.",
+                "usage": " [\"commande\"]",
+                "aliases": "cmd / aide",
+                "example": " embed"
+            },
+            "infos_listservers": {
+                "type": "info / Informations",
+                "description": "Affiche la liste des serveurs utilisant le bot.",
+                "usage": "",
+                "aliases": "listserveurs / listserver / listeserveurs / serverlist / serverliste / servlist / servelist / listservs",
+                "example": ""
+            },
+            "infos_listinvites": {
+                "type": "info / Informations",
+                "description": "Affiche la liste des liens d'invitation.",
+                "usage": "",
+                "aliases": "listeinvites / invitelist",
+                "example": ""
+            },
+            "infos_listbans": {
+                "type": "info / Informations",
+                "description": "Affiche la liste des personnes bannies.",
+                "usage": "",
+                "aliases": "listebans / banlist",
+                "example": ""
+            },
+            "infos_shareme": {
+                "type": "info / Informations",
+                "description": "Invite le bot sur ton serveur.",
+                "usage": "",
+                "aliases": "sharebot / share / invitebot",
+                "example": ""
+            },
+            "msg_title_utilities": " Commandes **UTILITAIRES** :",
+            "utilities_msgtotal": {
+                "type": "utilities / Utilitaires",
+                "description": "Calcule le nombre de messages d'un membre au total ou dans le salon.",
+                "usage": " [all / channel] [@membre]",
+                "aliases": "totalmsg",
+                "example": " channel @QuentiumYT#0207"
+            },
+            "utilities_embed": {
+                "type": "utilities / Utilitaires",
+                "description": "Affiche un embed personnalisé.",
+                "usage": " [T=\"titre\"] [D=\"description\"] [C=\"couleur\"] [I=\"url image\"] [F=\"bas de page\"] [U=\"url\"] [A=\"auteur\"]",
+                "aliases": "embeds / richembed",
+                "example": " T=Informations D=J'aime bien cette commande C=red F=Merci !"
+            },
+            "utilities_letter": {
+                "type": "utilities / Utilitaires",
+                "description": "Ecris un message avec des émojis.",
+                "usage": " [\"texte\"]",
+                "aliases": "lettre / emojis / emoji",
+                "example": " Bonjour à tous !"
+            },
+            "utilities_weather": {
+                "type": "utilities / Utilitaires",
+                "description": "Affiche la météo de la ville spécifiée.",
+                "usage": " [\"ville\"]",
+                "aliases": "meteo",
+                "example": " Paris"
+            },
+            "utilities_lyrics": {
+                "type": "utilities / Utilitaires",
+                "description": "Cherche et affiche les paroles d'un musique.",
+                "usage": " [\"musique\"]",
+                "aliases": "lyric / paroles / parole",
+                "example": " Linking park numb"
+            },
+            "utilities_avatar": {
+                "type": "utilities / Utilitaires",
+                "description": "Affiche l'avatar et le lien d'une personne.",
+                "usage": " [@membre]",
+                "aliases": "av / avatars",
+                "example": " @QuentiumYT#0207"
+            },
+            "msg_title_stats": " Commandes **STATISTIQUES** :",
+            "stats_userstats": {
+                "type": "stats / Statistiques",
+                "description": "Montre les statistiques d'un membre.",
+                "usage": " [@membre]",
+                "aliases": "statsuser / statuser",
+                "example": " @QuentiumYT#0207"
+            },
+            "stats_serverstats": {
+                "type": "stats / Statistiques",
+                "description": "Montre les statistiques du serveur.",
+                "usage": "",
+                "aliases": "serveurstats / statsserveur / statserveur / statsserver / servstats / serverinfos / serverinfo / servinfo",
+                "example": ""
+            },
+            "stats_botstats": {
+                "type": "stats / Statistiques",
+                "description": "Montre les statistiques du bot.",
+                "usage": "",
+                "aliases": "botstat / statsbot / statbot",
+                "example": ""
+            },
+            "stats_uptime": {
+                "type": "stats / Statistiques",
+                "description": "Affiche la durée depuis le démarrage du bot.",
+                "usage": "",
+                "aliases": "timeup / runningtime / runtime / timerun",
+                "example": ""
+            },
+            "stats_ping": {
+                "type": "stats / Statistiques",
+                "description": "Calcule le temps de réactivité du bot.",
+                "usage": "",
+                "aliases": "pong",
+                "example": ""
+            },
+            "msg_title_feedback": " Commandes **RETOUR D'INFORMATIONS** :",
+            "feedback_idea": {
+                "type": "feedback / Retour d'information",
+                "description": "Propose une idée ou reporte un bug pour améliorer le bot.",
+                "usage": " [\"texte\"]",
+                "aliases": "bug / bugs / ideas / idee",
+                "example": " Nouvelle commande pour gérer les messages."
+            },
+            "feedback_showlogs": {
+                "type": "feedback / Retour d'information",
+                "description": "Affiche la liste des mises à jour majeures du bot.",
+                "usage": "",
+                "aliases": "logs / showlog / changelog / whatsnew / whatnew",
+                "example": ""
+            },
+            "msg_title_admin_configs": " Commandes **CONFIGURATIONS (Admin)** :",
+            "admin_configs_prefix": {
+                "type": "admin_configs / Configurations Admin",
+                "description": "Permet de changer le préfixe du bot.",
+                "usage": " [\"préfixe\"]",
+                "aliases": "prefixe",
+                "example": " &"
+            },
+            "admin_configs_lang": {
+                "type": "admin_configs / Configurations Admin",
+                "description": "Change la langue du bot. (Langue par défaut : fr)",
+                "usage": " [fr / en / de / nl]",
+                "aliases": "langs / language / languages / langages",
+                "example": " fr"
+            },
+            "admin_configs_autorole": {
+                "type": "admin_configs / Configurations Admin",
+                "description": "Donne un rôle automatiquement à quelqu'un lorsqu'il rejoint le serveur.",
+                "usage": " [\"nom du role\" / show / remove]",
+                "aliases": "autoroles",
+                "example": " Player"
+            },
+            "admin_configs_trigger": {
+                "type": "admin_configs / Configurations Admin",
+                "description": "Permet au bot de répondre automatiquement à un message spécifique définis.",
+                "usage": " [\"déclancheur\" / list / remove / removeall] [\"réponse\" / url]",
+                "aliases": "triggers / reaction / customreaction / customtrigger",
+                "example": " \"bonjour\" \"hey, salut!\""
+            },
+            "msg_title_admin_rights": " Commandes **ADMINISTRATION (Admin)** :",
+            "admin_rights_clear": {
+                "type": "admin_rights / Droits Admin",
+                "description": "Supprime un nombre défini de messages.",
+                "usage": " [\"nombre\"]",
+                "aliases": "clearmsg / clean",
+                "example": " 10"
+            },
+            "admin_rights_move": {
+                "type": "admin_rights / Droits Admin",
+                "description": "Déplace les personnes du salon vocal dans un autre salon vocal.",
+                "usage": " [\"numéro de salon\"]",
+                "aliases": "moves",
+                "example": " 3"
+            },
+            "admin_rights_kick": {
+                "type": "admin_rights / Droits Admin",
+                "description": "Expulse la personne mentionnée.",
+                "usage": " [@membre]",
+                "aliases": "",
+                "example": " @QuentiumYT#0207"
+            },
+            "admin_rights_ban": {
+                "type": "admin_rights / Droits Admin",
+                "description": "Bannis la personne mentionnée.",
+                "usage": " [@membre]",
+                "aliases": "",
+                "example": " @QuentiumYT#0207"
+            },
+            "msg_title_flc": " Commandes **FRANCE LES CITES** :",
+            "flc_dtmine": {
+                "type": "special / France Les Cités",
+                "description": "Affiche les 10 meilleurs endroits pour miner une ressource (© Fomys :smile:).",
+                "usage": " [\"minerais\"]",
+                "aliases": "minedt",
+                "example": " platine"
+            },
+            "flc_absent": {
+                "type": "special / France Les Cités",
+                "description": "Attribuez vous le rôle Absent si vous devez vous absenter un moment.",
+                "usage": " [\"durée + (raison)\"]",
+                "aliases": "abs",
+                "example": " 10 jours (vacances)"
+            },
+            "flc_vote": {
+                "type": "special / France Les Cités",
+                "description": "Permet de voter pour le blason du serveur.",
+                "usage": " [\"numéro du blason\"]",
+                "aliases": "votes / voter",
+                "example": " 5"
+            },
+            "msg_title_theswe": " Commandes **THESWEMASTER** :",
+            "theswe_cookie": {
+                "type": "special / TheSweMaster",
+                "description": "Vous voulez des cookies, en voilà !",
+                "usage": "",
+                "aliases": "cookies",
+                "example": ""
+            },
+            "msg_title_ism": " Commandes **INSOUMIS** :",
+            "ism_role": {
+                "type": "special / Insoumis",
+                "description": "Attribuez vous les rôles qui vous correspondent sur le serveur.",
+                "usage": " [\"rôle\" / liste]",
+                "aliases": "roles",
+                "example": " CSGO"
+            },
+            "msg_title_quentium": " Commandes **QUENTIUM** :",
+            "quentium_showideas": {
+                "type": "special / Quentium",
+                "description": "Affiche la liste des idées proposées.",
+                "usage": "",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_addlogs": {
+                "type": "special / Quentium",
+                "description": "Permet d'ajouter des logs de mise à jour.",
+                "usage": " [\"logs\"]",
+                "aliases": "",
+                "example": " ..."
+            },
+            "quentium_eval": {
+                "type": "special / Quentium",
+                "description": "Evalue des données pour Python (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "evaluate",
+                "example": " ctx.send(\"bonjour\")"
+            },
+            "quentium_exec": {
+                "type": "special / Quentium",
+                "description": "Execute des commandes sur la Raspberry (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "execute",
+                "example": " mkdir test"
+            },
+            "quentium_data4tte": {
+                "type": "special / Quentium",
+                "description": "Envoie des requêtes au projet (timetoeat.xyz).",
+                "usage": " [\"nombre\"]",
+                "aliases": "",
+                "example": " 130"
+            },
+            "msg_list_commands": "----- Liste des Commandes -----",
+            "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/",
+            "msg_aliases": "Alias :",
+            "msg_format": "Utilisation :",
+            "msg_caption": ":bookmark_tabs: Légende :bookmark_tabs:",
+            "msg_caption_desc": "**`[argument_imposé]` - `[\"argument_demandé\"]` (Enlevez les guillemets pour l'agument que vous entrez) - `[@mention]` - [1 / 2] (Choix 1 OU 2).**",
+            "msg_warning": ":warning: Avertissement :warning:",
+            "msg_warning_desc": "Si vous rencontrez un problème, merci de la soumettre avec la commande `+bug` ou en rejoignant le serveur de test/support : https://discord.gg/5sehgXx\n",
+            "msg_donation": "\n:euro: Pour une petite donation : [Cliquez ici]({})",
+            "msg_no_command_found": "La commande spécifiée n'a pas été trouvée.",
+            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
+            "url_website_discord": "https://quentium.fr/discord/"
+        },
+        "listservers": {
+            "msg_any": "Aucuns",
+            "msg_invites": "Liens d'invitations :"
+        },
+        "listbans": {
+            "msg_any": "Aucuns",
+            "msg_invites": "Liste des membres bannis :"
+        },
+        "share": {
+            "msg_share": ":arrow_right: Lien direct : https://discord.gg/PGepHZW\n:arrow_right: Lien à copier : ```https://discord.gg/PGepHZW```"
+        },
+        "shareme": {
+            "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
+        },
+        "msgtotal": {
+            "msg_arg_valide": "Merci de préciser un argument valide : `{prefix_server}msgtotal [all / channel] [@membre]`.",
+            "msg_calculating": "Calcul des messages...",
+            "msg_nb_msg": "Nombre de messages :",
+            "msg_has_sent": "** a envoyé **",
+            "msg_has_sent_total": "** messages au total.",
+            "msg_has_sent_channel": "** messages dans ce channel."
+        },
+        "embed": {
+            "msg_arg_valide": "Merci de préciser un argument valide : `{prefix_server}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.",
+            "msg_wrong_color": "La couleur mentionnée n'existe pas. Paramètres supportés : `nom couleur`, `valeur hexa`, `valeur nombre entier`, `random`."
+        },
+        "letter": {
+            "msg_no_text": "Merci de préciser un texte."
+        }
+    },
+    "ANCHOR EN": null,
+    "en": {
+        "GLOBAL": {
+            "msg_error": "",
+            "msg_error2": ""
+        },
+        "help": {
+            "msg_title_infos": " **INFORMATIONS** commands:",
+            "infos_help": {
+                "type": "info / Informations",
+                "description": "Displays the list of commands or informs about the use of a specific command.",
+                "usage": " [\"command\"]",
+                "aliases": "cmd",
+                "example": " embed"
+            },
+            "infos_listservers": {
+                "type": "info / Informations",
+                "description": "Displays the list of servers using the bot.",
+                "usage": "",
+                "aliases": "listserver / serverlist / servlist / servelist / listservs",
+                "example": ""
+            },
+            "infos_listinvites": {
+                "type": "info / Informations",
+                "description": "Displays the list of invitation links.",
+                "usage": "",
+                "aliases": "invitelist",
+                "example": ""
+            },
+            "infos_listbans": {
+                "type": "info / Informations",
+                "description": "Displays the list of banned people.",
+                "usage": "",
+                "aliases": "banlist",
+                "example": ""
+            },
+            "infos_shareme": {
+                "type": "info / Informations",
+                "description": "Invite the bot to your server.",
+                "usage": "",
+                "aliases": "sharebot / share / invitebot",
+                "example": ""
+            },
+            "msg_title_utilities": " **UTILITIES** commands:",
+            "utilities_msgtotal": {
+                "type": "utilities / Utilities",
+                "description": "Calculates the number of messages of a member in total or in the current channel.",
+                "usage": " [all / channel] [@member]",
+                "aliases": "totalmsg",
+                "example": " channel @QuentiumYT#0207"
+            },
+            "utilities_embed": {
+                "type": "utilities / Utilities",
+                "description": "Shows a personalized embed.",
+                "usage": " [T=\"title\"] [D=\"description\"] [C=\"color\"] [I=\"image url\"] [F=\"footer\"] [U=\"url\"] [A=\"author\"]",
+                "aliases": "embeds / richembed",
+                "example": " T=Informations D=I like this command C=red F=Thanks!"
+            },
+            "utilities_letter": {
+                "type": "utilities / Utilities",
+                "description": "Write a message with emojis.",
+                "usage": " [\"text\"]",
+                "aliases": "emojis / emoji",
+                "example": " Hello world!"
+            },
+            "utilities_weather": {
+                "type": "utilities / Utilities",
+                "description": "Displays the weather of the specified city.",
+                "usage": " [\"city\"]",
+                "aliases": "",
+                "example": " New york"
+            },
+            "utilities_lyrics": {
+                "type": "utilities / Utilities",
+                "description": "Search and displays the lyrics of a music.",
+                "usage": " [\"music\"]",
+                "aliases": "lyric",
+                "example": " Linking park numb"
+            },
+            "utilities_avatar": {
+                "type": "utilities / Utilities",
+                "description": "Displays the avatar and its link of a person.",
+                "usage": " [@member]",
+                "aliases": "av / avatars",
+                "example": " @QuentiumYT#0207"
+            },
+            "msg_title_stats": " **STATISTICS** commands:",
+            "stats_userstats": {
+                "type": "stats / Statistics",
+                "description": "Shows the statistics of a member.",
+                "usage": " [@member]",
+                "aliases": "statsuser / statuser",
+                "example": " @QuentiumYT#0207"
+            },
+            "stats_serverstats": {
+                "type": "stats / Statistics",
+                "description": "Shows the server statistics.",
+                "usage": "",
+                "aliases": "statserver / statsserver / servstats / serverinfos / serverinfo / servinfo",
+                "example": ""
+            },
+            "stats_botstats": {
+                "type": "stats / Statistics",
+                "description": "Show the statistics of the bot.",
+                "usage": "",
+                "aliases": "botstat / statsbot / statbot",
+                "example": ""
+            },
+            "stats_uptime": {
+                "type": "stats / Statistics",
+                "description": "Displays the duration since booting the bot.",
+                "usage": "",
+                "aliases": "timeup / runningtime / runtime / timerun",
+                "example": ""
+            },
+            "stats_ping": {
+                "type": "stats / Statistics",
+                "description": "Calculates the response time of the bot.",
+                "usage": "",
+                "aliases": "pong",
+                "example": ""
+            },
+            "msg_title_feedback": " **FEEDBACK** commands:",
+            "feedback_idea": {
+                "type": "feedback / Feedback",
+                "description": "Submit an idea or report a bug to improve the bot.",
+                "usage": " [\"text\"]",
+                "aliases": "bug / bugs / ideas",
+                "example": " New command to manage messages."
+            },
+            "feedback_showlogs": {
+                "type": "feedback / Feedback",
+                "description": "Displays the list of major bot updates.",
+                "usage": "",
+                "aliases": "logs / showlog / changelog / whatsnew / whatnew",
+                "example": ""
+            },
+            "msg_title_admin_configs": " **CONFIGURATIONS (Admin)** commands:",
+            "admin_configs_prefix": {
+                "type": "admin_configs / Admin Configurations",
+                "description": "Allows to change the prefix of the bot.",
+                "usage": " [\"prefix\"]",
+                "aliases": "",
+                "example": " &"
+            },
+            "admin_configs_lang": {
+                "type": "admin_configs / Admin Configurations",
+                "description": "Change the language of the bot. (Default language: fr)",
+                "usage": " [fr / en / de / nl]",
+                "aliases": "langs / language / langages",
+                "example": " en"
+            },
+            "admin_configs_autorole": {
+                "type": "admin_configs / Admin Configurations",
+                "description": "Give automatically a role to someone when he join the server.",
+                "usage": " [\"role name\" / show / remove]",
+                "aliases": "autoroles",
+                "example": " Player"
+            },
+            "admin_configs_trigger": {
+                "type": "admin_configs / Admin Configurations",
+                "description": "Allows the bot to automatically reply to a specific message.",
+                "usage": " [\"trigger\" / list / remove / removeall] [\"answer\" / url]",
+                "aliases": "triggers / reaction / customreaction / customtrigger",
+                "example": " \"hello\" \"hey, what's up!\""
+            },
+            "msg_title_admin_rights": " **ADMINISTRATION (Admin)** commands:",
+            "admin_rights_clear": {
+                "type": "admin_rights / Admin Rights",
+                "description": "Clears a specific amount of messages.",
+                "usage": " [\"number\"]",
+                "aliases": "clearmsg / clean",
+                "example": " 10"
+            },
+            "admin_rights_move": {
+                "type": "admin_rights / Admin Rights",
+                "description": "Move people from a vocal channel to another vocal channel.",
+                "usage": " [\"channel number\"]",
+                "aliases": "moves",
+                "example": " 3"
+            },
+            "admin_rights_kick": {
+                "type": "admin_rights / Admin Rights",
+                "description": "Kick a mentionned member.",
+                "usage": " [@member]",
+                "aliases": "",
+                "example": " @QuentiumYT#0207"
+            },
+            "admin_rights_ban": {
+                "type": "admin_rights / Admin Rights",
+                "description": "Ban a mentionned member.",
+                "usage": " [@member]",
+                "aliases": "",
+                "example": " @QuentiumYT#0207"
+            },
+            "msg_title_flc": " **FRANCE LES CITES** commands:",
+            "flc_dtmine": {
+                "type": "special / France Les Cités",
+                "description": "Shows the top 10 places to mine a resource (© Fomys :smile:).",
+                "usage": " [\"ore\"]",
+                "aliases": "minedt",
+                "example": " platinum"
+            },
+            "flc_absent": {
+                "type": "special / France Les Cités",
+                "description": "Assign yourself the Absent role if you have to be away for a while.",
+                "usage": " [\"duration + (reason)\"]",
+                "aliases": "abs",
+                "example": " 10 days (vacations)"
+            },
+            "flc_vote": {
+                "type": "special / France Les Cités",
+                "description": "Allows voting for the blason of the server.",
+                "usage": " [\"blason number\"]",
+                "aliases": "votes",
+                "example": " 5"
+            },
+            "msg_title_theswe": " **THESWEMASTER** commands:",
+            "theswe_cookie": {
+                "type": "special / TheSweMaster",
+                "description": "You want cookies, here it is!",
+                "usage": "",
+                "aliases": "cookies",
+                "example": ""
+            },
+            "msg_title_ism": " **INSOUMIS** commands:",
+            "ism_role": {
+                "type": "special / Insoumis",
+                "description": "Assign the roles that match you on the server.",
+                "usage": " [\"role\" / list]",
+                "aliases": "roles",
+                "example": " CSGO"
+            },
+            "msg_title_quentium": " **QUENTIUM** commands:",
+            "quentium_showideas": {
+                "type": "special / Quentium",
+                "description": "Displays the list of proposed ideas.",
+                "usage": "",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_addlogs": {
+                "type": "special / Quentium",
+                "description": "Adds update logs.",
+                "usage": " [\"logs\"]",
+                "aliases": "",
+                "example": " ..."
+            },
+            "quentium_eval": {
+                "type": "special / Quentium",
+                "description": "Evaluates data for Python (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "evaluate",
+                "example": " ctx.send(\"bonjour\")"
+            },
+            "quentium_exec": {
+                "type": "special / Quentium",
+                "description": "Execute commands on the Raspberry (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "execute",
+                "example": " mkdir test"
+            },
+            "quentium_data4tte": {
+                "type": "special / Quentium",
+                "description": "Send requests to the project (timetoeat.xyz).",
+                "usage": " [\"number\"]",
+                "aliases": "",
+                "example": " 130"
+            },
+            "msg_list_commands": "----- List of Commands -----",
+            "msg_more_infos": "For more information, please visit: https://quentium.fr/en/discord/",
+            "msg_aliases": "Aliases:",
+            "msg_format": "Format:",
+            "msg_caption": ":bookmark_tabs: Caption :bookmark_tabs:",
+            "msg_caption_desc": "**`[imposed_argument]` - `[\"requested_argument\"]` (Remove the quotation marks for the argument you enter) - `[@mention]` - [1 / 2] (Choice 1 OR 2).**",
+            "msg_warning": ":warning: Warning :warning:",
+            "msg_warning_desc": "If you have any problem, please submit it with `+bug` command or join our test/support server: https://discord.gg/5sehgXx\n",
+            "msg_donation": "\n:dollar: For a small donation: [Click here]({})",
+            "msg_no_command_found": "The specified command was not found.",
+            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
+            "url_website_discord": "https://quentium.fr/en/discord/"
+        }
+    },
+    "ANCHOR DE": null,
+    "de": {
+        "GLOBAL": {
+            "msg_error": "",
+            "msg_error2": ""
+        },
+        "help": {
+            "msg_title_infos": " **INFORMATIONEN** Befehle:",
+            "infos_help": {
+                "type": "info / Informationen",
+                "description": "Zeigt die Liste der Befehle an oder informiert über die Verwendung eines bestimmten Befehls.",
+                "usage": " [\"Befehle\"]",
+                "aliases": "cmd",
+                "example": ""
+            },
+            "infos_listservers": {
+                "type": "info / Informationen",
+                "description": "Zeigt die Liste des Servers mit dem Bot.",
+                "usage": "",
+                "aliases": "listserver / serverlist / servlist / servelist / listservs",
+                "example": ""
+            },
+            "infos_listinvites": {
+                "type": "info / Informationen",
+                "description": "Zeigt die Liste der Einladungslinks.",
+                "usage": "",
+                "aliases": "invitelist",
+                "example": ""
+            },
+            "infos_listbans": {
+                "type": "info / Informationen",
+                "description": "Zeigt die Liste der verbanten Benutzer.",
+                "usage": "",
+                "aliases": "banlist",
+                "example": ""
+            },
+            "infos_shareme": {
+                "type": "info / Informationen",
+                "description": "Lädet den Bot auf Deinen Server ein.",
+                "usage": "",
+                "aliases": "sharebot / share / invitebot",
+                "example": ""
+            },
+            "msg_title_utilities": " **NUTZEN** Befehle:",
+            "utilities_msgtotal": {
+                "type": "utilities / Nutzen",
+                "description": "Berechnet die Anzahl der Nachrichten eines Mitglieds insgesamt oder im Chatroom.",
+                "usage": " [all / channel] [@Mitglied]",
+                "aliases": "totalmsg",
+                "example": ""
+            },
+            "utilities_embed": {
+                "type": "utilities / Nutzen",
+                "description": "Zeigt eine personifizierte embed an.",
+                "usage": " [T=\"Titel\"] [D=\"Beschreibung\"] [C=\"Farbe\"] [I=\"Bild url\"] [F=\"Fußzeile\"] [U=\"url\"] [A=\"Autor\"]",
+                "aliases": "embeds / richembed",
+                "example": ""
+            },
+            "utilities_letter": {
+                "type": "utilities / Nutzen",
+                "description": "Schreibe eine Nachricht mit emojis.",
+                "usage": " [\"Text\"]",
+                "aliases": "emojis / emoji",
+                "example": ""
+            },
+            "utilities_weather": {
+                "type": "utilities / Nutzen",
+                "description": "Zeigt das Wetter der angegebenen Stadt an.",
+                "usage": " [\"Stadt\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "utilities_lyrics": {
+                "type": "utilities / Nutzen",
+                "description": "Durchsucht den Text einer Musik.",
+                "usage": " [\"Musik\"]",
+                "aliases": "lyric",
+                "example": ""
+            },
+            "utilities_avatar": {
+                "type": "utilities / Nutzen",
+                "description": "Zeigt den Avatar und den Link einer Person an.",
+                "usage": " [@Mitglied]",
+                "aliases": "av / avatars",
+                "example": ""
+            },
+            "msg_title_stats": " **STATISTIKEN** Befehle:",
+            "stats_userstats": {
+                "type": "stats / Statistiken",
+                "description": "Zeigt die Statistiken des jeweiligen Mitglieds an.",
+                "usage": " [@Mitglied]",
+                "aliases": "statsuser / statuser",
+                "example": ""
+            },
+            "stats_serverstats": {
+                "type": "stats / Statistiken",
+                "description": "Zeigt die Serverstatistiken an.",
+                "usage": "",
+                "aliases": "statserver / statsserver / servstats / serverinfos / serverinfo / servinfo",
+                "example": ""
+            },
+            "stats_botstats": {
+                "type": "stats / Statistiken",
+                "description": "Zeigt die Botstatistiken an.",
+                "usage": "",
+                "aliases": "botstat / statsbot / statbot",
+                "example": ""
+            },
+            "stats_uptime": {
+                "type": "stats / Statistiken",
+                "description": "Zeigt die Dauer seit dem Booten des Bot an.",
+                "usage": "",
+                "aliases": "timeup / runningtime / runtime / timerun",
+                "example": ""
+            },
+            "stats_ping": {
+                "type": "stats / Statistiken",
+                "description": "Berechnen Sie die Latenz des Bots.",
+                "usage": "",
+                "aliases": "pong",
+                "example": ""
+            },
+            "msg_title_feedback": " **RÜCKMELDUNG** Befehle:",
+            "feedback_idea": {
+                "type": "feedback / Rückmeldung",
+                "description": "Schlag eine Idee vor oder melde einen Fehler um den Bot zu verbessern.",
+                "usage": " [\"Text\"]",
+                "aliases": "bug / bugs / ideas",
+                "example": ""
+            },
+            "feedback_showlogs": {
+                "type": "feedback / Rückmeldung",
+                "description": "Zeigt die liste der Neuigkeiten des Bots an.",
+                "usage": "",
+                "aliases": "logs / showlog / changelog / whatsnew / whatnew",
+                "example": ""
+            },
+            "msg_title_admin_configs": " **KONFIGURATIONEN (Admin)** Befehle:",
+            "admin_configs_prefix": {
+                "type": "admin_configs / Admin-Konfigurationen",
+                "description": "Ermöglicht das Ändern des Präfix des Bots.",
+                "usage": " [\"Präfix\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "admin_configs_lang": {
+                "type": "admin_configs / Admin-Konfigurationen",
+                "description": "Verändert die Sprache des Bots. (Standardsprache : fr)",
+                "usage": " [fr / en / de / nl]",
+                "aliases": "langs / language / langages",
+                "example": ""
+            },
+            "admin_configs_autorole": {
+                "type": "admin_configs / Admin-Konfigurationen",
+                "description": "Gibt jemandem automatisch eine Rolle, wenn er dem Server beitritt.",
+                "usage": " [\"Rollenname\" / show / remove]",
+                "aliases": "autoroles",
+                "example": ""
+            },
+            "admin_configs_trigger": {
+                "type": "admin_configs / Admin-Konfigurationen",
+                "description": "Ermöglicht dem Bot, automatisch auf eine bestimmte Nachricht zu antworten.",
+                "usage": " [\"Auslösen\" / list / remove / removeall] [\"Antwort\" / url]",
+                "aliases": "triggers / reaction / customreaction / customtrigger",
+                "example": ""
+            },
+            "msg_title_admin_rights": " **VERWALTUNG (Admin)** Befehle:",
+            "admin_rights_clear": {
+                "type": "admin_rights / Administratorrechte",
+                "description": "Löscht eine bestimmte Anzahl von Nachrichten.",
+                "usage": " [\"Nummer\"]",
+                "aliases": "clearmsg / clean",
+                "example": ""
+            },
+            "admin_rights_move": {
+                "type": "admin_rights / Administratorrechte",
+                "description": "Bewegen Sie Personen von einem Vokalkanal zu einem anderen Vokalkanal.",
+                "usage": " [\"Kanal Nummer\"]",
+                "aliases": "moves",
+                "example": ""
+            },
+            "admin_rights_kick": {
+                "type": "admin_rights / Administratorrechte",
+                "description": "Kickt das genannte Mitglied.",
+                "usage": " [@Mitglied]",
+                "aliases": "",
+                "example": ""
+            },
+            "admin_rights_ban": {
+                "type": "admin_rights / Administratorrechte",
+                "description": "Verbannt das genannte Mitglied.",
+                "usage": " [@Mitglied]",
+                "aliases": "",
+                "example": ""
+            },
+            "msg_title_flc": " **FRANCE LES CITES** Befehle:",
+            "flc_dtmine": {
+                "type": "special / France Les Cités",
+                "description": "Zeigt die 10 besten Orte an, an denen eine Ressource abgebaut werden kann (© Fomys :smile:).",
+                "usage": " [\"Erz\"]",
+                "aliases": "minedt",
+                "example": ""
+            },
+            "flc_absent": {
+                "type": "special / France Les Cités",
+                "description": "Weisen Sie sich die Rolle Abwesend zu, wenn Sie eine Weile weg sein müssen.",
+                "usage": " [\"Dauer + (Grund)\"]",
+                "aliases": "abs",
+                "example": ""
+            },
+            "flc_vote": {
+                "type": "special / France Les Cités",
+                "description": "Ermöglicht die Abstimmung für die Blason des Servers.",
+                "usage": " [\"Blasonenzahl\"]",
+                "aliases": "votes",
+                "example": ""
+            },
+            "msg_title_theswe": " **THESWEMASTER** Befehle:",
+            "theswe_cookie": {
+                "type": "special / TheSweMaster",
+                "description": "Sie wollen Cookies, hier ist es!",
+                "usage": "",
+                "aliases": "cookies",
+                "example": ""
+            },
+            "msg_title_ism": " **INSOUMIS** Befehle:",
+            "ism_role": {
+                "type": "special / Insoumis",
+                "description": "Weisen Sie die zu Ihnen passenden Rollen auf dem Server zu.",
+                "usage": " [\"Rolle\" / list]",
+                "aliases": "roles",
+                "example": ""
+            },
+            "msg_title_quentium": " **QUENTIUM** Befehle:",
+            "quentium_showideas": {
+                "type": "special / Quentium",
+                "description": "Zeigt die Liste der vorgeschlagenen Ideen an.",
+                "usage": "",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_addlogs": {
+                "type": "special / Quentium",
+                "description": "Fügt Aktualisierungsprotokolle hinzu.",
+                "usage": " [\"logs\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_eval": {
+                "type": "special / Quentium",
+                "description": "Wertet Daten für Python aus (^.^).",
+                "usage": " [\"Argumente\"]",
+                "aliases": "evaluate",
+                "example": ""
+            },
+            "quentium_exec": {
+                "type": "special / Quentium",
+                "description": "Führen Sie Befehle auf der Himbeere aus(^.^).",
+                "usage": " [\"Argumente\"]",
+                "aliases": "execute",
+                "example": ""
+            },
+            "quentium_data4tte": {
+                "type": "special / Quentium",
+                "description": "Senden Sie Anfragen an das Projekt (timetoeat.xyz).",
+                "usage": " [\"Nummer\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "msg_list_commands": "----- Liste der Befehle -----",
+            "msg_more_infos": "Für weitere Informationen, Bitte besuchen Sie meine Website: https://quentium.fr/de/discord/",
+            "msg_aliases": "Aliase:",
+            "msg_format": "Format:",
+            "msg_caption": ":bookmark_tabs: Bildbeschriftung :bookmark_tabs:",
+            "msg_caption_desc": "**`[Auferlegte_Argument]` - `[\"Angefordertes_Argument\"]` (Entfernen Sie die Anführungszeichen für das eingegebene Argument) - `[@erwähnen]` - [1 / 2] (Wahl 1 ODER 2).**",
+            "msg_warning": ":warning: Warnung :warning:",
+            "msg_warning_desc": "Wenn ihr einen Fehler findet, bitte meldet ihn mit `+bug` befehle oder indem Sie dem test/support-Server beitreten: https://discord.gg/5sehgXx\n",
+            "msg_donation": "\n:dollar: Für eine kleine spende: [Hier klicken]({})",
+            "msg_no_command_found": "Der angegebene Befehl wurde nicht gefunden.",
+            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
+            "url_website_discord": "https://quentium.fr/de/discord/"
+        }
+    },
+    "ANCHOR NL": null,
+    "nl": {
+        "GLOBAL": {
+            "msg_error": "",
+            "msg_error2": ""
+        },
+        "help": {
+            "msg_title_infos": " **Informatieve** opdrachten:",
+            "infos_help": {
+                "type": "info / Informatie",
+                "description": "Toont alle opdrachten die kunnen worden uitgevoerd of weergeeft informatie over een specifiek opdracht.",
+                "usage": " [\"opdracht\"]",
+                "aliases": "cmd",
+                "example": ""
+            },
+            "infos_listservers": {
+                "type": "info / Informatie",
+                "description": "Toont de lijst met servers die de bot gebruiken.",
+                "usage": "",
+                "aliases": "listserver / serverlist / servlist / servelist / listservs",
+                "example": ""
+            },
+            "infos_listinvites": {
+                "type": "info / Informatie",
+                "description": "Toont de lijst met uitnodigingslinks.",
+                "usage": "",
+                "aliases": "invitelist",
+                "example": ""
+            },
+            "infos_listbans": {
+                "type": "info / Informatie",
+                "description": "Toont alle verboden leden.",
+                "usage": "",
+                "aliases": "banlist",
+                "example": ""
+            },
+            "infos_shareme": {
+                "type": "info / Informatie",
+                "description": "Nodigd de bot uit naar een server.",
+                "usage": "",
+                "aliases": "sharebot / share / invitebot",
+                "example": ""
+            },
+            "msg_title_utilities": " **Tools** opdrachten:",
+            "utilities_msgtotal": {
+                "type": "tools / Tools",
+                "description": "Berekend het aantal berichten van een lid, een specifiek kanaal of van het hele server.",
+                "usage": " [all / channel] [@lid]",
+                "aliases": "totalmsg",
+                "example": ""
+            },
+            "utilities_embed": {
+                "type": "tools / Tools",
+                "description": "Creerd een gepersonaliseerd bericht.",
+                "usage": " [T=\"titel\"] [D=\"beschrijving\"] [C=\"kleur\"] [I=\"afbeelding url\"] [F=\"footer\"] [U=\"url\"] [A=\"auteur\"]",
+                "aliases": "embeds / richembed",
+                "example": ""
+            },
+            "utilities_letter": {
+                "type": "utilities / Tools",
+                "description": "Schrijf een bericht met emoji-blokletters",
+                "usage": " [\"tekst\"]",
+                "aliases": "emojis / emoji",
+                "example": ""
+            },
+            "utilities_weather": {
+                "type": "tools / Tools",
+                "description": "Toont het weer van een specifiek plaats.",
+                "usage": " [\"plaats\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "utilities_lyrics": {
+                "type": "tools / Tools",
+                "description": "Zoekt en toont de lyrics van een muziek-nummer.",
+                "usage": " [\"muziek\"]",
+                "aliases": "lyric",
+                "example": ""
+            },
+            "utilities_avatar": {
+                "type": "tools / Tools",
+                "description": "Toont de avatar en de link van een lid.",
+                "usage": " [@lid]",
+                "aliases": "av / avatars",
+                "example": ""
+            },
+            "msg_title_stats": " **STATISTIEKEN** opdrachten:",
+            "stats_userstats": {
+                "type": "stats / Statistiek",
+                "description": "Toont de statistieken van een lid.",
+                "usage": " [@lid]",
+                "aliases": "statsuser / statuser",
+                "example": ""
+            },
+            "stats_serverstats": {
+                "type": "stats / Statistiek",
+                "description": "Toont de server statistieken.",
+                "usage": "",
+                "aliases": "statserver / statsserver / servstats / serverinfos / serverinfo / servinfo",
+                "example": ""
+            },
+            "stats_botstats": {
+                "type": "stats / Statistiek",
+                "description": "Toont de statistieken van de bot.",
+                "usage": "",
+                "aliases": "botstat / statsbot / statbot",
+                "example": ""
+            },
+            "stats_uptime": {
+                "type": "stats / Statistiek",
+                "description": "Toont de tijd tussen nu en wanneer de bot gestart is.",
+                "usage": "",
+                "aliases": "timeup / runningtime / runtime / timerun",
+                "example": ""
+            },
+            "stats_ping": {
+                "type": "stats / Statistiek",
+                "description": "Berekend de reactiesnelheid van de bot.",
+                "usage": "",
+                "aliases": "pong",
+                "example": ""
+            },
+            "msg_title_feedback": " **FEEDBACK** commands:",
+            "feedback_idea": {
+                "type": "feedback / Feedback",
+                "description": "Dient een idee in om de bot beter te maken.",
+                "usage": " [\"idee\"]",
+                "aliases": "bug / bugs / ideas",
+                "example": ""
+            },
+            "feedback_showlogs": {
+                "type": "feedback / Feedback",
+                "description": "Toont het lijst van alle bijwerkingen.",
+                "usage": "",
+                "aliases": "logs / showlog / changelog / whatsnew / whatnew",
+                "example": ""
+            },
+            "msg_title_admin_configs": " **CONFIGURATIE (Admin)** opdrachten:",
+            "admin_configs_prefix": {
+                "type": "admin_configs / Admin Configuratie",
+                "description": "Veranderd het voorvoegsel.",
+                "usage": " [\"voorvoegsel\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "admin_configs_lang": {
+                "type": "admin_configs / Admin Configuratie",
+                "description": "Veranderd de taal van de bot. (Standaard taal: frans)",
+                "usage": " [fr / en / de / nl]",
+                "aliases": "langs / language / langages",
+                "example": ""
+            },
+            "admin_configs_autorole": {
+                "type": "admin_configs / Admin Configuratie",
+                "description": "Geeft automatisch een rol aan een lid die meedoet aan de server.",
+                "usage": " [\"naam van rol\" / show / remove]",
+                "aliases": "autoroles",
+                "example": ""
+            },
+            "admin_configs_trigger": {
+                "type": "admin_configs / Admin Configuratie",
+                "description": "Reageert op een specifiek bericht.",
+                "usage": " [\"trigger\" / list / remove / removeall] [\"antwoord\" / url]",
+                "aliases": "triggers / reaction / customreaction / customtrigger",
+                "example": ""
+            },
+            "msg_title_admin_rights": " **ADMINISTRATIE (Admin)** opdrachten:",
+            "admin_rights_clear": {
+                "type": "admin_rights / Administratieve rechten",
+                "description": "Verwijderd een specifiek aantal bericthten.",
+                "usage": " [\"aantal berichten\"]",
+                "aliases": "clearmsg / clean",
+                "example": ""
+            },
+            "admin_rights_move": {
+                "type": "admin_rights / Administratieve rechten",
+                "description": "Verplaats leden van spraak-kanalen.",
+                "usage": " [\"Kanaal\"]",
+                "aliases": "moves",
+                "example": ""
+            },
+            "admin_rights_kick": {
+                "type": "admin_rights / Administratieve rechten",
+                "description": "Verbied een specifiek lid.",
+                "usage": " [@lid]",
+                "aliases": "",
+                "example": ""
+            },
+            "admin_rights_ban": {
+                "type": "admin_rights / Administratieve rechten",
+                "description": "Verbied leden.",
+                "usage": " [@lid]",
+                "aliases": "",
+                "example": ""
+            },
+            "msg_title_flc": " **FRANCE LES CITES** commands:",
+            "flc_dtmine": {
+                "type": "special / France Les Cités",
+                "description": "Shows the top 10 places to mine a resource (© Fomys :smile:).",
+                "usage": " [\"ore\"]",
+                "aliases": "minedt",
+                "example": ""
+            },
+            "flc_absent": {
+                "type": "special / France Les Cités",
+                "description": "Assign yourself the Absent role if you have to be away for a while.",
+                "usage": " [\"duration + (reason)\"]",
+                "aliases": "abs",
+                "example": ""
+            },
+            "flc_vote": {
+                "type": "special / France Les Cités",
+                "description": "Allows voting for the blason of the server.",
+                "usage": " [\"blason number\"]",
+                "aliases": "votes",
+                "example": ""
+            },
+            "msg_title_theswe": " **THESWEMASTER** commands:",
+            "theswe_cookie": {
+                "type": "special / TheSweMaster",
+                "description": "You want cookies, here it is!",
+                "usage": "",
+                "aliases": "cookies",
+                "example": ""
+            },
+            "msg_title_ism": " **INSOUMIS** commands:",
+            "ism_role": {
+                "type": "special / Insoumis",
+                "description": "Assign the roles that match you on the server.",
+                "usage": " [\"role\" / list]",
+                "aliases": "roles",
+                "example": ""
+            },
+            "msg_title_quentium": " **QUENTIUM** commands:",
+            "quentium_showideas": {
+                "type": "special / Quentium",
+                "description": "Displays the list of proposed ideas.",
+                "usage": "",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_addlogs": {
+                "type": "special / Quentium",
+                "description": "Adds update logs.",
+                "usage": " [\"logs\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "quentium_eval": {
+                "type": "special / Quentium",
+                "description": "Evaluates data for Python (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "evaluate",
+                "example": ""
+            },
+            "quentium_exec": {
+                "type": "special / Quentium",
+                "description": "Execute commands on the Raspberry (^.^).",
+                "usage": " [\"arguments\"]",
+                "aliases": "execute",
+                "example": ""
+            },
+            "quentium_data4tte": {
+                "type": "special / Quentium",
+                "description": "Send requests to the project (timetoeat.xyz).",
+                "usage": " [\"number\"]",
+                "aliases": "",
+                "example": ""
+            },
+            "msg_list_commands": "----- Lijst van alle opdrachten -----",
+            "msg_more_infos": "Voor meer informatie, zie: https://quentium.fr/en/discord/",
+            "msg_aliases": "Aliases:",
+            "msg_format": "Formaat:",
+            "msg_caption": ":bookmark_tabs: Caption :bookmark_tabs:",
+            "msg_caption_desc": "**`[opgelegd_argument]` - `[\"gevraagd_argument\"]` (Verwijder de aanhalingstekens voor het argument dat je invoert.) - `[@mention]` - [1 / 2] (Keuze 1 OF 2).**",
+            "msg_warning": ":warning: Waarschuwing :warning:",
+            "msg_warning_desc": "Lopen er problemen op met de bot, dien dan je probleem-bericht in via opdracht ``+bug``. Of doe mee aan onze discord server: https://discord.gg/5sehgXx\n",
+            "msg_donation": "\n:dollar: Voor een kleine donaite: [Klik hier]({})",
+            "msg_no_command_found": "De opdracht is niet geldig.",
+            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
+            "url_website_discord": "https://quentium.fr/nl/discord/"
+        }
+    }
+}

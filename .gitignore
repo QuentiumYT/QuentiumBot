@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+dev/
+extra/
+feedback.txt
+errors.txt
+Restart bots.bat
