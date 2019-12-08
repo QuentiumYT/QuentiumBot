@@ -10,6 +10,9 @@ from icalendar import Calendar
 from bs4 import BeautifulSoup
 from ftplib import FTP
 
+data = translations = glob_translations = lang_server = commands_server = autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
+debug = False
+
 # TYPE JSON files
 
 with open("translations.json", "r", encoding="utf-8", errors="ignore") as file:
@@ -40,10 +43,10 @@ def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
 
 def get_prefix(bot, message):
-    with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
-        data = json.loads(file.read(), strict=False)
     if not message.guild:
         return "+"
+    with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
+        data = json.loads(file.read(), strict=False)
     if data.get(str(message.guild.id)) == None:
         prefixes_list = "+"
     else:
@@ -56,15 +59,15 @@ token_timezone = config["GLOBAL"]["token_timezone"]
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
                       owner_id=246943045105221633,
-                      pm_help=True,
-                      help_command=None,
+                      pm_help=True, help_command=None,
                       case_insensitive=True)
+
+url = "https://discordbots.org/api/bots/" + str(client.user.id) + "/stats"
+headers = {"Authorization": config["GLOBAL"]["token_dbl"]}
 
 @client.event
 async def on_ready():
     global start_time
-    url = "https://discordbots.org/api/bots/" + str(client.user.id) + "/stats"
-    headers = {"Authorization": config["GLOBAL"]["token_dbl"]}
     print("\n+--------------------------------------------+"
           "\n|             QuentiumBot ready !            |"
           "\n|           © 2017 - 2019 QuentiumYT         |"
@@ -78,7 +81,9 @@ async def on_ready():
         requests.post(url, data=payload, headers=headers)
     except:
         pass
-    await client.change_presence(activity=discord.Activity(name="+help | quentium.fr", type=discord.ActivityType.playing), status=discord.Status.online)
+    await client.change_presence(
+        activity=discord.Activity(name="+help | quentium.fr", type=discord.ActivityType.playing),
+        status=discord.Status.online)
 
 # TYPE GLOBAL function
 
@@ -129,8 +134,7 @@ async def async_do_task():
         content = "- " + "\n- ".join(kick_list_name)
     else:
         content = "Personne :sweat:"
-    embed = discord.Embed(
-        title=f"Membres expulsés : {len(kick_list_name)}", description=content, color=0xFF0000)
+    embed = discord.Embed(title=f"Membres expulsés : {len(kick_list_name)}", description=content, color=0xFF0000)
     embed.set_footer(text=str(datetime.now().strftime("%d.%m.%Y - %H:%M:%S")))  # Insoumis channel ID
     await serv.get_channel(485168827580284948).send(embed=embed)
 
@@ -185,47 +189,50 @@ async def get_bot_stats():
 async def async_command(args, msg):
     global emo
     if "data4tte" in args or "menu4tte" in args:
-        args = args.split()
-        subprocess.Popen(["sudo"] + args)
-        return
-    msg_channel = discord.utils.get(
-        msg.author.guild.channels, id=msg.channel.id)
+        return subprocess.Popen(["sudo"] + args.split())
+    msg_channel = discord.utils.get(msg.author.guild.channels, id=msg.channel.id)
     if args == "runpc":
-        await msg.delete()
-        content = emo("pc1") + " Quentium PC\n" + emo("pc2") + \
-            " Office PC\n" + emo("pc3") + " Space PC"
-        embed = discord.Embed(title=emo(
-            "vote") + " Choisissez un ordinateur à démarrer :", description=content, color=0x000000)
+        try:
+            await msg.delete()
+        except:
+            pass
+        content = emo("pc1") + " Quentium PC\n" + emo("pc2") + " Office PC\n" + emo("pc3") + " Space PC"
+        embed = discord.Embed(title=emo("vote") + " Choisissez un ordinateur à démarrer :", description=content, color=0x000000)
         msg = await msg_channel.send(embed=embed)
         for item in ["pc1", "pc2", "pc3"]:
             emo = discord.utils.get(client.emojis, name=item)
             await msg.add_reaction(emo)
         return
     elif args == "setco":
-        await msg.delete()
-        content = emo("co1") + " ON 19H\n" + emo("co2") + " ON 22H\n" + \
-            emo("co3") + " OFF 19H\n" + emo("co4") + " OFF 22H"
-        embed = discord.Embed(title=emo(
-            "vote") + " Choisissez une action à réaliser pour la connexion :", description=content, color=0x000000)
+        try:
+            await msg.delete()
+        except:
+            pass
+        content = emo("co1") + " ON 19H\n" + emo("co2") + " ON 22H\n" + emo("co3") + " OFF 19H\n" + emo("co4") + " OFF 22H"
+        embed = discord.Embed(title=emo("vote") + " Choisissez une action à réaliser pour la connexion :", description=content, color=0x000000)
         msg = await msg_channel.send(embed=embed)
         for item in ["co1", "co2", "co3", "co4"]:
             emo = discord.utils.get(client.emojis, name=item)
             await msg.add_reaction(emo)
         return
     elif "ping" in args:
-        return await msg.delete()
+        try:
+            return await msg.delete()
+        except:
+            pass
     try:
-        result = subprocess.check_output(
-            "sudo " + args, shell=True, stderr=subprocess.STDOUT)
+        result = subprocess.check_output("sudo " + args, shell=True, stderr=subprocess.STDOUT)
     except Exception as e:
         result = type(e).__name__ + ": " + str(e)
-    try:
-        return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
-    except:
+    print(repr(result))
+    if not "etherwake" in args:
         try:
-            return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
+            return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
         except:
-            return await msg_channel.send("```autohotkey\n{}\n```".format(str(result)))
+            try:
+                return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
+            except:
+                return await msg_channel.send("```autohotkey\n{}\n```".format(str(result)))
 
 @client.listen()
 async def on_message(message):
@@ -263,8 +270,7 @@ async def on_message(message):
             with open("extra/triggers.json", "r", encoding="utf-8", errors="ignore") as file:
                 triggers = json.loads(file.read(), strict=False)
             if any(x == message.content.lower() for x in triggers[str(server_id)].keys()):
-                response = triggers[str(server_id)].get(
-                    message.content.lower())
+                response = triggers[str(server_id)].get(message.content.lower())
                 return await message.channel.send(response)
 
 async def on_server_join(server):
@@ -285,19 +291,15 @@ async def on_server_remove(server):
 async def loop_repeat():
     await client.wait_until_ready()
     now = datetime.today().replace(microsecond=0)
-    num_days_month = calendar.monthrange(
-        int(now.strftime("%y")), int(now.strftime("%m")))[1]
+    num_days_month = calendar.monthrange(int(now.strftime("%y")), int(now.strftime("%m")))[1]
     clock = now.replace(day=now.day, hour=7, minute=0, second=0, microsecond=0)
     if now.hour > clock.hour:
         if int(now.strftime("%d")) == num_days_month:
-            clock = now.replace(month=now.month + 1, day=1,
-                                hour=7, minute=0, second=0, microsecond=0)
+            clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
         else:
-            clock = now.replace(day=now.day + 1, hour=7,
-                                minute=0, second=0, microsecond=0)
+            clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
     elif now.hour == clock.hour:
-        clock = now.replace(day=now.day + 1, hour=7,
-                            minute=0, second=0, microsecond=0)
+        clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
     while not client.is_closed():
         time_now = datetime.today().replace(microsecond=0)
         timer_finished = time_now
@@ -309,26 +311,20 @@ async def loop_repeat():
             if min_time == 59:
                 if hour_time == 23:
                     if day_time == num_days_month:
-                        timer_finished = time_now.replace(
-                            month=time_now.month + 1, day=1, hour=0, minute=0, second=0)
+                        timer_finished = time_now.replace(month=time_now.month + 1, day=1, hour=0, minute=0, second=0)
                     else:
-                        timer_finished = time_now.replace(
-                            day=time_now.day + 1, hour=0, minute=0, second=0)
+                        timer_finished = time_now.replace(day=time_now.day + 1, hour=0, minute=0, second=0)
                 else:
-                    timer_finished = time_now.replace(
-                        hour=time_now.hour + 1, minute=0, second=0)
+                    timer_finished = time_now.replace(hour=time_now.hour + 1, minute=0, second=0)
             else:
-                timer_finished = time_now.replace(
-                    minute=time_now.minute + 1, second=0)
+                timer_finished = time_now.replace(minute=time_now.minute + 1, second=0)
         if timer_finished == clock:
             await async_do_task()
             now = datetime.today().replace(microsecond=0)
             if day_time == num_days_month:
-                clock = now.replace(month=now.month + 1, day=1,
-                                    hour=7, minute=0, second=0, microsecond=0)
+                clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
             else:
-                clock = now.replace(day=now.day + 1, hour=7,
-                                    minute=0, second=0, microsecond=0)
+                clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
         await asyncio.sleep(5)
 
 loop = asyncio.get_event_loop()
@@ -367,6 +363,7 @@ async def on_member_join(member):
             msg = f"Hey {member.mention} ! Welcome on ***{member.guild.name}***! Feel free to ask for a cookie :cookie:"
             return await discord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
 
+@client.event
 async def on_raw_reaction_add(ctx):
     if ctx.user_id == 246943045105221633:  # Quentium user ID
         user = client.get_user(ctx.user_id)
@@ -393,7 +390,7 @@ async def on_raw_reaction_add(ctx):
                     await async_command(args, message)
                     await asyncio.sleep(10)
                     return await tmp.delete()
-            if "connexion" in message.embeds[0].title:
+            elif "connexion" in message.embeds[0].title:
                 try:
                     emo = ctx.emoji.name
                 except:
@@ -401,140 +398,133 @@ async def on_raw_reaction_add(ctx):
                 if emo and emo[:2] == "co":
                     try:
                         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-                        password_mgr.add_password(
-                            None, "http://192.168.1.100:8080", "admin", config["GLOBAL"]["co_passwd"])
-                        handler = urllib.request.HTTPBasicAuthHandler(
-                            password_mgr)
+                        password_mgr.add_password(None, "http://192.168.1.100:8080", "admin", config["GLOBAL"]["co_passwd"])
+                        handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
                         opener = urllib.request.build_opener(handler)
                         urllib.request.install_opener(opener)
                         if emo == "co1":
-                            urllib.request.urlopen(
-                                "http://192.168.1.100:8080/set.cmd?cmd=setpower+p61=1")
+                            urllib.request.urlopen("http://192.168.1.100:8080/set.cmd?cmd=setpower+p61=1")
                             tmp = await channel.send(str(ctx.emoji) + " Connexion ajoutée jusqu'à ***19h***")
                         elif emo == "co2":
-                            urllib.request.urlopen(
-                                "http://192.168.1.100:8080/set.cmd?cmd=setpower+p62=1")
+                            urllib.request.urlopen("http://192.168.1.100:8080/set.cmd?cmd=setpower+p62=1")
                             tmp = await channel.send(str(ctx.emoji) + " Connexion ajoutée jusqu'à ***22h***")
                         elif emo == "co3":
-                            urllib.request.urlopen(
-                                "http://192.168.1.100:8080/set.cmd?cmd=setpower+p61=0")
+                            urllib.request.urlopen("http://192.168.1.100:8080/set.cmd?cmd=setpower+p61=0")
                             tmp = await channel.send(str(ctx.emoji) + " Connexion enlevée de ***19h***")
                         elif emo == "co4":
-                            urllib.request.urlopen(
-                                "http://192.168.1.100:8080/set.cmd?cmd=setpower+p62=0")
+                            urllib.request.urlopen("http://192.168.1.100:8080/set.cmd?cmd=setpower+p62=0")
                             tmp = await channel.send(str(ctx.emoji) + " Connexion enlevée de ***22h***")
                         await asyncio.sleep(10)
                         return await tmp.delete()
                     except:
                         return await channel.send("Le site n'a pas pu répondre (No route to host)")
 
-# TYPE command_error
-
-@client.event
-async def on_command_error(ctx, error):
-    global lang_server
-    if isinstance(ctx.channel, discord.TextChannel):
-        server_id = ctx.message.guild.id
-        with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
-            data = json.loads(file.read(), strict=False)
-        try:
-            lang_server = data[str(server_id)]["lang_server"]
-        except:
+if not debug:
+    @client.event
+    async def on_command_error(ctx, error):
+        global lang_server
+        if isinstance(ctx.channel, discord.TextChannel):
+            server_id = ctx.message.guild.id
+            with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
+                data = json.loads(file.read(), strict=False)
+            try:
+                lang_server = data[str(server_id)]["lang_server"]
+            except:
+                lang_server = "fr"
+        else:
             lang_server = "fr"
-    else:
-        lang_server = "fr"
 
-    if lang_server == "fr":
-        if "is not found" in str(error):
-            return
-        elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-            return await ctx.send(":x: Il manque certaines permissions au bot.")
-        elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-            return await ctx.send(":x: Il manque certaines permissions au bot.")
-        elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-            return await ctx.send(":x: Il manque certains accès au bot.")
-        elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-            return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
-        elif "Cannot send an empty message" in str(error):
-            return await ctx.message.delete()
-        elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
-            return await ctx.send(":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:")
-        elif isinstance(error, commands.MissingRequiredArgument):
-            return await ctx.send(":x: Un argument requis manque :rolling_eyes:")
-        elif isinstance(error, commands.NoPrivateMessage):
-            return await ctx.send(":x: Cette commande ne peut pas être utilisée en message privés :confused:")
-        elif isinstance(error, commands.DisabledCommand):
-            return await ctx.send(":x: Cette commande à été désactivée :confounded:")
-        elif isinstance(error, commands.BadArgument):
-            return await ctx.send(":x: Un mauvais argument à été donné :slight_frown:")
-        elif isinstance(error, commands.TooManyArguments):
-            return await ctx.send(":x: Trop d'arguments ont étés donnés :scream:")
-        elif isinstance(error, commands.CommandOnCooldown):
-            time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
-            return await ctx.send(f":x: Doucement, il y a un cooldown sur cette commande, il vous reste {time_left} secondes à attendre :raised_hand:")
-    elif lang_server == "en":
-        if "is not found" in str(error):
-            return
-        elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-            return await ctx.send(":x: The bot is missing some permissions.")
-        elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-            return await ctx.send(":x: The bot is missing some permissions.")
-        elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-            return await ctx.send(":x: The bot is missing some access.")
-        elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-            return await ctx.send(":x: Discord does not find one of the messages.")
-        elif "Cannot send an empty message" in str(error):
-            return await ctx.message.delete()
-        elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
-            return await ctx.send(":x: You can only delete messages that are under 14 days old :pensive:")
-        elif isinstance(error, commands.MissingRequiredArgument):
-            return await ctx.send(":x: A required argument is missing :rolling_eyes:")
-        elif isinstance(error, commands.NoPrivateMessage):
-            return await ctx.send(":x: This command can't be used in private messages :confused:")
-        elif isinstance(error, commands.DisabledCommand):
-            return await ctx.send(":x: This command has been disabled :confounded:")
-        elif isinstance(error, commands.BadArgument):
-            return await ctx.send(":x: A wrong argument has been given :slight_frown:")
-        elif isinstance(error, commands.TooManyArguments):
-            return await ctx.send(":x: Too many arguments has been given :scream:")
-        elif isinstance(error, commands.CommandOnCooldown):
-            time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
-            return await ctx.send(f":x: Slow down, there is a cooldown on that command, you have to wait {time_left} more seconds :raised_hand:")
-    elif lang_server == "de":
-        if "is not found" in str(error):
-            return
-        elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-            return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
-        elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-            return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
-        elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-            return await ctx.send(":x: Dem Bot fehlen einige Zugang.")
-        elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-            return await ctx.send(":x: Discord findet eine der Nachrichten nicht.")
-        elif "Cannot send an empty message" in str(error):
-            return await ctx.message.delete()
-        elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
-            return await ctx.send(":x: Sie können nur Nachrichten löschen, die weniger als 14 Tage alt sind :pensive:")
-        elif isinstance(error, commands.MissingRequiredArgument):
-            return await ctx.send(":x: Ein Erfordertes argument fehlt :rolling_eyes:")
-        elif isinstance(error, commands.NoPrivateMessage):
-            return await ctx.send(":x: Dieser Befehl kann nicht in direkt nachrichten verwendet werden :confused:")
-        elif isinstance(error, commands.DisabledCommand):
-            return await ctx.send(":x: Dieser Befehl wurde deaktivier :confounded:")
-        elif isinstance(error, commands.BadArgument):
-            return await ctx.send(":x: Es wurd ein falsches argument gegeben :slight_frown:")
-        elif isinstance(error, commands.TooManyArguments):
-            return await ctx.send(":x: Es wurden zu viele argumente gegeben :scream:")
-        elif isinstance(error, commands.CommandOnCooldown):
-            time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
-            return await ctx.send(f":x: Langsam, dieser befehl hat einen cool down, Sie haben noch {time_left} sekunden zu warten :raised_hand:")
-    file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
-    infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, str(error)]
-    if isinstance(ctx.channel, discord.TextChannel):
-        infos.insert(0, ctx.message.guild.name)
-    file.write(" --- ".join(map(str, infos)) + "\n")
-    file.close()
-    return
+        if lang_server == "fr":
+            if "is not found" in str(error):
+                return
+            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
+                return await ctx.send(":x: Il manque certaines permissions au bot.")
+            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
+                return await ctx.send(":x: Il manque certaines permissions au bot.")
+            elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
+                return await ctx.send(":x: Il manque certains accès au bot.")
+            elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
+                return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
+            elif "Cannot send an empty message" in str(error):
+                return await ctx.message.delete()
+            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+                return await ctx.send(":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:")
+            elif isinstance(error, commands.MissingRequiredArgument):
+                return await ctx.send(":x: Un argument requis manque :rolling_eyes:")
+            elif isinstance(error, commands.NoPrivateMessage):
+                return await ctx.send(":x: Cette commande ne peut pas être utilisée en message privés :confused:")
+            elif isinstance(error, commands.DisabledCommand):
+                return await ctx.send(":x: Cette commande à été désactivée :confounded:")
+            elif isinstance(error, commands.BadArgument):
+                return await ctx.send(":x: Un mauvais argument à été donné :slight_frown:")
+            elif isinstance(error, commands.TooManyArguments):
+                return await ctx.send(":x: Trop d'arguments ont étés donnés :scream:")
+            elif isinstance(error, commands.CommandOnCooldown):
+                time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
+                return await ctx.send(f":x: Doucement, il y a un cooldown sur cette commande, il vous reste {time_left} secondes à attendre :raised_hand:")
+        elif lang_server == "en":
+            if "is not found" in str(error):
+                return
+            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
+                return await ctx.send(":x: The bot is missing some permissions.")
+            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
+                return await ctx.send(":x: The bot is missing some permissions.")
+            elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
+                return await ctx.send(":x: The bot is missing some access.")
+            elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
+                return await ctx.send(":x: Discord does not find one of the messages.")
+            elif "Cannot send an empty message" in str(error):
+                return await ctx.message.delete()
+            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+                return await ctx.send(":x: You can only delete messages that are under 14 days old :pensive:")
+            elif isinstance(error, commands.MissingRequiredArgument):
+                return await ctx.send(":x: A required argument is missing :rolling_eyes:")
+            elif isinstance(error, commands.NoPrivateMessage):
+                return await ctx.send(":x: This command can't be used in private messages :confused:")
+            elif isinstance(error, commands.DisabledCommand):
+                return await ctx.send(":x: This command has been disabled :confounded:")
+            elif isinstance(error, commands.BadArgument):
+                return await ctx.send(":x: A wrong argument has been given :slight_frown:")
+            elif isinstance(error, commands.TooManyArguments):
+                return await ctx.send(":x: Too many arguments has been given :scream:")
+            elif isinstance(error, commands.CommandOnCooldown):
+                time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
+                return await ctx.send(f":x: Slow down, there is a cooldown on that command, you have to wait {time_left} more seconds :raised_hand:")
+        elif lang_server == "de":
+            if "is not found" in str(error):
+                return
+            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
+                return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
+            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
+                return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
+            elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
+                return await ctx.send(":x: Dem Bot fehlen einige Zugang.")
+            elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
+                return await ctx.send(":x: Discord findet eine der Nachrichten nicht.")
+            elif "Cannot send an empty message" in str(error):
+                return await ctx.message.delete()
+            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+                return await ctx.send(":x: Sie können nur Nachrichten löschen, die weniger als 14 Tage alt sind :pensive:")
+            elif isinstance(error, commands.MissingRequiredArgument):
+                return await ctx.send(":x: Ein Erfordertes argument fehlt :rolling_eyes:")
+            elif isinstance(error, commands.NoPrivateMessage):
+                return await ctx.send(":x: Dieser Befehl kann nicht in direkt nachrichten verwendet werden :confused:")
+            elif isinstance(error, commands.DisabledCommand):
+                return await ctx.send(":x: Dieser Befehl wurde deaktivier :confounded:")
+            elif isinstance(error, commands.BadArgument):
+                return await ctx.send(":x: Es wurd ein falsches argument gegeben :slight_frown:")
+            elif isinstance(error, commands.TooManyArguments):
+                return await ctx.send(":x: Es wurden zu viele argumente gegeben :scream:")
+            elif isinstance(error, commands.CommandOnCooldown):
+                time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
+                return await ctx.send(f":x: Langsam, dieser befehl hat einen cool down, Sie haben noch {time_left} sekunden zu warten :raised_hand:")
+        file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
+        infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, str(error)]
+        if isinstance(ctx.channel, discord.TextChannel):
+            infos.insert(0, ctx.message.guild.name)
+        file.write(" --- ".join(map(str, infos)) + "\n")
+        file.close()
+        return
 
 # TYPE Info cmds
 
@@ -657,21 +647,14 @@ async def help_old(ctx):
 
 Légende : `[argument]` - `["argument donné"]` (Enlevez les guillemets) - `[@mention]` - `[choix / "mon_choix"]`
 :warning: Si vous rencontrez un problème, merci de la soumettre avec la commande `+bug` ou en rejoignant le serveur de test/support : https://discord.gg/5sehgXx\n"""
-            end_text = ":euro: Pour une petite donation : [Cliquez ici]({})".format(
-                "https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- Liste des Commandes -----",
-                                  url="https://quentium.fr/discord/", color=0x00ff00)
-            embed.add_field(
-                name=":video_game: Commandes **UTILISATEUR** :", value=commands_user, inline=True)
+            end_text = ":euro: Pour une petite donation : [Cliquez ici]({})".format("https://www.paypal.me/QLienhardt")
+            embed = discord.Embed(title="----- Liste des Commandes -----", url="https://quentium.fr/discord/", color=0x00ff00)
+            embed.add_field(name=":video_game: Commandes **UTILISATEUR** :", value=commands_user, inline=True)
             if server_id == 371687157817016331:  # France Les Cités ID
-                embed.add_field(
-                    name=":flag_fr: Commandes **Deep Town** :", value=commands_dt, inline=True)
-            embed.add_field(name=":cop: Commandes **ADMIN** :",
-                            value=commands_admin, inline=True)
-            embed.add_field(name=":incoming_envelope: Commandes **SUPPORT / FEEDBACK** :",
-                            value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+                embed.add_field(name=":flag_fr: Commandes **Deep Town** :", value=commands_dt, inline=True)
+            embed.add_field(name=":cop: Commandes **ADMIN** :", value=commands_admin, inline=True)
+            embed.add_field(name=":incoming_envelope: Commandes **SUPPORT / FEEDBACK** :", value=commands_feedback + end_text, inline=True)
+            embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
             return await ctx.send(embed=embed)
 
         elif lang_server == "en":
@@ -702,18 +685,12 @@ Légende : `[argument]` - `["argument donné"]` (Enlevez les guillemets) - `[@me
 
 Caption: `[argument]` - `["given argument"]` (Remove quotes) - `[@mention]` - `[choice  / "my_choice"]`
 :warning: If you have any problem, please submit it with `+bug` command or join our test/support server: https://discord.gg/5sehgXx\n"""
-            end_text = ":dollar: For a small donation: [Click here]({})".format(
-                "https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- List of Commands -----",
-                                  url="https://quentium.fr/en/discord/", color=0x00ff00)
-            embed.add_field(name=":video_game: Commands **USER**:",
-                            value=commands_user, inline=True)
-            embed.add_field(name=":cop: Commands **ADMIN**:",
-                            value=commands_admin, inline=True)
-            embed.add_field(name=":incoming_envelope: Commands **SUPPORT / FEEDBACK**:",
-                            value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="For more informations, please check my website: https://quentium.fr/en/discord/",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+            end_text = ":dollar: For a small donation: [Click here]({})".format("https://www.paypal.me/QLienhardt")
+            embed = discord.Embed(title="----- List of Commands -----", url="https://quentium.fr/en/discord/", color=0x00ff00)
+            embed.add_field(name=":video_game: Commands **USER**:", value=commands_user, inline=True)
+            embed.add_field(name=":cop: Commands **ADMIN**:", value=commands_admin, inline=True)
+            embed.add_field(name=":incoming_envelope: Commands **SUPPORT / FEEDBACK**:", value=commands_feedback + end_text, inline=True)
+            embed.set_footer(text="For more informations, please check my website: https://quentium.fr/en/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
             return await ctx.send(embed=embed)
 
         elif lang_server == "de":
@@ -744,18 +721,12 @@ Caption: `[argument]` - `["given argument"]` (Remove quotes) - `[@mention]` - `[
 
 Beschriftung: `[Argument]` - `["Gegeben Argument"]` (Entfernen Sie Anführungszeichen) - `[@Erwähnung]` - `[wähl / "Meine_Wähle"]`
 :warning: Wenn ihr einen Fehler findet, bitte meldet ihn mit `+bug` befehle oder indem Sie dem test/support-Server beitreten: https://discord.gg/5sehgXx\n"""
-            end_text = ":euro: Für eine kleine spende: [Hier klicken]({})".format(
-                "https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- Liste der Befehle -----",
-                                  url="https://quentium.fr/de/discord/", color=0x00ff00)
-            embed.add_field(name=":video_game: Befehle **BENUTZER**:",
-                            value=commands_user, inline=True)
-            embed.add_field(name=":cop: Befehle **VERWALTER**:",
-                            value=commands_admin, inline=True)
-            embed.add_field(name=":incoming_envelope: Befehle **SUPPORT / FEEDBACK**:",
-                            value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="Für weitere Informationen, Bitte besuchen Sie meine Website: https://quentium.fr/de/discord/",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+            end_text = ":euro: Für eine kleine spende: [Hier klicken]({})".format("https://www.paypal.me/QLienhardt")
+            embed = discord.Embed(title="----- Liste der Befehle -----", url="https://quentium.fr/de/discord/", color=0x00ff00)
+            embed.add_field(name=":video_game: Befehle **BENUTZER**:", value=commands_user, inline=True)
+            embed.add_field(name=":cop: Befehle **VERWALTER**:", value=commands_admin, inline=True)
+            embed.add_field(name=":incoming_envelope: Befehle **SUPPORT / FEEDBACK**:", value=commands_feedback + end_text, inline=True)
+            embed.set_footer(text="Für weitere Informationen, Bitte besuchen Sie meine Website: https://quentium.fr/de/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
             return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["listserveurs", "listserver", "listeserveurs", "serverlist", "serverliste", "servlist", "servelist", "listservs"])
@@ -789,25 +760,17 @@ async def listservers(ctx):
             content2 = ""
             for pos in range(len(serv_id_exist)):
                 if len(content) < 2000:
-                    content += "\n- " + \
-                        str(client.get_guild(
-                            int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
+                    content += "\n- " + str(client.get_guild(int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
                 else:
-                    content2 += "\n- " + \
-                        str(client.get_guild(
-                            int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
+                    content2 += "\n- " + str(client.get_guild(int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
             if lang_server == "fr":
-                embed = discord.Embed(
-                    title=f"Serveurs : {len(client.guilds)}", description=content, color=0xFF9000)
+                embed = discord.Embed(title=f"Serveurs : {len(client.guilds)}", description=content, color=0xFF9000)
             elif lang_server == "en":
-                embed = discord.Embed(
-                    title=f"Servers: {len(client.guilds)}", description=content, color=0xFF9000)
+                embed = discord.Embed(title=f"Servers: {len(client.guilds)}", description=content, color=0xFF9000)
             elif lang_server == "de":
-                embed = discord.Embed(
-                    title=f"Server: {len(client.guilds)}", description=content, color=0xFF9000)
+                embed = discord.Embed(title=f"Server: {len(client.guilds)}", description=content, color=0xFF9000)
             if not content2 == "":
-                embed2 = discord.Embed(
-                    title=None, description=content2, color=0xFF9000)
+                embed2 = discord.Embed(title=None, description=content2, color=0xFF9000)
                 await ctx.send(embed=embed)
                 return await ctx.send(embed=embed2)
             else:
@@ -837,14 +800,11 @@ async def listinvites(ctx):
         else:
             content = msg_any
         if lang_server == "fr":
-            embed = discord.Embed(
-                title="Liens d'invitation :", description="- " + content, color=0x00FFFF)
+            embed = discord.Embed(title="Liens d'invitation :", description="- " + content, color=0x00FFFF)
         elif lang_server == "en":
-            embed = discord.Embed(title="Invite links:",
-                                  description="- " + content, color=0x00FFFF)
+            embed = discord.Embed(title="Invite links:", description="- " + content, color=0x00FFFF)
         elif lang_server == "de":
-            embed = discord.Embed(title="Einladungslinks:",
-                                  description="- " + content, color=0x00FFFF)
+            embed = discord.Embed(title="Einladungslinks:", description="- " + content, color=0x00FFFF)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, no_pm=True, aliases=["listebans", "banlist"])
@@ -871,14 +831,11 @@ async def listbans(ctx):
         else:
             content = msg_any
         if lang_server == "fr":
-            embed = discord.Embed(
-                title="Liste des membres bannis :", description="- " + content, color=0xFF0000)
+            embed = discord.Embed(title="Liste des membres bannis :", description="- " + content, color=0xFF0000)
         elif lang_server == "en":
-            embed = discord.Embed(
-                title="List of banned members:", description="- " + content, color=0xFF0000)
+            embed = discord.Embed(title="List of banned members:", description="- " + content, color=0xFF0000)
         elif lang_server == "de":
-            embed = discord.Embed(
-                title="Liste der verbotenen Mitglied:", description="- " + content, color=0xFF0000)
+            embed = discord.Embed(title="Liste der verbotenen Mitglied:", description="- " + content, color=0xFF0000)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["sharebot", "share", "invitebot"])
@@ -922,14 +879,12 @@ async def msgtotal(ctx, *args):
             elif lang_server == "de":
                 return await ctx.send(":x: Dem Bot fehlen **Administrator** Berechtigungen.")
         if len(args) == 2:
-            member = discord.utils.get(
-                client.get_all_members(), id=str(args[1])[2:-1])
+            member = discord.utils.get(client.get_all_members(), id=str(args[1])[2:-1])
             args = args[0]
         elif len(args) == 1:
             args = args[0]
             if str(args)[2:-1].isdigit():
-                member = discord.utils.get(
-                    client.get_all_members(), id=str(args)[2:-1])
+                member = discord.utils.get(client.get_all_members(), id=str(args)[2:-1])
                 args = "all"
             elif not args == "all" and not args == "channel":
                 if lang_server == "fr":
@@ -948,21 +903,17 @@ async def msgtotal(ctx, *args):
             args = "channel"
         counter = 0
         if lang_server == "fr":
-            embed = discord.Embed(
-                title="Calcul des messages...", color=0xFFA500)
+            embed = discord.Embed(title="Calcul des messages...", color=0xFFA500)
         elif lang_server == "en":
-            embed = discord.Embed(
-                title="Calculating messages...", color=0xFFA500)
+            embed = discord.Embed(title="Calculating messages...", color=0xFFA500)
         elif lang_server == "de":
-            embed = discord.Embed(
-                title="Nachrichten werden berechnet...", color=0xFFA500)
+            embed = discord.Embed(title="Nachrichten werden berechnet...", color=0xFFA500)
         tmp = await ctx.send(embed=embed)
         if args == "":
             args = "all"
         if args == "all":
             msg_total = True
-            channel_list = [x for x in ctx.message.guild.channels if isinstance(
-                x, discord.TextChannel)]
+            channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.TextChannel)]
             for channel in channel_list:
                 async for log in channel.history(limit=1000000):
                     if log.author == member:
@@ -986,28 +937,22 @@ async def msgtotal(ctx, *args):
                 content = f"**{member}** a envoyé **{counter}** messages au total."
             else:
                 content = f"**{member}** a envoyé **{counter}** messages dans ce channel."
-            embed = discord.Embed(
-                title="**Nombre de messages :**", description=content, color=0xFFA500)
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed = discord.Embed(title="**Nombre de messages :**", description=content, color=0xFFA500)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
             if msg_total == True:
                 content = f"**{member}** has sent **{counter}** messages in total."
             else:
                 content = f"**{member}** has sent **{counter}** messages in this channel."
-            embed = discord.Embed(
-                title="**Number of messages:**", description=content, color=0xFFA500)
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed = discord.Embed(title="**Number of messages:**", description=content, color=0xFFA500)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
             if msg_total == True:
                 content = f"**{member}** hast **{counter}** Nachrichten insgesamt gesendet."
             else:
                 content = f"**{member}** hast **{counter}** Nachrichten in diesem Chatroom gesendet."
-            embed = discord.Embed(
-                title="**Anzahl der Nachrichten:**", description=content, color=0xFFA500)
-            embed.set_footer(
-                text="Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed = discord.Embed(title="**Anzahl der Nachrichten:**", description=content, color=0xFFA500)
+            embed.set_footer(text="Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
 
         if not isinstance(ctx.channel, discord.TextChannel):
             return await tmp.edit(embed=embed)
@@ -1089,8 +1034,7 @@ async def _embed(ctx, *, args=None):
                             return await ctx.send("Die angegebene Farbe existiert nicht. Unterstützte Parameter: `Farbname`, ` Hex-Wert`, `Nummer-Wert`, `random`.")
         else:
             color = random_color()
-        embed = discord.Embed(
-            title=title, description=description, color=color, url=url)
+        embed = discord.Embed(title=title, description=description, color=color, url=url)
         if thumbnail:
             if "image/" in str(requests.get(thumbnail).headers):
                 embed.set_thumbnail(url=thumbnail)
@@ -1101,14 +1045,11 @@ async def _embed(ctx, *, args=None):
                 embed.set_footer(text=footer)
         else:
             if lang_server == "fr":
-                embed.set_footer(text=ctx.message.author.name,
-                                 icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
             elif lang_server == "en":
-                embed.set_footer(text=ctx.message.author.name,
-                                 icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
             elif lang_server == "de":
-                embed.set_footer(text=ctx.message.author.name,
-                                 icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["lettre", "emojis", "emoji"])
@@ -1144,8 +1085,7 @@ async def letter(ctx, *, args=None):
             emojis_used.remove(emojis)
         is_mention = re.findall(r"<@\d*>", args)
         for mention in is_mention:
-            args = args.replace(mention, str(discord.utils.get(
-                client.get_all_members(), id=int(mention[2:-1])).name))
+            args = args.replace(mention, str(discord.utils.get(client.get_all_members(), id=int(mention[2:-1])).name))
         letter = list(str(args.lower()))
         for char in range(len(letter)):
             if any(x == letter[char] for x in letters.keys()):
@@ -1181,18 +1121,14 @@ async def letter(ctx, *, args=None):
             cut_end_embed = re.split(r"(<\w*:\w*:\d*>|:)", x)[-2:]
         embeds[-1] = embeds[-1] + "".join(cut_end_embed)
         for content in embeds:
-            embed = discord.Embed(
-                title=None, description=content, color=0xFFA952)
+            embed = discord.Embed(title=None, description=content, color=0xFFA952)
             if content == embeds[-1]:
                 if lang_server == "fr":
-                    embed.set_footer(
-                        text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                    embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 elif lang_server == "en":
-                    embed.set_footer(
-                        text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                    embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 elif lang_server == "de":
-                    embed.set_footer(
-                        text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                    embed.set_footer(text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 return await ctx.send(embed=embed)
             await ctx.send(embed=embed)
 
@@ -1246,41 +1182,32 @@ async def weather(ctx, *, args=None):
 
         if not args:
             if lang_server == "fr":
-                embed = discord.Embed(
-                    title="Merci de préciser une ville.", color=0x00FFFF)
+                embed = discord.Embed(title="Merci de préciser une ville.", color=0x00FFFF)
             elif lang_server == "en":
-                embed = discord.Embed(
-                    title="Please specify a city.", color=0x00FFFF)
+                embed = discord.Embed(title="Please specify a city.", color=0x00FFFF)
             elif lang_server == "de":
-                embed = discord.Embed(
-                    title="Bitte geben Sie eine Stadt an.", color=0x00FFFF)
+                embed = discord.Embed(title="Bitte geben Sie eine Stadt an.", color=0x00FFFF)
             return await ctx.send(embed=embed)
         args = args.replace(" ", "%20")
         url = "https://api.openweathermap.org/data/2.5/weather?q=" + args
-        data_weather = requests.get(
-            url + f"&appid={token_weather}&lang={lang_server}").json()
+        data_weather = requests.get(url + f"&appid={token_weather}&lang={lang_server}").json()
         if "city not found" in str(data_weather):
             if lang_server == "fr":
-                embed = discord.Embed(
-                    title="La ville n'a pas été trouvée.", color=0x00FFFF)
+                embed = discord.Embed(title="La ville n'a pas été trouvée.", color=0x00FFFF)
             elif lang_server == "en":
-                embed = discord.Embed(
-                    title="The city was not found.", color=0x00FFFF)
+                embed = discord.Embed(title="The city was not found.", color=0x00FFFF)
             elif lang_server == "de":
-                embed = discord.Embed(
-                    title="Die Stadt wurde nicht gefunden.", color=0x00FFFF)
+                embed = discord.Embed(title="Die Stadt wurde nicht gefunden.", color=0x00FFFF)
             return await ctx.send(embed=embed)
         if not data_weather["coord"]:
             return
-        lat, long = str(data_weather["coord"]["lat"]), str(
-            data_weather["coord"]["lon"])
+        lat, long = str(data_weather["coord"]["lat"]), str(data_weather["coord"]["lon"])
         url = f"https://api.timezonedb.com/v2/get-time-zone?key={token_timezone}&format=json&by=position&lat={lat}&lng={long}"
         try:
             current_time = requests.get(url).json()["formatted"]
         except:
             current_time = data_weather["dt"]
-        emoji = discord.utils.get(client.emojis, name=str(
-            data_weather["weather"][0]["icon"]))
+        emoji = discord.utils.get(client.emojis, name=str(data_weather["weather"][0]["icon"]))
         condition = data_weather["weather"][0]["main"]
         if lang_server == "fr":
             if condition == "Thunderstorm":
@@ -1333,8 +1260,7 @@ async def weather(ctx, *, args=None):
         except:
             pass
         temp_celcius = str(round(data_weather["main"]["temp"] - 273.15, 1))
-        temp_farenheit = str(
-            round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
+        temp_farenheit = str(round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
         if lang_server == "fr" or lang_server == "de":
             content += f"{msg_temp} {temp_celcius}°C\n"
         elif lang_server == "en":
@@ -1342,17 +1268,12 @@ async def weather(ctx, *, args=None):
         content += msg_humidity + str(data_weather["main"]["humidity"]) + "%\n"
         wind_speed = data_weather["wind"]["speed"]
         content += f"{msg_wind} {float(wind_speed)}m/s - {round(float(wind_speed) * 3.6, 1)}km/h\n\n"
-        sunrise_time = datetime.fromtimestamp(
-            int(data_weather["sys"]["sunrise"])).strftime("%H:%M:%S")
-        sunset_time = datetime.fromtimestamp(
-            int(data_weather["sys"]["sunset"])).strftime("%H:%M:%S")
+        sunrise_time = datetime.fromtimestamp(int(data_weather["sys"]["sunrise"])).strftime("%H:%M:%S")
+        sunset_time = datetime.fromtimestamp(int(data_weather["sys"]["sunset"])).strftime("%H:%M:%S")
         content += f"<:time:475328338542592000> {msg_sunrise} {sunrise_time} {msg_sunset} {sunset_time} (DST)"
-        embed = discord.Embed(title=msg_city + data_weather["name"] + " :flag_" + str(
-            data_weather["sys"]["country"]).lower() + ":\n", description=content, color=0x00FFFF)
-        embed.set_thumbnail(
-            url=f"https://cdn.discordapp.com/emojis/{emoji.id}.png")
-        embed.set_footer(text=f"{msg_local_time} {current_time}",
-                         icon_url="https://cdn.discordapp.com/emojis/475328334557872129.png")
+        embed = discord.Embed(title=msg_city + data_weather["name"] + " :flag_" + str(data_weather["sys"]["country"]).lower() + ":\n", description=content, color=0x00FFFF)
+        embed.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/{emoji.id}.png")
+        embed.set_footer(text=f"{msg_local_time} {current_time}", icon_url="https://cdn.discordapp.com/emojis/475328334557872129.png")
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["lyric", "paroles", "parole"])
@@ -1419,35 +1340,28 @@ async def lyrics(ctx, *, args):
                 await ctx.send("Die Suche stimmt nicht mit dem Titel überein. Vergewissern Sie sich, dass Sie den Namen der Musik eingegeben haben.")
                 await ctx.send(f"Ergebnis gefunden mit: **{args}**")
         if lang_server == "fr":
-            embed = discord.Embed(
-                title=f"Paroles de : __**{title}**__", description=None, color=0x00FFFF)
+            embed = discord.Embed(title=f"Paroles de : __**{title}**__", description=None, color=0x00FFFF)
         elif lang_server == "en":
-            embed = discord.Embed(
-                title=f"Lyrics of: __**{title}**__", description=None, color=0x00FFFF)
+            embed = discord.Embed(title=f"Lyrics of: __**{title}**__", description=None, color=0x00FFFF)
         elif lang_server == "de":
-            embed = discord.Embed(
-                title=f"Songtexte von: __**{title}**__", description=None, color=0x00FFFF)
+            embed = discord.Embed(title=f"Songtexte von: __**{title}**__", description=None, color=0x00FFFF)
         embed.set_thumbnail(url=image)
         for block in lyrics.split("\n\n")[1:-1]:
             splitted = block.split("\n", 1)
             if not splitted[0] is "":
                 if not len(splitted) == 1:
                     if len(splitted[1]) >= 1024:
-                        embed.add_field(
-                            name=splitted[0], value=splitted[1][0:1023])
+                        embed.add_field(name=splitted[0], value=splitted[1][0:1023])
                     else:
                         embed.add_field(name=splitted[0], value=splitted[1])
                 else:
                     embed.add_field(name=splitted[0], value=":notes:" * 6)
         if lang_server == "fr":
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
-            embed.set_footer(
-                text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["av", "avatars"])
@@ -1473,25 +1387,21 @@ async def avatar(ctx, *, member: discord.Member = None):
             avatar_url = icon3 + "png?size=1024"
         title = member.name + "#" + member.discriminator
         content = "[Avatar URL]({})".format(avatar_url)
-        embed = discord.Embed(
-            title=f"**{title}**", description=content, color=0x15f2c6)
+        embed = discord.Embed(title=f"**{title}**", description=content, color=0x15f2c6)
         embed.set_image(url=avatar_url)
         if lang_server == "fr":
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
-            embed.set_footer(
-                text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 # TYPE Stats cmds
 
 #----------------------------- STATISTICS COMMANDS -----------------------------#
 
-@client.command(pass_context=True, no_pm=True, aliases=["statsuser", "statuser"])
+@client.command(pass_context=True, no_pm=True, aliases=["statsuser", "statuser", "userinfo", "userinfos"])
 async def userstats(ctx, *, member: discord.Member = None):
     if isinstance(ctx.channel, discord.TextChannel):
         global lang_server, commands_server, autorole_server, prefix_server, server_id, server_name
@@ -1549,10 +1459,8 @@ async def userstats(ctx, *, member: discord.Member = None):
             user_status = msg_dnd
         elif status == "invisible":
             user_status = msg_invisible
-        user_game = msg_any if member.activity == None else str(
-            member.activity.name)
-        user_joinserv = datetime.strptime(
-            str(member.joined_at)[:-7], "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y - %H:%M:%S")
+        user_game = msg_any if member.activity == None else str(member.activity.name)
+        user_joinserv = datetime.strptime(str(member.joined_at)[:-7], "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y - %H:%M:%S")
         user_joindiscord = datetime.strptime(str(member.created_at)[
                                              :-7], "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y - %H:%M:%S")
         user_best_role = str(member.top_role)
@@ -1584,13 +1492,10 @@ async def userstats(ctx, *, member: discord.Member = None):
                 "Rejoins discord le: %s\n" \
                 "Meilleur Rôle:      %s\n" \
                 "Rôles:              %s\n" \
-                "%s" \
-                "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
-                         user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
-            embed.add_field(name=f"Statistiques de __***{user_name}***__",
-                            value=content + " ***[Lien Icône]({})***".format(avatar_url), inline=True)
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "%s" "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
+                              user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
+            embed.add_field(name=f"Statistiques de __***{user_name}***__", value=content + " ***[Lien Icône]({})***".format(avatar_url), inline=True)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
             content = "```autohotkey\n" \
                 "Name:               %s\n" \
@@ -1605,13 +1510,11 @@ async def userstats(ctx, *, member: discord.Member = None):
                 "Join Discord at:    %s\n" \
                 "Best Role:          %s\n" \
                 "Roles:              %s\n" \
-                "%s" \
-                "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
-                         user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
+                "%s" "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
+                              user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
             embed.add_field(name=f"Statistics of __***{user_name}***__", value=content +
                             " ***[Icon Link]({})***".format(avatar_url), inline=True)
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
             content = "```autohotkey\n" \
                 "Name:               %s\n" \
@@ -1626,13 +1529,11 @@ async def userstats(ctx, *, member: discord.Member = None):
                 "Trat Discord bei:   %s\n" \
                 "Primaire Rolle:     %s\n" \
                 "Rollen:             %s\n" \
-                "%s" \
-                "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
-                         user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
+                "%s" "```" % (user_name, user_nickname, user_id, user_tag, user_mention, user_is_bot, user_status,
+                              user_game, user_joinserv, user_joindiscord, user_best_role, user_roles, user_roles_list)
             embed.add_field(name=f"__***{user_name}***__'s Statistiken", value=content +
                             " ***[Symbolverbindung]({})***".format(avatar_url), inline=True)
-            embed.set_footer(text="Angefordert von : " + ctx.message.author.name,
-                             icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text="Angefordert von : " + ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, no_pm=True, aliases=["serveurstats", "statsserveur", "statserveur", "statserver", "statsserver", "servstats", "serverinfos", "serverinfo", "servinfo"])
@@ -1673,26 +1574,18 @@ async def serverstats(ctx):
         serv_id = str(serv.id)
         serv_owner = serv.owner.name
         serv_owner_dis = "#" + serv.owner.discriminator
-        serv_created = datetime.strptime(
-            str(serv.created_at)[:-7], "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y - %H:%M:%S")
+        serv_created = datetime.strptime(str(serv.created_at)[:-7], "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y - %H:%M:%S")
         serv_region = serv.region
         serv_members = str(len(serv.members))
-        serv_members_on = str(
-            len([x for x in serv.members if not x.status == discord.Status.offline]))
+        serv_members_on = str(len([x for x in serv.members if not x.status == discord.Status.offline]))
         serv_users = str(len([x for x in serv.members if not x.bot]))
-        serv_users_on = str(len(
-            [x for x in serv.members if not x.bot and not x.status == discord.Status.offline]))
+        serv_users_on = str(len([x for x in serv.members if not x.bot and not x.status == discord.Status.offline]))
         serv_bots = str(len([x for x in serv.members if x.bot]))
-        serv_bots_on = str(len(
-            [x for x in serv.members if x.bot and not x.status == discord.Status.offline]))
-        serv_channels = str(
-            len([x for x in serv.channels if not isinstance(x, discord.CategoryChannel)]))
-        serv_text_channels = str(
-            len([x for x in serv.channels if isinstance(x, discord.TextChannel)]))
-        serv_voice_channels = str(
-            len([x for x in serv.channels if isinstance(x, discord.VoiceChannel)]))
-        serv_afk_channel = msg_any if serv.afk_channel == None else str(
-            serv.afk_channel)
+        serv_bots_on = str(len([x for x in serv.members if x.bot and not x.status == discord.Status.offline]))
+        serv_channels = str(len([x for x in serv.channels if not isinstance(x, discord.CategoryChannel)]))
+        serv_text_channels = str(len([x for x in serv.channels if isinstance(x, discord.TextChannel)]))
+        serv_voice_channels = str(len([x for x in serv.channels if isinstance(x, discord.VoiceChannel)]))
+        serv_afk_channel = msg_any if serv.afk_channel == None else str(serv.afk_channel)
         serv_afk_time = str(round(int(serv.afk_timeout) / 60))
         verif = str(serv.verification_level)
         if verif == "none":
@@ -1710,8 +1603,7 @@ async def serverstats(ctx):
         if len(serv_roles_list) > 500:
             serv_roles_list = msg_limit
 
-        embed = discord.Embed(
-            url="https://quentium.fr/discord/", color=0x0026FF)
+        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
         icon = str(serv.icon_url)
         icon1 = icon.split(".", 999)
         icon2 = "".join(icon1[len(icon1) - 1])
@@ -1739,14 +1631,10 @@ async def serverstats(ctx):
                 "Temps AFK:          %s min\n" \
                 "Niveau vérif:       %s\n" \
                 "Rôles:              %s\n" \
-                "%s" \
-                "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members,
-                         serv_members_on, serv_users, serv_users_on, serv_bots, serv_bots_on, serv_channels, serv_text_channels,
-                         serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
-            embed.add_field(name=f"Statistiques du serveur __***{serv_name}***__",
-                            value=content + " ***[Lien Icône]({})***".format(icon_url), inline=True)
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "%s" "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members, serv_members_on, serv_users, serv_users_on, serv_bots,
+                              serv_bots_on, serv_channels, serv_text_channels, serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
+            embed.add_field(name=f"Statistiques du serveur __***{serv_name}***__", value=content + " ***[Lien Icône]({})***".format(icon_url), inline=True)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
             content = "```autohotkey\n" \
                 "Name:               %s\n" \
@@ -1764,14 +1652,10 @@ async def serverstats(ctx):
                 "AFK Time:           %s min\n" \
                 "Verify level:       %s\n" \
                 "Roles:              %s\n" \
-                "%s" \
-                "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members,
-                         serv_members_on, serv_users, serv_users_on, serv_bots, serv_bots_on, serv_channels, serv_text_channels,
-                         serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
-            embed.add_field(name=f"Statistics of __***{serv_name}***__ Server",
-                            value=content + " ***[Icon Link]({})***".format(icon_url), inline=True)
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "%s" "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members, serv_members_on, serv_users, serv_users_on, serv_bots,
+                              serv_bots_on, serv_channels, serv_text_channels, serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
+            embed.add_field(name=f"Statistics of __***{serv_name}***__ Server", value=content + " ***[Icon Link]({})***".format(icon_url), inline=True)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
             content = "```autohotkey\n" \
                 "Name:               %s\n" \
@@ -1789,14 +1673,10 @@ async def serverstats(ctx):
                 "AFK Zeit:           %s min\n" \
                 "Verify Stufe:       %s\n" \
                 "Rollen:             %s\n" \
-                "%s" \
-                "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members,
-                         serv_members_on, serv_users, serv_users_on, serv_bots, serv_bots_on, serv_channels, serv_text_channels,
-                         serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
-            embed.add_field(name=f"__***{serv_name}***__'s Serverstatistiken",
-                            value=content + " ***[Symbolverbindung]({})***".format(icon_url), inline=True)
-            embed.set_footer(
-                text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "%s" "```" % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created, serv_region, serv_members, serv_members_on, serv_users, serv_users_on, serv_bots,
+                              serv_bots_on, serv_channels, serv_text_channels, serv_voice_channels, serv_afk_channel, serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
+            embed.add_field(name=f"__***{serv_name}***__'s Serverstatistiken", value=content + " ***[Symbolverbindung]({})***".format(icon_url), inline=True)
+            embed.set_footer(text=f"Angefordert von: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["botstat", "statsbot", "statbot"])
@@ -1862,8 +1742,7 @@ async def botstats(ctx):
             elif "de" in data[serv]["lang_server"]:
                 bot_lang_de += 1
 
-        embed = discord.Embed(
-            url="https://quentium.fr/discord/", color=0x0026FF)
+        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
         embed.set_thumbnail(url="https://quentium.fr/+img/logoBot.png")
         if lang_server == "fr":
             content = "```autohotkey\n" \
@@ -1878,12 +1757,10 @@ async def botstats(ctx):
                 "Serveurs FR:          %s\n" \
                 "Serveurs EN:          %s\n" \
                 "Serveurs DE:          %s\n" \
-                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get,
-                         bot_commands_get_total, bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
-            embed.add_field(
-                name="Statistiques du __***QuentiumBot***__", value=content, inline=True)
-            embed.set_footer(
-                text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get, bot_commands_get_total,
+                         bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
+            embed.add_field(name="Statistiques du __***QuentiumBot***__", value=content, inline=True)
+            embed.set_footer(text=f"Demandé par : {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "en":
             content = "```autohotkey\n" \
                 "Hosted on:            %s\n" \
@@ -1897,12 +1774,10 @@ async def botstats(ctx):
                 "Servers FR:           %s\n" \
                 "Servers EN:           %s\n" \
                 "Servers DE:           %s\n" \
-                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get,
-                         bot_commands_get_total, bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
-            embed.add_field(
-                name="Statistics of __***QuentiumBot***__", value=content, inline=True)
-            embed.set_footer(
-                text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get, bot_commands_get_total,
+                         bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
+            embed.add_field(name="Statistics of __***QuentiumBot***__", value=content, inline=True)
+            embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         elif lang_server == "de":
             content = "```autohotkey\n" \
                 "Gehostet auf:         %s\n" \
@@ -1916,12 +1791,10 @@ async def botstats(ctx):
                 "Servers FR:           %s\n" \
                 "Servers EN:           %s\n" \
                 "Servers DE:           %s\n" \
-                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get,
-                         bot_commands_get_total, bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
-            embed.add_field(
-                name="__***QuentiumBot***__'s Statistiken", value=content, inline=True)
-            embed.set_footer(text="Angefordert von : " + ctx.message.author.name,
-                             icon_url=ctx.message.author.avatar_url)
+                "```" % (bot_host, bot_owner, bot_version, bot_uptime, bot_memory, bot_commands_get, bot_commands_get_total,
+                         bot_users_total, bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
+            embed.add_field(name="__***QuentiumBot***__'s Statistiken", value=content, inline=True)
+            embed.set_footer(text="Angefordert von : " + ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["timeup", "runningtime", "runtime", "timerun"])
@@ -2026,31 +1899,24 @@ async def showlogs(ctx):
 
     if not ctx.message.author.bot == True:
         if lang_server == "fr":
-            embed = discord.Embed(title="Logs de mise à jour du bot :",
-                                  url="https://quentium.fr/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Logs de mise à jour du bot :", url="https://quentium.fr/discord/", color=0xFFFF00)
         elif lang_server == "en":
-            embed = discord.Embed(title="Changelog of the bot:",
-                                  url="https://quentium.fr/en/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Changelog of the bot:", url="https://quentium.fr/en/discord/", color=0xFFFF00)
         elif lang_server == "de":
-            embed = discord.Embed(title="Bot Update-Protokolle:",
-                                  url="https://quentium.fr/de/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Bot Update-Protokolle:", url="https://quentium.fr/de/discord/", color=0xFFFF00)
         counter = 1
         with open("extra/logs.txt", "r", encoding="utf-8", errors="ignore") as file:
             for line in file:
                 line_time = line.split(" --- ", 999)[0]
                 line_content = line.split(" --- ", 999)[1]
-                embed.add_field(name="#" + str(counter) + " / " + line_time,
-                                value=line_content.replace("..", ".\n"), inline=True)
+                embed.add_field(name="#" + str(counter) + " / " + line_time, value=line_content.replace("..", ".\n"), inline=True)
                 counter += 1
         if lang_server == "fr":
-            embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.", icon_url="https://quentium.fr/+img/logoBot.png")
         elif lang_server == "en":
-            embed.set_footer(text="Logs are shared when the bot gets a new important update.",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Logs are shared when the bot gets a new important update.", icon_url="https://quentium.fr/+img/logoBot.png")
         elif lang_server == "de":
-            embed.set_footer(text="Die Protokolle werden veröffentlicht, sobald eine wichtig neue Update der Bots stattfindet.",
-                             icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Die Protokolle werden veröffentlicht, sobald eine wichtig neue Update der Bots stattfindet.", icon_url="https://quentium.fr/+img/logoBot.png")
         return await ctx.send(embed=embed)
 
 # TYPE Config cmds
@@ -2205,16 +2071,13 @@ async def autorole(ctx, *, args=None):
             else:
                 for role in ctx.message.guild.roles:
                     if "<@" in rolename:
-                        role = discord.utils.get(
-                            ctx.message.guild.roles, id=int(rolename[3:-1]))
+                        role = discord.utils.get(ctx.message.guild.roles, id=int(rolename[3:-1]))
                         break
                     if rolename.isdigit() and len(rolename) >= 18:
-                        role = discord.utils.get(
-                            ctx.message.guild.roles, id=int(rolename))
+                        role = discord.utils.get(ctx.message.guild.roles, id=int(rolename))
                         break
                     if rolename == role.name.lower():
-                        role = discord.utils.get(
-                            ctx.message.guild.roles, name=role.name)
+                        role = discord.utils.get(ctx.message.guild.roles, name=role.name)
                         break
                 else:
                     role = None
@@ -2246,8 +2109,7 @@ async def autorole(ctx, *, args=None):
                                 elif lang_server == "de":
                                     return await ctx.send("Die Autorole wurde nicht definiert!")
                             else:
-                                role = discord.utils.get(
-                                    ctx.message.guild.roles, id=int(role_file))
+                                role = discord.utils.get(ctx.message.guild.roles, id=int(role_file))
                                 if role == None:
                                     if lang_server == "fr":
                                         return await ctx.send(f"Le rôle définis à été supprimé ou changé.")
@@ -2271,8 +2133,7 @@ async def autorole(ctx, *, args=None):
                         #             list_roles.append(role.name)
                         #     await ctx.send("L'autorole à été définis sur `%s` avec succès." % ", ".join(list_roles))
                         else:
-                            data[str(server_id)]["autorole_server"] = str(
-                                role.id)
+                            data[str(server_id)]["autorole_server"] = str(role.id)
                             if lang_server == "fr":
                                 await ctx.send(f"L'autorole à été définis sur `{role.name}` avec succès.")
                             elif lang_server == "en":
@@ -2312,27 +2173,20 @@ async def trigger(ctx, *, args=None):
             else:
                 if any(x == args.lower() for x in ["list", "liste"]):
                     if any(x == str(server_id) for x in triggers.keys()) and triggers[str(server_id)]:
-                        content = "\n- ".join(
-                            [x for x in triggers[str(server_id)].keys()])
+                        content = "\n- ".join([x for x in triggers[str(server_id)].keys()])
                         if lang_server == "fr":
-                            embed = discord.Embed(
-                                title=f"Réactions customisées ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                            embed = discord.Embed(title=f"Réactions customisées ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                         elif lang_server == "en":
-                            embed = discord.Embed(
-                                title=f"Customized reactions ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                            embed = discord.Embed(title=f"Customized reactions ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                         elif lang_server == "de":
-                            embed = discord.Embed(
-                                title=f"Kundenspezifische Reaktionen ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                            embed = discord.Embed(title=f"Kundenspezifische Reaktionen ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                     else:
                         if lang_server == "fr":
-                            embed = discord.Embed(
-                                title="Il n'y à aucunes réactions customisées.", color=0xBFFF00)
+                            embed = discord.Embed(title="Il n'y a aucunes réactions customisées.", color=0xBFFF00)
                         elif lang_server == "en":
-                            embed = discord.Embed(
-                                title="There are no custom reactions.", color=0xBFFF00)
+                            embed = discord.Embed(title="There are no custom reactions.", color=0xBFFF00)
                         elif lang_server == "de":
-                            embed = discord.Embed(
-                                title="Es gibt keine benutzerdefinierten Reaktionen.", color=0xBFFF00)
+                            embed = discord.Embed(title="Es gibt keine benutzerdefinierten Reaktionen.", color=0xBFFF00)
                     return await ctx.send(embed=embed)
                 else:
                     if lang_server == "fr":
@@ -2344,14 +2198,11 @@ async def trigger(ctx, *, args=None):
 
         if not args:
             if lang_server == "fr":
-                embed = discord.Embed(
-                    title=f"Veuillez préciser un déclencheur et une réponse : `{prefix_server}trigger [\"déclancheur\" / liste / remove] [\"réponse\" / url]`", color=0xBFFF00)
+                embed = discord.Embed(title=f"Veuillez préciser un déclencheur et une réponse : `{prefix_server}trigger [\"déclancheur\" / liste / remove] [\"réponse\" / url]`", color=0xBFFF00)
             elif lang_server == "en":
-                embed = discord.Embed(
-                    title=f"Please specify a trigger and an answer: `{prefix_server}trigger [\"trigger\" / list / remove] [\"answer\" / url]`", color=0xBFFF00)
+                embed = discord.Embed(title=f"Please specify a trigger and an answer: `{prefix_server}trigger [\"trigger\" / list / remove] [\"answer\" / url]`", color=0xBFFF00)
             elif lang_server == "de":
-                embed = discord.Embed(
-                    title=f"Bitte geben Sie eine Nachricht und eine Antwort an: `{prefix_server}trigger [\"Nachricht\" / list / remove] [\"Antwort\" / url]`", color=0xBFFF00)
+                embed = discord.Embed(title=f"Bitte geben Sie eine Nachricht und eine Antwort an: `{prefix_server}trigger [\"Nachricht\" / list / remove] [\"Antwort\" / url]`", color=0xBFFF00)
             return await ctx.send(embed=embed)
 
         with open("extra/triggers.json", "r", encoding="utf-8", errors="ignore") as file:
@@ -2362,37 +2213,28 @@ async def trigger(ctx, *, args=None):
                 if any(x == str(server_id) for x in triggers.keys()) and triggers[str(server_id)]:
                     content = "\n- ".join([x for x in triggers[str(server_id)].keys()])
                     if lang_server == "fr":
-                        embed = discord.Embed(
-                            title=f"Réactions customisées ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                        embed = discord.Embed(title=f"Réactions customisées ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                     elif lang_server == "en":
-                        embed = discord.Embed(
-                            title=f"Customized reactions ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                        embed = discord.Embed(title=f"Customized reactions ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                     elif lang_server == "de":
-                        embed = discord.Embed(
-                            title=f"Kundenspezifische Reaktionen ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
+                        embed = discord.Embed(title=f"Kundenspezifische Reaktionen ({len(triggers[str(server_id)].keys())}) :", description="- " + content, color=0xBFFF00)
                     return await ctx.send(embed=embed)
                 else:
                     if lang_server == "fr":
-                        embed = discord.Embed(
-                            title="Il n'y à aucunes réactions customisées.", color=0xBFFF00)
+                        embed = discord.Embed(title="Il n'y a aucunes réactions customisées.", color=0xBFFF00)
                     elif lang_server == "en":
-                        embed = discord.Embed(
-                            title="There are no custom reactions.", color=0xBFFF00)
+                        embed = discord.Embed(title="There are no custom reactions.", color=0xBFFF00)
                     elif lang_server == "de":
-                        embed = discord.Embed(
-                            title="Es gibt keine benutzerdefinierten Reaktionen.", color=0xBFFF00)
+                        embed = discord.Embed(title="Es gibt keine benutzerdefinierten Reaktionen.", color=0xBFFF00)
                     return await ctx.send(embed=embed)
             elif any(x == args.split()[0].lower() for x in ["remove", "delete", "clear"]):
                 if len(args.split()) == 1:
                     if lang_server == "fr":
-                        embed = discord.Embed(
-                            title=f"Veuillez préciser un déclencheur à supprimer : `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
+                        embed = discord.Embed(title=f"Veuillez préciser un déclencheur à supprimer : `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
                     elif lang_server == "en":
-                        embed = discord.Embed(
-                            title=f"Please specify a trigger to delete: `{prefix_server}trigger [remove / delete] [\"trigger\"]`", color=0xBFFF00)
+                        embed = discord.Embed(title=f"Please specify a trigger to delete: `{prefix_server}trigger [remove / delete] [\"trigger\"]`", color=0xBFFF00)
                     elif lang_server == "de":
-                        embed = discord.Embed(
-                            title=f"Bitte geben Sie einen Reaktion zum Löschen an: `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
+                        embed = discord.Embed(title=f"Bitte geben Sie einen Reaktion zum Löschen an: `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
                     return await ctx.send(embed=embed)
                 if '"' in args:
                     remove = re.findall(r'["\'](.*?)["\']', args)[-1].lower()
@@ -2403,32 +2245,25 @@ async def trigger(ctx, *, args=None):
                     with open("extra/triggers.json", "w", encoding="utf-8", errors="ignore") as file:
                         json.dump(triggers, file, indent=4)
                     if lang_server == "fr":
-                        embed = discord.Embed(
-                            title="Réaction supprimée :", description=f"**{remove}**", color=0xBFFF00)
+                        embed = discord.Embed(title="Réaction supprimée :", description=f"**{remove}**", color=0xBFFF00)
                     elif lang_server == "en":
-                        embed = discord.Embed(
-                            title="Reaction deleted:", description=f"**{remove}**", color=0xBFFF00)
+                        embed = discord.Embed(title="Reaction deleted:", description=f"**{remove}**", color=0xBFFF00)
                     elif lang_server == "de":
-                        embed = discord.Embed(
-                            title="Reaktion gelöscht:", description=f"**{remove}**", color=0xBFFF00)
+                        embed = discord.Embed(title="Reaktion gelöscht:", description=f"**{remove}**", color=0xBFFF00)
                 else:
                     if lang_server == "fr":
-                        embed = discord.Embed(
-                            title="Aucune réaction ne correspond à celle choisie.", color=0xBFFF00)
+                        embed = discord.Embed(title="Aucune réaction ne correspond à celle choisie.", color=0xBFFF00)
                     elif lang_server == "en":
-                        embed = discord.Embed(
-                            title="No reaction corresponds to that chosen.", color=0xBFFF00)
+                        embed = discord.Embed(title="No reaction corresponds to that chosen.", color=0xBFFF00)
                     elif lang_server == "de":
-                        embed = discord.Embed(
-                            title="Keine Reaktion entspricht der gewählten.", color=0xBFFF00)
+                        embed = discord.Embed(title="Keine Reaktion entspricht der gewählten.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
             elif any(x == args.split()[0].lower() for x in ["removeall", "deleteall", "clearall"]):
                 del triggers[str(server_id)]
                 with open("extra/triggers.json", "w", encoding="utf-8", errors="ignore") as file:
                     json.dump(triggers, file, indent=4)
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Toutes les réactions ont été supprimées.", color=0xBFFF00)
+                    embed = discord.Embed(title="Toutes les réactions ont été supprimées.", color=0xBFFF00)
                 elif lang_server == "en":
                     embed = discord.Embed(title="All reactions have been removed.", color=0xBFFF00)
                 elif lang_server == "de":
@@ -2440,86 +2275,67 @@ async def trigger(ctx, *, args=None):
                 response = args.split()[1]
             elif len(args.split()) < 2:
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Il n'y à pas assez d'arguments pour créer la réaction, ajoutez-en entre des guillements pour délimiter votre message.", color=0xBFFF00)
+                    embed = discord.Embed(title="Il n'y a pas assez d'arguments pour créer la réaction, ajoutez-en entre des guillements pour délimiter votre message.", color=0xBFFF00)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="There are not enough arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
+                    embed = discord.Embed(title="There are not enough arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Es gibt nicht genügend Argumente, um die Reaktion auszulösen. Fügen Sie einige Anführungszeichen hinzu, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
+                    embed = discord.Embed(title="Es gibt nicht genügend Argumente, um die Reaktion auszulösen. Fügen Sie einige Anführungszeichen hinzu, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
             else:
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Il y à trop d'arguments pour créer la réaction, mettez des guillements pour délimiter votre message.", color=0xBFFF00)
+                    embed = discord.Embed(title="Il y a trop d'arguments pour créer la réaction, mettez des guillements pour délimiter votre message.", color=0xBFFF00)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="There are too many arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
+                    embed = discord.Embed(title="There are too many arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Es gibt zu viele Argumente, um die Reaktion auszulösen. Setzen Sie Anführungszeichen, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
+                    embed = discord.Embed(title="Es gibt zu viele Argumente, um die Reaktion auszulösen. Setzen Sie Anführungszeichen, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
         else:
             if len(re.findall(r'["\'](.*?)["\']', args)) == 2:
                 trigger = re.findall(r'["\'](.*?)["\']', args)[0]
                 if "http://" in args or "https://" in args:
-                    response = args.split(
-                    )[-1].replace('"', "").replace("'", "")
+                    response = args.split()[-1].replace('"', "").replace("'", "")
                 else:
                     response = re.findall(r'["\'](.*?)["\']', args)[1]
             elif len(re.findall(r'["\'](.*?)["\']', args)) < 2:
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Il n'y à pas assez d'arguments pour créer la réaction, ajoutez-en entre des guillements pour délimiter votre message.", color=0xBFFF00)
+                    embed = discord.Embed(title="Il n'y a pas assez d'arguments pour créer la réaction, ajoutez-en entre des guillements pour délimiter votre message.", color=0xBFFF00)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="There are not enough arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
+                    embed = discord.Embed(title="There are not enough arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Es gibt nicht genügend Argumente, um die Reaktion auszulösen. Fügen Sie einige in Anführungszeichen ein, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
+                    embed = discord.Embed(title="Es gibt nicht genügend Argumente, um die Reaktion auszulösen. Fügen Sie einige in Anführungszeichen ein, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
             else:
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Il y à trop d'arguments pour créer la réaction, mettez des guillements pour délimiter votre message.", color=0xBFFF00)
+                    embed = discord.Embed(title="Il y a trop d'arguments pour créer la réaction, mettez des guillements pour délimiter votre message.", color=0xBFFF00)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="There are too many arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
+                    embed = discord.Embed(title="There are too many arguments to create the reaction, add some quotes to delimit your message.", color=0xBFFF00)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Es gibt zu viele Argumente, um die Reaktion auszulösen. Setzen Sie Anführungszeichen, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
+                    embed = discord.Embed(title="Es gibt zu viele Argumente, um die Reaktion auszulösen. Setzen Sie Anführungszeichen, um Ihre Nachricht einzugrenzen.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
         if not any(x == str(server_id) for x in triggers.keys()):
             triggers[str(server_id)] = {trigger.lower(): response}
         else:
             if trigger.lower() in triggers[str(server_id)].keys():
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Il y a déjà un déclencheur pour ce message. Supprimer le puis refaites la commande.", color=0xBFFF00)
+                    embed = discord.Embed(title="Il y a déjà un déclencheur pour ce message. Supprimer le puis refaites la commande.", color=0xBFFF00)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="There is already a trigger for this message. Delete it and redo the command.", color=0xBFFF00)
+                    embed = discord.Embed(title="There is already a trigger for this message. Delete it and redo the command.", color=0xBFFF00)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Es gibt bereits einen Auslöser für diese Nachricht. Löschen Sie es und wiederholen Sie den Befehl.", color=0xBFFF00)
+                    embed = discord.Embed(title="Es gibt bereits einen Auslöser für diese Nachricht. Löschen Sie es und wiederholen Sie den Befehl.", color=0xBFFF00)
                 return await ctx.send(embed=embed)
         triggers[str(server_id)][trigger.lower()] = response
         with open("extra/triggers.json", "w", encoding="utf-8", errors="ignore") as file:
             json.dump(triggers, file, indent=4)
         if lang_server == "fr":
-            embed = discord.Embed(
-                title="Nouvelle réaction customisée :", color=0xBFFF00)
+            embed = discord.Embed(title="Nouvelle réaction customisée :", color=0xBFFF00)
             embed.add_field(name="Déclencheur", value=trigger, inline=True)
             embed.add_field(name="Réponse", value=response, inline=True)
         elif lang_server == "en":
-            embed = discord.Embed(
-                title="New customized reaction:", color=0xBFFF00)
+            embed = discord.Embed(title="New customized reaction:", color=0xBFFF00)
             embed.add_field(name="Trigger", value=trigger, inline=True)
             embed.add_field(name="Reply", value=response, inline=True)
         elif lang_server == "de":
-            embed = discord.Embed(
-                title="Neue angepasste Reaktion:", color=0xBFFF00)
+            embed = discord.Embed(title="Neue angepasste Reaktion:", color=0xBFFF00)
             embed.add_field(name="Auslöser", value=trigger, inline=True)
             embed.add_field(name="Antwort", value=response, inline=True)
         return await ctx.send(embed=embed)
@@ -2599,8 +2415,7 @@ async def move(ctx, *, number=None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Move members**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Mitglieder verschieben**!")
-        channel_list = [x for x in ctx.message.guild.channels if isinstance(
-            x, discord.VoiceChannel)]
+        channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.VoiceChannel)]
         if not number:
             if lang_server == "fr":
                 content = "Merci de préciser un salon vocal par son numéro.\n\n"
@@ -2613,14 +2428,11 @@ async def move(ctx, *, number=None):
                 numero += 1
                 content += "{}. {}\n".format(numero, channel)
             if lang_server == "fr":
-                embed = discord.Embed(
-                    title="Salons vocaux :", description=content, color=0x3498DB)
+                embed = discord.Embed(title="Salons vocaux :", description=content, color=0x3498DB)
             elif lang_server == "en":
-                embed = discord.Embed(
-                    title="Voice channels:", description=content, color=0x3498DB)
+                embed = discord.Embed(title="Voice channels:", description=content, color=0x3498DB)
             elif lang_server == "de":
-                embed = discord.Embed(
-                    title="Sprachkanäle:", description=content, color=0x3498DB)
+                embed = discord.Embed(title="Sprachkanäle:", description=content, color=0x3498DB)
             return await ctx.send(embed=embed)
         else:
             if "random" in number:
@@ -2702,14 +2514,11 @@ async def move(ctx, *, number=None):
                     numero += 1
                     content += "{}. {}\n".format(numero, channel)
                 if lang_server == "fr":
-                    embed = discord.Embed(
-                        title="Salons vocaux :", description=content, color=0x3498DB)
+                    embed = discord.Embed(title="Salons vocaux :", description=content, color=0x3498DB)
                 elif lang_server == "en":
-                    embed = discord.Embed(
-                        title="Voice channels:", description=content, color=0x3498DB)
+                    embed = discord.Embed(title="Voice channels:", description=content, color=0x3498DB)
                 elif lang_server == "de":
-                    embed = discord.Embed(
-                        title="Sprachkanäle:", description=content, color=0x3498DB)
+                    embed = discord.Embed(title="Sprachkanäle:", description=content, color=0x3498DB)
                 return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, no_pm=True)
@@ -2746,14 +2555,11 @@ async def kick(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, erwähnen Sie das ausgestoßende Mitglied!")
         await member.kick()
         if lang_server == "fr":
-            embed = discord.Embed(
-                description=f"**{member.name}** à été kick !", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** a été kick !", color=0xFF0000)
         elif lang_server == "en":
-            embed = discord.Embed(
-                description=f"**{member.name}** has been kicked!", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** has been kicked!", color=0xFF0000)
         elif lang_server == "de":
-            embed = discord.Embed(
-                description=f"**{member.name}** wurde rausgeschmissen!", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** wurde rausgeschmissen!", color=0xFF0000)
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, no_pm=True)
@@ -2790,14 +2596,11 @@ async def ban(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, erwähnen Sie das zu verbannende Mitglied!")
         await member.ban()
         if lang_server == "fr":
-            embed = discord.Embed(
-                description=f"**{member.name}** à été bannis !", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** a été bannis !", color=0xFF0000)
         elif lang_server == "en":
-            embed = discord.Embed(
-                description=f"**{member.name}** has been banned!", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** has been banned!", color=0xFF0000)
         elif lang_server == "de":
-            embed = discord.Embed(
-                description=f"**{member.name}** wurde verboten!", color=0xFF0000)
+            embed = discord.Embed(description=f"**{member.name}** wurde verboten!", color=0xFF0000)
         return await ctx.send(embed=embed)
 
 # TYPE FLC cmds
@@ -2897,10 +2700,8 @@ async def absent(ctx, *, args=None):
             if ctx.message.channel.id == 552484372251410437:  # France Les Cités channel ID
                 if not ctx.message.guild.me.guild_permissions.manage_roles:
                     return await ctx.send(":x: Il manque la permissions **Gérer les rôles** au bot.")
-                role = discord.utils.get(
-                    ctx.message.guild.roles, name="Absent")
-                member_name = ctx.message.author.nick if ctx.message.author.nick is not None else str(
-                    ctx.message.author.name)
+                role = discord.utils.get(ctx.message.guild.roles, name="Absent")
+                member_name = ctx.message.author.nick if ctx.message.author.nick is not None else str(ctx.message.author.name)
                 if not role in ctx.message.author.roles:
                     if args is None:
                         await ctx.message.delete()
@@ -2994,9 +2795,7 @@ async def role(ctx, *, args=None):
 
     if not ctx.message.author.bot == True:
         if server_id == 391272643229384705:  # Insoumis server ID
-            list_roles = ["Payday 2", "Diablo 3", "Gta 5", "The division", "Fortnite", "CS GO", "Farming simulator",
-                          "Lol", "Dead by daylight", "Destiny 2", "Quake", "left 4 dead 2", "GRID 2", "Steep",
-                          "HL2DM", "Sea of Thieves"]
+            list_roles = ["Payday 2", "Diablo 3", "Gta 5", "The division", "Fortnite", "CS GO", "Farming simulator", "Lol", "Dead by daylight", "Destiny 2", "Quake", "left 4 dead 2", "GRID 2", "Steep", "HL2DM", "Sea of Thieves"]
             if not args:
                 return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
             if "payday" in args.lower():
@@ -3046,8 +2845,7 @@ async def role(ctx, *, args=None):
                 return await ctx.send("Ce rôle n'existe pas :frowning:")
 
         elif server_id == 342685946078167040:  # Christopher server ID
-            list_roles = ["Counter Strike: Global Offensive", "Warframe", "Rainbow Six Siège", "Dofus", "Fortnite",
-                          "Minecraft", "Paladins", "PlayerUnknown's Battlegrounds", "Payday 2", "Overkill's The Walking Dead"]
+            list_roles = ["Counter Strike: Global Offensive", "Warframe", "Rainbow Six Siège", "Dofus", "Fortnite", "Minecraft", "Paladins", "PlayerUnknown's Battlegrounds", "Payday 2", "Overkill's The Walking Dead"]
             if not args:
                 return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
             if "payday" in args.lower():
@@ -3166,8 +2964,7 @@ async def cookie(ctx):
     if not ctx.message.author.bot == True:
         if server_id == 199189022894063627:  # TheSweMaster server ID
             not_cookie = ["MrCookie"]
-            cookies = [x for x in client.emojis if "cookie" in str(
-                x.name).lower() and not any(y == str(x.name) for y in not_cookie)]
+            cookies = [x for x in client.emojis if "cookie" in str(x.name).lower() and not any(y == str(x.name) for y in not_cookie)]
             msg_cookies = "".join([str(x) for x in cookies])
             return await ctx.send("Here are your cookies ***" + str(ctx.message.author.name) + "*** :cookie:" + msg_cookies)
 
@@ -3272,8 +3069,7 @@ async def data4tte(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        authorised = [246943045105221633,
-                      224928390694567936, 272412092248752137]
+        authorised = [246943045105221633, 224928390694567936, 272412092248752137]
         # Quentium / vectokse / Jaguar AF user ID
         if any(x == ctx.message.author.id for x in authorised):
             if not args:
@@ -3322,8 +3118,7 @@ async def edt(ctx):
 
     for x in range(len(global_pos)):
         position = (img_w * 0.07, img_h * 0.13 + global_pos[x])
-        img_draw.text(position, global_hour[x], font=cfont(
-            38), fill=(0, 240, 50))
+        img_draw.text(position, global_hour[x], font=cfont(38), fill=(0, 240, 50))
 
     global_pos = [0, 180, 480, 660]
     global_color = ["white", "beige", "white", "beige"]
@@ -3332,8 +3127,7 @@ async def edt(ctx):
     for x in range(len(global_pos)):
         position = (img_w * 0.3, img_h * 0.15 +
                     global_pos[x], img_w * 0.95, img_h * 0.3 + global_pos[x])
-        img_draw.rectangle(position, outline="black",
-                           fill=global_color[x], width=5)
+        img_draw.rectangle(position, outline="black", fill=global_color[x], width=5)
         for component in gcal.walk():
             if component.name == "VEVENT":
                 time = component.get("dtstart").dt.strftime("%d/%m/%Y")
@@ -3346,10 +3140,8 @@ async def edt(ctx):
 
                     def write_text(text, offset, font):
                         w, _ = img_draw.textsize(text, font=cfont(font))
-                        pos = position[0] + \
-                            ((position[2] - position[0]) - w) / 2
-                        written_text = img_draw.text(
-                            (pos, position[1] + offset), text, font=cfont(font), fill=(0, 240, 50))
+                        pos = position[0] + ((position[2] - position[0]) - w) / 2
+                        written_text = img_draw.text((pos, position[1] + offset), text, font=cfont(font), fill=(0, 240, 50))
                         return written_text
 
                     for y in range(4):
@@ -3364,8 +3156,7 @@ async def edt(ctx):
                                 desc = [description[i:i + 2]
                                         for i in range(0, len(description), 2)]
                                 for x in range(len(desc)):
-                                    write_text(
-                                        " ".join(desc[x]), (x + 1) * 28, 26)
+                                    write_text(" ".join(desc[x]), (x + 1) * 28, 26)
 
     couverts = Image.open("extra/couverts.png")
     couverts.thumbnail((img_w / 3, img_h / 3), Image.ANTIALIAS)
@@ -3410,10 +3201,8 @@ async def minecraft(ctx, *, args=None):
                 return await ctx.send("The OMGServ id is not a number.")
             elif lang_server == "de":
                 return await ctx.send("Die OMGServ-ID ist nicht ein Zahl.")
-        data_players = requests.get(
-            f"https://panel.omgserv.com/json/{args}/players").json()
-        data_status = requests.get(
-            f"https://panel.omgserv.com/json/{args}/status").json()
+        data_players = requests.get(f"https://panel.omgserv.com/json/{args}/players").json()
+        data_status = requests.get(f"https://panel.omgserv.com/json/{args}/status").json()
         if "Access denied" in str(data_status):
             if lang_server == "fr":
                 return await ctx.send("L'id OMGServ n'existe pas.")
@@ -3422,8 +3211,7 @@ async def minecraft(ctx, *, args=None):
             elif lang_server == "de":
                 return await ctx.send("Die OMGServ-ID existiert nicht!")
         if not "Invalid type" in str(data_players):
-            list_players = sorted(
-                [x for x in eval(str(data_players["players"]))], key=lambda x: x.casefold())
+            list_players = sorted([x for x in eval(str(data_players["players"]))], key=lambda x: x.casefold())
         else:
             list_players = False
 
@@ -3465,12 +3253,10 @@ async def minecraft(ctx, *, args=None):
                 msg_empty_server = "Empty server!"
             elif lang_server == "de":
                 msg_empty_server = "Leerer Server!"
-            draw.text((200, 300), msg_empty_server,
-                      font=font1, fill=(0, 0, 255))
+            draw.text((200, 300), msg_empty_server, font=font1, fill=(0, 0, 255))
 
         try:
-            status = "Online" if str(
-                data_status["status"]["online"]) == "True" else "Offline"
+            status = "Online" if str(data_status["status"]["online"]) == "True" else "Offline"
         except:
             status = "Unknown"
         try:
@@ -3485,17 +3271,12 @@ async def minecraft(ctx, *, args=None):
             max_players = str(data_status["status"]["players"]["max"])
         except:
             max_players = "Ø"
-        draw.text((1280, 220), "Status : " + status,
-                  font=font2, fill=(255, 0, 0))
-        draw.text((1280, 400), "Players : {}/{}".format(len(list_players),
-                                                        max_players), font=font2, fill=(255, 0, 0))
-        draw.text((1280, 580), "CPU : {}%".format(
-            cpu_percent), font=font2, fill=(255, 0, 0))
-        draw.text((1280, 760), "RAM : {} Mo".format(
-            ram_number[:4]), font=font2, fill=(255, 0, 0))
+        draw.text((1280, 220), "Status : " + status, font=font2, fill=(255, 0, 0))
+        draw.text((1280, 400), "Players : {}/{}".format(len(list_players), max_players), font=font2, fill=(255, 0, 0))
+        draw.text((1280, 580), "CPU : {}%".format(cpu_percent), font=font2, fill=(255, 0, 0))
+        draw.text((1280, 760), "RAM : {} Mo".format(ram_number[:4]), font=font2, fill=(255, 0, 0))
         img.thumbnail((1280, 720), Image.ANTIALIAS)
-        img.save("extra/result.jpg", "JPEG", quality=80,
-                 optimize=True, progressive=True)
+        img.save("extra/result.jpg", "JPEG", quality=80, optimize=True, progressive=True)
         await ctx.send(file=discord.File("extra/result.jpg", "mc.jpg"))
         await asyncio.sleep(10)
         try:
@@ -3503,4 +3284,7 @@ async def minecraft(ctx, *, args=None):
         except:
             pass
 
-client.run(config["PUBLIC"]["token"])
+if debug:
+    client.run(config["PRIVATE"]["token"])
+else:
+    client.run(config["PUBLIC"]["token"])

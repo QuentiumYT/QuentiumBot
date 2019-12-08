@@ -5,7 +5,7 @@
             "dashes": "--------------------------",
             "msg_bot_admin": ":x: Il manque la permissions **Administrateur** au bot.",
             "msg_bot_user": ":x: **",
-            "asked_by": "Demandé par : {ctx.message.author.name}"
+            "asked_by": "Demandé par : "
         },
         "help": {
             "msg_title_infos": " Commandes **INFORMATIONS** :",
@@ -298,7 +298,7 @@
             "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
         },
         "msgtotal": {
-            "msg_arg_valide": "Merci de préciser un argument valide : `{prefix_server}msgtotal [all / channel] [@membre]`.",
+            "msg_arg_valide": "Merci de préciser un argument valide : `{prefix}msgtotal [all / channel] [@membre]`.",
             "msg_calculating": "Calcul des messages...",
             "msg_nb_msg": "Nombre de messages :",
             "msg_has_sent": "** a envoyé **",
@@ -311,6 +311,27 @@
         },
         "letter": {
             "msg_no_text": "Merci de préciser un texte."
+        },
+        "weather": {
+            "msg_specify_city": "Merci de préciser une ville.",
+            "msg_city_not_found": "La ville n'a pas été trouvée.",
+            "Thunderstorm": "Orage",
+            "Drizzle": "Bruine",
+            "Rain": "Pluie",
+            "Snow": "Neige",
+            "Mist": "Brouillard",
+            "Clear": "Clair",
+            "Clouds": "Nuages",
+            "Tornado": "Tornade",
+            "Haze": "Orage",
+            "msg_condition": "Condition météo :",
+            "msg_cloudy": ":cloud: Taux de nuages : ",
+            "msg_rainy": ":cloud_rain: Volume de pluie (dernières 3h) : ",
+            "msg_snowy": ":cloud_snow: Volume de neige (dernières 3h) : ",
+            "msg_temperature": ":thermometer: Température :",
+            "msg_humidity": ":sweat_drops: Humidité :",
+            "msg_wind_speed": ":wind_blowing_face: Vitesse du vent :",
+            "msg_sun": "<:time:475328338542592000> Lever du soleil : {sunrise} • Coucher du soleil : {sunset} (DST)"
         }
     },
     "ANCHOR EN": null,
