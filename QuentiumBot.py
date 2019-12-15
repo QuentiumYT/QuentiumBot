@@ -10,7 +10,8 @@ from icalendar import Calendar
 from bs4 import BeautifulSoup
 from ftplib import FTP
 
-data = translations = glob_translations = lang_server = commands_server = autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
+data = translations = glob_translations = lang_server = commands_server = autorole_server = ""
+prefix_server = start_time = embed = server_id = server_name = url = headers = ""
 debug = False
 
 # TYPE JSON files
@@ -62,9 +63,6 @@ client = commands.Bot(command_prefix=get_prefix,
                       pm_help=True, help_command=None,
                       case_insensitive=True)
 
-url = "https://discordbots.org/api/bots/" + str(client.user.id) + "/stats"
-headers = {"Authorization": config["GLOBAL"]["token_dbl"]}
-
 @client.event
 async def on_ready():
     global start_time
@@ -75,6 +73,8 @@ async def on_ready():
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
     start_time = datetime.now()
+    url = "https://discordbots.org/api/bots/" + str(client.user.id) + "/stats"
+    headers = {"Authorization": config["GLOBAL"]["token_dbl"]}
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
     try:
         payload = {"server_count": len(client.guilds)}

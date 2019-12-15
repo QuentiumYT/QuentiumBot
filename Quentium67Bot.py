@@ -10,12 +10,14 @@ from icalendar import Calendar
 from bs4 import BeautifulSoup
 from ftplib import FTP
 
-data = translations = glob_translations = lang_server = commands_server = autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
+data = translations = glob_translations = raw_translations = lang_server = commands_server = \
+    autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
+debug = False
 
 # TYPE JSON files
 
 with open("translations.json", "r", encoding="utf-8", errors="ignore") as file:
-    translations = json.loads(file.read(), strict=False)
+    raw_translations = json.loads(file.read(), strict=False)
 
 with open("extra/CONFIG.json", "r", encoding="utf-8", errors="ignore") as file:
     config = json.loads(file.read(), strict=False)
@@ -84,7 +86,7 @@ async def on_ready():
 #----------------------------- SETUP GLOBAL FUNCTIONS AND GLOBAL EVENTS -----------------------------#
 
 async def async_data(server_id, server_name, message_received):
-    global data, translations, glob_translations, lang_server, commands_server, autorole_server, prefix_server
+    global data, translations, raw_translations, glob_translations, lang_server, commands_server, autorole_server, prefix_server
     if server_id == 380373195473027074:  # Support Quentiumbot server ID
         await asyncio.sleep(1)
     with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
@@ -110,20 +112,23 @@ async def async_data(server_id, server_name, message_received):
     # FIXME get command base if alias
     cmd_received = str(message_received.content).replace(prefix_server, "").split()[0]
     lang_server = "fr" # remove
-    glob_translations = translations[lang_server]["GLOBAL"]
-    translations = translations[lang_server][cmd_received]
+    glob_translations = raw_translations[lang_server]["GLOBAL"]
+    try:
+        translations = raw_translations[lang_server][cmd_received]
+    except:
+        translations = ""
     return data, translations, glob_translations, lang_server, commands_server, autorole_server, prefix_server
 
-async def async_weather(args):
-    global embed, lang_server
+async def async_weather(args, lang="fr"):
+    global embed, translations, raw_translations
     # REVIEW test if lang works
-    translations = translations[lang_server]["weather"]
+    translations = raw_translations[lang]["weather"]
     if not args:
         embed = discord.Embed(title=translations["msg_specify_city"], color=0x00FFFF)
         return embed
     args = args.replace(" ", "%20")
     url = "https://api.openweathermap.org/data/2.5/weather?q=" + args
-    data_weather = requests.get(url + f"&appid={token_weather}&lang=fr").json()
+    data_weather = requests.get(url + f"&appid={token_weather}&lang=" + lang).json()
     if "city not found" in str(data_weather):
         embed = discord.Embed(title=translations["msg_city_not_found"], color=0x00FFFF)
         return embed
@@ -164,9 +169,9 @@ async def async_weather(args):
 
 async def async_do_task():
     global embed
-    await async_weather("Gundershoffen")
+    await async_weather("Gundershoffen", lang="fr")
     await discord.utils.get(client.get_all_members(), id=395525422680506379).send(embed=embed)
-    # await async_weather("Wintershouse")
+    # await async_weather("Wintershouse", lang="fr")
     # await discord.utils.get(client.get_all_members(), id=246943045105221633).send(embed=embed)
     del embed
 
@@ -236,6 +241,8 @@ async def on_message(message):
             if any(x == message.content.lower() for x in triggers[str(server_id)].keys()):
                 response = triggers[str(server_id)].get(message.content.lower())
                 return await message.channel.send(response)
+    if debug:
+        await client.process_commands(message)
 
 @asyncio.coroutine
 async def loop_repeat():
@@ -390,35 +397,36 @@ async def on_member_remove(member):
 
 # TYPE command_error
 
-@client.event
-async def on_command_error(ctx, error):
-    if "is not found" in str(error):
-        return
-    elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-        return await ctx.send(":x: Il manque certaines permissions au bot.")
-    elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-        return await ctx.send(":x: Il manque certaines permissions au bot.")
-    elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-        return await ctx.send(":x: Il manque certains accès au bot.")
-    elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-        return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
-    elif "Cannot send an empty message" in str(error):
-        return await ctx.message.delete()
-    elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
-        return await ctx.send(":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:")
-    elif isinstance(error, commands.MissingRequiredArgument):
-        return await ctx.send(":x: Un argument requis manque :rolling_eyes:")
-    elif isinstance(error, commands.NoPrivateMessage):
-        return await ctx.send(":x: Cette commande ne peut pas être utilisée en message privés :confused:")
-    elif isinstance(error, commands.DisabledCommand):
-        return await ctx.send(":x: Cette commande à été désactivée :confounded:")
-    elif isinstance(error, commands.BadArgument):
-        return await ctx.send(":x: Un mauvais argument à été donné :slight_frown:")
-    elif isinstance(error, commands.TooManyArguments):
-        return await ctx.send(":x: Trop d'arguments ont été donnés :scream:")
-    elif isinstance(error, commands.CommandOnCooldown):
-        time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
-        return await ctx.send(":x: Doucement, il y a un cooldown sur cette commande, il vous reste " + time_left + "sec à attendre :raised_hand:")
+if not debug:
+    @client.event
+    async def on_command_error(ctx, error):
+        if "is not found" in str(error):
+            return
+        elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
+            return await ctx.send(":x: Il manque certaines permissions au bot.")
+        elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
+            return await ctx.send(":x: Il manque certaines permissions au bot.")
+        elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
+            return await ctx.send(":x: Il manque certains accès au bot.")
+        elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
+            return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
+        elif "Cannot send an empty message" in str(error):
+            return await ctx.message.delete()
+        elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+            return await ctx.send(":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:")
+        elif isinstance(error, commands.MissingRequiredArgument):
+            return await ctx.send(":x: Un argument requis manque :rolling_eyes:")
+        elif isinstance(error, commands.NoPrivateMessage):
+            return await ctx.send(":x: Cette commande ne peut pas être utilisée en message privés :confused:")
+        elif isinstance(error, commands.DisabledCommand):
+            return await ctx.send(":x: Cette commande à été désactivée :confounded:")
+        elif isinstance(error, commands.BadArgument):
+            return await ctx.send(":x: Un mauvais argument à été donné :slight_frown:")
+        elif isinstance(error, commands.TooManyArguments):
+            return await ctx.send(":x: Trop d'arguments ont été donnés :scream:")
+        elif isinstance(error, commands.CommandOnCooldown):
+            time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
+            return await ctx.send(":x: Doucement, il y a un cooldown sur cette commande, il vous reste " + time_left + "sec à attendre :raised_hand:")
 
 # TYPE Info cmds
 
@@ -825,7 +833,7 @@ async def weather(ctx, *, args=None):
 
     if not ctx.message.author.bot == True:
         global embed
-        await async_weather(args)
+        await async_weather(args, lang="fr")
         await ctx.send(embed=embed)
         del embed
 

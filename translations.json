@@ -284,10 +284,13 @@
             "url_website_discord": "https://quentium.fr/discord/"
         },
         "listservers": {
-            "msg_any": "Aucuns",
-            "msg_invites": "Liens d'invitations :"
+            "msg_invites": "**__Nom du serveur | Position enregistrée__**"
         },
-        "listbans": {
+        "listinvites": {
+            "msg_any": "Aucuns",
+            "msg_invites": "Liste des liens d'invitations :"
+        }
+		,"listbans": {
             "msg_any": "Aucuns",
             "msg_invites": "Liste des membres bannis :"
         },
