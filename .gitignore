@@ -105,6 +105,7 @@ venv.bak/
 
 dev/
 extra/
+bkp/
 feedback.txt
 errors.txt
 Restart bots.bat

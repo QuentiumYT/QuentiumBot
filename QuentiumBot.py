@@ -43,11 +43,12 @@ with open("extra/embed_colors.json", encoding="utf-8", errors="ignore") as file:
 def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
 
-def get_prefix(bot, message):
+async def get_prefix(bot, message):
     if not message.guild:
         return "+"
     with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
         data = json.loads(file.read(), strict=False)
+    await asyncio.sleep(1)
     if data.get(str(message.guild.id)) == None:
         prefixes_list = "+"
     else:

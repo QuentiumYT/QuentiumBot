@@ -289,8 +289,8 @@
         "listinvites": {
             "msg_any": "Aucuns",
             "msg_invites": "Liste des liens d'invitations :"
-        }
-		,"listbans": {
+        },
+        "listbans": {
             "msg_any": "Aucuns",
             "msg_invites": "Liste des membres bannis :"
         },
@@ -327,6 +327,7 @@
             "Clouds": "Nuages",
             "Tornado": "Tornade",
             "Haze": "Orage",
+            "Fog": "Brouillard",
             "msg_condition": "Condition météo :",
             "msg_cloudy": ":cloud: Taux de nuages : ",
             "msg_rainy": ":cloud_rain: Volume de pluie (dernières 3h) : ",

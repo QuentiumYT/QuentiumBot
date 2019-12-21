@@ -1,4 +1,5 @@
 # NOTE Private Quentium67Bot Source code
+# FIXME Replace unescaped chars \u000 in data.json
 
 import discord, asyncio, psutil, requests, urllib.request
 import time, calendar, json, random, subprocess, inspect, re, os
@@ -111,7 +112,7 @@ async def async_data(server_id, server_name, message_received):
         json.dump(data, file, indent=4)
     # FIXME get command base if alias
     cmd_received = str(message_received.content).replace(prefix_server, "").split()[0]
-    lang_server = "fr" # remove
+    lang_server = "fr"  # remove
     glob_translations = raw_translations[lang_server]["GLOBAL"]
     try:
         translations = raw_translations[lang_server][cmd_received]
@@ -1550,9 +1551,6 @@ async def data4tte(ctx, *number):
 # TYPE Temp cmds
 
 #----------------------------- TEMP COMMANDS -----------------------------#
-
-# FIXME add dtmine here too (in translations)
-# Gaming commands ?
 
 @client.command(pass_context=True, aliases=["jour"])
 async def edt(ctx):
