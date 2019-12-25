@@ -43,17 +43,15 @@ with open("extra/embed_colors.json", encoding="utf-8", errors="ignore") as file:
 def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
 
-async def get_prefix(bot, message):
+def get_prefix(client, message):
+    global data
     if not message.guild:
         return "+"
-    with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
-        data = json.loads(file.read(), strict=False)
-    await asyncio.sleep(1)
     if data.get(str(message.guild.id)) == None:
         prefixes_list = "+"
     else:
         prefixes_list = data.get(str(message.guild.id))["prefix_server"]
-    return commands.when_mentioned_or(prefixes_list)(bot, message)
+    return commands.when_mentioned_or(prefixes_list)(client, message)
 
 token_genius = config["GLOBAL"]["token_genius"]
 token_weather = config["GLOBAL"]["token_weather"]
@@ -115,7 +113,7 @@ async def async_data(server_id, server_name, message_received):
     with open("extra/data.json", "w", encoding="utf-8", errors="ignore") as file:
         json.dump(data, file, indent=4)
     # cmd_received = str(message_received.content).replace(prefix_server, "").split()[0]
-    # FIXME replace with cmd_received
+    # FIXME replace help with cmd_received
     translations = translations[lang_server]["help"]
     return data, translations, lang_server, commands_server, autorole_server, prefix_server
 

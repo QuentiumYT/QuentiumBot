@@ -1,5 +1,4 @@
 # NOTE Private Quentium67Bot Source code
-# FIXME Replace unescaped chars \u000 in data.json
 
 import discord, asyncio, psutil, requests, urllib.request
 import time, calendar, json, random, subprocess, inspect, re, os
@@ -44,18 +43,15 @@ with open("extra/embed_colors.json", encoding="utf-8", errors="ignore") as file:
 def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
 
-async def get_prefix(bot, message):
+def get_prefix(client, message):
+    global data
     if not message.guild:
         return "+"
-    if message.guild.id == 380373195473027074:  # Support Quentiumbot server ID
-        await asyncio.sleep(1)
-    with open("extra/data.json", "r", encoding="utf-8", errors="ignore") as file:
-        data = json.loads(file.read(), strict=False)
     if data.get(str(message.guild.id)) == None:
         prefixes_list = "+"
     else:
         prefixes_list = data.get(str(message.guild.id))["prefix_server"]
-    return commands.when_mentioned_or(prefixes_list)(bot, message)
+    return commands.when_mentioned_or(prefixes_list)(client, message)
 
 token_genius = config["GLOBAL"]["token_genius"]
 token_weather = config["GLOBAL"]["token_weather"]
@@ -122,7 +118,6 @@ async def async_data(server_id, server_name, message_received):
 
 async def async_weather(args, lang="fr"):
     global embed, translations, raw_translations
-    # REVIEW test if lang works
     translations = raw_translations[lang]["weather"]
     if not args:
         embed = discord.Embed(title=translations["msg_specify_city"], color=0x00FFFF)
@@ -170,14 +165,15 @@ async def async_weather(args, lang="fr"):
 
 async def async_do_task():
     global embed
-    await async_weather("Gundershoffen", lang="fr")
+    await async_weather("Gundershoffen")
     await discord.utils.get(client.get_all_members(), id=395525422680506379).send(embed=embed)
-    # await async_weather("Wintershouse", lang="fr")
+    # await async_weather("Wintershouse")
     # await discord.utils.get(client.get_all_members(), id=246943045105221633).send(embed=embed)
     del embed
 
-async def async_command(args, msg):
-    global emo
+async def async_command(args, msg, lang="fr"):
+    global emo, embed, translations, raw_translations
+    translations = raw_translations[lang]["weather"]
     if "data4tte" in args or "menu4tte" in args:
         return subprocess.Popen(["sudo"] + args.split())
     msg_channel = discord.utils.get(msg.author.guild.channels, id=msg.channel.id)
@@ -1496,7 +1492,7 @@ async def _exec(ctx, *, args=None):
     if not ctx.message.author.bot == True:
         if ctx.message.author.id == 246943045105221633:  # Quentium user ID
             if args:
-                await async_command(args, ctx.message)
+                await async_command(args, ctx.message, lang_server)
             else:
                 return ctx.message.delete()
 
