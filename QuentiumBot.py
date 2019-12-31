@@ -181,9 +181,9 @@ async def get_bot_stats():
     with open("extra/botstats.json", "w", encoding="utf-8", errors="ignore") as file:
         json.dump(stats, file, indent=4)
     ftp = FTP(config["GLOBAL"]["ftp_host"], config["GLOBAL"]["ftp_login"], config["GLOBAL"]["ftp_passwd"])
-    f = open("extra/botstats.json", "rb")
-    ftp.storbinary("STOR /www/discord/js/botstats.json", f)
-    f.close()
+    file = open("extra/botstats.json", "rb")
+    ftp.storbinary("STOR /www/+++SiteData/botstats.json", file)
+    file.close()
 
 async def async_command(args, msg):
     global emo
@@ -321,7 +321,10 @@ async def loop_repeat():
             await async_do_task()
             now = datetime.today().replace(microsecond=0)
             if day_time == num_days_month:
-                clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
+                if now.month == 12:
+                    clock = now.replace(year=now.year + 1, month=1, day=1, hour=7, minute=0, second=0, microsecond=0)
+                else:
+                    clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
             else:
                 clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
         await asyncio.sleep(5)
@@ -1599,7 +1602,7 @@ async def serverstats(ctx):
             serv_verif_lvl = msg_extreme
         serv_roles = str(len([x.name for x in serv.roles]))
         serv_roles_list = ", ".join([x.name for x in serv.roles])
-        if len(serv_roles_list) > 500:
+        if len(serv_roles_list) > 450:
             serv_roles_list = msg_limit
 
         embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
@@ -2235,7 +2238,7 @@ async def trigger(ctx, *, args=None):
                     elif lang_server == "de":
                         embed = discord.Embed(title=f"Bitte geben Sie einen Reaktion zum Löschen an: `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
                     return await ctx.send(embed=embed)
-                if '"' in args:
+                if '"' in args or "'" in args:
                     remove = re.findall(r'["\'](.*?)["\']', args)[-1].lower()
                 else:
                     remove = args.split()[-1].lower()

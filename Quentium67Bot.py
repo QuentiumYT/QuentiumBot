@@ -8,7 +8,6 @@ from PIL import Image, ImageDraw, ImageFont, ImageFile, ImageFilter
 from datetime import datetime, timedelta, date
 from icalendar import Calendar
 from bs4 import BeautifulSoup
-from ftplib import FTP
 
 data = translations = glob_translations = raw_translations = lang_server = commands_server = \
     autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
@@ -276,7 +275,10 @@ async def loop_repeat():
             await async_do_task()
             now = datetime.today().replace(microsecond=0)
             if day_time == num_days_month:
-                clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
+                if now.month == 12:
+                    clock = now.replace(year=now.year + 1, month=1, day=1, hour=7, minute=0, second=0, microsecond=0)
+                else:
+                    clock = now.replace(month=now.month + 1, day=1, hour=7, minute=0, second=0, microsecond=0)
             else:
                 clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
         await asyncio.sleep(5)
@@ -1227,7 +1229,7 @@ async def trigger(ctx, *, args=None):
                 if len(args.split()) == 1:
                     embed = discord.Embed(title=f"Veuillez préciser un déclencheur à supprimer : `{prefix_server}trigger [remove / delete] [\"déclancheur\"]`", color=0xBFFF00)
                     return await ctx.send(embed=embed)
-                if '"' in args:
+                if '"' in args or "'" in args:
                     remove = re.findall(r'["\'](.*?)["\']', args)[-1].lower()
                 else:
                     remove = args.split()[-1].lower()
