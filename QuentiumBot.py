@@ -1,7 +1,7 @@
 # NOTE Public QuentiumBot Source code
 
 import discord, asyncio, psutil, requests, urllib.request
-import time, calendar, json, random, subprocess, inspect, re, os
+import time, calendar, json, random, subprocess, inspect, re, os, difflib
 
 from discord.ext import commands
 from PIL import Image, ImageDraw, ImageFont, ImageFile, ImageFilter
@@ -66,8 +66,8 @@ client = commands.Bot(command_prefix=get_prefix,
 async def on_ready():
     global start_time
     print("\n+--------------------------------------------+"
-          "\n|             QuentiumBot ready !            |"
-          "\n|           © 2017 - 2019 QuentiumYT         |"
+          "\n|              QuentiumBot ready!            |"
+          "\n|           © 2017 - 2020 QuentiumYT         |"
           "\n+--------------------------------------------+\n")
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
@@ -81,8 +81,11 @@ async def on_ready():
     except:
         pass
     await client.change_presence(
-        activity=discord.Activity(name="+help | quentium.fr", type=discord.ActivityType.playing),
-        status=discord.Status.online)
+        status=discord.Status.online,
+        activity=discord.Activity(
+            name="+help | quentium.fr",
+            type=discord.ActivityType.playing)
+    )
 
 # TYPE GLOBAL function
 
@@ -286,7 +289,6 @@ async def on_server_remove(server):
     except:
         pass
 
-@asyncio.coroutine
 async def loop_repeat():
     await client.wait_until_ready()
     now = datetime.today().replace(microsecond=0)
@@ -367,7 +369,7 @@ async def on_member_join(member):
 
 @client.event
 async def on_raw_reaction_add(ctx):
-    if ctx.user_id == 246943045105221633:  # Quentium user ID
+    if any(x == ctx.user_id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
         user = client.get_user(ctx.user_id)
         server = client.get_guild(ctx.guild_id)
         channel = server.get_channel(ctx.channel_id)
@@ -566,7 +568,7 @@ async def help(ctx, *, args=None):
                         embed_var += f"- `{prefix_server}{command.replace(commands_type_special[cmds_type], '')}{command_usage}` > {command_desc}\n"
                     index = len(commands_type) + cmds_type
                     embed.add_field(name=emo(commands_type_emoji[index]) + commands_title[index], value=embed_var, inline=True)
-            if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+            if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
                 embed_type = [x for x in translations.keys() if "quentium_" in x]
                 embed_var = ""
                 for command in embed_type:
@@ -1350,7 +1352,7 @@ async def lyrics(ctx, *, args):
         embed.set_thumbnail(url=image)
         for block in lyrics.split("\n\n")[1:-1]:
             splitted = block.split("\n", 1)
-            if not splitted[0] is "":
+            if not splitted[0]:
                 if not len(splitted) == 1:
                     if len(splitted[1]) >= 1024:
                         embed.add_field(name=splitted[0], value=splitted[1][0:1023])
@@ -1936,7 +1938,7 @@ async def prefix(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if not(ctx.message.author.guild_permissions.administrator or ctx.message.author.id == 246943045105221633):  # Quentium user ID
+        if not(ctx.message.author.guild_permissions.administrator or any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112])):  # Quentium user IDs
             if lang_server == "fr":
                 return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Administrateur** !")
             elif lang_server == "en":
@@ -1991,7 +1993,7 @@ async def lang(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if not(ctx.message.author.guild_permissions.administrator or ctx.message.author.id == 246943045105221633):  # Quentium user ID
+        if not(ctx.message.author.guild_permissions.administrator or any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112])):  # Quentium user IDs
             if lang_server == "fr":
                 return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Administrateur** !")
             elif lang_server == "en":
@@ -2045,14 +2047,14 @@ async def autorole(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if not(ctx.message.author.guild_permissions.manage_roles or ctx.message.author.id == 246943045105221633):  # Quentium user ID
+        if not(ctx.message.author.guild_permissions.manage_roles or any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112])):  # Quentium user IDs
             if lang_server == "fr":
                 return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Gérer les rôles** !")
             elif lang_server == "en":
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Manage roles**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Rollen verwalten**!")
-        if not ctx.message.guild.me.guild_permissions.manage_roles:
+        if not ctx.message.author.permissions_in(ctx.message.channel).manage_roles:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Gérer les rôles** au bot.")
             elif lang_server == "en":
@@ -2164,7 +2166,7 @@ async def trigger(ctx, *, args=None):
 
     if not ctx.message.author.bot == True:
         global triggers
-        if not(ctx.message.author.guild_permissions.administrator or ctx.message.author.id == 246943045105221633):  # Quentium user ID
+        if not(ctx.message.author.guild_permissions.administrator or any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112])):  # Quentium user IDs
             if not args:
                 if lang_server == "fr":
                     return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Administrateur** !")
@@ -2357,14 +2359,14 @@ async def clear(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if not ctx.message.author.guild_permissions.manage_messages:
+        if not ctx.message.author.permissions_in(ctx.message.channel).manage_messages:
             if lang_server == "fr":
                 return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Gérer les messages** !")
             elif lang_server == "en":
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Manage messages**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Nachrichten verwalten**!")
-        if not ctx.message.guild.me.guild_permissions.manage_messages:
+        if not ctx.message.author.permissions_in(ctx.message.channel).manage_messages:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Gérer les messages** au bot.")
             elif lang_server == "en":
@@ -2541,7 +2543,7 @@ async def kick(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Kick members**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Kick-Mitglieder**!")
-        if not ctx.message.guild.me.guild_permissions.kick_members:
+        if not ctx.message.author.permissions_in(ctx.message.channel).kick_members:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Expulser des membres** au bot.")
             elif lang_server == "en":
@@ -2582,7 +2584,7 @@ async def ban(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Ban members**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Verbot von Mitgliedern**!")
-        if not ctx.message.guild.me.guild_permissions.ban_members:
+        if not ctx.message.author.permissions_in(ctx.message.channel).ban_members:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Bannir des membres** au bot.")
             elif lang_server == "en":
@@ -2700,7 +2702,7 @@ async def absent(ctx, *, args=None):
     if not ctx.message.author.bot == True:
         if server_id == 371687157817016331:  # France Les Cités server ID
             if ctx.message.channel.id == 552484372251410437:  # France Les Cités channel ID
-                if not ctx.message.guild.me.guild_permissions.manage_roles:
+                if not ctx.message.author.permissions_in(ctx.message.channel).manage_roles:
                     return await ctx.send(":x: Il manque la permissions **Gérer les rôles** au bot.")
                 role = discord.utils.get(ctx.message.guild.roles, name="Absent")
                 member_name = ctx.message.author.nick if ctx.message.author.nick is not None else str(ctx.message.author.name)
@@ -2785,7 +2787,7 @@ async def vote(ctx, *, args=None):
 
 #----------------------------- INSOUMIS COMMANDS -----------------------------#
 
-@client.command(pass_context=True, no_pm=True, aliases=["roles"])
+@client.command(pass_context=True, no_pm=True, aliases=["roles", "rol"])
 async def role(ctx, *, args=None):
     if isinstance(ctx.channel, discord.TextChannel):
         global lang_server, commands_server, autorole_server, prefix_server, server_id, server_name
@@ -2797,157 +2799,45 @@ async def role(ctx, *, args=None):
 
     if not ctx.message.author.bot == True:
         if server_id == 391272643229384705:  # Insoumis server ID
-            list_roles = ["Payday 2", "Diablo 3", "Gta 5", "The division", "Fortnite", "CS GO", "Farming simulator", "Lol", "Dead by daylight", "Destiny 2", "Quake", "left 4 dead 2", "GRID 2", "Steep", "HL2DM", "Sea of Thieves"]
-            if not args:
-                return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
-            if "payday" in args.lower():
-                rolename = "Payday 2"
-            elif "cs" in args.lower():
-                rolename = "CS GO"
-            elif "gta" in args.lower():
-                rolename = "Gta 5"
-            elif "diablo" in args.lower():
-                rolename = "Diablo 3"
-            elif "destiny" in args.lower():
-                rolename = "Destiny 2"
-            elif "division" in args.lower():
-                rolename = "The division"
-            elif "grid" in args.lower():
-                rolename = "GRID 2"
-            elif "left" in args.lower():
-                rolename = "left 4 dead 2"
-            elif "dead" in args.lower():
-                rolename = "Dead by daylight"
-            elif "sea" in args.lower():
-                rolename = "Sea of Thieves"
-            elif "hl" in args.lower():
-                rolename = "HL2DM"
-            elif "list" in args.lower():
-                return await ctx.send("Voiçi la liste des rôles : `{}`".format(", ".join(list_roles)))
-            else:
-                for role in list_roles:
-                    if args.lower() in role.lower():
-                        rolename = role
-                        break
-                    else:
-                        rolename = None
-            role = discord.utils.get(ctx.message.guild.roles, name=rolename)
-            if role:
-                if any(x in role.name for x in list_roles):
-                    if role in ctx.message.author.roles:
-                        await ctx.message.author.remove_roles(role)
-                        result = f"Le rôle {role.name} à bien été enlevé."
-                    else:
-                        await ctx.message.author.add_roles(role)
-                        result = f"Le rôle {role.name} à bien été mis."
-                    return await ctx.send(result)
-                else:
-                    return await ctx.send("Vous n'avez pas le droit de vous attribuer ce rôle.")
-            else:
-                return await ctx.send("Ce rôle n'existe pas :frowning:")
-
-        elif server_id == 342685946078167040:  # Christopher server ID
-            list_roles = ["Counter Strike: Global Offensive", "Warframe", "Rainbow Six Siège", "Dofus", "Fortnite", "Minecraft", "Paladins", "PlayerUnknown's Battlegrounds", "Payday 2", "Overkill's The Walking Dead"]
-            if not args:
-                return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
-            if "payday" in args.lower():
-                rolename = "Payday 2"
-            elif "cs" in args.lower():
-                rolename = "Counter Strike: Global Offensive"
-            elif "r6" in args.lower():
-                rolename = "Rainbow Six Siège"
-            elif "pubg" in args.lower():
-                rolename = "PlayerUnknown's Battlegrounds"
-            elif "twd" in args.lower():
-                rolename = "Overkill's The Walking Dead"
-            elif "list" in args.lower():
-                return await ctx.send("Voiçi la liste des rôles : `{}`".format(", ".join(list_roles)))
-            else:
-                for role in list_roles:
-                    if args in role.lower():
-                        rolename = role
-                else:
-                    rolename = None
-            role = discord.utils.get(ctx.message.guild.roles, name=rolename)
-            if role:
-                if any(x in role.name for x in list_roles):
-                    if role in ctx.message.author.roles:
-                        await ctx.message.author.remove_roles(role)
-                        result = f"Le rôle {role.name} à bien été enlevé."
-                    else:
-                        await ctx.message.author.add_roles(role)
-                        result = f"Le rôle {role.name} à bien été mis."
-                    return await ctx.send(result)
-                else:
-                    return await ctx.send("Vous n'avez pas le droit de vous attribuer ce rôle.")
-            else:
-                return await ctx.send("Ce rôle n'existe pas :frowning:")
+            list_roles = ["Payday 2", "Diablo 3", "Gta 5", "The division", "Fortnite", "CS GO", "Farming simulator",
+                          "Lol", "Dead by daylight", "Destiny 2", "Quake", "left 4 dead 2", "GRID 2", "Steep", "HL2DM",
+                          "Sea of Thieves", "Monster Hunter"]
 
         elif server_id == 350156033198653441:  # TFI server ID
             list_roles = ["Chauffeur en Test", "Ami"]
-            if not args:
-                return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
-            if "test" in args.lower():
-                rolename = "Chauffeur en Test"
-            elif "list" in args.lower():
-                return await ctx.send("Voiçi la liste des rôles : `{}`".format(", ".join(list_roles)))
-            else:
-                for role in list_roles:
-                    if args in role.lower():
-                        rolename = role
-                else:
-                    rolename = None
-            role = discord.utils.get(ctx.message.guild.roles, name=rolename)
-            if role:
-                if any(x in role.name for x in list_roles):
-                    if role in ctx.message.author.roles:
-                        await ctx.message.author.remove_roles(role)
-                        result = f"Le rôle {role.name} à bien été enlevé."
-                    else:
-                        await ctx.message.author.add_roles(role)
-                        result = f"Le rôle {role.name} à bien été mis."
-                    return await ctx.send(result)
-                else:
-                    return await ctx.send("Vous n'avez pas le droit de vous attribuer ce rôle.")
-            else:
-                return await ctx.send("Ce rôle n'existe pas :frowning:")
 
         elif server_id == 509028174013923339:  # Solumon server ID
             list_roles = ["Payday 2", "Joueur", "Gmod"]
-            if not args:
-                return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
-            if "payday" in args.lower():
-                rolename = "Payday 2"
-            elif "list" in args.lower():
-                return await ctx.send("Voiçi la liste des rôles : `{}`".format(", ".join(list_roles)))
-            else:
-                for role in list_roles:
-                    if args in role.lower():
-                        rolename = role
-                else:
-                    rolename = None
-            role = discord.utils.get(ctx.message.guild.roles, name=rolename)
-            if role:
-                if any(x in role.name for x in list_roles):
-                    if role in ctx.message.author.roles:
-                        await ctx.message.author.remove_roles(role)
-                        result = f"Le rôle {role.name} à bien été enlevé."
-                    else:
-                        await ctx.message.author.add_roles(role)
-                        result = f"Le rôle {role.name} à bien été mis."
-                    return await ctx.send(result)
-                else:
-                    return await ctx.send("Vous n'avez pas le droit de vous attribuer ce rôle.")
-            else:
-                return await ctx.send("Ce rôle n'existe pas :frowning:")
 
         elif server_id == 319533759894388736:  # Exos_Team server ID
-            if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+            if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
+                if not args:
+                    return await ctx.message.delete()
                 role = discord.utils.get(ctx.message.guild.roles, name=args)
                 if role in ctx.message.author.roles:
                     return await ctx.message.author.remove_roles(role)
                 else:
                     return await ctx.message.author.add_roles(role)
+
+        if not args:
+            return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))
+        if "list" in args.lower():
+            return await ctx.send("Voiçi la liste des rôles : `{}`".format(", ".join(list_roles)))
+        lower_match = difflib.get_close_matches(args.lower(), [x.lower() for x in list_roles], n=1, cutoff=0)
+        rolename = [x for x in list_roles if x.lower() == lower_match[0]]
+        role = discord.utils.get(ctx.message.guild.roles, name=rolename[0])
+        if not role:
+            return await ctx.send("Ce rôle n'existe pas :frowning:")
+        if any(x in role.name for x in list_roles):
+            if role in ctx.message.author.roles:
+                await ctx.message.author.remove_roles(role)
+                result = f"Le rôle {role.name} à bien été enlevé."
+            else:
+                await ctx.message.author.add_roles(role)
+                result = f"Le rôle {role.name} à bien été mis."
+            return await ctx.send(result)
+        else:
+            return await ctx.send("Vous n'avez pas le droit de vous attribuer ce rôle.")
 
 # TYPE TheSwe cmds
 
@@ -2983,7 +2873,7 @@ async def showideas(ctx):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             if os.path.isfile("feedback.txt") == False:
                 tmp = await ctx.send("Le fichier est vide :weary:")
                 await asyncio.sleep(5)
@@ -3011,7 +2901,7 @@ async def addlogs(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             if not args:
                 return await ctx.message.delete()
             else:
@@ -3030,18 +2920,17 @@ async def _eval(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
-            if args:
-                try:
-                    res = eval(args)
-                    if inspect.isawaitable(res):
-                        await res
-                    else:
-                        await ctx.send(res)
-                except Exception as e:
-                    return await ctx.send(f"```python\n{type(e).__name__}: {e}```")
-            else:
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
+            if not args:
                 return await ctx.message.delete()
+            try:
+                res = eval(args)
+                if inspect.isawaitable(res):
+                    await res
+                else:
+                    await ctx.send(res)
+            except Exception as e:
+                return await ctx.send(f"```python\n{type(e).__name__}: {e}```")
 
 @client.command(name="exec", pass_context=True, aliases=["execute"])
 async def _exec(ctx, *, args=None):
@@ -3054,11 +2943,10 @@ async def _exec(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             if args:
-                await async_command(args, ctx.message)
-            else:
                 return ctx.message.delete()
+            await async_command(args, ctx.message)
 
 @client.command(pass_context=True)
 async def data4tte(ctx, *, args=None):
@@ -3186,7 +3074,6 @@ async def minecraft(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        # 22915
         if ctx.message.author.id == 247775235913285632:  # SpaceDragon user ID
             args = "236885"
         if not args:

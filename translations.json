@@ -231,7 +231,7 @@
                 "type": "special / Insoumis",
                 "description": "Attribuez vous les rôles qui vous correspondent sur le serveur.",
                 "usage": " [\"rôle\" / liste]",
-                "aliases": "roles",
+                "aliases": "roles / rol",
                 "example": " CSGO"
             },
             "msg_title_quentium": " Commandes **QUENTIUM** :",
@@ -345,7 +345,7 @@
             "msg_error2": ""
         },
         "help": {
-            "msg_title_infos": " **INFORMATIONS** commands:",
+            "msg_title_infos": " **INFORMATION** commands:",
             "infos_help": {
                 "type": "info / Informations",
                 "description": "Displays the list of commands or informs about the use of a specific command.",
@@ -381,7 +381,7 @@
                 "aliases": "sharebot / share / invitebot",
                 "example": ""
             },
-            "msg_title_utilities": " **UTILITIES** commands:",
+            "msg_title_utilities": " **UTILITY** commands:",
             "utilities_msgtotal": {
                 "type": "utilities / Utilities",
                 "description": "Calculates the number of messages of a member in total or in the current channel.",
@@ -475,7 +475,7 @@
                 "aliases": "logs / showlog / changelog / whatsnew / whatnew",
                 "example": ""
             },
-            "msg_title_admin_configs": " **CONFIGURATIONS (Admin)** commands:",
+            "msg_title_admin_configs": " **CONFIGURATION (Admin)** commands:",
             "admin_configs_prefix": {
                 "type": "admin_configs / Admin Configurations",
                 "description": "Allows to change the prefix of the bot.",

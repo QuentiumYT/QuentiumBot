@@ -66,16 +66,19 @@ client = commands.Bot(command_prefix=get_prefix,
 async def on_ready():
     global start_time
     print("\n+--------------------------------------------+"
-          "\n|            Quentium67Bot ready !           |"
-          "\n|           © 2017 - 2019 QuentiumYT         |"
+          "\n|             Quentium67Bot ready!           |"
+          "\n|           © 2017 - 2020 QuentiumYT         |"
           "\n+--------------------------------------------+\n")
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
     start_time = datetime.now()
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
     await client.change_presence(
-        activity=discord.Activity(name="quentium.fr | +help", type=discord.ActivityType.watching),
-        status=discord.Status.dnd)
+        status=discord.Status.dnd,
+        activity=discord.Activity(
+            name="quentium.fr | +help",
+            type=discord.ActivityType.watching)
+    )
 
 # TYPE GLOBAL function
 
@@ -106,8 +109,11 @@ async def async_data(server_id, server_name, message_received):
     with open("extra/data.json", "w", encoding="utf-8", errors="ignore") as file:
         json.dump(data, file, indent=4)
     # FIXME get command base if alias
-    cmd_received = str(message_received.content).replace(prefix_server, "").split()[0]
-    lang_server = "fr"  # remove
+    lang_server = "fr" # remove
+    if client.user.mention[2:] in message_received.content:
+        cmd_received = message_received.content.split(client.user.mention[2:])[1].split()[0]
+    else:
+        cmd_received = message_received.content.split()[0].replace(prefix_server, "")
     glob_translations = raw_translations[lang_server]["GLOBAL"]
     try:
         translations = raw_translations[lang_server][cmd_received]
@@ -171,8 +177,7 @@ async def async_do_task():
     del embed
 
 async def async_command(args, msg, lang="fr"):
-    global emo, embed, translations, raw_translations
-    translations = raw_translations[lang]["weather"]
+    global emo, embed
     if "data4tte" in args or "menu4tte" in args:
         return subprocess.Popen(["sudo"] + args.split())
     msg_channel = discord.utils.get(msg.author.guild.channels, id=msg.channel.id)
@@ -240,7 +245,6 @@ async def on_message(message):
     if debug:
         await client.process_commands(message)
 
-@asyncio.coroutine
 async def loop_repeat():
     await client.wait_until_ready()
     now = datetime.today().replace(microsecond=0)
@@ -291,7 +295,7 @@ except:
 
 @client.event
 async def on_raw_reaction_add(ctx):
-    if ctx.user_id == 246943045105221633:  # Quentium user ID
+    if any(x == ctx.user_id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
         user = client.get_user(ctx.user_id)
         server = client.get_guild(ctx.guild_id)
         channel = server.get_channel(ctx.channel_id)
@@ -465,7 +469,7 @@ async def help(ctx, *, args=None):
                         embed_var += f"- `{prefix_server}{command.replace(commands_type_special[cmds_type], '')}{command_usage}` > {command_desc}\n"
                     index = len(commands_type) + int(cmds_type / 2) + 1
                     embed.add_field(name=emo(commands_type_emoji[index]) + commands_title[index], value=embed_var, inline=True)
-            if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+            if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
                 embed_type = [x for x in translations.keys() if "quentium_" in x]
                 embed_var = ""
                 for command in embed_type:
@@ -551,7 +555,7 @@ async def help_old(ctx):
         embed = discord.Embed(title="----- Liste des Commandes -----", url="https://quentium.fr/discord/", color=0x00ff00)
         embed.add_field(name=":video_game: Commandes **UTILISATEUR** :", value=commands_user, inline=True)
         embed.add_field(name=":cop: Commandes **ADMIN** :", value=commands_admin, inline=True)
-        if ctx.message.author.id == 246943045105221633:
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             embed.add_field(name=":eyes: Commandes **QUENTIUM** :", value=commands_quentium, inline=True)
         embed.add_field(name=":incoming_envelope: Commandes **SUPPORT / FEEDBACK** :", value=commands_feedback + end_text, inline=True)
         embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
@@ -1300,7 +1304,7 @@ async def clear(ctx, *, args=None):
         if not server_id == 380373195473027074 or ctx.message.channel.id == 402517188789141504:  # Support QuentiumBot server ID
             if not ctx.message.author.guild_permissions.manage_messages:
                 return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Gérer les messages** !")
-            if not ctx.message.guild.me.guild_permissions.manage_messages:
+            if not ctx.message.author.permissions_in(ctx.message.channel).manage_messages:
                 return await ctx.send(":x: Il manque la permissions **Gérer les messages** au bot.")
             if not args:
                 return await ctx.send("Merci de préciser un nombre.")
@@ -1400,7 +1404,7 @@ async def kick(ctx, *, member: discord.Member = None):
     if not ctx.message.author.bot == True:
         if not ctx.message.author.guild_permissions.kick_members:
             return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Expulser des membres** !")
-        if not ctx.message.guild.me.guild_permissions.kick_members:
+        if not ctx.message.author.permissions_in(ctx.message.channel).kick_members:
             return await ctx.send(":x: Il manque la permissions **Expulser des membres** au bot.")
         if not member:
             return await ctx.send(f":x: {ctx.message.author.name}, mentionnez la personne à expulser !")
@@ -1420,7 +1424,7 @@ async def ban(ctx, *, member: discord.Member = None):
     if not ctx.message.author.bot == True:
         if not ctx.message.author.guild_permissions.ban_members:
             return await ctx.send(f":x: {ctx.message.author.name}, vous n'avez pas la permission **Bannir des membres** !")
-        if not ctx.message.guild.me.guild_permissions.ban_members:
+        if not ctx.message.author.permissions_in(ctx.message.channel).ban_members:
             return await ctx.send(":x: Il manque la permissions **Bannir des membres** au bot.")
         if not member:
             return await ctx.send(f":x: {ctx.message.author.name}, mentionnez la personne à bannir !")
@@ -1441,7 +1445,7 @@ async def showideas(ctx):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             if os.path.isfile("feedback.txt") == False:
                 tmp = await ctx.send("Le fichier est vide :weary:")
                 await asyncio.sleep(5)
@@ -1471,7 +1475,7 @@ async def addlogs(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             if not args:
                 return await ctx.message.delete()
             else:
@@ -1492,11 +1496,10 @@ async def _exec(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
-            if args:
-                await async_command(args, ctx.message, lang_server)
-            else:
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
+            if not args:
                 return ctx.message.delete()
+            await async_command(args, ctx.message, lang_server)
 
 @client.command(name="eval", pass_context=True, hidden=True, aliases=["evaluate"])
 async def _eval(ctx, *, args=None):
@@ -1507,18 +1510,17 @@ async def _eval(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 246943045105221633:  # Quentium user ID
-            if args:
-                try:
-                    res = eval(args)
-                    if inspect.isawaitable(res):
-                        await res
-                    else:
-                        await ctx.send(res)
-                except Exception as e:
-                    return await ctx.send(f"```python\n{type(e).__name__}: {e}```")
-            else:
+        if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
+            if not args:
                 return await ctx.message.delete()
+            try:
+                res = eval(args)
+                if inspect.isawaitable(res):
+                    await res
+                else:
+                    await ctx.send(res)
+            except Exception as e:
+                return await ctx.send(f"```python\n{type(e).__name__}: {e}```")
 
 @client.command(pass_context=True, hidden=True)
 async def data4tte(ctx, *number):
