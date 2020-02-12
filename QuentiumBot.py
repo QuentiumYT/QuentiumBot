@@ -159,7 +159,7 @@ async def get_bot_stats():
     stats["creation_days"] = (date_now - date_crea).days
     stats["lines_count"] = sum(1 for line in open("QuentiumBot.py"))
     stats["memory"] = int(psutil.virtual_memory().used >> 20)
-    stats["storage"] = int((os.stat('QuentiumBot.py').st_size >> 10) + (os.stat('Quentium67Bot.py').st_size >> 10))
+    stats["storage"] = int((os.stat("QuentiumBot.py").st_size >> 10) + (os.stat("Quentium67Bot.py").st_size >> 10))
     bot_commands_get_total = 0
     for serv in data.keys():
         bot_commands_get_total += data[serv]["commands_server"]
@@ -986,9 +986,9 @@ async def _embed(ctx, *, args=None):
             elif lang_server == "de":
                 return await ctx.send(f"Bitte geben Sie eine ein richtiges Argument: `{prefix_server}embed T=Titel D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.")
 
-        content = re.split(".=", args)[1:]
+        content = re.split(r".=", args)[1:]
         content = [x.strip() for x in content]
-        sep = re.findall(".=", args)
+        sep = re.findall(r".=", args)
         title = description = color = thumbnail = footer = url = author = None
         for x in range(len(sep)):
             if "T=" == sep[x]:
@@ -1080,7 +1080,7 @@ async def letter(ctx, *, args=None):
         emojis_temp = []
         if emojis_used:
             for emoji in emojis_used:
-                if int(emoji.split(':', 2)[2].split('>')[0]) in [x.id for x in client.emojis]:
+                if int(emoji.split(":", 2)[2].split(">")[0]) in [x.id for x in client.emojis]:
                     args = args.replace(emoji, "☺")  # Custom emoji
                 else:
                     args = args.replace(emoji, "☻")
@@ -1281,7 +1281,7 @@ async def weather(ctx, *, args=None):
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["lyric", "paroles", "parole"])
-async def lyrics(ctx, *, args):
+async def lyrics(ctx, *, args=None):
     if isinstance(ctx.channel, discord.TextChannel):
         global lang_server, commands_server, autorole_server, prefix_server, server_id, server_name
         server_id = ctx.message.guild.id
@@ -1298,10 +1298,10 @@ async def lyrics(ctx, *, args):
                 return await ctx.send("Please specify a music.")
             elif lang_server == "de":
                 return await ctx.send("Bitte geben Sie eine Musik.")
-        request_uri = "https://api.genius.com/search/"
-        params = {"q": args}
+        request_url = "https://api.genius.com/search/"
+        query = {"q": args}
         headers = {"Authorization": "Bearer " + token_genius}
-        r = requests.get(request_uri, params=params, headers=headers).json()
+        r = requests.get(request_url, params=query, headers=headers).json()
 
         if not r["response"]["hits"]:
             if lang_server == "fr":
@@ -1352,7 +1352,7 @@ async def lyrics(ctx, *, args):
         embed.set_thumbnail(url=image)
         for block in lyrics.split("\n\n")[1:-1]:
             splitted = block.split("\n", 1)
-            if not splitted[0]:
+            if splitted[0] != "":
                 if not len(splitted) == 1:
                     if len(splitted[1]) >= 1024:
                         embed.add_field(name=splitted[0], value=splitted[1][0:1023])
@@ -2501,7 +2501,7 @@ async def move(ctx, *, number=None):
                             return await ctx.send("Die Salonnummer entspricht keinem Sprachkanäle.")
                 else:
                     if lang_server == "fr":
-                        return await ctx.send("Il n'y à aucuns salons vocaux sur votre serveur.")
+                        return await ctx.send("Il n'y a aucuns salons vocaux sur votre serveur.")
                     elif lang_server == "en":
                         return await ctx.send("There are no voice channel on your server.")
                     elif lang_server == "de":
@@ -2984,84 +2984,6 @@ async def data4tte(ctx, *, args=None):
 async def getbotstats(ctx):
     await get_bot_stats()
 
-@client.command(pass_context=True, aliases=["jour"])
-async def edt(ctx):
-    edt = open("extra/edt.ics", "rb")
-    gcal = Calendar.from_ical(edt.read())
-    time_now = datetime.today() + timedelta(days=5)
-
-    img = Image.open("extra/bg.jpg").convert("RGBA")
-    img = img.filter(ImageFilter.GaussianBlur(radius=4))
-
-    def cfont(font_size):
-        return ImageFont.truetype("extra/sourcesanspro-black.ttf", font_size)
-    frame = Image.open("extra/frame.png")
-    img_w, img_h = img.size
-    img.paste(frame, frame)
-    img_draw = ImageDraw.Draw(img)
-    text = f"Emploi du temps du {time_now.strftime('%d/%m')}"
-    w, _ = img_draw.textsize(text, font=cfont(48))
-    img_draw.text(((img_w - w) / 2, 30), text, font=cfont(48), fill=(0, 240, 50))
-
-    global_pos = [0, 160, 320, 480, 640, 800]
-    global_hour = ["08h30", "10h30", "12h30", "14h00", "16h00", "18h00"]
-
-    for x in range(len(global_pos)):
-        position = (img_w * 0.07, img_h * 0.13 + global_pos[x])
-        img_draw.text(position, global_hour[x], font=cfont(38), fill=(0, 240, 50))
-
-    global_pos = [0, 180, 480, 660]
-    global_color = ["white", "beige", "white", "beige"]
-    del global_hour[2]
-
-    for x in range(len(global_pos)):
-        position = (img_w * 0.3, img_h * 0.15 +
-                    global_pos[x], img_w * 0.95, img_h * 0.3 + global_pos[x])
-        img_draw.rectangle(position, outline="black", fill=global_color[x], width=5)
-        for component in gcal.walk():
-            if component.name == "VEVENT":
-                time = component.get("dtstart").dt.strftime("%d/%m/%Y")
-                if time == time_now.strftime("%d/%m/%Y"):
-                    summary = component.get('summary')
-                    location = component.get('location').split(",")[0]
-                    dtstart = (component.get("dtstart").dt +
-                               timedelta(hours=2)).strftime('%Hh%M')
-                    description = component.get('description').split("\n")[:-2]
-
-                    def write_text(text, offset, font):
-                        w, _ = img_draw.textsize(text, font=cfont(font))
-                        pos = position[0] + ((position[2] - position[0]) - w) / 2
-                        written_text = img_draw.text((pos, position[1] + offset), text, font=cfont(font), fill=(0, 240, 50))
-                        return written_text
-
-                    for y in range(4):
-                        if x == y and dtstart == global_hour[y]:
-                            write_text(summary, 0, 30)
-                            if len(description) == 5:
-                                write_text("(" + description[4] + ")", 28, 26)
-                                write_text(location, 56, 26)
-                                write_text(description[3], 84, 26)
-                                write_text(description[2], 112, 26)
-                            else:
-                                desc = [description[i:i + 2]
-                                        for i in range(0, len(description), 2)]
-                                for x in range(len(desc)):
-                                    write_text(" ".join(desc[x]), (x + 1) * 28, 26)
-
-    couverts = Image.open("extra/couverts.png")
-    couverts.thumbnail((img_w / 3, img_h / 3), Image.ANTIALIAS)
-    img.paste(couverts, (265, 485), couverts)
-
-    edt.close()
-
-    img.save("extra/result.png", quality=90, optimize=True, progressive=True)
-    await ctx.send(file=discord.File("extra/result.png", "edt.png"))
-    await asyncio.sleep(10)
-    try:
-        subprocess.call("sudo rm extra/result.png", shell=True)
-    except:
-        pass
-
 @client.command(pass_context=True, aliases=["mc", "omg", "omgserv"])
 @commands.cooldown(2, 10, commands.BucketType.channel)
 async def minecraft(ctx, *, args=None):
@@ -3074,8 +2996,6 @@ async def minecraft(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 247775235913285632:  # SpaceDragon user ID
-            args = "236885"
         if not args:
             if lang_server == "fr":
                 return await ctx.send("Veuillez renseigner l'id de vôtre serveur OMGServ.")

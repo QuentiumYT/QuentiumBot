@@ -641,7 +641,7 @@ async def msgtotal(ctx, *args):
                 member = discord.utils.get(client.get_all_members(), id=str(args)[2:-1])
                 args = "all"
             elif not args == "all" and not args == "channel":
-                return await ctx.send(translations['msg_arg_valide'].format(prefix=prefix_server))
+                return await ctx.send(translations["msg_arg_valide"].format(prefix=prefix_server))
             else:
                 member = ctx.message.author
         else:
@@ -697,11 +697,11 @@ async def _embed(ctx, *, args=None):
         def r(): return random.randint(0, 255)
         def random_color(): return int("0x%02X%02X%02X" % (r(), r(), r()), 16)
         if not args:
-            return await ctx.send(translations['msg_arg_valide'].format(prefix_server=prefix_server))
+            return await ctx.send(translations["msg_arg_valide"].format(prefix_server=prefix_server))
 
-        content = re.split(".=", args)[1:]
+        content = re.split(r".=", args)[1:]
         content = [x.strip() for x in content]
-        sep = re.findall(".=", args)
+        sep = re.findall(r".=", args)
         title = description = color = thumbnail = footer = url = author = None
         for x in range(len(sep)):
             if "T=" == sep[x]:
@@ -775,7 +775,7 @@ async def letter(ctx, *, args=None):
         emojis_temp = []
         if emojis_used:
             for emoji in emojis_used:
-                if int(emoji.split(':', 2)[2].split('>')[0]) in [x.id for x in client.emojis]:
+                if int(emoji.split(":", 2)[2].split(">")[0]) in [x.id for x in client.emojis]:
                     args = args.replace(emoji, "☺")  # Custom emoji
                 else:
                     args = args.replace(emoji, "☻")
@@ -841,7 +841,7 @@ async def weather(ctx, *, args=None):
         del embed
 
 @client.command(pass_context=True, aliases=["lyric", "paroles", "parole", "l"])
-async def lyrics(ctx, *, args):
+async def lyrics(ctx, *, args=None):
     if isinstance(ctx.channel, discord.TextChannel):
         global server_id, server_name
         server_id = ctx.message.guild.id
@@ -851,10 +851,10 @@ async def lyrics(ctx, *, args):
     if not ctx.message.author.bot == True:
         if not args:
             return await ctx.send("Merci de préciser une musique.")
-        request_uri = "https://api.genius.com/search/"
-        params = {"q": args}
+        request_url = "https://api.genius.com/search/"
+        query = {"q": args}
         headers = {"Authorization": "Bearer " + token_genius}
-        r = requests.get(request_uri, params=params, headers=headers).json()
+        r = requests.get(request_url, params=query, headers=headers).json()
 
         if not r["response"]["hits"]:
             return await ctx.send("La musique n'a pas été trouvée ou n'existe pas.")
@@ -878,7 +878,7 @@ async def lyrics(ctx, *, args):
         embed.set_thumbnail(url=image)
         for block in lyrics.split("\n\n")[1:-1]:
             splitted = block.split("\n", 1)
-            if not splitted[0] is "":
+            if splitted[0] != "":
                 if not len(splitted) == 1:
                     if len(splitted[1]) >= 1024:
                         embed.add_field(name=splitted[0], value=splitted[1][0:1023])
@@ -1590,11 +1590,11 @@ async def edt(ctx):
             if component.name == "VEVENT":
                 time = component.get("dtstart").dt.strftime("%d/%m/%Y")
                 if time == time_now.strftime("%d/%m/%Y"):
-                    summary = component.get('summary')
-                    location = component.get('location').split(",")[0]
+                    summary = component.get("summary")
+                    location = component.get("location").split(",")[0]
                     dtstart = (component.get("dtstart").dt +
-                               timedelta(hours=2)).strftime('%Hh%M')
-                    description = component.get('description').split("\n")[:-2]
+                               timedelta(hours=2)).strftime("%Hh%M")
+                    description = component.get("description").split("\n")[:-2]
 
                     def write_text(text, offset, font):
                         w, _ = img_draw.textsize(text, font=cfont(font))
@@ -1632,17 +1632,14 @@ async def edt(ctx):
 
 @client.command(pass_context=True, aliases=["mc", "omg", "omgserv"])
 @commands.cooldown(2, 10, commands.BucketType.channel)
-async def minecraft(ctx, *, omg_id=None):
+async def minecraft(ctx, *, args=None):
     if isinstance(ctx.channel, discord.TextChannel):
         global server_id, server_name
         server_id = ctx.message.guild.id
         server_name = ctx.message.guild.name
         await async_data(str(server_id), server_name, ctx.message)
 
-    # 22915
     if not ctx.message.author.bot == True:
-        if ctx.message.author.id == 247775235913285632:  # SpaceDragon user ID
-            args = "236885"
         if not args:
             return await ctx.send("Veuillez renseigner l'id de vôtre server OMGServ.")
         if not args.isdigit():
