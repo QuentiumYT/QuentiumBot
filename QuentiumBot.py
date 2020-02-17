@@ -185,7 +185,7 @@ async def get_bot_stats():
         json.dump(stats, file, indent=4)
     ftp = FTP(config["GLOBAL"]["ftp_host"], config["GLOBAL"]["ftp_login"], config["GLOBAL"]["ftp_passwd"])
     file = open("extra/botstats.json", "rb")
-    ftp.storbinary("STOR /www/+++SiteData/botstats.json", file)
+    ftp.storbinary("STOR /bot/json/botstats.json", file)
     file.close()
 
 async def async_command(args, msg):
@@ -2054,7 +2054,7 @@ async def autorole(ctx, *, args=None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Manage roles**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Rollen verwalten**!")
-        if not ctx.message.author.permissions_in(ctx.message.channel).manage_roles:
+        if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Gérer les rôles** au bot.")
             elif lang_server == "en":
@@ -2366,7 +2366,7 @@ async def clear(ctx, *, args=None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Manage messages**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Nachrichten verwalten**!")
-        if not ctx.message.author.permissions_in(ctx.message.channel).manage_messages:
+        if not ctx.message.channel.guild.me.guild_permissions.manage_messages:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Gérer les messages** au bot.")
             elif lang_server == "en":
@@ -2543,7 +2543,7 @@ async def kick(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Kick members**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Kick-Mitglieder**!")
-        if not ctx.message.author.permissions_in(ctx.message.channel).kick_members:
+        if not ctx.message.channel.guild.me.guild_permissions.kick_members:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Expulser des membres** au bot.")
             elif lang_server == "en":
@@ -2584,7 +2584,7 @@ async def ban(ctx, *, member: discord.Member = None):
                 return await ctx.send(f":x: {ctx.message.author.name}, you don't have the permission **Ban members**!")
             elif lang_server == "de":
                 return await ctx.send(f":x: {ctx.message.author.name}, Sie haben nicht die Berechtigung **Verbot von Mitgliedern**!")
-        if not ctx.message.author.permissions_in(ctx.message.channel).ban_members:
+        if not ctx.message.channel.guild.me.guild_permissions.ban_members:
             if lang_server == "fr":
                 return await ctx.send(":x: Il manque la permissions **Bannir des membres** au bot.")
             elif lang_server == "en":
@@ -2702,7 +2702,7 @@ async def absent(ctx, *, args=None):
     if not ctx.message.author.bot == True:
         if server_id == 371687157817016331:  # France Les Cités server ID
             if ctx.message.channel.id == 552484372251410437:  # France Les Cités channel ID
-                if not ctx.message.author.permissions_in(ctx.message.channel).manage_roles:
+                if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
                     return await ctx.send(":x: Il manque la permissions **Gérer les rôles** au bot.")
                 role = discord.utils.get(ctx.message.guild.roles, name="Absent")
                 member_name = ctx.message.author.nick if ctx.message.author.nick is not None else str(ctx.message.author.name)

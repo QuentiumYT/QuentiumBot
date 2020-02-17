@@ -34,7 +34,7 @@ Feel free to suggest some features to add to the bot or report a bug using `idea
 
 ## 📚 Documentation
 
-Help can be found at [bot.quentium.fr](https://quentium.fr/discord/index.php?dev=command_list#documentation).
+Help can be found at [bot.quentium.fr](https://bot.quentium.fr/index.php?dev=command_list#documentation).
 
 You can use `+help` on discord aswell but it's not as complete as the website.
 
