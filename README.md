@@ -58,7 +58,7 @@ Please make sure to test your suggestions before commiting.
 -   Steam: [QuentiumYT](https://steamcommunity.com/id/QuentiumYT)
 -   Reddit: [QuentiumYT](https://www.reddit.com/user/QuentiumYT)
 -   PayPal: [QuentinYT](https://www.paypal.me/QuentiumYT/1)
--   Contact: [Mail](mailto:support@quentium.fr?subject=[Web]%20Contact%20for%20...)
+-   Contact: [Mail](mailto:support@quentium.fr?subject=[Bot]%20Contact%20for%20...)
 
 Please ✰ this repository if this project helped you!
 

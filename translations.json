@@ -271,7 +271,7 @@
                 "example": " 130"
             },
             "msg_list_commands": "----- Liste des Commandes -----",
-            "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/",
+            "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr/",
             "msg_aliases": "Alias :",
             "msg_format": "Utilisation :",
             "msg_caption": ":bookmark_tabs: Légende :bookmark_tabs:",
@@ -280,8 +280,8 @@
             "msg_warning_desc": "Si vous rencontrez un problème, merci de la soumettre avec la commande `+bug` ou en rejoignant le serveur de test/support : https://discord.gg/5sehgXx\n",
             "msg_donation": "\n:euro: Pour une petite donation : [Cliquez ici]({})",
             "msg_no_command_found": "La commande spécifiée n'a pas été trouvée.",
-            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
-            "url_website_discord": "https://quentium.fr/discord/"
+            "url_logo_bot": "https://bot.quentium.fr/img/logo.png",
+            "url_website_discord": "https://bot.quentium.fr/"
         },
         "listservers": {
             "msg_invites": "**__Nom du serveur | Position enregistrée__**"
@@ -608,7 +608,7 @@
                 "example": " 130"
             },
             "msg_list_commands": "----- List of Commands -----",
-            "msg_more_infos": "For more information, please visit: https://quentium.fr/en/discord/",
+            "msg_more_infos": "For more information, please visit: https://bot.quentium.fr/",
             "msg_aliases": "Aliases:",
             "msg_format": "Format:",
             "msg_caption": ":bookmark_tabs: Caption :bookmark_tabs:",
@@ -617,8 +617,8 @@
             "msg_warning_desc": "If you have any problem, please submit it with `+bug` command or join our test/support server: https://discord.gg/5sehgXx\n",
             "msg_donation": "\n:dollar: For a small donation: [Click here]({})",
             "msg_no_command_found": "The specified command was not found.",
-            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
-            "url_website_discord": "https://quentium.fr/en/discord/"
+            "url_logo_bot": "https://bot.quentium.fr/img/logo.png",
+            "url_website_discord": "https://bot.quentium.fr/"
         }
     },
     "ANCHOR DE": null,
@@ -891,7 +891,7 @@
                 "example": " 130"
             },
             "msg_list_commands": "----- Liste der Befehle -----",
-            "msg_more_infos": "Für weitere Informationen, Bitte besuchen Sie meine Website: https://quentium.fr/de/discord/",
+            "msg_more_infos": "Für weitere Informationen, Bitte besuchen Sie meine Website: https://bot.quentium.fr/",
             "msg_aliases": "Aliase:",
             "msg_format": "Format:",
             "msg_caption": ":bookmark_tabs: Bildbeschriftung :bookmark_tabs:",
@@ -900,8 +900,8 @@
             "msg_warning_desc": "Wenn ihr einen Fehler findet, bitte meldet ihn mit `+bug` befehle oder indem Sie dem test/support-Server beitreten: https://discord.gg/5sehgXx\n",
             "msg_donation": "\n:dollar: Für eine kleine spende: [Hier klicken]({})",
             "msg_no_command_found": "Der angegebene Befehl wurde nicht gefunden.",
-            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
-            "url_website_discord": "https://quentium.fr/de/discord/"
+            "url_logo_bot": "https://bot.quentium.fr/img/logo.png",
+            "url_website_discord": "https://bot.quentium.fr/"
         }
     },
     "ANCHOR NL": null,
@@ -1174,7 +1174,7 @@
                 "example": " 130"
             },
             "msg_list_commands": "----- Lijst van alle opdrachten -----",
-            "msg_more_infos": "Voor meer informatie, zie: https://quentium.fr/en/discord/",
+            "msg_more_infos": "Voor meer informatie, zie: https://bot.quentium.fr/",
             "msg_aliases": "Aliases:",
             "msg_format": "Formaat:",
             "msg_caption": ":bookmark_tabs: Caption :bookmark_tabs:",
@@ -1183,8 +1183,8 @@
             "msg_warning_desc": "Lopen er problemen op met de bot, dien dan je probleem-bericht in via opdracht ``+bug``. Of doe mee aan onze discord server: https://discord.gg/5sehgXx\n",
             "msg_donation": "\n:dollar: Voor een kleine donaite: [Klik hier]({})",
             "msg_no_command_found": "De opdracht is niet geldig.",
-            "url_logo_bot": "https://quentium.fr/+img/logoBot.png",
-            "url_website_discord": "https://quentium.fr/nl/discord/"
+            "url_logo_bot": "https://bot.quentium.fr/img/logo.png",
+            "url_website_discord": "https://bot.quentium.fr/"
         }
     }
 }
