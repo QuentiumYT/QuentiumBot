@@ -358,7 +358,7 @@ async def on_member_join(member):
             except:
                 pass
 
-    if server_id == 199189022894063627:  # TheSweMaster server ID
+    if server_id == 199189022894063627: # TheSweMaster server ID
         if any(x in member.name for x in ["discord.gg", "twitter.com"]):
             await member.ban()
             msg = "A bot has been banned because we don't like them :ok_hand:"
@@ -366,6 +366,12 @@ async def on_member_join(member):
         else:
             msg = f"Hey {member.mention} ! Welcome on ***{member.guild.name}***! Feel free to ask for a cookie :cookie:"
             return await discord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
+
+    elif server_id == 392676649365274626: # Speakerino server ID
+        embed = discord.Embed(title="Welkom " + member.name, url="https://bot.quentium.fr/", description="Ey kut. Jij bent nu mijn bitch <3. Groetjes <@326821148782231553>", color=0x2769e1)
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_footer(text="By QuentiumBot")
+        return await discord.utils.get(member.guild.channels, id=392676649365274629).send(embed=embed)
 
 @client.event
 async def on_raw_reaction_add(ctx):
@@ -1040,8 +1046,15 @@ async def _embed(ctx, *, args=None):
             color = random_color()
         embed = discord.Embed(title=title, description=description, color=color, url=url)
         if thumbnail:
-            if "image/" in str(requests.get(thumbnail).headers):
-                embed.set_thumbnail(url=thumbnail)
+            if not "http" in thumbnail:
+                thumbnail = "https://" + thumbnail.split("//")[-1]
+            try:
+                if "image/" in str(requests.get(thumbnail).headers):
+                    embed.set_thumbnail(url=thumbnail)
+                else:
+                    embed.set_thumbnail(url="https://quentium.fr/+Files/discord/question.png")
+            except:
+                embed.set_thumbnail(url="https://quentium.fr/+Files/discord/question.png")
         if author:
             embed.set_author(name=author)
         if footer:

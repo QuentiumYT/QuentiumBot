@@ -748,8 +748,15 @@ async def _embed(ctx, *, args=None):
             color = random_color()
         embed = discord.Embed(title=title, description=description, color=color, url=url)
         if thumbnail:
-            if "image/" in str(requests.get(thumbnail).headers):
-                embed.set_thumbnail(url=thumbnail)
+            if not "http" in thumbnail:
+                thumbnail = "https://" + thumbnail.split("//")[-1]
+            try:
+                if "image/" in str(requests.get(thumbnail).headers):
+                    embed.set_thumbnail(url=thumbnail)
+                else:
+                    embed.set_thumbnail(url="https://quentium.fr/+Files/discord/question.png")
+            except:
+                embed.set_thumbnail(url="https://quentium.fr/+Files/discord/question.png")
         if author:
             embed.set_author(name=author)
         if footer:

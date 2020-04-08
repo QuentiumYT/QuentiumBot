@@ -21,13 +21,13 @@ Source code of Bots is messy because I kept them as single files, a rewrite is p
 
 ## 🚀 Features
 
--   See some stats like `serverstats`, `userstats`, `botstats`, `totalmsg`, `+uptime`.
+-   See some stats like `serverstats`, `userstats`, `botstats`, `totalmsg`, `uptime`.
 -   Send custom messages with emojis or embeds using commands `letter`, `embed`.
 -   Easily check the `listbans`, `listinvites`, `listservers`.
 -   Manage members with `autorole`, `role`, `move` commands.
 -   Moderate your server with a few commands `clear`, `kick`, `ban`.
 -   Edit the bot to correspond to your server with `prefix`, `lang`, `trigger`.
--   Other commands are on our website.
+-   Many other commands are shown on our website.
 -   If you want some custom commands, it's possible (contact me if so)!
 
 Feel free to suggest some features to add to the bot or report a bug using `idea` and `bug` commands :)
