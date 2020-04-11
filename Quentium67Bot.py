@@ -76,7 +76,7 @@ async def on_ready():
     await client.change_presence(
         status=discord.Status.dnd,
         activity=discord.Activity(
-            name="quentium.fr | +help",
+            name="bot.quentium.fr | +help",
             type=discord.ActivityType.watching)
     )
 
@@ -552,13 +552,13 @@ async def help_old(ctx):
     Légende : `[argument]` - `["argument donné"]` (Enlevez les guillemets) - `[@mention]` - `[choix / "mon_choix"]`
     :warning: Si vous rencontrez un problème, merci de la soumettre avec la commande `+bug` ou en rejoignant le serveur de test : https://discord.gg/5sehgXx\n"""
         end_text = ":euro: Pour une petite donation : [Cliquez ici]({})".format("https://www.paypal.me/QLienhardt")
-        embed = discord.Embed(title="----- Liste des Commandes -----", url="https://quentium.fr/discord/", color=0x00ff00)
+        embed = discord.Embed(title="----- Liste des Commandes -----", url="https://bot.quentium.fr/", color=0x00ff00)
         embed.add_field(name=":video_game: Commandes **UTILISATEUR** :", value=commands_user, inline=True)
         embed.add_field(name=":cop: Commandes **ADMIN** :", value=commands_admin, inline=True)
         if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
             embed.add_field(name=":eyes: Commandes **QUENTIUM** :", value=commands_quentium, inline=True)
         embed.add_field(name=":incoming_envelope: Commandes **SUPPORT / FEEDBACK** :", value=commands_feedback + end_text, inline=True)
-        embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
+        embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr/", icon_url="https://bot.quentium.fr/img/logo.png")
         return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, no_pm=True, aliases=["listeinvites", "invitelist"])
@@ -1029,7 +1029,7 @@ async def serverstats(ctx):
         serv_roles = str(len([x.name for x in serv.roles]))
         serv_roles_list = ", ".join([x.name for x in serv.roles])
 
-        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
+        embed = discord.Embed(url="https://bot.quentium.fr/", color=0x0026FF)
         icon = str(serv.icon_url)
         icon1 = icon.split(".", 999)
         icon2 = "".join(icon1[len(icon1) - 1])
@@ -1095,8 +1095,8 @@ async def botstats(ctx):
             elif "de" in data[serv]["lang_server"]:
                 bot_lang_de += 1
 
-        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
-        embed.set_thumbnail(url="https://quentium.fr/+img/logoBot.png")
+        embed = discord.Embed(url="https://bot.quentium.fr/", color=0x0026FF)
+        embed.set_thumbnail(url="https://bot.quentium.fr/img/logo.png")
         content = "```autohotkey\n" \
             "Hébergée sur:         %s\n" \
             "Propriétaire:         %s\n" \
@@ -1181,7 +1181,7 @@ async def showlogs(ctx):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        embed = discord.Embed(title="Logs de mise à jour du bot :", url="https://quentium.fr/discord/", color=0xFFFF00)
+        embed = discord.Embed(title="Logs de mise à jour du bot :", url="https://bot.quentium.fr/", color=0xFFFF00)
         counter = 1
         with open("extra/logs.txt", "r", encoding="utf-8", errors="ignore") as file:
             for line in file:
@@ -1189,7 +1189,7 @@ async def showlogs(ctx):
                 line_content = line.split(" --- ", 999)[1]
                 embed.add_field(name="#" + str(counter) + " / " + line_time, value=line_content.replace("..", ".\n"), inline=True)
                 counter += 1
-        embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.", icon_url="https://quentium.fr/+img/logoBot.png")
+        embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.", icon_url="https://bot.quentium.fr/img/logo.png")
         return await ctx.send(embed=embed)
 
 # TYPE Config cmds

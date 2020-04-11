@@ -83,7 +83,7 @@ async def on_ready():
     await client.change_presence(
         status=discord.Status.online,
         activity=discord.Activity(
-            name="+help | quentium.fr",
+            name="+help | bot.quentium.fr",
             type=discord.ActivityType.playing)
     )
 
@@ -658,13 +658,13 @@ async def help_old(ctx):
 Légende : `[argument]` - `["argument donné"]` (Enlevez les guillemets) - `[@mention]` - `[choix / "mon_choix"]`
 :warning: Si vous rencontrez un problème, merci de la soumettre avec la commande `+bug` ou en rejoignant le serveur de test/support : https://discord.gg/5sehgXx\n"""
             end_text = ":euro: Pour une petite donation : [Cliquez ici]({})".format("https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- Liste des Commandes -----", url="https://quentium.fr/discord/", color=0x00ff00)
+            embed = discord.Embed(title="----- Liste des Commandes -----", url="https://bot.quentium.fr/", color=0x00ff00)
             embed.add_field(name=":video_game: Commandes **UTILISATEUR** :", value=commands_user, inline=True)
             if server_id == 371687157817016331:  # France Les Cités ID
                 embed.add_field(name=":flag_fr: Commandes **Deep Town** :", value=commands_dt, inline=True)
             embed.add_field(name=":cop: Commandes **ADMIN** :", value=commands_admin, inline=True)
             embed.add_field(name=":incoming_envelope: Commandes **SUPPORT / FEEDBACK** :", value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://quentium.fr/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr/", icon_url="https://bot.quentium.fr/img/logo.png")
             return await ctx.send(embed=embed)
 
         elif lang_server == "en":
@@ -696,11 +696,11 @@ Légende : `[argument]` - `["argument donné"]` (Enlevez les guillemets) - `[@me
 Caption: `[argument]` - `["given argument"]` (Remove quotes) - `[@mention]` - `[choice  / "my_choice"]`
 :warning: If you have any problem, please submit it with `+bug` command or join our test/support server: https://discord.gg/5sehgXx\n"""
             end_text = ":dollar: For a small donation: [Click here]({})".format("https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- List of Commands -----", url="https://quentium.fr/en/discord/", color=0x00ff00)
+            embed = discord.Embed(title="----- List of Commands -----", url="https://bot.quentium.fr/", color=0x00ff00)
             embed.add_field(name=":video_game: Commands **USER**:", value=commands_user, inline=True)
             embed.add_field(name=":cop: Commands **ADMIN**:", value=commands_admin, inline=True)
             embed.add_field(name=":incoming_envelope: Commands **SUPPORT / FEEDBACK**:", value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="For more informations, please check my website: https://quentium.fr/en/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="For more informations, please check my website: https://bot.quentium.fr/", icon_url="https://bot.quentium.fr/img/logo.png")
             return await ctx.send(embed=embed)
 
         elif lang_server == "de":
@@ -732,11 +732,11 @@ Caption: `[argument]` - `["given argument"]` (Remove quotes) - `[@mention]` - `[
 Beschriftung: `[Argument]` - `["Gegeben Argument"]` (Entfernen Sie Anführungszeichen) - `[@Erwähnung]` - `[wähl / "Meine_Wähle"]`
 :warning: Wenn ihr einen Fehler findet, bitte meldet ihn mit `+bug` befehle oder indem Sie dem test/support-Server beitreten: https://discord.gg/5sehgXx\n"""
             end_text = ":euro: Für eine kleine spende: [Hier klicken]({})".format("https://www.paypal.me/QLienhardt")
-            embed = discord.Embed(title="----- Liste der Befehle -----", url="https://quentium.fr/de/discord/", color=0x00ff00)
+            embed = discord.Embed(title="----- Liste der Befehle -----", url="https://bot.quentium.fr/", color=0x00ff00)
             embed.add_field(name=":video_game: Befehle **BENUTZER**:", value=commands_user, inline=True)
             embed.add_field(name=":cop: Befehle **VERWALTER**:", value=commands_admin, inline=True)
             embed.add_field(name=":incoming_envelope: Befehle **SUPPORT / FEEDBACK**:", value=commands_feedback + end_text, inline=True)
-            embed.set_footer(text="Für weitere Informationen, Bitte besuchen Sie meine Website: https://quentium.fr/de/discord/", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Für weitere Informationen, Bitte besuchen Sie meine Website: https://bot.quentium.fr/", icon_url="https://bot.quentium.fr/img/logo.png")
             return await ctx.send(embed=embed)
 
 @client.command(pass_context=True, aliases=["listserveurs", "listserver", "listeserveurs", "serverlist", "serverliste", "servlist", "servelist", "listservs"])
@@ -1620,7 +1620,7 @@ async def serverstats(ctx):
         if len(serv_roles_list) > 450:
             serv_roles_list = msg_limit
 
-        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
+        embed = discord.Embed(url="https://bot.quentium.fr/", color=0x0026FF)
         icon = str(serv.icon_url)
         icon1 = icon.split(".", 999)
         icon2 = "".join(icon1[len(icon1) - 1])
@@ -1759,8 +1759,8 @@ async def botstats(ctx):
             elif "de" in data[serv]["lang_server"]:
                 bot_lang_de += 1
 
-        embed = discord.Embed(url="https://quentium.fr/discord/", color=0x0026FF)
-        embed.set_thumbnail(url="https://quentium.fr/+img/logoBot.png")
+        embed = discord.Embed(url="https://bot.quentium.fr/", color=0x0026FF)
+        embed.set_thumbnail(url="https://bot.quentium.fr/img/logo.png")
         if lang_server == "fr":
             content = "```autohotkey\n" \
                 "Hébergée sur:         %s\n" \
@@ -1916,11 +1916,11 @@ async def showlogs(ctx):
 
     if not ctx.message.author.bot == True:
         if lang_server == "fr":
-            embed = discord.Embed(title="Logs de mise à jour du bot :", url="https://quentium.fr/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Logs de mise à jour du bot :", url="https://bot.quentium.fr/", color=0xFFFF00)
         elif lang_server == "en":
-            embed = discord.Embed(title="Changelog of the bot:", url="https://quentium.fr/en/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Changelog of the bot:", url="https://bot.quentium.fr/", color=0xFFFF00)
         elif lang_server == "de":
-            embed = discord.Embed(title="Bot Update-Protokolle:", url="https://quentium.fr/de/discord/", color=0xFFFF00)
+            embed = discord.Embed(title="Bot Update-Protokolle:", url="https://bot.quentium.fr/", color=0xFFFF00)
         counter = 1
         with open("extra/logs.txt", "r", encoding="utf-8", errors="ignore") as file:
             for line in file:
@@ -1929,11 +1929,11 @@ async def showlogs(ctx):
                 embed.add_field(name="#" + str(counter) + " / " + line_time, value=line_content.replace("..", ".\n"), inline=True)
                 counter += 1
         if lang_server == "fr":
-            embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu.", icon_url="https://bot.quentium.fr/img/logo.png")
         elif lang_server == "en":
-            embed.set_footer(text="Logs are shared when the bot gets a new important update.", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Logs are shared when the bot gets a new important update.", icon_url="https://bot.quentium.fr/img/logo.png")
         elif lang_server == "de":
-            embed.set_footer(text="Die Protokolle werden veröffentlicht, sobald eine wichtig neue Update der Bots stattfindet.", icon_url="https://quentium.fr/+img/logoBot.png")
+            embed.set_footer(text="Die Protokolle werden veröffentlicht, sobald eine wichtig neue Update der Bots stattfindet.", icon_url="https://bot.quentium.fr/img/logo.png")
         return await ctx.send(embed=embed)
 
 # TYPE Config cmds
