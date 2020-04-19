@@ -447,17 +447,15 @@ if not debug:
         if lang_server == "fr":
             if "is not found" in str(error):
                 return
-            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-                return await ctx.send(":x: Il manque certaines permissions au bot.")
-            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-                return await ctx.send(":x: Il manque certaines permissions au bot.")
+            elif "Missing Permissions" in str(error):
+                return await ctx.send(":x: Il manque certaines permissions.")
             elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-                return await ctx.send(":x: Il manque certains accès au bot.")
+                return await ctx.send(":x: Il manque certains accès.")
             elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-                return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
+                return await ctx.send(":x: Un des message n'a pas été trouvé ou n'existe plus.")
             elif "Cannot send an empty message" in str(error):
                 return await ctx.message.delete()
-            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+            elif "You can only bulk delete messages that are under 14 days old." in str(error):
                 return await ctx.send(":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:")
             elif isinstance(error, commands.MissingRequiredArgument):
                 return await ctx.send(":x: Un argument requis manque :rolling_eyes:")
@@ -475,17 +473,15 @@ if not debug:
         elif lang_server == "en":
             if "is not found" in str(error):
                 return
-            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-                return await ctx.send(":x: The bot is missing some permissions.")
-            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-                return await ctx.send(":x: The bot is missing some permissions.")
-            elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-                return await ctx.send(":x: The bot is missing some access.")
-            elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-                return await ctx.send(":x: Discord does not find one of the messages.")
+            elif "Missing Permissions" in str(error):
+                return await ctx.send(":x: Some permissions are missing..")
+            elif "Missing Access" in str(error):
+                return await ctx.send(":x: Some accesses are missing.")
+            elif "Unknown Message" in str(error):
+                return await ctx.send(":x: One of the messages was not found or no longer exists.")
             elif "Cannot send an empty message" in str(error):
                 return await ctx.message.delete()
-            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+            elif "You can only bulk delete messages that are under 14 days old." in str(error):
                 return await ctx.send(":x: You can only delete messages that are under 14 days old :pensive:")
             elif isinstance(error, commands.MissingRequiredArgument):
                 return await ctx.send(":x: A required argument is missing :rolling_eyes:")
@@ -503,17 +499,15 @@ if not debug:
         elif lang_server == "de":
             if "is not found" in str(error):
                 return
-            elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-                return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
-            elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-                return await ctx.send(":x: Dem Bot fehlen einige Berechtigungen.")
-            elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-                return await ctx.send(":x: Dem Bot fehlen einige Zugang.")
-            elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-                return await ctx.send(":x: Discord findet eine der Nachrichten nicht.")
+            elif "Missing Permissions" in str(error):
+                return await ctx.send(":x: Einige Berechtigungen fehlen.")
+            elif "Missing Access" in str(error):
+                return await ctx.send(":x: Einige Zugriffe fehlen.")
+            elif "Unknown Message" in str(error):
+                return await ctx.send(":x: Eine der Nachrichten wurde nicht gefunden oder existiert nicht mehr.")
             elif "Cannot send an empty message" in str(error):
                 return await ctx.message.delete()
-            elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
+            elif "You can only bulk delete messages that are under 14 days old." in str(error):
                 return await ctx.send(":x: Sie können nur Nachrichten löschen, die weniger als 14 Tage alt sind :pensive:")
             elif isinstance(error, commands.MissingRequiredArgument):
                 return await ctx.send(":x: Ein Erfordertes argument fehlt :rolling_eyes:")
@@ -981,9 +975,8 @@ async def _embed(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        def r(): return random.randint(0, 255)
-        def random_color(): return int("0x%02X%02X%02X" % (r(), r(), r()), 16)
-
+        r = lambda: random.randint(0, 255)
+        random_color = lambda: int("0x%02X%02X%02X" % (r(), r(), r()), 16)
         if not args:
             if lang_server == "fr":
                 return await ctx.send(f"Merci de préciser un argument valide : `{prefix_server}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.")
@@ -2831,6 +2824,8 @@ async def role(ctx, *, args=None):
                     return await ctx.message.author.remove_roles(role)
                 else:
                     return await ctx.message.author.add_roles(role)
+        else:
+            return await ctx.send("Ce serveur n'a pas accès à l'attribution des rôles, veuillez contacter `QuentiumYT#0207`.")
 
         if not args:
             return await ctx.send("Merci de préciser un rôle à vous attribuer : `{}`".format(", ".join(list_roles)))

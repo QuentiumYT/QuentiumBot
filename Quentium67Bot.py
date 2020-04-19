@@ -405,14 +405,12 @@ if not debug:
     async def on_command_error(ctx, error):
         if "is not found" in str(error):
             return
-        elif "FORBIDDEN (status code: 403): Missing Permissions" in str(error):
-            return await ctx.send(":x: Il manque certaines permissions au bot.")
-        elif "FORBIDDEN (error code: 50013): Missing Permissions" in str(error):
-            return await ctx.send(":x: Il manque certaines permissions au bot.")
+        elif "Missing Permissions" in str(error):
+            return await ctx.send(":x: Il manque certaines permissions.")
         elif "FORBIDDEN (status code: 403): Missing Access" in str(error):
-            return await ctx.send(":x: Il manque certains accès au bot.")
+            return await ctx.send(":x: Il manque certains accès.")
         elif "NotFound: 404 NOT FOUND (error code: 10008): Unknown Message" in str(error):
-            return await ctx.send(":x: Discord ne trouve pas l'un des messages.")
+            return await ctx.send(":x: Un des message n'a pas été trouvé ou n'existe plus.")
         elif "Cannot send an empty message" in str(error):
             return await ctx.message.delete()
         elif "BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old." in str(error):
@@ -694,8 +692,8 @@ async def _embed(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        def r(): return random.randint(0, 255)
-        def random_color(): return int("0x%02X%02X%02X" % (r(), r(), r()), 16)
+        r = lambda: random.randint(0, 255)
+        random_color = lambda: int("0x%02X%02X%02X" % (r(), r(), r()), 16)
         if not args:
             return await ctx.send(translations["msg_arg_valide"].format(prefix_server=prefix_server))
 
