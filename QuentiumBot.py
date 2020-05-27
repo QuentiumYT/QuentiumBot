@@ -10,8 +10,10 @@ from icalendar import Calendar
 from bs4 import BeautifulSoup
 from ftplib import FTP
 
-data = translations = glob_translations = lang_server = commands_server = autorole_server = ""
-prefix_server = start_time = embed = server_id = server_name = url = headers = ""
+# Global vars initialisation
+data = translations = glob_translations = start_time = embed = url = headers = ""
+# Server vars initialisation
+lang_server = commands_server = autorole_server = prefix_server = server_id = server_name = ""
 debug = False
 
 # TYPE JSON files
@@ -43,6 +45,9 @@ with open("extra/embed_colors.json", encoding="utf-8", errors="ignore") as file:
 def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
 
+rc = lambda: random.randint(0, 255)
+def random_color(): return int("0x%02X%02X%02X" % (rc(), rc(), rc()), 16)
+
 def get_prefix(client, message):
     global data
     if not message.guild:
@@ -59,7 +64,8 @@ token_timezone = config["GLOBAL"]["token_timezone"]
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
                       owner_id=246943045105221633,
-                      pm_help=True, help_command=None,
+                      pm_help=True,
+                      help_command=None,
                       case_insensitive=True)
 
 @client.event
@@ -226,7 +232,7 @@ async def async_command(args, msg):
         result = subprocess.check_output("sudo " + args, shell=True, stderr=subprocess.STDOUT)
     except Exception as e:
         result = type(e).__name__ + ": " + str(e)
-    print(repr(result))
+
     if not "etherwake" in args:
         try:
             return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
@@ -975,8 +981,6 @@ async def _embed(ctx, *, args=None):
         lang_server = "fr"
 
     if not ctx.message.author.bot == True:
-        r = lambda: random.randint(0, 255)
-        random_color = lambda: int("0x%02X%02X%02X" % (r(), r(), r()), 16)
         if not args:
             if lang_server == "fr":
                 return await ctx.send(f"Merci de préciser un argument valide : `{prefix_server}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.")

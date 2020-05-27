@@ -9,8 +9,10 @@ from datetime import datetime, timedelta, date
 from icalendar import Calendar
 from bs4 import BeautifulSoup
 
-data = translations = glob_translations = raw_translations = lang_server = commands_server = \
-    autorole_server = prefix_server = start_time = embed = server_id = server_name = ""
+# Global vars initialisation
+data = translations = glob_translations = start_time = embed = url = headers = ""
+# Server vars initialisation
+lang_server = commands_server = autorole_server = prefix_server = server_id = server_name = ""
 debug = False
 
 # TYPE JSON files
@@ -41,6 +43,9 @@ with open("extra/embed_colors.json", encoding="utf-8", errors="ignore") as file:
 
 def emo(text):
     return str(discord.utils.get(client.emojis, name=text))
+
+rc = lambda: random.randint(0, 255)
+def random_color(): return int("0x%02X%02X%02X" % (rc(), rc(), rc()), 16)
 
 def get_prefix(client, message):
     global data
@@ -214,7 +219,7 @@ async def async_command(args, msg, lang="fr"):
         result = subprocess.check_output("sudo " + args, shell=True, stderr=subprocess.STDOUT)
     except Exception as e:
         result = type(e).__name__ + ": " + str(e)
-    print(repr(result))
+
     if not "etherwake" in args:
         try:
             return await msg_channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
@@ -692,8 +697,6 @@ async def _embed(ctx, *, args=None):
         await async_data(str(server_id), server_name, ctx.message)
 
     if not ctx.message.author.bot == True:
-        r = lambda: random.randint(0, 255)
-        random_color = lambda: int("0x%02X%02X%02X" % (r(), r(), r()), 16)
         if not args:
             return await ctx.send(translations["msg_arg_valide"].format(prefix_server=prefix_server))
 
