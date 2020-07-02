@@ -93,7 +93,7 @@ async def on_ready():
             type=discord.ActivityType.playing)
     )
 
-# TYPE GLOBAL function
+# TYPE GLOBAL functions
 
 #----------------------------- SETUP GLOBAL FUNCTIONS AND GLOBAL EVENTS -----------------------------#
 
@@ -1321,8 +1321,8 @@ async def lyrics(ctx, *, args=None):
             elif lang_server == "de":
                 return await ctx.send("Die Musik wurde nicht gefunden oder existiert nicht.")
         path_lyrics = r["response"]["hits"][0]["result"]["path"]
-        URL = "https://genius.com" + path_lyrics
-        page = requests.get(URL)
+        genius_url = "https://genius.com" + path_lyrics
+        page = requests.get(genius_url, time.sleep(2))
         html = BeautifulSoup(page.text, "html.parser")
 
         try:

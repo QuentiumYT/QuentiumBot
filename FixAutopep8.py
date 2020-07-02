@@ -1,3 +1,5 @@
+input()
+
 content_no_comma = []
 content_no_backslash = []
 content_no_parenthese = []
