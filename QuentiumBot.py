@@ -175,7 +175,7 @@ async def get_bot_stats():
         users += len(serv.members)
     stats["users_total"] = int(users)
     stats["emojis_total"] = len(client.emojis)
-    stats["servers_total"] = int(len(client.guilds))
+    stats["servers_total"] = len(client.guilds)
     bot_lang_fr = bot_lang_en = bot_lang_de = 0
     for serv in data.keys():
         if "fr" in data[serv]["lang_server"]:
@@ -1322,12 +1322,19 @@ async def lyrics(ctx, *, args=None):
                 return await ctx.send("Die Musik wurde nicht gefunden oder existiert nicht.")
         path_lyrics = r["response"]["hits"][0]["result"]["path"]
         genius_url = "https://genius.com" + path_lyrics
-        page = requests.get(genius_url, time.sleep(2))
+        page = requests.get(genius_url)
         html = BeautifulSoup(page.text, "html.parser")
 
-        try:
-            lyrics = html.find("div", class_="lyrics").get_text()
-        except:
+        old_div = html.find("div", class_="lyrics")
+        new_div = html.find("div", class_="SongPageGrid-sc-1vi6xda-0 DGVcp Lyrics__Root-sc-1ynbvzw-0 jvlKWy")
+        if old_div:
+            lyrics = old_div.get_text()
+        elif new_div:
+            # Clean the lyrics since get_text() fails to convert "</br/>"
+            lyrics = str(new_div)
+            lyrics = lyrics.replace('<br/>', '\n')
+            lyrics = re.sub(r'(\<.*?\>)', '', lyrics)
+        else:
             if lang_server == "fr":
                 return await ctx.send("La musique demandée ne contient pas de paroles.")
             elif lang_server == "en":
