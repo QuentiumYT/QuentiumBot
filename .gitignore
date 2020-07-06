@@ -103,9 +103,11 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+data/*
+!data/*.json
+data/config.json
 dev/
-extra/
-bkp/
+old/
 feedback.txt
 errors.txt
-Restart bots.bat
+Restart_bots.bat
