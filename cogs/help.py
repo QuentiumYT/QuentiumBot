@@ -27,7 +27,7 @@ class HelpInfos(commands.Cog):
         global aliases
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await gd.retrieve_data(self, ctx.message.guild)
+            data = await gd.retrieve_data(ctx, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -38,7 +38,7 @@ class HelpInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Create a list of all commands
-            commands = [c for c in tran.keys() if not c == "GLOBAL"]
+            commands = [c for c in tran.keys() if not c in ["GLOBAL", "ERRORS"]]
             # Create a dict of commands with subcommands
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
             embed = discord.Embed(color=0x11ff11)

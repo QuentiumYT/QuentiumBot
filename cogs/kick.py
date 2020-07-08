@@ -23,7 +23,7 @@ class KickAdministration(commands.Cog):
     async def kick_cmd(self, ctx, *, member: discord.Member = None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await gd.retrieve_data(self, ctx.message.guild)
+            data = await gd.retrieve_data(ctx, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"

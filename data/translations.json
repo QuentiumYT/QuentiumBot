@@ -9,6 +9,34 @@
             "asked_by": "Asked by: "
         }
     },
+    "ERRORS": {
+        "fr": {
+            "msg_missing_perms": ":x: Il manque certaines permissions.",
+            "msg_missing_access": ":x: Il manque certains accès.",
+            "msg_unknown_message": ":x: Un des message n'a pas été trouvé ou n'existe plus.",
+            "msg_del_old_message": ":x: Vous ne pouvez que supprimer les messages datant de moins de 14 jours :pensive:",
+            "msg_argument_missing": ":x: Un argument requis manque :rolling_eyes:",
+            "msg_command_no_pm": ":x: Cette commande ne peut pas être utilisée en message privés :confused:",
+            "msg_command_disabled": ":x: Cette commande à été désactivée :confounded:",
+            "msg_bad_argument": ":x: Un mauvais argument à été donné :slight_frown:",
+            "msg_too_many_arguments": ":x: Trop d'arguments ont étés donnés :scream:",
+            "msg_command_cooldown": ":x: Doucement, il y a un cooldown sur cette commande, il vous reste {time_left} secondes à attendre :raised_hand:",
+            "msg_not_owner": ":x: Vous n'êtes pas le propriétaire du bot :man_police_officer_tone1:"
+        },
+        "en": {
+            "msg_missing_perms": ":x: Some permissions are missing.",
+            "msg_missing_access": ":x: Some accesses are missing.",
+            "msg_unknown_message": ":x: One of the messages was not found or no longer exists.",
+            "msg_del_old_message": ":x: You can only delete messages that are under 14 days old :pensive:",
+            "msg_argument_missing": ":x: A required argument is missing :rolling_eyes:",
+            "msg_command_no_pm": ":x: This command can't be used in private messages :confused:",
+            "msg_command_disabled": ":x: This command has been disabled :confounded:",
+            "msg_bad_argument": ":x: A wrong argument has been given :slight_frown:",
+            "msg_too_many_arguments": ":x: Too many arguments has been given :scream:",
+            "msg_command_cooldown": ":x: Slow down, there is a cooldown on that command, you have to wait {time_left} more seconds :raised_hand:",
+            "msg_not_owner": ":x: You're not the bot's owner :man_police_officer_tone1:"
+        }
+    },
     "help": {
         "type": "infos",
         "type_emoji": "informations",
