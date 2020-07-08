@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData as gd
+from QuentiumBot import GetData, get_translations
 
 # Basic command configs
 cmd_name = "kick"
-tran = gd.get_translations(gd)
+tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
 class KickAdministration(commands.Cog):
@@ -23,7 +23,7 @@ class KickAdministration(commands.Cog):
     async def kick_cmd(self, ctx, *, member: discord.Member = None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await gd.retrieve_data(ctx, ctx.message.guild)
+            data = await GetData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"

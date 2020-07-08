@@ -10,20 +10,21 @@ startup_cogs = [f.replace('.py', '') for f in os.listdir(cogs_folder) if os.path
 
 # TYPE Data class
 
+# Get the configuration for tokens and credidentials
+def get_config(section, key):
+    with open("data/config.json", "r", encoding="utf-8", errors="ignore") as file:
+        config = json.loads(file.read(), strict=False)
+    return config[section][key]
+
+# Get all translations from the file
+def get_translations():
+    with open("data/translations.json", "r", encoding="utf-8", errors="ignore") as file:
+        translations = json.loads(file.read(), strict=False)
+    return translations
+
+
 class GetData:
-    """Get global data from files"""
-
-    # Get the configuration for tokens and credidentials
-    def get_config(self, section, key):
-        with open("data/config.json", "r", encoding="utf-8", errors="ignore") as file:
-            self.config = json.loads(file.read(), strict=False)
-        return self.config[section][key]
-
-    # Get all translations from the file
-    def get_translations(self):
-        with open("data/translations.json", "r", encoding="utf-8", errors="ignore") as file:
-            self.translations = json.loads(file.read(), strict=False)
-        return self.translations
+    """Get global data from storage file"""
 
     # Get all parameters from the server or create new entry
     async def retrieve_data(self, server):
@@ -63,11 +64,11 @@ class GetData:
 async def get_prefix(client, message):
     if message.guild:
         data = await GetData.retrieve_data(client, message.guild)
-        server_prefix = data[-1]
+        prefix_server = data[-1]
     else:
-        server_prefix = "+"
+        prefix_server = "+"
 
-    return commands.when_mentioned_or(server_prefix)(client, message)
+    return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
 client = commands.Bot(command_prefix=get_prefix,
@@ -97,14 +98,30 @@ async def on_ready():
             type=discord.ActivityType.playing)
     )
 
+@client.listen()
+async def on_message(message):
+    if isinstance(message.channel, discord.TextChannel):
+        data = await GetData.retrieve_data(client, message.guild)
+        server_id = message.guild.id
+        lang_server = data[0]
+        prefix_server = data[3]
+    else:
+        server_id = None
+        lang_server = "en"
+        prefix_server = "+"
+    tran = get_translations()["GLOBAL"][lang_server]
+
+    if client.user.mention == message.content.replace("!", ""):
+        return await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
+
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(ctx.channel, discord.TextChannel):
-        data = await GetData.retrieve_data(ctx, ctx.message.guild)
+        data = await GetData.retrieve_data(client, ctx.message.guild)
         lang_server = data[0]
     else:
         lang_server = "en"
-    tran = GetData.get_translations(ctx)["ERRORS"][lang_server]
+    tran = get_translations()["ERRORS"][lang_server]
 
     if "is not found" in str(error):
         return
@@ -136,7 +153,7 @@ async def on_command_error(ctx, error):
         return await ctx.send(tran["msg_not_owner"])
 
     file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
-    infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, str(error)]
+    infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
     if isinstance(ctx.channel, discord.TextChannel):
         infos.insert(0, ctx.message.guild.name)
     file.write(" --- ".join(map(str, infos)) + "\n")
@@ -146,7 +163,7 @@ async def on_command_error(ctx, error):
 
 @client.command(hidden=True)
 async def load(ctx, extension):
-    """Loads an extension."""
+    """Loads an extension"""
     if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
         try:
             client.load_extension(cogs_folder + extension)
@@ -156,7 +173,7 @@ async def load(ctx, extension):
 
 @client.command(hidden=True)
 async def unload(ctx, extension):
-    """Unloads an extension."""
+    """Unloads an extension"""
     if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
         try:
             client.unload_extension(cogs_folder + extension)
@@ -166,7 +183,7 @@ async def unload(ctx, extension):
 
 @client.command(hidden=True)
 async def reload(ctx, extension):
-    """Reloads an extension."""
+    """Reloads an extension"""
     if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
         client.unload_extension(cogs_folder + extension)
         try:
@@ -185,6 +202,6 @@ if __name__ == "__main__":
             print(f"Failed to load extension {extension}\n{type(e).__name__}: {e}.")
 
     if debug:
-        client.run(GetData.get_config(client, "TEST", "token"))
+        client.run(get_config("TEST", "token"))
     else:
-        client.run(GetData.get_config(client, "PUBLIC", "token"))
+        client.run(get_config("PUBLIC", "token"))

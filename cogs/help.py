@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData as gd
+from QuentiumBot import GetData, get_translations
 
 # Basic command configs
 cmd_name = "help"
-tran = gd.get_translations(gd)
+tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
 class HelpInfos(commands.Cog):
@@ -27,7 +27,7 @@ class HelpInfos(commands.Cog):
         global aliases
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await gd.retrieve_data(ctx, ctx.message.guild)
+            data = await GetData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -77,6 +77,7 @@ class HelpInfos(commands.Cog):
                 # Command is the main command
                 if args in commands:
                     args_tran = tran[args][lang_server]
+                    command = args
                 # Find the main command using the alias
                 else:
                     for x in commands_aliases:
@@ -92,7 +93,8 @@ class HelpInfos(commands.Cog):
                         return await ctx.send(cmd_tran["msg_no_command_found"])
                 embed = discord.Embed(color=0x03A678)
                 embed.title = None
-                desc_text = f"```{args}```\n**{args_tran['description']}**\n\n"
+                desc_text = f"```{args}```\n"
+                desc_text += f"{self.emo(tran[command]['type_emoji'])} | **{args_tran['description']}**\n\n"
                 desc_text += f"**{cmd_tran['msg_type']}** `{args_tran['type_name']}`\n\n"
                 # List command aliases if exists
                 if args_tran["aliases"]:

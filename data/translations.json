@@ -3,9 +3,11 @@
         "website_url": "https://bot.quentium.fr/",
         "logo_bot": "https://bot.quentium.fr/img/logo.png",
         "fr": {
+            "bot_prefix": "Le préfixe du bot est `{}`. Utilisez la commande `{}help` pour la liste des commandes.",
             "asked_by": "Demandé par : "
         },
         "en": {
+            "bot_prefix": "The prefix of the bot is `{}`. Use the `{}help` command for the list of commands.",
             "asked_by": "Asked by: "
         }
     },
