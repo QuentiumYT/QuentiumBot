@@ -2,11 +2,14 @@ import discord
 from discord.ext import commands
 from QuentiumBot import GetData as gd
 
+# Basic command configs
 cmd_name = "kick"
 tran = gd.get_translations(gd)
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
 class KickAdministration(commands.Cog):
+    """Kick command in Administration section"""
+
     def __init__(self, client):
         self.client = client
 
@@ -18,6 +21,7 @@ class KickAdministration(commands.Cog):
     )
     @commands.guild_only()
     async def kick_cmd(self, ctx, *, member: discord.Member = None):
+        # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await gd.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
@@ -25,15 +29,18 @@ class KickAdministration(commands.Cog):
             lang_server = "en"
         cmd_tran = tran[cmd_name][lang_server]
 
+        # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Check user perms
             if not ctx.message.author.guild_permissions.kick_members:
                 return await ctx.send(cmd_tran["msg_perm_kick_user"].format(ctx.message.author.name))
+            # Check bot perms
             if not ctx.message.guild.me.guild_permissions.kick_members:
                 return await ctx.send(cmd_tran["msg_perm_kick_bot"])
             if not member:
                 return await ctx.send(cmd_tran["msg_mention_user"].format(ctx.message.author.name))
             await member.kick()
-            embed = discord.Embed(color=0xFF0000)
+            embed = discord.Embed(color=0xFF1111)
             embed.description = cmd_tran["msg_been_kicked"].format(member.name)
             return await ctx.send(embed=embed)
 
