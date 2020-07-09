@@ -6,7 +6,7 @@ from datetime import datetime
 debug = True
 # Folder containing all cogs
 cogs_folder = "cogs."
-startup_cogs = [f.replace('.py', '') for f in os.listdir(cogs_folder) if os.path.isfile(os.path.join(cogs_folder, f))]
+startup_cogs = [f.replace(".py", "") for f in os.listdir(cogs_folder) if os.path.isfile(os.path.join(cogs_folder, f))]
 
 # TYPE Data class
 
@@ -17,10 +17,15 @@ def get_config(section, key):
     return config[section][key]
 
 # Get all translations from the file
-def get_translations():
+def get_translations(*args):
     with open("data/translations.json", "r", encoding="utf-8", errors="ignore") as file:
         translations = json.loads(file.read(), strict=False)
-    return translations
+    if args:
+        for subkey in args:
+            translations = translations[subkey]
+        return translations
+    else:
+        return translations
 
 
 class GetData:
@@ -109,7 +114,7 @@ async def on_message(message):
         server_id = None
         lang_server = "en"
         prefix_server = "+"
-    tran = get_translations()["GLOBAL"][lang_server]
+    tran = get_translations("GLOBAL", lang_server)
 
     if client.user.mention == message.content.replace("!", ""):
         return await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
@@ -121,7 +126,7 @@ async def on_command_error(ctx, error):
         lang_server = data[0]
     else:
         lang_server = "en"
-    tran = get_translations()["ERRORS"][lang_server]
+    tran = get_translations("ERRORS", lang_server)
 
     if "is not found" in str(error):
         return
@@ -169,7 +174,7 @@ async def load(ctx, extension):
             client.load_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send("{} loaded.".format(extension))
+        return await ctx.send(f"{extension} loaded.")
 
 @client.command(hidden=True)
 async def unload(ctx, extension):
@@ -179,7 +184,7 @@ async def unload(ctx, extension):
             client.unload_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send("{} unloaded.".format(extension))
+        return await ctx.send(f"{extension} unloaded.")
 
 @client.command(hidden=True)
 async def reload(ctx, extension):
@@ -190,7 +195,7 @@ async def reload(ctx, extension):
             client.load_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send("{} reloaded.".format(extension))
+        return await ctx.send(f"{extension} reloaded.")
 
 # TYPE Start
 

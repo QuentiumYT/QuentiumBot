@@ -92,7 +92,7 @@ class HelpInfos(commands.Cog):
                     else:
                         return await ctx.send(cmd_tran["msg_no_command_found"])
                 embed = discord.Embed(color=0x03A678)
-                embed.title = None
+                embed.title = tran["msg_title"]
                 desc_text = f"```{args}```\n"
                 desc_text += f"{self.emo(tran[command]['type_emoji'])} | **{args_tran['description']}**\n\n"
                 desc_text += f"**{cmd_tran['msg_type']}** `{args_tran['type_name']}`\n\n"
