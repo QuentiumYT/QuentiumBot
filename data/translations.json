@@ -119,10 +119,30 @@
         "en": {
             "description": "Displays the list of invitation links.",
             "usage": "",
-            "aliases": "listeinvites/invitelist",
+            "aliases": "invitelist",
             "example": "",
             "msg_any": "Any",
             "msg_title": "Invite links:"
+        }
+    },
+    "listbans": {
+        "type": "infos",
+        "type_emoji": "informations",
+        "fr": {
+            "description": "Affiche la liste des personnes bannies.",
+            "usage": "",
+            "aliases": "listebans/banlist",
+            "example": "",
+            "msg_any": "Aucuns",
+            "msg_title": "Liste des membres bannis :"
+        },
+        "en": {
+            "description": "Displays the list of banned people.",
+            "usage": "",
+            "aliases": "banlist",
+            "example": "",
+            "msg_any": "Any",
+            "msg_title": "List of banned members:"
         }
     },
     "kick": {

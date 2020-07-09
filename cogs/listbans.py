@@ -3,12 +3,12 @@ from discord.ext import commands
 from QuentiumBot import GetData, get_translations
 
 # Basic command configs
-cmd_name = "listinvites"
+cmd_name = "listbans"
 tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
-class ListinvitesInfos(commands.Cog):
-    """List invites command in Informations section"""
+class ListbansInfos(commands.Cog):
+    """List bans command in Informations section"""
 
     def __init__(self, client):
         self.client = client
@@ -20,7 +20,7 @@ class ListinvitesInfos(commands.Cog):
         no_pm=True
     )
     @commands.guild_only()
-    async def listinvites_cmd(self, ctx):
+    async def listbans_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await GetData.retrieve_data(self, ctx.message.guild)
@@ -31,15 +31,15 @@ class ListinvitesInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            list_invites = await ctx.guild.invites()
-            if list_invites:
-                content = "\n- ".join([x.url for x in list_invites])
+            list_banned = await ctx.guild.bans()
+            if list_banned:
+                content = "\n- ".join([x[1].name for x in list_banned])
             else:
                 content = cmd_tran["msg_any"]
-            embed = discord.Embed(color=0x11FFFF)
+            embed = discord.Embed(color=0x664211)
             embed.title = cmd_tran["msg_title"]
             embed.description = "- " + content
             return await ctx.send(embed=embed)
 
 def setup(client):
-    client.add_cog(ListinvitesInfos(client))
+    client.add_cog(ListbansInfos(client))
