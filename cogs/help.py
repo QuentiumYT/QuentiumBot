@@ -103,7 +103,7 @@ class HelpInfos(commands.Cog):
                 embed.description = desc_text
             embed.set_footer(text=cmd_tran["msg_more_infos"],
                              icon_url=tran["GLOBAL"]["logo_bot"])
-            return await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(HelpInfos(client))

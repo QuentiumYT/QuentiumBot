@@ -85,6 +85,26 @@
             "msg_no_command_found": "The specified command/alias was not found."
         }
     },
+    "listservers": {
+        "type": "infos",
+        "type_emoji": "informations",
+        "fr": {
+            "description": "Affiche la liste des serveurs utilisant le bot.",
+            "usage": "",
+            "aliases": "listserveurs/listserver/listeserveurs/serverlist/serverliste/servlist/listservs",
+            "example": "",
+            "msg_title": "**__Nom du serveur | Position enregistrée__**",
+            "msg_servers": "Serveurs : {}"
+        },
+        "en": {
+            "description": "Displays the list of servers using the bot.",
+            "usage": "",
+            "aliases": "listserver/serverlist/servlist/listservs",
+            "example": "",
+            "msg_title": "**__Server name | Registered position__**",
+            "msg_servers": "Servers: {}"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",

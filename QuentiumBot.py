@@ -23,20 +23,20 @@ def get_translations(*args):
     if args:
         for subkey in args:
             translations = translations[subkey]
-        return translations
-    else:
-        return translations
+    return translations
 
 
 class GetData:
     """Get global data from storage file"""
 
     # Get all parameters from the server or create new entry
-    async def retrieve_data(self, server):
+    async def retrieve_data(self, server, raw=False):
         self.server_id = str(server.id)
 
         with open("data/data.json", "r", encoding="utf-8", errors="ignore") as file:
             self.data = json.loads(file.read(), strict=False)
+        if raw:
+            return self.data
 
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
