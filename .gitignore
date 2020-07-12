@@ -107,7 +107,6 @@ data/*
 !data/*.json
 data/config.json
 data/data.json
-dev/
 old/
 feedback.txt
 errors.txt

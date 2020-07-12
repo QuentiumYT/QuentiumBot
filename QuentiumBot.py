@@ -81,7 +81,8 @@ client = commands.Bot(command_prefix=get_prefix,
                       owner_id=246943045105221633,
                       pm_help=True,
                       help_command=None,
-                      case_insensitive=True)
+                      case_insensitive=True,
+                      max_messages=999999)
 
 # TYPE Global events
 

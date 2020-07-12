@@ -4,11 +4,11 @@
         "logo_bot": "https://bot.quentium.fr/img/logo.png",
         "fr": {
             "bot_prefix": "Le préfixe du bot est `{}`. Utilisez la commande `{}help` pour la liste des commandes.",
-            "asked_by": "Demandé par : "
+            "asked_by": "Demandé par : {}"
         },
         "en": {
             "bot_prefix": "The prefix of the bot is `{}`. Use the `{}help` command for the list of commands.",
-            "asked_by": "Asked by: "
+            "asked_by": "Asked by: {}"
         }
     },
     "ERRORS": {
@@ -89,6 +89,7 @@
         "type": "infos",
         "type_emoji": "informations",
         "fr": {
+            "type_name": "Informations",
             "description": "Affiche la liste des serveurs utilisant le bot.",
             "usage": "",
             "aliases": "listserveurs/listserver/listeserveurs/serverlist/serverliste/servlist/listservs",
@@ -97,6 +98,7 @@
             "msg_servers": "Serveurs : {}"
         },
         "en": {
+            "type_name": "Informations",
             "description": "Displays the list of servers using the bot.",
             "usage": "",
             "aliases": "listserver/serverlist/servlist/listservs",
@@ -109,6 +111,7 @@
         "type": "infos",
         "type_emoji": "informations",
         "fr": {
+            "type_name": "Informations",
             "description": "Affiche la liste des liens d'invitation.",
             "usage": "",
             "aliases": "listeinvites/invitelist",
@@ -117,6 +120,7 @@
             "msg_title": "Liens d'invitation :"
         },
         "en": {
+            "type_name": "Informations",
             "description": "Displays the list of invitation links.",
             "usage": "",
             "aliases": "invitelist",
@@ -129,6 +133,7 @@
         "type": "infos",
         "type_emoji": "informations",
         "fr": {
+            "type_name": "Informations",
             "description": "Affiche la liste des personnes bannies.",
             "usage": "",
             "aliases": "listebans/banlist",
@@ -137,6 +142,7 @@
             "msg_title": "Liste des membres bannis :"
         },
         "en": {
+            "type_name": "Informations",
             "description": "Displays the list of banned people.",
             "usage": "",
             "aliases": "banlist",
@@ -149,6 +155,7 @@
         "type": "infos",
         "type_emoji": "informations",
         "fr": {
+            "type_name": "Informations",
             "description": "Invite le bot sur ton serveur.",
             "usage": "",
             "aliases": "sharebot/share/invitebot",
@@ -156,11 +163,42 @@
             "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
         },
         "en": {
+            "type_name": "Informations",
             "description": "Invite the bot to your server.",
             "usage": "",
             "aliases": "sharebot/share/invitebot",
             "example": "",
             "msg_shareme": "You can share this link to invite me to other servers:\n"
+        }
+    },
+    "msgtotal": {
+        "type": "utilities",
+        "type_emoji": "utilities",
+        "fr": {
+            "type_name": "Utilitaires",
+            "description": "Calcule le nombre de messages d'un membre au total ou dans le salon.",
+            "usage": " [all / channel] [@membre]",
+            "aliases": "totalmsg",
+            "example": " channel @QuentiumYT#0207",
+            "msg_perm_admin_user": ":x: Il manque la permissions **Administrateur** au bot.",
+            "msg_invalid_arg": "Merci de préciser un argument valide : `{}msgtotal [all / channel] [@membre]`.",
+            "msg_calculating": "Calcul des messages...",
+            "msg_number": "**Nombre de messages :**",
+            "msg_has_sent_total": "**{}** a envoyé **{}** messages au total.",
+            "msg_has_sent_channel": "**{}** a envoyé **{}** messages dans ce channel."
+        },
+        "en": {
+            "type_name": "Utilities",
+            "description": "Calculates the number of messages of a member in total or in the current channel.",
+            "usage": " [all / channel] [@member]",
+            "aliases": "totalmsg",
+            "example": " channel @QuentiumYT#0207",
+            "msg_perm_admin_user": ":x: The bot is missing **Administrator** permissions.",
+            "msg_invalid_arg": "Please specify a valid argument: `{}msgtotal [all / channel] [@member]`.",
+            "msg_calculating": "Calculating messages...",
+            "msg_number": "**Number of messages:**",
+            "msg_has_sent_total": "**{}** has sent **{}** messages in total.",
+            "msg_has_sent_channel": "**{}** has sent **{}** messages in this channel."
         }
     },
     "kick": {
