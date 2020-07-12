@@ -145,6 +145,24 @@
             "msg_title": "List of banned members:"
         }
     },
+    "shareme": {
+        "type": "infos",
+        "type_emoji": "informations",
+        "fr": {
+            "description": "Invite le bot sur ton serveur.",
+            "usage": "",
+            "aliases": "sharebot/share/invitebot",
+            "example": "",
+            "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
+        },
+        "en": {
+            "description": "Invite the bot to your server.",
+            "usage": "",
+            "aliases": "sharebot/share/invitebot",
+            "example": "",
+            "msg_shareme": "You can share this link to invite me to other servers:\n"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
