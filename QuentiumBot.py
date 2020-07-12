@@ -96,7 +96,7 @@ async def on_ready():
     print("ID: " + str(client.user.id))
     start_time = datetime.now()
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
-    return await client.change_presence(
+    await client.change_presence(
         status=discord.Status.online,
         activity=discord.Activity(
             name="Oh, a QuentiumBot rewite!?",
@@ -117,7 +117,7 @@ async def on_message(message):
     tran = get_translations("GLOBAL", lang_server)
 
     if client.user.mention == message.content.replace("!", ""):
-        return await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
+        await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
 
 @client.event
 async def on_command_error(ctx, error):
@@ -174,7 +174,7 @@ async def load(ctx, extension):
             client.load_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send(f"{extension} loaded.")
+        await ctx.send(f"{extension} loaded.")
 
 @client.command(hidden=True)
 async def unload(ctx, extension):
@@ -184,7 +184,7 @@ async def unload(ctx, extension):
             client.unload_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send(f"{extension} unloaded.")
+        await ctx.send(f"{extension} unloaded.")
 
 @client.command(hidden=True)
 async def reload(ctx, extension):
@@ -195,7 +195,7 @@ async def reload(ctx, extension):
             client.load_extension(cogs_folder + extension)
         except Exception as e:
             return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        return await ctx.send(f"{extension} reloaded.")
+        await ctx.send(f"{extension} reloaded.")
 
 # TYPE Start
 

@@ -31,9 +31,9 @@ class SharemeInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if debug:
-                return await ctx.send(cmd_tran["msg_shareme"] + get_config("TEST", "invite"))
+                await ctx.send(cmd_tran["msg_shareme"] + get_config("TEST", "invite"))
             else:
-                return await ctx.send(cmd_tran["msg_shareme"] + get_config("PUBLIC", "invite"))
+                await ctx.send(cmd_tran["msg_shareme"] + get_config("PUBLIC", "invite"))
 
 def setup(client):
     client.add_cog(SharemeInfos(client))

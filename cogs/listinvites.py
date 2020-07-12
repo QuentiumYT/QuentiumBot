@@ -39,7 +39,7 @@ class ListinvitesInfos(commands.Cog):
             embed = discord.Embed(color=0x11FFFF)
             embed.title = cmd_tran["msg_title"]
             embed.description = "- " + content
-            return await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(ListinvitesInfos(client))
