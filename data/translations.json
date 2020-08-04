@@ -222,6 +222,28 @@
             "msg_has_sent_channel": "**{}** has sent **{}** messages in this channel."
         }
     },
+    "embed": {
+        "type": "utilities",
+        "type_emoji": "utilities",
+        "fr": {
+            "type_name": "Utilitaires",
+            "description": "Affiche un embed personnalisé.",
+            "usage": "[T=\"titre\"] [D=\"description\"] [C=\"couleur\"] [I=\"url image\"] [F=\"bas de page\"] [U=\"url\"] [A=\"auteur\"]",
+            "aliases": "embeds/richembed",
+            "example": "T=Mon embed perso D=J'aime bien cette commande C=green F=Yay !",
+            "msg_no_args": "Merci de préciser un argument valide : `{}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.",
+            "msg_wrong_color": "La couleur mentionnée n'existe pas. Paramètres supportés : `nom couleur`, `valeur hexa`, `nombre entier`, `random`."
+        },
+        "en": {
+            "type_name": "Utilities",
+            "description": "Shows a personalized embed.",
+            "usage": "[T=\"title\"] [D=\"description\"] [C=\"color\"] [I=\"image url\"] [F=\"footer\"] [U=\"url\"] [A=\"author\"]",
+            "aliases": "embeds/richembed",
+            "example": "T=My personal embed D=I like this command C=green F=Yay!",
+            "msg_no_args": "Please specify a valid argument: `{}embed T=Title D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.",
+            "msg_wrong_color": "The mentionned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
