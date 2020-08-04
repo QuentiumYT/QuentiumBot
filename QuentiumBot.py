@@ -25,6 +25,19 @@ def get_translations(*args):
             translations = translations[subkey]
     return translations
 
+# Match a user id depending on mention or raw ID
+def match_user(user_id):
+    if "<@!" in user_id:
+        if len(user_id) == 22:
+            return int(user_id[3:-1])
+    elif "<@" in user_id:
+        if len(user_id) == 21:
+            return int(user_id[2:-1])
+    elif user_id.isdigit():
+        if len(user_id) == 18:
+            return int(user_id)
+    else:
+        return False
 
 class GetData:
     """Get global data from storage file"""
@@ -120,50 +133,51 @@ async def on_message(message):
     if client.user.mention == message.content.replace("!", ""):
         await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
 
-@client.event
-async def on_command_error(ctx, error):
-    if isinstance(ctx.channel, discord.TextChannel):
-        data = await GetData.retrieve_data(client, ctx.message.guild)
-        lang_server = data[0]
-    else:
-        lang_server = "en"
-    tran = get_translations("ERRORS", lang_server)
+if not debug:
+    @client.event
+    async def on_command_error(ctx, error):
+        if isinstance(ctx.channel, discord.TextChannel):
+            data = await GetData.retrieve_data(client, ctx.message.guild)
+            lang_server = data[0]
+        else:
+            lang_server = "en"
+        tran = get_translations("ERRORS", lang_server)
 
-    if "is not found" in str(error):
-        return
-    elif "Cannot send an empty message" in str(error):
-        return await ctx.message.delete()
+        if "is not found" in str(error):
+            return
+        elif "Cannot send an empty message" in str(error):
+            return await ctx.message.delete()
 
-    elif "Missing Access" in str(error):
-        return await ctx.send(tran["msg_missing_access"])
-    elif "Unknown Message" in str(error):
-        return await ctx.send(tran["msg_unknown_message"])
-    elif "You can only bulk delete messages that are under 14 days old" in str(error):
-        return await ctx.send(tran["msg_del_old_message"])
-    elif isinstance(error, commands.MissingPermissions):
-        return await ctx.send(tran["msg_missing_perms"])
-    elif isinstance(error, commands.MissingRequiredArgument):
-        return await ctx.send(tran["msg_argument_missing"])
-    elif isinstance(error, commands.NoPrivateMessage):
-        return await ctx.send(tran["msg_command_no_pm"])
-    elif isinstance(error, commands.DisabledCommand):
-        return await ctx.send(tran["msg_command_disabled"])
-    elif isinstance(error, commands.BadArgument):
-        return await ctx.send(tran["msg_bad_argument"])
-    elif isinstance(error, commands.TooManyArguments):
-        return await ctx.send(tran["msg_too_many_arguments"])
-    elif isinstance(error, commands.CommandOnCooldown):
-        time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
-        return await ctx.send(tran["msg_command_cooldown"].format(time_left))
-    elif isinstance(error, commands.NotOwner):
-        return await ctx.send(tran["msg_not_owner"])
+        elif "Missing Access" in str(error):
+            return await ctx.send(tran["msg_missing_access"])
+        elif "Unknown Message" in str(error):
+            return await ctx.send(tran["msg_unknown_message"])
+        elif "You can only bulk delete messages that are under 14 days old" in str(error):
+            return await ctx.send(tran["msg_del_old_message"])
+        elif isinstance(error, commands.MissingPermissions):
+            return await ctx.send(tran["msg_missing_perms"])
+        elif isinstance(error, commands.MissingRequiredArgument):
+            return await ctx.send(tran["msg_argument_missing"])
+        elif isinstance(error, commands.NoPrivateMessage):
+            return await ctx.send(tran["msg_command_no_pm"])
+        elif isinstance(error, commands.DisabledCommand):
+            return await ctx.send(tran["msg_command_disabled"])
+        elif isinstance(error, commands.BadArgument):
+            return await ctx.send(tran["msg_bad_argument"])
+        elif isinstance(error, commands.TooManyArguments):
+            return await ctx.send(tran["msg_too_many_arguments"])
+        elif isinstance(error, commands.CommandOnCooldown):
+            time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
+            return await ctx.send(tran["msg_command_cooldown"].format(time_left))
+        elif isinstance(error, commands.NotOwner):
+            return await ctx.send(tran["msg_not_owner"])
 
-    file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
-    infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
-    if isinstance(ctx.channel, discord.TextChannel):
-        infos.insert(0, ctx.message.guild.name)
-    file.write(" --- ".join(map(str, infos)) + "\n")
-    file.close()
+        file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
+        infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
+        if isinstance(ctx.channel, discord.TextChannel):
+            infos.insert(0, ctx.message.guild.name)
+        file.write(" --- ".join(map(str, infos)) + "\n")
+        file.close()
 
 # TYPE Global commands
 
