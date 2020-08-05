@@ -111,7 +111,7 @@
             "type_name": "Informations",
             "description": "Affiche la liste des serveurs utilisant le bot.",
             "usage": "",
-            "aliases": "listserveurs/listserver/listeserveurs/serverlist/serverliste/servlist/listservs",
+            "aliases": "listserveurs/serveurslist/listeserveurs/serveurliste/listserver/serverlist/listserv/servlist/listservs/servslist",
             "example": "",
             "msg_title": "**__Nom du serveur | Position enregistrée__**",
             "msg_servers": "Serveurs : {}"
@@ -120,7 +120,7 @@
             "type_name": "Informations",
             "description": "Displays the list of servers using the bot.",
             "usage": "",
-            "aliases": "listserver/serverlist/servlist/listservs",
+            "aliases": "listserver/serverlist/listserv/servlist/listservs/servslist",
             "example": "",
             "msg_title": "**__Server name | Registered position__**",
             "msg_servers": "Servers: {}"
@@ -133,7 +133,7 @@
             "type_name": "Informations",
             "description": "Affiche la liste des liens d'invitation.",
             "usage": "",
-            "aliases": "listeinvites/invitelist",
+            "aliases": "listeinvites/invitesliste/listinvite/invitelist/inviteslist",
             "example": "",
             "msg_any": "Aucuns",
             "msg_title": "Liens d'invitation :"
@@ -142,7 +142,7 @@
             "type_name": "Informations",
             "description": "Displays the list of invitation links.",
             "usage": "",
-            "aliases": "invitelist",
+            "aliases": "listinvite/invitelist/inviteslist",
             "example": "",
             "msg_any": "Any",
             "msg_title": "Invite links:"
@@ -155,7 +155,7 @@
             "type_name": "Informations",
             "description": "Affiche la liste des personnes bannies.",
             "usage": "",
-            "aliases": "listebans/banlist",
+            "aliases": "listebans/bansliste/listban/banlist/banslist",
             "example": "",
             "msg_any": "Aucuns",
             "msg_title": "Liste des membres bannis :"
@@ -164,7 +164,7 @@
             "type_name": "Informations",
             "description": "Displays the list of banned people.",
             "usage": "",
-            "aliases": "banlist",
+            "aliases": "listban/banlist/banslist",
             "example": "",
             "msg_any": "Any",
             "msg_title": "List of banned members:"
@@ -177,7 +177,7 @@
             "type_name": "Informations",
             "description": "Invite le bot sur ton serveur.",
             "usage": "",
-            "aliases": "sharebot/share/invitebot",
+            "aliases": "sharebot/share/invitebot/botinvite",
             "example": "",
             "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
         },
@@ -185,7 +185,7 @@
             "type_name": "Informations",
             "description": "Invite the bot to your server.",
             "usage": "",
-            "aliases": "sharebot/share/invitebot",
+            "aliases": "sharebot/share/invitebot/botinvite",
             "example": "",
             "msg_shareme": "You can share this link to invite me to other servers:\n"
         }
