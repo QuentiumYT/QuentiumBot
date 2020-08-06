@@ -320,6 +320,7 @@
         "type": "utilities",
         "type_emoji": "utilities",
         "fr": {
+            "type_name": "Utilitaires",
             "description": "Cherche et affiche les paroles d'une musique.",
             "usage": "[\"musique\"]",
             "aliases": "lyric/parole/paroles",
@@ -345,6 +346,24 @@
             "msg_not_match": "The search does not match the title, make sure you have entered the name of the music.",
             "msg_result_found": "Result found with: **{}**",
             "msg_lyrics": "Lyrics of: __**{}**__"
+        }
+    },
+    "avatar": {
+        "type": "utilities",
+        "type_emoji": "utilities",
+        "fr": {
+            "type_name": "Utilitaires",
+            "description": "Affiche l'avatar et le lien d'une personne.",
+            "usage": "[@membre]",
+            "aliases": "av/avatars",
+            "example": "@QuentiumYT#0207"
+        },
+        "en": {
+            "type_name": "Utilities",
+            "description": "Displays the avatar and its link of a person.",
+            "usage": "[@member]",
+            "aliases": "av/avatars",
+            "example": "@QuentiumYT#0207"
         }
     },
     "kick": {
