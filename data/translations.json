@@ -244,6 +244,26 @@
             "msg_wrong_color": "The mentionned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
         }
     },
+    "letter": {
+        "type": "utilities",
+        "type_emoji": "utilities",
+        "fr": {
+            "type_name": "Utilitaires",
+            "description": "Ecris un message avec des émojis.",
+            "usage": "[\"texte\"]",
+            "aliases": "lettre/emojis/emoji",
+            "example": "Bonjour à tous !",
+            "msg_no_text": "Merci de préciser un texte."
+        },
+        "en": {
+            "type_name": "Utilities",
+            "description": "Write a message with emojis.",
+            "usage": "[\"text\"]",
+            "aliases": "emojis/emoji",
+            "example": "Hello world!",
+            "msg_no_text": "Please specify a text."
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
