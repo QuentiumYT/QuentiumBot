@@ -16,6 +16,7 @@ class EmbedUtilities(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    # Function to create a random hex color
     def random_color(self):
         rc = lambda: random.randint(0, 255)
         return int("0x%02X%02X%02X" % (rc(), rc(), rc()), 16)

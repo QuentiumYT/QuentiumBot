@@ -13,7 +13,7 @@ class HelpInfos(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    # Function to turn a text emoji to it's object
+    # Function to turn a text emoji into its object
     def emo(self, text):
         return str(discord.utils.get(self.client.emojis, name=text))
 

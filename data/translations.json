@@ -251,7 +251,7 @@
             "type_name": "Utilitaires",
             "description": "Ecris un message avec des émojis.",
             "usage": "[\"texte\"]",
-            "aliases": "lettre/emojis/emoji",
+            "aliases": "lettre/letters/emojis/emoji",
             "example": "Bonjour à tous !",
             "msg_no_text": "Merci de préciser un texte."
         },
@@ -259,7 +259,7 @@
             "type_name": "Utilities",
             "description": "Write a message with emojis.",
             "usage": "[\"text\"]",
-            "aliases": "emojis/emoji",
+            "aliases": "letters/emojis/emoji",
             "example": "Hello world!",
             "msg_no_text": "Please specify a text."
         }

@@ -1,5 +1,6 @@
 {
     " ": "emo(blank)",
+    "☻": "emo(unknown)",
     "æ": "emo(a_variation)",
     "œ": "emo(o_variation)",
     "^": "emo(accent_circumflex)",
@@ -43,7 +44,6 @@
     "¤": "emo(unknow_currency)",
     "²": "emo(upper_2)",
     "|": "emo(vertical_bar)",
-    "☻": "emo(unknown)",
     "ç": ":regional_indicator_c:",
     "←": ":arrow_left:",
     "↑": ":arrow_up:",

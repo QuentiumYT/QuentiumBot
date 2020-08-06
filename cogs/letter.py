@@ -16,10 +16,12 @@ class LetterUtilities(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    # Function to turn a text emoji into its object
     def emo(self, text):
         return str(discord.utils.get(self.client.emojis, name=text))
 
-    def cut(self, s, n):
+    # Function to cut a string of the specified length to a list
+    def truncate(self, s, n):
         return [s[i:i + n] for i in range(0, len(s), n)]
 
     @commands.command(
@@ -83,7 +85,7 @@ class LetterUtilities(commands.Cog):
                     lst.append(letter[char])
 
             content = "".join(lst)
-            embeds_temp = self.cut(content, 2020)
+            embeds_temp = self.truncate(content, 2020)
             embeds = []
             cut_end_embed = ""
             for x in embeds_temp:
