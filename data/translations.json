@@ -316,6 +316,37 @@
             "msg_local_date": "Local date: "
         }
     },
+    "lyrics": {
+        "type": "utilities",
+        "type_emoji": "utilities",
+        "fr": {
+            "description": "Cherche et affiche les paroles d'une musique.",
+            "usage": "[\"musique\"]",
+            "aliases": "lyric/parole/paroles",
+            "example": "Linkin Park Numb",
+            "msg_specify_music": "Merci de préciser une musique.",
+            "msg_not_found": "La musique n'a pas été trouvée ou n'existe pas.",
+            "msg_no_lyrics": "La musique demandée ne contient pas de paroles.",
+            "msg_too_long": "Le résultat est trop long (limite discord). Cela peut être aussi causé par l'absence de paroles de votre recherche.",
+            "msg_not_match": "La recherche ne correspond pas au titre, assurez vous d'avoir bien entré le nom de la musique.",
+            "msg_result_found": "Résultat trouvé avec : **{}**",
+            "msg_lyrics": "Paroles de : __**{}**__"
+        },
+        "en": {
+            "type_name": "Utilities",
+            "description": "Search and displays the lyrics of a music.",
+            "usage": "[\"music\"]",
+            "aliases": "lyric",
+            "example": "Linkin Park Numb",
+            "msg_specify_music": "Please specify a music.",
+            "msg_not_found": "The music has not been found or does not exist.",
+            "msg_no_lyrics": "The requested music does not contain lyrics.",
+            "msg_too_long": "The result is too long (discord limit). This can also be caused by the absence of lyrics from your research.",
+            "msg_not_match": "The search does not match the title, make sure you have entered the name of the music.",
+            "msg_result_found": "Result found with: **{}**",
+            "msg_lyrics": "Lyrics of: __**{}**__"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
