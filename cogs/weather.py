@@ -1,5 +1,5 @@
 import discord, requests
-from datetime import datetime, timedelta, date
+from datetime import datetime
 from discord.ext import commands
 from QuentiumBot import GetData, get_translations, get_config
 

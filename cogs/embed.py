@@ -110,7 +110,8 @@ class EmbedUtilities(commands.Cog):
                 if not footer == "None":
                     embed.set_footer(text=footer)
             else:
-                embed.set_footer(text=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.message.author.name,
+                                 icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 
 def setup(client):
