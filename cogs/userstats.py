@@ -48,7 +48,7 @@ class UserstatsInfos(commands.Cog):
             user_roles = len([x.name for x in member.roles])
             user_roles_list = ", ".join([x.name for x in member.roles])
 
-            embed = discord.Embed(color=0x0026FF)
+            embed = discord.Embed(color=0x1126FF)
             icon = str(member.avatar_url)
             icon1 = icon.split(".")
             icon2 = "".join(icon1[len(icon1) - 1])

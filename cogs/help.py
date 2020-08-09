@@ -38,10 +38,10 @@ class HelpInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Create a list of all commands
-            commands = [c for c in tran.keys() if not c in ["GLOBAL", "ERRORS"]]
+            commands = [c for c in tran.keys() if not c.isupper()]
             # Create a dict of commands with subcommands
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
-            embed = discord.Embed(color=0x11ff11)
+            embed = discord.Embed(color=0x11FF11)
             # List all commands
             if args == None:
                 embed.url = tran["GLOBAL"]["website_url"]

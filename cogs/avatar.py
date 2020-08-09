@@ -42,7 +42,7 @@ class AvatarUtilities(commands.Cog):
                 avatar_url = icon3 + "png?size=1024"
             title = member.name + "#" + member.discriminator
             content = "[Avatar URL]({})".format(avatar_url)
-            embed = discord.Embed(color=0x15f2c6)
+            embed = discord.Embed(color=0x15F2C6)
             embed.title = f"**{title}**"
             embed.description = content
             embed.set_image(url=avatar_url)

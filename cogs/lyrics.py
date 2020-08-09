@@ -62,7 +62,7 @@ class LyricsUtilities(commands.Cog):
             if not any(x.lower() in title.lower() for x in args.split()):
                 await ctx.send(cmd_tran["msg_not_match"])
                 await ctx.send(cmd_tran["msg_result_found"].format(args))
-            embed = discord.Embed(color=0x00FFFF)
+            embed = discord.Embed(color=0x11FFFF)
             embed.title = cmd_tran["msg_lyrics"].format(title)
             embed.description = None
             embed.set_thumbnail(url=image)
