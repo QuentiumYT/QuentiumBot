@@ -46,6 +46,7 @@ class HelpInfos(commands.Cog):
             if args == None:
                 embed.url = tran["GLOBAL"]["website_url"]
                 embed.title = cmd_tran["msg_list_commands"]
+                embed.description = cmd_tran["msg_details"].format(prefix_server)
                 commands_value = ""
                 latest_command = commands[0]
                 # Loop existing commands
@@ -70,7 +71,7 @@ class HelpInfos(commands.Cog):
                 # Format the link to allow discord markdown
                 donation = cmd_tran["msg_donation"].format("https://www.paypal.me/QuentiumYT/1")
                 embed.add_field(name=cmd_tran["msg_warning"],
-                                value=cmd_tran["msg_warning_desc"] + donation,
+                                value=cmd_tran["msg_warning_desc"].format(prefix_server) + donation,
                                 inline=True)
 
             # List details of a specific command

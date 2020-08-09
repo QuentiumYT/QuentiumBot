@@ -67,7 +67,7 @@ class UserstatsInfos(commands.Cog):
                             value=content + cmd_tran["msg_link_icon"].format(avatar_url),
                             inline=True)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(user_name),
-                             icon_url=member.avatar_url)
+                             icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 
 def setup(client):
