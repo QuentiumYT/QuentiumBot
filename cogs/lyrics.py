@@ -1,6 +1,6 @@
 import discord, requests
-from bs4 import BeautifulSoup
 from discord.ext import commands
+from bs4 import BeautifulSoup
 from QuentiumBot import GetData, get_translations, get_config
 
 # Basic command configs

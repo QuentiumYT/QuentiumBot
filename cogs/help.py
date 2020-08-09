@@ -54,13 +54,19 @@ class HelpInfos(commands.Cog):
                     data = tran[command][lang_server]
                     # Check if category is ended for embed fields
                     if tran[latest_command]["type"] == tran[command]["type"]:
-                        commands_value += f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
+                        if data["usage"]:
+                            commands_value += f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
+                        else:
+                            commands_value += f"- **`{prefix_server}{command}` >** {data['description']}\n"
                     else:
                         # Create a field for each category
                         embed.add_field(name=self.emo(tran[latest_command]["type_emoji"]) + cmd_tran["msg_title_" + tran[latest_command]["type"]],
                                         value=commands_value,
                                         inline=True)
-                        commands_value = f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
+                        if data["usage"]:
+                            commands_value = f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
+                        else:
+                            commands_value = f"- **`{prefix_server}{command}` >** {data['description']}\n"
                         latest_command = command
                 embed.add_field(name=self.emo(tran[command]["type_emoji"]) + cmd_tran["msg_title_" + tran[command]["type"]],
                                 value=commands_value,
@@ -106,7 +112,10 @@ class HelpInfos(commands.Cog):
                         aliases.remove(args)
                         aliases.append(command)
                     desc_text += f"**{cmd_tran['msg_aliases']}** `{'`, `'.join(aliases)}`\n\n"
-                desc_text += f"**{cmd_tran['msg_format']}** `{prefix_server}{args} {args_tran['usage']}`\n\n"
+                if args_tran["usage"]:
+                    desc_text += f"**{cmd_tran['msg_format']}** `{prefix_server}{args} {args_tran['usage']}`\n\n"
+                else:
+                    desc_text += f"**{cmd_tran['msg_format']}** `{prefix_server}{args}`\n\n"
                 if args_tran["example"]:
                     desc_text += f"**{cmd_tran['msg_example']}** `{prefix_server}{args} {args_tran['example']}`"
                 embed.description = desc_text

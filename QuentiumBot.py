@@ -7,6 +7,7 @@ debug = True
 # Folder containing all cogs
 cogs_folder = "cogs."
 startup_cogs = [f.replace(".py", "") for f in os.listdir(cogs_folder) if os.path.isfile(os.path.join(cogs_folder, f))]
+start_time = datetime.now()
 
 # TYPE Data class
 
@@ -108,7 +109,6 @@ async def on_ready():
           "\n+--------------------------------------------+\n")
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
-    start_time = datetime.now()
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
     await client.change_presence(
         status=discord.Status.online,
