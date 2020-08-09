@@ -1,5 +1,4 @@
 import discord
-from datetime import datetime
 from discord.ext import commands
 from QuentiumBot import GetData, get_translations
 
@@ -40,12 +39,12 @@ class UserstatsInfos(commands.Cog):
             user_tag = member.name + "#" + member.discriminator
             user_mention = member.mention
             user_is_bot = cmd_tran["msg_yes"] if member.bot == True else cmd_tran["msg_no"]
-            user_status = cmd_tran["msg_" + str(member.status).lower()]
+            user_status = cmd_tran["msg_" + str(member.status)]
             user_game = cmd_tran["msg_any"] if member.activity == None else member.activity.name
             user_joinserv = member.joined_at.strftime("%d.%m.%Y - %H:%M:%S")
             user_joindiscord = member.created_at.strftime("%d.%m.%Y - %H:%M:%S")
             user_best_role = str(member.top_role)
-            user_roles = len([x.name for x in member.roles])
+            user_roles = len(member.roles)
             user_roles_list = ", ".join([x.name for x in member.roles])
 
             embed = discord.Embed(color=0x1126FF)
@@ -66,7 +65,7 @@ class UserstatsInfos(commands.Cog):
             embed.add_field(name=cmd_tran["msg_stats"].format(user_name),
                             value=content + cmd_tran["msg_link_icon"].format(avatar_url),
                             inline=True)
-            embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(user_name),
+            embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(user_name),
                              icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 

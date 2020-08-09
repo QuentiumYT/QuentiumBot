@@ -5,11 +5,11 @@
         "logo_question": "https://quentium.fr/+Files/discord/question.png",
         "fr": {
             "bot_prefix": "Le préfixe du bot est `{}`. Utilisez la commande `{}help` pour la liste des commandes.",
-            "asked_by": "Demandé par : {}"
+            "requested_by": "Demandé par : {}"
         },
         "en": {
             "bot_prefix": "The prefix of the bot is `{}`. Use the `{}help` command for the list of commands.",
-            "asked_by": "Asked by: {}"
+            "requested_by": "Requested by: {}"
         }
     },
     "ERRORS": {

@@ -84,7 +84,7 @@ class MsgtotalUtilities(commands.Cog):
                 embed.description = cmd_tran["msg_has_sent_total"].format(member, counter)
             else:
                 embed.description = cmd_tran["msg_has_sent_channel"].format(member, counter)
-            embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(ctx.message.author.name),
+            embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
             await tmp.edit(embed=embed)
 

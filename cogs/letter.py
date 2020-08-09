@@ -97,7 +97,7 @@ class LetterUtilities(commands.Cog):
                 embed = discord.Embed(color=0xFFA952)
                 embed.description = new_embed
                 if new_embed == embeds[-1]:
-                    embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(ctx.message.author.name),
+                    embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                                      icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
 

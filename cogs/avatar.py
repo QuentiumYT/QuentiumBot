@@ -46,7 +46,7 @@ class AvatarUtilities(commands.Cog):
             embed.title = f"**{title}**"
             embed.description = content
             embed.set_image(url=avatar_url)
-            embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(ctx.message.author.name),
+            embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 

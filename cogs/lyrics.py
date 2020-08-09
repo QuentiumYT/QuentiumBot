@@ -78,7 +78,7 @@ class LyricsUtilities(commands.Cog):
                                             value=splitted[1])
                     else:
                         embed.add_field(name=splitted[0], value=":notes:" * 6)
-            embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(ctx.message.author.name),
+            embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 

@@ -76,7 +76,7 @@ class ServerstatsInfos(commands.Cog):
             embed.add_field(name=cmd_tran["msg_stats"].format(serv_name),
                             value=content + cmd_tran["msg_link_icon"].format(icon_url),
                             inline=True)
-            embed.set_footer(text=tran["GLOBAL"][lang_server]["asked_by"].format(ctx.message.author.name),
+            embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 
