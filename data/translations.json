@@ -510,6 +510,70 @@
             "msg_link_icon": " ***[Icon Link]({})***"
         }
     },
+    "botstats": {
+        "type": "stats",
+        "type_emoji": "statistics",
+        "fr": {
+            "type_name": "Statistiques",
+            "description": "Montre les statistiques du bot.",
+            "usage": "",
+            "aliases": "botstat/statsbot/statbot",
+            "example": "",
+            "msg_day": "Jour(s)",
+            "msg_hour": "Heure(s)",
+            "msg_min": "Minute(s)",
+            "msg_sec": "Seconde(s)",
+            "msg_bot_host": "VPS Oserya.fr",
+            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_not_available": "Indisponible en MP.",
+            "msg_content": [
+                "```autohotkey\n",
+                "Hébergée sur :        %s\n",
+                "OS :                  %s\n",
+                "Propriétaire :        %s\n",
+                "Durée fonctionnement: %s\n",
+                "Mémoire utilisée :    %s Mo\n",
+                "Commandes reçues :    %s (serveur)\n",
+                "Commandes reçues :    %s (total)\n",
+                "Total utilisateurs :  %s utilisateurs dans %s serveurs\n",
+                "Serveurs FR :         %s\n",
+                "Serveurs EN :         %s\n",
+                "Serveurs DE :         %s\n",
+                "```"
+            ],
+            "msg_stats": "Statistiques du __***QuentiumBot***__"
+        },
+        "en": {
+            "type_name": "Statistics",
+            "description": "Show the statistics of the bot.",
+            "usage": "",
+            "aliases": "botstat/statsbot/statbot",
+            "example": "",
+            "msg_day": "Day(s)",
+            "msg_hour": "Hour(s)",
+            "msg_min": "Minute(s)",
+            "msg_sec": "Second(s)",
+            "msg_bot_host": "VPS Oserya.fr",
+            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_not_available": "Not available in PM.",
+            "msg_content": [
+                "```autohotkey\n",
+                "Hosted on:            %s\n",
+                "OS:                   %s\n",
+                "Owner:                %s\n",
+                "Uptime:               %s\n",
+                "Memory usage:         %s MB\n",
+                "Commands received:    %s (server)\n",
+                "Commands received:    %s (total)\n",
+                "Total users:          %s users in %s servers\n",
+                "Servers FR:           %s\n",
+                "Servers EN:           %s\n",
+                "Servers DE:           %s\n",
+                "```"
+            ],
+            "msg_stats": "Statistics of __***QuentiumBot***__"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
