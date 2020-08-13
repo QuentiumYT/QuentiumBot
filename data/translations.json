@@ -640,6 +640,28 @@
             "msg_thanks": "Thank you for contributing to improve the bot!"
         }
     },
+    "showlogs": {
+        "type": "feedback",
+        "type_emoji": "letter",
+        "fr": {
+            "type_name": "Retours",
+            "description": "Affiche la liste des mises à jour majeures du bot.",
+            "usage": "",
+            "aliases": "showlog/logs/log/changelog/whatsnew/whatnew",
+            "example": "",
+            "msg_logs_bot": "Logs de mise à jour du bot :",
+            "msg_logs_infos": "Les logs sont publiées dès qu'une nouvelle mise à jour importante du bot a lieu."
+        },
+        "en": {
+            "type_name": "Feedback",
+            "description": "Displays the list of major bot updates.",
+            "usage": "",
+            "aliases": "showlog/logs/log/changelog/whatsnew/whatnew",
+            "example": "",
+            "msg_logs_bot": "Changelog of the bot:",
+            "msg_logs_infos": "Logs are shared when the bot gets a new important update."
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
