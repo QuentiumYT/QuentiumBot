@@ -1,6 +1,6 @@
 import discord, time
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, start_time
+from QuentiumBot import GetData, get_translations
 
 # Basic command configs
 cmd_name = "ping"

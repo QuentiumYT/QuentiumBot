@@ -103,8 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-data/*
-!data/*.json
 data/config.json
 data/data.json
 old/

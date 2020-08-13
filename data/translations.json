@@ -601,7 +601,7 @@
             "type_name": "Statistiques",
             "description": "Calcule le temps de réactivité du bot.",
             "usage": "",
-            "aliases": "pong",
+            "aliases": "pong/latency/latence",
             "example": "",
             "msg_ping_test": "***Message de ping***",
             "msg_pong": ":ping_pong: Pong!\n- Latence du bot : `{}ms`\n- Latence d'envoi de message : `{}ms`"
@@ -610,7 +610,7 @@
             "type_name": "Statistics",
             "description": "Calculates the response time of the bot.",
             "usage": "",
-            "aliases": "pong",
+            "aliases": "pong/latency",
             "example": "",
             "msg_ping_test": "***Ping message***",
             "msg_pong": ":ping_pong: Pong!\n- Bot's latency: `{}ms`\n- Message sending latency: `{}ms`"
