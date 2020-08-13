@@ -616,6 +616,30 @@
             "msg_pong": ":ping_pong: Pong!\n- Bot's latency: `{}ms`\n- Message sending latency: `{}ms`"
         }
     },
+    "idea": {
+        "type": "feedback",
+        "type_emoji": "letter",
+        "fr": {
+            "type_name": "Retours",
+            "description": "Propose une idée ou reporte un bug pour améliorer le bot.",
+            "usage": "[\"texte\"]",
+            "aliases": "bug/bugs/ideas/idee",
+            "example": "Nouvelle commande pour gérer les messages.",
+            "msg_specify_idea": "Merci de préciser une idée.",
+            "msg_specify_bug": "Merci de préciser un bug.",
+            "msg_thanks": "Merci de contribuer à l'amélioration du bot !"
+        },
+        "en": {
+            "type_name": "Feedback",
+            "description": "Submit an idea or report a bug to improve the bot.",
+            "usage": "[\"text\"]",
+            "aliases": "bug/bugs/ideas",
+            "example": "New command to manage messages.",
+            "msg_specify_idea": "Please specify an idea.",
+            "msg_specify_bug": "Please specify a bug.",
+            "msg_thanks": "Thank you for contributing to improve the bot!"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
