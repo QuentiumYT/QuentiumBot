@@ -574,6 +574,26 @@
             "msg_stats": "Statistics of __***QuentiumBot***__"
         }
     },
+    "uptime": {
+        "type": "stats",
+        "type_emoji": "statistics",
+        "fr": {
+            "type_name": "Statistiques",
+            "description": "Affiche la durée depuis le démarrage du bot.",
+            "usage": "",
+            "aliases": "timeup/runningtime/runtime/timerun",
+            "example": "",
+            "msg_uptime": "Le bot est en ligne depuis {} Jours, {} Heures, {} Minutes, {} Secondes."
+        },
+        "en": {
+            "type_name": "Statistics",
+            "description": "Displays the duration since booting the bot.",
+            "usage": "",
+            "aliases": "timeup/runningtime/runtime/timerun",
+            "example": "",
+            "msg_uptime": "The bot is online for {} Days, {} Hours, {} Minutes, {} Seconds."
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
