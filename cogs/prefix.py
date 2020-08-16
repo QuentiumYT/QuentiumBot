@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations
+from QuentiumBot import GetData, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "prefix"
@@ -33,7 +33,7 @@ class PrefixAdminConfig(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if not(ctx.message.author.guild_permissions.administrator or any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112])):  # Quentium user IDs
+            if not(ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_admin_user"].format(ctx.message.author.name))
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))

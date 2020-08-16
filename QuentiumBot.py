@@ -11,14 +11,16 @@ start_time = datetime.now()
 
 # TYPE Data class
 
-# Get the configuration for tokens and credidentials
 def get_config(section, key):
+    """Get the configuration for tokens and credidentials"""
+
     with open("data/config.json", "r", encoding="utf-8", errors="ignore") as file:
         config = json.loads(file.read(), strict=False)
     return config[section][key]
 
-# Get all translations from the file
 def get_translations(*args):
+    """Get all translations from the file with subkeys"""
+
     with open("data/translations.json", "r", encoding="utf-8", errors="ignore") as file:
         translations = json.loads(file.read(), strict=False)
     if args:
@@ -26,8 +28,9 @@ def get_translations(*args):
             translations = translations[subkey]
     return translations
 
-# Match a user id depending on mention or raw ID
 def match_user(user_id):
+    """Match a user id depending on mention or raw ID"""
+
     if "<@!" in user_id:
         if len(user_id) == 22:
             return int(user_id[3:-1])
@@ -39,6 +42,12 @@ def match_user(user_id):
             return int(user_id)
     else:
         return False
+
+def is_owner(ctx):
+    """Check if the user ID is one of the owner acccount"""
+
+    # Quentium's user IDs
+    return any(x == ctx.message.author.id for x in client.owner_ids)
 
 class GetData:
     """Handle global data storage file"""
@@ -117,7 +126,7 @@ async def get_prefix(client, message):
 # Create a bot instance
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
-                      owner_id=246943045105221633,
+                      owner_ids=[246943045105221633, 324570532324442112],
                       pm_help=True,
                       help_command=None,
                       case_insensitive=True,
@@ -128,6 +137,7 @@ client = commands.Bot(command_prefix=get_prefix,
 @client.event
 async def on_ready():
     """Bot ready event"""
+
     print("\n+--------------------------------------------+"
           "\n|              QuentiumBot ready!            |"
           "\n|           © 2017 - 2020 QuentiumYT         |"
@@ -195,7 +205,8 @@ if not debug:
             time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
             return await ctx.send(tran["msg_command_cooldown"].format(time_left))
         elif isinstance(error, commands.NotOwner):
-            return await ctx.send(tran["msg_not_owner"])
+            return
+            # return await ctx.send(tran["msg_not_owner"])
 
         file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
         infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
@@ -207,35 +218,38 @@ if not debug:
 # TYPE Global commands
 
 @client.command(hidden=True)
+@commands.is_owner()
 async def load(ctx, extension):
     """Loads an extension"""
-    if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
-        try:
-            client.load_extension(cogs_folder + extension)
-        except Exception as e:
-            return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        await ctx.send(f"{extension} loaded.")
+
+    try:
+        client.load_extension(cogs_folder + extension)
+    except Exception as e:
+        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
+    await ctx.send(f"{extension} loaded.")
 
 @client.command(hidden=True)
+@commands.is_owner()
 async def unload(ctx, extension):
     """Unloads an extension"""
-    if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
-        try:
-            client.unload_extension(cogs_folder + extension)
-        except Exception as e:
-            return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        await ctx.send(f"{extension} unloaded.")
+
+    try:
+        client.unload_extension(cogs_folder + extension)
+    except Exception as e:
+        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
+    await ctx.send(f"{extension} unloaded.")
 
 @client.command(hidden=True)
+@commands.is_owner()
 async def reload(ctx, extension):
     """Reloads an extension"""
-    if any(x == ctx.message.author.id for x in [246943045105221633, 324570532324442112]):  # Quentium user IDs
-        client.unload_extension(cogs_folder + extension)
-        try:
-            client.load_extension(cogs_folder + extension)
-        except Exception as e:
-            return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-        await ctx.send(f"{extension} reloaded.")
+
+    client.unload_extension(cogs_folder + extension)
+    try:
+        client.load_extension(cogs_folder + extension)
+    except Exception as e:
+        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
+    await ctx.send(f"{extension} reloaded.")
 
 # TYPE Start
 
