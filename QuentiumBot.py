@@ -41,16 +41,27 @@ def match_user(user_id):
         return False
 
 class GetData:
-    """Get global data from storage file"""
+    """Handle global data storage file"""
 
-    # Get all parameters from the server or create new entry
-    async def retrieve_data(self, server, raw=False):
-        self.server_id = str(server.id)
+    async def get_data(self):
+        """Loads data from the json file"""
 
         with open("data/data.json", "r", encoding="utf-8", errors="ignore") as file:
             self.data = json.loads(file.read(), strict=False)
-        if raw:
-            return self.data
+
+        return self.data
+
+    async def dump_data(self):
+        """Dumps data in the json file"""
+
+        with open("data/data.json", "w", encoding="utf-8", errors="ignore") as file:
+            json.dump(self.data, file, indent=4)
+
+    async def retrieve_data(self, server):
+        """Get all parameters from the server or create new entry"""
+
+        self.server_id = str(server.id)
+        self.data = await GetData.get_data(self)
 
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
@@ -72,18 +83,32 @@ class GetData:
             self.data[self.server_id]["autorole_server"] = self.autorole_server
             self.data[self.server_id]["prefix_server"] = self.prefix_server
 
-        # Dump the parameters / stats
-        with open("data/data.json", "w", encoding="utf-8", errors="ignore") as file:
-            json.dump(self.data, file, indent=4)
+        # Dump the parameters / stats of the server
+        await GetData.dump_data(self)
+
         # Return the server informations
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
+
+    async def change_prefix(self, ctx, new_prefix):
+        """Change the prefix of the server"""
+
+        self.server_id = str(ctx.message.guild.id)
+        self.new_prefix = new_prefix
+        self.data = await GetData.get_data(self)
+
+        self.data[self.server_id]["prefix_server"] = self.new_prefix
+
+        # Dump the prefix
+        await GetData.dump_data(self)
+
+        client.command_prefix = get_prefix(client, ctx.message)
 
 # TYPE Bot init
 
 async def get_prefix(client, message):
     if message.guild:
         data = await GetData.retrieve_data(client, message.guild)
-        prefix_server = data[-1]
+        prefix_server = data[3]
     else:
         prefix_server = "+"
 

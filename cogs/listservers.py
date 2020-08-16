@@ -32,7 +32,7 @@ class ListserversInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not server_id == 264445053596991498:  # DBL ID
-                data = await GetData.retrieve_data(self, ctx.message.guild, raw=True)
+                data = await GetData.get_data(self)
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []
                 serv_pos = []

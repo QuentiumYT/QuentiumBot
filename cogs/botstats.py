@@ -46,7 +46,7 @@ class BotstatsInfos(commands.Cog):
             bot_commands_get = commands_server if not commands_server == None else cmd_tran["msg_not_available"]
             bot_commands_get_total = 0
 
-            data = await GetData.retrieve_data(self, ctx.message.guild, raw=True)
+            data = await GetData.get_data(self)
             for serv in data.keys():
                 bot_commands_get_total += data[serv]["commands_server"]
             users = 0
