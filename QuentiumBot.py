@@ -75,9 +75,7 @@ class GetData:
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
             self.lang_server = self.data[self.server_id]["lang_server"]
-            self.commands_server = self.data[self.server_id]["commands_server"] + 1
-            self.data[self.server_id]["name_server"] = server.name
-            self.data[self.server_id]["commands_server"] = self.commands_server
+            self.commands_server = self.data[self.server_id]["commands_server"]
             self.autorole_server = self.data[self.server_id]["autorole_server"]
             self.prefix_server = self.data[self.server_id]["prefix_server"]
         else:
@@ -93,7 +91,12 @@ class GetData:
             self.data[self.server_id]["prefix_server"] = self.prefix_server
 
         # Dump the parameters / stats of the server
-        await GetData.dump_data(self)
+        if not isinstance(self, discord.ext.commands.bot.Bot):
+            self.commands_server += 1
+            self.data[self.server_id]["name_server"] = server.name
+            self.data[self.server_id]["commands_server"] = self.commands_server
+
+            await GetData.dump_data(self)
 
         # Return the server informations
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
