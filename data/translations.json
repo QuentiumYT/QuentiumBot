@@ -668,24 +668,52 @@
         "fr": {
             "type_name": "Configurations Admin",
             "description": "Permet de changer le préfixe du bot.",
-            "usage": " [\"préfixe\" | delete | reset | remove]",
+            "usage": "[\"préfixe\" / delete / reset / remove]",
             "aliases": "prefixe",
-            "example": " &",
+            "example": "&",
             "msg_perm_admin_user": ":x: {}, vous n'avez pas la permission **Administrateur** !",
-            "msg_invalid_arg": "Merci de préciser un argument valide : `{}prefix [\"préfixe\" | delete | reset | remove]`.",
+            "msg_invalid_arg": "Merci de préciser un argument valide : `{}prefix [\"préfixe\" / delete / reset / remove]`.",
             "msg_prefix_reset": "Le préfixe à été réinitialisé.",
             "msg_prefix_changed": "Le préfixe à été changé en `{}`."
         },
         "en": {
             "type_name": "Admin Configurations",
             "description": "Allows to change the prefix of the bot.",
-            "usage": " [\"prefix\" | delete | reset | remove]",
+            "usage": "[\"prefix\" / delete / reset / remove]",
             "aliases": "",
-            "example": " &",
+            "example": "&",
             "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
-            "msg_invalid_arg": "Please specify a valid argument: `{}prefix [\"prefix\" | delete | reset | remove]`.",
+            "msg_invalid_arg": "Please specify a valid argument: `{}prefix [\"prefix\" / delete / reset / remove]`.",
             "msg_prefix_reset": "The prefix has been reset.",
             "msg_prefix_changed": "The prefix has been changed to `{}`."
+        }
+    },
+    "lang": {
+        "type": "admin_configs",
+        "type_emoji": "configs",
+        "fr": {
+            "type_name": "Configurations Admin",
+            "description": "Change la langue du bot. (Langue par défaut : en)",
+            "usage": "[fr / en]",
+            "aliases": "langs/langage/langages/language/languages",
+            "example": "en",
+            "msg_perm_admin_user": ":x: {}, vous n'avez pas la permission **Administrateur** !",
+            "msg_specify_lang": "Merci de préciser la langue à changer. `(fr / en)`",
+            "msg_lang_same": "La langue du bot est déjà définie sur **Français**.",
+            "msg_lang_set": "La langue du bot a été changée en **Français**.",
+            "msg_lang_not_exist": "Cette langue n'existe pas, merci de rentrer une language correcte : `(fr / en)`."
+        },
+        "en": {
+            "type_name": "Admin Configurations",
+            "description": "Change the language of the bot. (Default language: en)",
+            "usage": "[fr / en]",
+            "aliases": "langs/language/languages",
+            "example": "fr",
+            "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
+            "msg_specify_lang": "Please specify the language to change. `(fr / en)`",
+            "msg_lang_same": "The language of the bot is already set to **English**.",
+            "msg_lang_set": "The language of the bot has been changed to **English**.",
+            "msg_lang_not_exist": "This language doesn't exist, please enter a correct language: `(fr / en)`."
         }
     },
     "kick": {

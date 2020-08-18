@@ -115,6 +115,18 @@ class GetData:
 
         client.command_prefix = get_prefix(client, ctx.message)
 
+    async def change_lang(self, ctx, new_lang):
+        """Change the language of the server"""
+
+        self.server_id = str(ctx.message.guild.id)
+        self.new_lang = new_lang
+        self.data = await GetData.get_data(self)
+
+        self.data[self.server_id]["lang_server"] = self.new_lang
+
+        # Dump the prefix
+        await GetData.dump_data(self)
+
 # TYPE Bot init
 
 async def get_prefix(client, message):
