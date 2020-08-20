@@ -65,12 +65,12 @@ class WeatherUtilities(commands.Cog):
             if "snow" in data_weather:
                 first_key = list(data_weather["snow"].keys())[0]
                 content += cmd_tran["msg_snowy"].format(first_key) + str(data_weather["snow"]["3h"]) + "L/m²\n"
-            temp_celcius = str(round(data_weather["main"]["temp"] - 273.15, 1))
-            temp_farenheit = str(round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
+            temp_celsius = str(round(data_weather["main"]["temp"] - 273.15, 1))
+            temp_fahrenheit = str(round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
             if lang_server != "en":
-                content += f"{cmd_tran['msg_temperature']} {temp_celcius}°C\n"
+                content += f"{cmd_tran['msg_temperature']} {temp_celsius}°C\n"
             else:
-                content += f"{cmd_tran['msg_temperature']} {temp_celcius}°C - {temp_farenheit}°F\n"
+                content += f"{cmd_tran['msg_temperature']} {temp_celsius}°C - {temp_fahrenheit}°F\n"
             content += f"{cmd_tran['msg_humidity']} {data_weather['main']['humidity']}%\n"
             content += f"{cmd_tran['msg_wind_speed']} {float(data_weather['wind']['speed'])}m/s - {round(float(data_weather['wind']['speed']) * 3.6, 1)}km/h\n\n"
             sunrise_time = datetime.fromtimestamp(int(data_weather["sys"]["sunrise"])).strftime("%H:%M:%S")

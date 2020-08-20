@@ -8,7 +8,7 @@ tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
 class HelpInfos(commands.Cog):
-    """Help command in Informations section"""
+    """Help command in Information section"""
 
     def __init__(self, client):
         self.client = client

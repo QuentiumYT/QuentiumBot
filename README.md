@@ -13,7 +13,7 @@
 
 QuentiumBot is a bot with various features and useful commands. You can check them by using bot help command or online on my brand new website below.
 
-Visit [bot.quentium.fr](https://bot.quentium.fr/) for more informations or [top.gg](https://top.gg/bot/347405743235792908) to support my bot by upvoting it ;)
+Visit [bot.quentium.fr](https://bot.quentium.fr/) for more information or [top.gg](https://top.gg/bot/347405743235792908) to support my bot by upvoting it ;)
 
 These bots are licensed under the MIT license, so feel free to copy small or large parts of the code here without having to ask. Just prefer to learn by yourself and take inspiration of it instead of running it directly :D
 
@@ -21,7 +21,7 @@ Source code of Bots is messy because I kept them as single files, a rewrite is p
 
 ## 🚀 Features
 
--   See some stats like `serverstats`, `userstats`, `botstats`, `totalmsg`, `uptime`.
+-   See some stats like `serverstats`, `userstats`, `botstats`, `msgtotal`, `uptime`.
 -   Send custom messages with emojis or embeds using commands `letter`, `embed`.
 -   Easily check the `listbans`, `listinvites`, `listservers`.
 -   Manage members with `autorole`, `role`, `move` commands.
@@ -36,7 +36,7 @@ Feel free to suggest some features to add to the bot or report a bug using `idea
 
 Help can be found at [bot.quentium.fr](https://bot.quentium.fr/index.php?dev=command_list#documentation).
 
-You can use `+help` on discord aswell but it's not as complete as the website.
+You can use `+help` on discord as well but it's not as complete as the website.
 
 [![Join QuentiumBot Support Server](https://discordapp.com/api/guilds/380373195473027074/embed.png?style=banner4)](https://discord.gg/5sehgXx)
 
@@ -44,7 +44,7 @@ You can use `+help` on discord aswell but it's not as complete as the website.
 
 Pull requests are welcome and please report any issues you find in [issues](https://github.com/QuentiumYT/QuentiumBot/issues/). For major changes, please open an issue first to discuss what you would like to change or create a new branch.
 
-Please make sure to test your suggestions before commiting.
+Please make sure to test your suggestions before committing.
 
 ## 👤 Author
 
@@ -53,7 +53,7 @@ Please make sure to test your suggestions before commiting.
 -   Website: [quentium.fr](https://www.quentium.fr)
 -   Github: [QuentiumYT](https://www.github.com/QuentiumYT)
 -   Twitter: [@QuentiumYT](https://www.twitter.com/QuentiumYT)
--   Youtube: [QuentiumYT](https://www.youtube.com/QuentiumYT)
+-   YouTube: [QuentiumYT](https://www.youtube.com/QuentiumYT)
 -   Twitch: [QuentiumYT](https://www.twitch.tv/QuentiumYT)
 -   Steam: [QuentiumYT](https://steamcommunity.com/id/QuentiumYT)
 -   Reddit: [QuentiumYT](https://www.reddit.com/user/QuentiumYT)

@@ -8,7 +8,7 @@ tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
 class ListinvitesInfos(commands.Cog):
-    """List invites command in Informations section"""
+    """List invites command in Information section"""
 
     def __init__(self, client):
         self.client = client

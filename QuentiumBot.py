@@ -12,7 +12,7 @@ start_time = datetime.now()
 # TYPE Data class
 
 def get_config(section, key):
-    """Get the configuration for tokens and credidentials"""
+    """Get the configuration for tokens and credentials"""
 
     with open("data/config.json", "r", encoding="utf-8", errors="ignore") as file:
         config = json.loads(file.read(), strict=False)
@@ -98,7 +98,7 @@ class HandleData:
 
             await HandleData.dump_data(self)
 
-        # Return the server informations
+        # Return the server information
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
 
     async def change_prefix(self, ctx, new_prefix):
@@ -175,7 +175,7 @@ async def on_ready():
     await client.change_presence(
         status=discord.Status.online,
         activity=discord.Activity(
-            name="Oh, a QuentiumBot rewite!?",
+            name="Oh, a QuentiumBot rewrite!?",
             type=discord.ActivityType.playing)
     )
 

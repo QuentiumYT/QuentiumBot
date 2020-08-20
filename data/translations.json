@@ -41,8 +41,8 @@
         }
     },
     "help": {
-        "type": "infos",
-        "type_emoji": "informations",
+        "type": "info",
+        "type_emoji": "information",
         "fr": {
             "type_name": "Informations",
             "description": "Affiche la liste des commandes ou documente sur l'utilisation d'une commande spécifique.",
@@ -51,7 +51,7 @@
             "example": "embed",
             "msg_list_commands": "----- Liste des Commandes -----",
             "msg_details": ":bulb: ***Pour plus de détails sur la commande, tapez `{}help [\"commande\"]`***",
-            "msg_title_infos": " Commandes **INFORMATIONS** :",
+            "msg_title_info": " Commandes **INFORMATIONS** :",
             "msg_title_utilities": " Commandes **UTILITAIRES** :",
             "msg_title_stats": " Commandes **STATISTIQUES** :",
             "msg_title_feedback": " Commandes **RETOUR D'INFORMATIONS** :",
@@ -75,12 +75,12 @@
             "msg_no_command_found": "La commande/alias spécifié n'a pas été trouvé."
         },
         "en": {
-            "type_name": "Informations",
+            "type_name": "Information",
             "description": "Displays the list of commands or informs about the usage of a specific command.",
             "usage": "[\"command\"]",
             "aliases": "cmd/commands",
             "example": "embed",
-            "msg_title_infos": " **INFORMATION** commands:",
+            "msg_title_info": " **INFORMATION** commands:",
             "msg_title_utilities": " **UTILITIES** commands:",
             "msg_title_stats": " **STATISTICS** commands:",
             "msg_title_feedback": " **FEEDBACK** commands:",
@@ -107,8 +107,8 @@
         }
     },
     "listservers": {
-        "type": "infos",
-        "type_emoji": "informations",
+        "type": "info",
+        "type_emoji": "information",
         "fr": {
             "type_name": "Informations",
             "description": "Affiche la liste des serveurs utilisant le bot.",
@@ -119,7 +119,7 @@
             "msg_servers": "Serveurs : {}"
         },
         "en": {
-            "type_name": "Informations",
+            "type_name": "Information",
             "description": "Displays the list of servers using the bot.",
             "usage": "",
             "aliases": "listserver/serverlist/listserv/servlist/listservs/servslist",
@@ -129,8 +129,8 @@
         }
     },
     "listinvites": {
-        "type": "infos",
-        "type_emoji": "informations",
+        "type": "info",
+        "type_emoji": "information",
         "fr": {
             "type_name": "Informations",
             "description": "Affiche la liste des liens d'invitation.",
@@ -141,7 +141,7 @@
             "msg_title": "Liens d'invitation :"
         },
         "en": {
-            "type_name": "Informations",
+            "type_name": "Information",
             "description": "Displays the list of invitation links.",
             "usage": "",
             "aliases": "listinvite/invitelist/inviteslist",
@@ -151,8 +151,8 @@
         }
     },
     "listbans": {
-        "type": "infos",
-        "type_emoji": "informations",
+        "type": "info",
+        "type_emoji": "information",
         "fr": {
             "type_name": "Informations",
             "description": "Affiche la liste des personnes bannies.",
@@ -163,7 +163,7 @@
             "msg_title": "Liste des membres bannis :"
         },
         "en": {
-            "type_name": "Informations",
+            "type_name": "Information",
             "description": "Displays the list of banned people.",
             "usage": "",
             "aliases": "listban/banlist/banslist",
@@ -173,8 +173,8 @@
         }
     },
     "shareme": {
-        "type": "infos",
-        "type_emoji": "informations",
+        "type": "info",
+        "type_emoji": "information",
         "fr": {
             "type_name": "Informations",
             "description": "Invite le bot sur ton serveur.",
@@ -184,7 +184,7 @@
             "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
         },
         "en": {
-            "type_name": "Informations",
+            "type_name": "Information",
             "description": "Invite the bot to your server.",
             "usage": "",
             "aliases": "sharebot/share/invitebot/botinvite",
@@ -243,7 +243,7 @@
             "aliases": "embeds/richembed",
             "example": "T=My personal embed D=I like this command C=green F=Yay!",
             "msg_invalid_arg": "Please specify a valid argument: `{}embed T=Title D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.",
-            "msg_invalid_color": "The mentionned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
+            "msg_invalid_color": "The mentioned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
         }
     },
     "letter": {
@@ -748,7 +748,7 @@
             "msg_role_not_defined": "The autorole is not defined!",
             "msg_unknown_role": "The role has not been found, it may have been removed or changed.",
             "msg_current_role": "The autorole is set to `{}`.",
-            "msg_invalid_role": "The mentionned role does not exists. Supported parameters: `role name`, `role mention`, `role id`.",
+            "msg_invalid_role": "The mentioned role does not exists. Supported parameters: `role name`, `role mention`, `role id`.",
             "msg_role_set": "Successfully set autorole to role `{}`."
         }
     },
@@ -768,7 +768,7 @@
         },
         "en": {
             "type_name": "Admin Rights",
-            "description": "Kick the mentionned member.",
+            "description": "Kick the mentioned member.",
             "usage": "[@member]",
             "aliases": "",
             "example": "@QuentiumYT#0207",
