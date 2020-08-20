@@ -233,8 +233,8 @@
             "usage": "[T=\"titre\"] [D=\"description\"] [C=\"couleur\"] [I=\"url image\"] [F=\"bas de page\"] [U=\"url\"] [A=\"auteur\"]",
             "aliases": "embeds/richembed",
             "example": "T=Mon embed perso D=J'aime bien cette commande C=green F=Yay !",
-            "msg_no_args": "Merci de préciser un argument valide : `{}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.",
-            "msg_wrong_color": "La couleur mentionnée n'existe pas. Paramètres supportés : `nom couleur`, `valeur hexa`, `nombre entier`, `random`."
+            "msg_invalid_arg": "Merci de préciser un argument valide : `{}embed T=Titre D=Description C=Couleur I=ImageURL F=Footer U=URL A=Auteur`.",
+            "msg_invalid_color": "La couleur mentionnée n'existe pas. Paramètres supportés : `nom couleur`, `valeur hexa`, `nombre entier`, `random`."
         },
         "en": {
             "type_name": "Utilities",
@@ -242,8 +242,8 @@
             "usage": "[T=\"title\"] [D=\"description\"] [C=\"color\"] [I=\"image url\"] [F=\"footer\"] [U=\"url\"] [A=\"author\"]",
             "aliases": "embeds/richembed",
             "example": "T=My personal embed D=I like this command C=green F=Yay!",
-            "msg_no_args": "Please specify a valid argument: `{}embed T=Title D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.",
-            "msg_wrong_color": "The mentionned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
+            "msg_invalid_arg": "Please specify a valid argument: `{}embed T=Title D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.",
+            "msg_invalid_color": "The mentionned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
         }
     },
     "letter": {
@@ -255,7 +255,7 @@
             "usage": "[\"texte\"]",
             "aliases": "lettre/letters/emojis/emoji",
             "example": "Bonjour à tous !",
-            "msg_no_text": "Merci de préciser un texte."
+            "msg_specify_text": "Merci de préciser un texte."
         },
         "en": {
             "type_name": "Utilities",
@@ -263,7 +263,7 @@
             "usage": "[\"text\"]",
             "aliases": "letters/emojis/emoji",
             "example": "Hello world!",
-            "msg_no_text": "Please specify a text."
+            "msg_specify_text": "Please specify a text."
         }
     },
     "weather": {
@@ -402,7 +402,7 @@
                 "%s```"
             ],
             "msg_stats": "Statistiques de __***{}***__",
-            "msg_link_icon": " ***[Lien Icône]({})***"
+            "msg_link_icon": " ***[Lien icône]({})***"
         },
         "en": {
             "type_name": "Statistics",
@@ -435,7 +435,7 @@
                 "%s```"
             ],
             "msg_stats": "Statistics of __***{}***__",
-            "msg_link_icon": " ***[Icon Link]({})***"
+            "msg_link_icon": " ***[Icon link]({})***"
         }
     },
     "serverstats": {
@@ -452,7 +452,7 @@
             "msg_medium": "Moyen",
             "msg_high": "Elevé",
             "msg_extreme": "Extrême",
-            "msg_limit": "La longueur de la liste des roles est supérieure à ce que discord peut envoyer.",
+            "msg_limit": "La longueur de la liste des rôles est supérieure à ce que discord peut envoyer.",
             "msg_content": [
                 "```autohotkey\n",
                 "Nom:                %s\n",
@@ -460,20 +460,20 @@
                 "Propriétaire:       %s (%s)\n",
                 "Crée le:            %s\n",
                 "Région:             %s\n",
-                "Membres:            %s (%s En ligne)\n",
-                "  - Personnes:      %s (%s En ligne)\n",
-                "  - Bots:           %s (%s En ligne)\n",
+                "Membres:            %s (%s en ligne)\n",
+                "  - Personnes:      %s (%s en ligne)\n",
+                "  - Bots:           %s (%s en ligne)\n",
                 "Salons:             %s\n",
                 "  - Textuels:       %s\n",
                 "  - Vocaux:         %s\n",
                 "Salon AFK:          %s\n",
                 "Temps AFK:          %s min\n",
                 "Niveau vérif:       %s\n",
-                "Roles:              %s\n",
+                "Rôles:              %s\n",
                 "%s```"
             ],
             "msg_stats": "Statistiques de __***{}***__",
-            "msg_link_icon": " ***[Lien Icône]({})***"
+            "msg_link_icon": " ***[Lien icône]({})***"
         },
         "en": {
             "type_name": "Statistics",
@@ -494,9 +494,9 @@
                 "Owner:              %s (%s)\n",
                 "Created at:         %s\n",
                 "Region:             %s\n",
-                "Members:            %s (%s Online)\n",
-                "    Users:          %s (%s Online)\n",
-                "    Bots:           %s (%s Online)\n",
+                "Members:            %s (%s online)\n",
+                "    Users:          %s (%s online)\n",
+                "    Bots:           %s (%s online)\n",
                 "Channels:           %s\n",
                 "    Text:           %s\n",
                 "    Voice:          %s\n",
@@ -507,7 +507,7 @@
                 "%s```"
             ],
             "msg_stats": "Statistics of __***{}***__",
-            "msg_link_icon": " ***[Icon Link]({})***"
+            "msg_link_icon": " ***[Icon link]({})***"
         }
     },
     "botstats": {
@@ -727,12 +727,12 @@
             "example": "Joueur",
             "msg_perm_roles_user": ":x: {}, vous n'avez pas la permission **Gérer les rôles** !",
             "msg_perm_roles_bot": ":x: Il manque la permissions **Gérer les rôles** au bot.",
-            "msg_specify_argument": "Merci de préciser un argument. `{}autorole <rôle>/show/remove`",
+            "msg_invalid_arg": "Merci de préciser un argument. `{}autorole [<rôle> / show / see / remove / delete]`",
             "msg_role_deleted": "L'autorole a été correctement supprimé.",
             "msg_role_not_defined": "L'autorole n'est pas été défini !",
             "msg_unknown_role": "Le rôle n'a pas été trouvé, il a pu être supprimé ou changé.",
             "msg_current_role": "L'autorole est défini sur `{}`.",
-            "msg_invalid_role": "Merci d'entrer un rôle valide existant sur ce serveur !",
+            "msg_invalid_role": "Le rôle mentionné n'existe pas. Paramètres supportés : `nom rôle`, `rôle mention`, `id rôle`.",
             "msg_role_set": "L'autorole a été définis sur `{}` avec succès."
         },
         "en": {
@@ -743,12 +743,12 @@
             "example": "Player",
             "msg_perm_roles_user": ":x: {}, you don't have the **Manage roles** permission!",
             "msg_perm_roles_bot": ":x: The bot is missing the **Manage roles** permissions.",
-            "msg_specify_argument": "Please specify an argument. `{}autorole <role>/show/remove`",
+            "msg_invalid_arg": "Please specify a valid argument. `{}autorole [<role> / show / see / remove / delete]`",
             "msg_role_deleted": "The autorole has been successfully deleted.",
             "msg_role_not_defined": "The autorole is not defined!",
             "msg_unknown_role": "The role has not been found, it may have been removed or changed.",
             "msg_current_role": "The autorole is set to `{}`.",
-            "msg_invalid_role": "Please enter a valid role existing on this server!",
+            "msg_invalid_role": "The mentionned role does not exists. Supported parameters: `role name`, `role mention`, `role id`.",
             "msg_role_set": "Successfully set autorole to role `{}`."
         }
     },
@@ -764,7 +764,7 @@
             "msg_perm_kick_user": ":x: {}, vous n'avez pas la permission **Expulser des membres** !",
             "msg_perm_kick_bot": ":x: Il manque la permission **Expulser des membres** au bot.",
             "msg_mention_user": ":x: {}, veuillez mentionnez une personne à expulser !",
-            "msg_been_kicked": "**{}** a été kick !"
+            "msg_user_kicked": "**{}** a été kick !"
         },
         "en": {
             "type_name": "Admin Rights",
@@ -775,7 +775,7 @@
             "msg_perm_kick_user": ":x: {}, you don't have the **Kick members** permission!",
             "msg_perm_kick_bot": ":x: The bot is missing the **Kick members** permission.",
             "msg_mention_user": ":x: {}, please mention a member to kick him!",
-            "msg_been_kicked": "**{}** has been kicked!"
+            "msg_user_kicked": "**{}** has been kicked!"
         }
     }
 }

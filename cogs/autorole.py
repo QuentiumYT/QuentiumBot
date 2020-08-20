@@ -38,7 +38,7 @@ class AutoroleAdminConfig(commands.Cog):
             if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
                 return await ctx.send(cmd_tran["msg_perm_roles_bot"])
             if not args:
-                return await ctx.send(cmd_tran["msg_specify_argument"].format(prefix_server))
+                return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
             else:
                 if any([x == args.lower() for x in ["remove", "delete"]]):
                     await HandleData.change_autorole(self, ctx, None)

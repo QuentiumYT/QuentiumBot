@@ -41,7 +41,7 @@ class EmbedUtilities(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not args:
-                return await ctx.send(cmd_tran["msg_no_args"].format(prefix_server))
+                return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
             content = [x.strip() for x in re.split(r".=", args)[1:]]
             sep = re.findall(r".=", args)
@@ -87,7 +87,7 @@ class EmbedUtilities(commands.Cog):
                             if color >= 16777215:
                                 color = 16777215
                         except:
-                            return await ctx.send(cmd_tran["msg_wrong_color"])
+                            return await ctx.send(cmd_tran["msg_invalid_color"])
             else:
                 color = self.random_color()
             embed = discord.Embed(color=color)

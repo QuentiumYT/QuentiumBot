@@ -42,7 +42,7 @@ class KickAdministration(commands.Cog):
                 return await ctx.send(cmd_tran["msg_mention_user"].format(ctx.message.author.name))
             await member.kick()
             embed = discord.Embed(color=0xFF1111)
-            embed.description = cmd_tran["msg_been_kicked"].format(member.name)
+            embed.description = cmd_tran["msg_user_kicked"].format(member.name)
             await ctx.send(embed=embed)
 
 def setup(client):

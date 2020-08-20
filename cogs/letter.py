@@ -42,7 +42,7 @@ class LetterUtilities(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not args:
-                return await ctx.send(cmd_tran["msg_no_text"])
+                return await ctx.send(cmd_tran["msg_specify_text"])
 
             lst = []
             emojis_used = re.findall(r"<\w*:\w*:\d*>", args)
