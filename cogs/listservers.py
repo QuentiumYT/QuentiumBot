@@ -26,12 +26,11 @@ class ListserversInfos(commands.Cog):
             lang_server = data[0]
         else:
             lang_server = "en"
-        server_id = ctx.message.guild.id
         cmd_tran = tran[cmd_name][lang_server]
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if not server_id == 264445053596991498:  # DBL ID
+            if not ctx.message.guild.id == 264445053596991498:  # DBL ID
                 data = await GetData.get_data(self)
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []

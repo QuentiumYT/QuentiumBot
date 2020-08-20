@@ -45,11 +45,11 @@ class AutoroleAdminConfig(commands.Cog):
                     return await ctx.send(cmd_tran["msg_role_deleted"])
                 elif any([x == args.lower() for x in ["show", "see"]]):
                     data = await GetData.get_data(self)
-                    role_file = data[str(ctx.message.guild.id)]["autorole_server"]
-                    if role_file == None:
+                    saved_role = data[str(ctx.message.guild.id)]["autorole_server"]
+                    if saved_role == None:
                         return await ctx.send(cmd_tran["msg_role_not_defined"])
                     else:
-                        role = discord.utils.get(ctx.message.guild.roles, id=int(role_file))
+                        role = discord.utils.get(ctx.message.guild.roles, id=saved_role)
                         if role == None:
                             return await ctx.send(cmd_tran["msg_unknown_role"])
                         else:

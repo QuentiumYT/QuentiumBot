@@ -37,7 +37,7 @@ class KickAdministration(commands.Cog):
             # Check bot perms
             if not ctx.message.guild.me.guild_permissions.kick_members:
                 return await ctx.send(cmd_tran["msg_perm_kick_bot"])
-            # If a memeber is mentionned
+            # If a member is mentionned
             if not member:
                 return await ctx.send(cmd_tran["msg_mention_user"].format(ctx.message.author.name))
             await member.kick()

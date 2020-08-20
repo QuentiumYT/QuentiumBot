@@ -773,7 +773,7 @@
             "aliases": "",
             "example": "@QuentiumYT#0207",
             "msg_perm_kick_user": ":x: {}, you don't have the **Kick members** permission!",
-            "msg_perm_kick_bot": ":x: The bot is missing **Kick members** permission.",
+            "msg_perm_kick_bot": ":x: The bot is missing the **Kick members** permission.",
             "msg_mention_user": ":x: {}, please mention a member to kick him!",
             "msg_been_kicked": "**{}** has been kicked!"
         }
