@@ -7,18 +7,18 @@
     },
     "PUBLIC": {
         "token": "",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=347405743235792908&scope=bot&permissions=268758143",
+        "invite": "https://discordapp.com/oauth2/authorize?client_id=347405743235792908&scope=bot&permissions=322301047",
         "ftp_host": "",
         "ftp_login": "",
         "ftp_passwd": ""
     },
     "PRIVATE": {
         "token": "",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=347823747992125441&scope=bot&permissions=268758143",
+        "invite": "https://discordapp.com/oauth2/authorize?client_id=347823747992125441&scope=bot&permissions=322301047",
         "co_passwd": ""
     },
     "TEST": {
         "token": "",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=356844602382221314&scope=bot&permissions=2146958591"
+        "invite": "https://discordapp.com/oauth2/authorize?client_id=356844602382221314&scope=bot&permissions=2146958847"
     }
 }

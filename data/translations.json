@@ -251,7 +251,7 @@
         "type_emoji": "utilities",
         "fr": {
             "type_name": "Utilitaires",
-            "description": "Ecris un message avec des émojis.",
+            "description": "Écris un message avec des émojis.",
             "usage": "[\"texte\"]",
             "aliases": "lettre/letters/emojis/emoji",
             "example": "Bonjour à tous !",
@@ -450,7 +450,7 @@
             "msg_none": "Aucun",
             "msg_low": "Faible",
             "msg_medium": "Moyen",
-            "msg_high": "Elevé",
+            "msg_high": "Élevé",
             "msg_extreme": "Extrême",
             "msg_limit": "La longueur de la liste des rôles est supérieure à ce que discord peut envoyer.",
             "msg_content": [
