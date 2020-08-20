@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations
+from QuentiumBot import HandleData, get_translations
 
 # Basic command configs
 cmd_name = "showlogs"
@@ -23,7 +23,7 @@ class ShowlogsFeedback(commands.Cog):
     async def showlogs_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, match_id
+from QuentiumBot import HandleData, get_translations, match_id
 
 # Basic command configs
 cmd_name = "msgtotal"
@@ -22,7 +22,7 @@ class MsgtotalUtilities(commands.Cog):
     async def msgtotal_cmd(self, ctx, *args):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:

@@ -1,7 +1,7 @@
 import discord, psutil
 from discord.ext import commands
 from datetime import datetime
-from QuentiumBot import GetData, get_translations, start_time
+from QuentiumBot import HandleData, get_translations, start_time
 
 # Basic command configs
 cmd_name = "botstats"
@@ -24,7 +24,7 @@ class BotstatsInfos(commands.Cog):
     async def botstats_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             commands_server = data[1]
         else:
@@ -46,7 +46,7 @@ class BotstatsInfos(commands.Cog):
             bot_commands_get = commands_server if not commands_server == None else cmd_tran["msg_not_available"]
             bot_commands_get_total = 0
 
-            data = await GetData.get_data(self)
+            data = await HandleData.get_data(self)
             for serv in data.keys():
                 bot_commands_get_total += data[serv]["commands_server"]
             users = 0

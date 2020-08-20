@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations
+from QuentiumBot import HandleData, get_translations
 
 # Basic command configs
 cmd_name = "listservers"
@@ -22,7 +22,7 @@ class ListserversInfos(commands.Cog):
     async def listservers_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -31,7 +31,7 @@ class ListserversInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not ctx.message.guild.id == 264445053596991498:  # DBL ID
-                data = await GetData.get_data(self)
+                data = await HandleData.get_data(self)
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []
                 serv_pos = []

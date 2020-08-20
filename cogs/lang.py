@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, is_owner
+from QuentiumBot import HandleData, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "lang"
@@ -23,7 +23,7 @@ class LangAdminConfig(commands.Cog):
     async def lang_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -40,7 +40,7 @@ class LangAdminConfig(commands.Cog):
                     if lang_server == args:
                         await ctx.send(cmd_tran["msg_lang_same"])
                     else:
-                        await GetData.change_lang(self, ctx, args)
+                        await HandleData.change_lang(self, ctx, args)
                         # Lang changed before sending the msg
                         await ctx.send(tran[cmd_name][args]["msg_lang_set"])
                 else:

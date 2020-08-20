@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, is_owner
+from QuentiumBot import HandleData, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "prefix"
@@ -23,7 +23,7 @@ class PrefixAdminConfig(commands.Cog):
     async def prefix_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -39,10 +39,10 @@ class PrefixAdminConfig(commands.Cog):
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
             if any(x == args for x in ["delete", "reset", "remove"]):
                 if not prefix_server == "+":
-                    await GetData.change_prefix(self, ctx, "+")
+                    await HandleData.change_prefix(self, ctx, "+")
                 return await ctx.send(cmd_tran["msg_prefix_reset"])
 
-            await GetData.change_prefix(self, ctx, args)
+            await HandleData.change_prefix(self, ctx, args)
             await ctx.send(cmd_tran["msg_prefix_changed"].format(args))
 
 def setup(client):

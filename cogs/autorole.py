@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, is_owner, match_id
+from QuentiumBot import HandleData, get_translations, is_owner, match_id
 
 # Basic command configs
 cmd_name = "autorole"
@@ -23,7 +23,7 @@ class AutoroleAdminConfig(commands.Cog):
     async def autorole_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -41,10 +41,10 @@ class AutoroleAdminConfig(commands.Cog):
                 return await ctx.send(cmd_tran["msg_specify_argument"].format(prefix_server))
             else:
                 if any([x == args.lower() for x in ["remove", "delete"]]):
-                    await GetData.change_autorole(self, ctx, None)
+                    await HandleData.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_role_deleted"])
                 elif any([x == args.lower() for x in ["show", "see"]]):
-                    data = await GetData.get_data(self)
+                    data = await HandleData.get_data(self)
                     saved_role = data[str(ctx.message.guild.id)]["autorole_server"]
                     if saved_role == None:
                         return await ctx.send(cmd_tran["msg_role_not_defined"])
@@ -64,7 +64,7 @@ class AutoroleAdminConfig(commands.Cog):
                     else:
                         return await ctx.send(cmd_tran["msg_invalid_role"])
 
-                await GetData.change_autorole(self, ctx, role.id)
+                await HandleData.change_autorole(self, ctx, role.id)
                 return await ctx.send(cmd_tran["msg_role_set"].format(role.name))
 
 def setup(client):

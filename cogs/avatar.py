@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations
+from QuentiumBot import HandleData, get_translations
 
 # Basic command configs
 cmd_name = "avatar"
@@ -22,7 +22,7 @@ class AvatarUtilities(commands.Cog):
     async def avatar_cmd(self, ctx, *, member: discord.Member = None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"

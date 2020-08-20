@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-from QuentiumBot import GetData, get_translations
+from QuentiumBot import HandleData, get_translations
 
 # Basic command configs
 cmd_name = "idea"
@@ -26,7 +26,7 @@ class IdeaFeedback(commands.Cog):
     async def idea_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(self, ctx.message.guild)
+            data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:

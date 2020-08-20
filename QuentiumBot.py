@@ -49,7 +49,7 @@ def is_owner(ctx):
     # Quentium's user IDs
     return any(x == ctx.message.author.id for x in client.owner_ids)
 
-class GetData:
+class HandleData:
     """Handle global data storage file"""
 
     async def get_data(self):
@@ -70,7 +70,7 @@ class GetData:
         """Get all parameters from the server or create new entry"""
 
         self.server_id = str(server.id)
-        self.data = await GetData.get_data(self)
+        self.data = await HandleData.get_data(self)
 
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
@@ -96,7 +96,7 @@ class GetData:
             self.data[self.server_id]["name_server"] = server.name
             self.data[self.server_id]["commands_server"] = self.commands_server
 
-            await GetData.dump_data(self)
+            await HandleData.dump_data(self)
 
         # Return the server informations
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
@@ -106,12 +106,12 @@ class GetData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_prefix = new_prefix
-        self.data = await GetData.get_data(self)
+        self.data = await HandleData.get_data(self)
 
         self.data[self.server_id]["prefix_server"] = self.new_prefix
 
         # Dump the prefix
-        await GetData.dump_data(self)
+        await HandleData.dump_data(self)
 
         client.command_prefix = get_prefix(client, ctx.message)
 
@@ -120,30 +120,30 @@ class GetData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_lang = new_lang
-        self.data = await GetData.get_data(self)
+        self.data = await HandleData.get_data(self)
 
         self.data[self.server_id]["lang_server"] = self.new_lang
 
         # Dump the prefix
-        await GetData.dump_data(self)
+        await HandleData.dump_data(self)
 
     async def change_autorole(self, ctx, new_role):
         """Change the language of the server"""
 
         self.server_id = str(ctx.message.guild.id)
         self.new_role = new_role
-        self.data = await GetData.get_data(self)
+        self.data = await HandleData.get_data(self)
 
         self.data[self.server_id]["autorole_server"] = self.new_role
 
         # Dump the prefix
-        await GetData.dump_data(self)
+        await HandleData.dump_data(self)
 
 # TYPE Bot init
 
 async def get_prefix(client, message):
     if message.guild:
-        data = await GetData.retrieve_data(client, message.guild)
+        data = await HandleData.retrieve_data(client, message.guild)
         prefix_server = data[3]
     else:
         prefix_server = "+"
@@ -182,7 +182,7 @@ async def on_ready():
 @client.listen()
 async def on_message(message):
     if isinstance(message.channel, discord.TextChannel):
-        data = await GetData.retrieve_data(client, message.guild)
+        data = await HandleData.retrieve_data(client, message.guild)
         server_id = message.guild.id
         lang_server = data[0]
         prefix_server = data[3]
@@ -199,7 +199,7 @@ if not debug:
     @client.event
     async def on_command_error(ctx, error):
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await GetData.retrieve_data(client, ctx.message.guild)
+            data = await HandleData.retrieve_data(client, ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
