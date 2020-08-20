@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, match_user
+from QuentiumBot import GetData, get_translations, match_id
 
 # Basic command configs
 cmd_name = "msgtotal"
@@ -35,14 +35,14 @@ class MsgtotalUtilities(commands.Cog):
             # if not ctx.message.channel.guild.me.guild_permissions.administrator:
             # return await ctx.send(cmd_tran["msg_perm_admin_user"])
             if len(args) == 2:
-                if match_user(args[1]):
-                    member = discord.utils.get(self.client.get_all_members(), id=match_user(args[1]))
+                if match_id(args[1]):
+                    member = discord.utils.get(self.client.get_all_members(), id=match_id(args[1]))
                 else:
                     return await ctx.send(cmd_tran["msg_invalid_member"])
                 args = args[0]
             elif len(args) == 1:
-                if match_user(args[0]):
-                    member = discord.utils.get(self.client.get_all_members(), id=match_user(args[0]))
+                if match_id(args[0]):
+                    member = discord.utils.get(self.client.get_all_members(), id=match_id(args[0]))
                     args = "all"
                 elif not args[0] == "all" and not args[0] == "channel":
                     return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))

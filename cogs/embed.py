@@ -1,6 +1,6 @@
 import discord, json, random, re, requests
 from discord.ext import commands
-from QuentiumBot import GetData, get_translations, match_user
+from QuentiumBot import GetData, get_translations
 
 # Basic command configs
 cmd_name = "embed"

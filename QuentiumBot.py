@@ -28,18 +28,18 @@ def get_translations(*args):
             translations = translations[subkey]
     return translations
 
-def match_user(user_id):
+def match_id(dis_id):
     """Match a user id depending on mention or raw ID"""
 
-    if "<@!" in user_id:
-        if len(user_id) == 22:
-            return int(user_id[3:-1])
-    elif "<@" in user_id:
-        if len(user_id) == 21:
-            return int(user_id[2:-1])
-    elif user_id.isdigit():
-        if len(user_id) == 18:
-            return int(user_id)
+    if "<@!" in dis_id:
+        if len(dis_id) == 22:
+            return int(dis_id[3:-1])
+    elif "<@" in dis_id:
+        if len(dis_id) == 21:
+            return int(dis_id[2:-1])
+    elif dis_id.isdigit():
+        if len(dis_id) == 18:
+            return int(dis_id)
     else:
         return False
 
