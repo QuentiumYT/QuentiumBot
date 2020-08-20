@@ -29,9 +29,9 @@ def get_translations(*args):
     return translations
 
 def match_id(dis_id):
-    """Match a user id depending on mention or raw ID"""
+    """Match a discord id depending on mention or raw ID"""
 
-    if "<@!" in dis_id:
+    if any([x in dis_id for x in ["<@!", "<@&"]]):
         if len(dis_id) == 22:
             return int(dis_id[3:-1])
     elif "<@" in dis_id:
@@ -123,6 +123,18 @@ class GetData:
         self.data = await GetData.get_data(self)
 
         self.data[self.server_id]["lang_server"] = self.new_lang
+
+        # Dump the prefix
+        await GetData.dump_data(self)
+
+    async def change_autorole(self, ctx, new_role):
+        """Change the language of the server"""
+
+        self.server_id = str(ctx.message.guild.id)
+        self.new_role = new_role
+        self.data = await GetData.get_data(self)
+
+        self.data[self.server_id]["autorole_server"] = self.new_role
 
         # Dump the prefix
         await GetData.dump_data(self)

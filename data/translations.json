@@ -716,6 +716,42 @@
             "msg_lang_not_exist": "This language doesn't exist, please enter a correct language: `(fr / en)`."
         }
     },
+    "autorole": {
+        "type": "admin_configs",
+        "type_emoji": "configs",
+        "fr": {
+            "type_name": "Configurations Admin",
+            "description": "Donne un rôle automatiquement à quelqu'un lorsqu'il rejoint le serveur.",
+            "usage": "[\"nom du rôle\" / show / see / remove / delete]",
+            "aliases": "autoroles/roleauto",
+            "example": "Joueur",
+            "msg_perm_roles_user": ":x: {}, vous n'avez pas la permission **Gérer les rôles** !",
+            "msg_perm_roles_bot": ":x: Il manque la permissions **Gérer les rôles** au bot.",
+            "msg_specify_argument": "Merci de préciser un argument. `{}autorole <rôle>/show/remove`",
+            "msg_role_deleted": "L'autorole a été correctement supprimé.",
+            "msg_role_not_defined": "L'autorole n'est pas été défini !",
+            "msg_unknown_role": "Le rôle n'a pas été trouvé, il a pu être supprimé ou changé.",
+            "msg_current_role": "L'autorole est défini sur `{}`.",
+            "msg_invalid_role": "Merci d'entrer un rôle valide existant sur ce serveur !",
+            "msg_role_set": "L'autorole a été définis sur `{}` avec succès."
+        },
+        "en": {
+            "type_name": "Admin Configurations",
+            "description": "Give automatically a role to someone when he join the server.",
+            "usage": "[\"role name\" / show / see / remove / delete]",
+            "aliases": "autoroles/roleauto",
+            "example": "Player",
+            "msg_perm_roles_user": ":x: {}, you don't have the **Manage roles** permission!",
+            "msg_perm_roles_bot": ":x: The bot is missing the **Manage roles** permissions.",
+            "msg_specify_argument": "Please specify an argument. `{}autorole <role>/show/remove`",
+            "msg_role_deleted": "The autorole has been successfully deleted.",
+            "msg_role_not_defined": "The autorole is not defined!",
+            "msg_unknown_role": "The role has not been found, it may have been removed or changed.",
+            "msg_current_role": "The autorole is set to `{}`.",
+            "msg_invalid_role": "Please enter a valid role existing on this server!",
+            "msg_role_set": "Successfully set autorole to role `{}`."
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
