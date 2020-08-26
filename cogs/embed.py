@@ -7,7 +7,7 @@ cmd_name = "embed"
 tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
-with open("data/embed_colors.json", encoding="utf-8", errors="ignore") as file:
+with open("data/embed_colors.json", "r", encoding="utf-8", errors="ignore") as file:
     colors_embed = json.loads(file.read(), strict=False)
 
 class EmbedUtilities(commands.Cog):

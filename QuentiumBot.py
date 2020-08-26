@@ -52,25 +52,30 @@ def is_owner(ctx):
 class HandleData:
     """Handle global data storage file"""
 
-    async def get_data(self):
+    async def get_data(self, file):
         """Loads data from the json file"""
 
-        with open("data/data.json", "r", encoding="utf-8", errors="ignore") as file:
+        self.file = file
+
+        with open(f"data/{self.file}.json", "r", encoding="utf-8", errors="ignore") as file:
             self.data = json.loads(file.read(), strict=False)
 
+        # Return the json file content
         return self.data
 
-    async def dump_data(self):
+    async def dump_data(self, file):
         """Dumps data in the json file"""
 
-        with open("data/data.json", "w", encoding="utf-8", errors="ignore") as file:
+        self.file = file
+
+        with open(f"data/{self.file}.json", "w", encoding="utf-8", errors="ignore") as file:
             json.dump(self.data, file, indent=4)
 
     async def retrieve_data(self, server):
         """Get all parameters from the server or create new entry"""
 
         self.server_id = str(server.id)
-        self.data = await HandleData.get_data(self)
+        self.data = await HandleData.get_data(self, "data")
 
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
@@ -79,6 +84,7 @@ class HandleData:
             self.autorole_server = self.data[self.server_id]["autorole_server"]
             self.prefix_server = self.data[self.server_id]["prefix_server"]
         else:
+            # Create default config for the server
             self.lang_server = "fr"
             self.commands_server = 1
             self.autorole_server = None
@@ -106,7 +112,7 @@ class HandleData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_prefix = new_prefix
-        self.data = await HandleData.get_data(self)
+        self.data = await HandleData.get_data(self, "data")
 
         self.data[self.server_id]["prefix_server"] = self.new_prefix
 
@@ -120,11 +126,11 @@ class HandleData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_lang = new_lang
-        self.data = await HandleData.get_data(self)
+        self.data = await HandleData.get_data(self, "data")
 
         self.data[self.server_id]["lang_server"] = self.new_lang
 
-        # Dump the prefix
+        # Dump the language
         await HandleData.dump_data(self)
 
     async def change_autorole(self, ctx, new_role):
@@ -132,11 +138,11 @@ class HandleData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_role = new_role
-        self.data = await HandleData.get_data(self)
+        self.data = await HandleData.get_data(self, "data")
 
         self.data[self.server_id]["autorole_server"] = self.new_role
 
-        # Dump the prefix
+        # Dump the autorole
         await HandleData.dump_data(self)
 
 # TYPE Bot init

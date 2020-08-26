@@ -44,7 +44,7 @@ class AutoroleAdminConfig(commands.Cog):
                     await HandleData.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_role_deleted"])
                 elif any([x == args.lower() for x in ["show", "see"]]):
-                    data = await HandleData.get_data(self)
+                    data = await HandleData.get_data(self, "data")
                     saved_role = data[str(ctx.message.guild.id)]["autorole_server"]
                     if saved_role == None:
                         return await ctx.send(cmd_tran["msg_role_not_defined"])
