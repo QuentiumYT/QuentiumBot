@@ -102,7 +102,7 @@ class HandleData:
             self.data[self.server_id]["name_server"] = server.name
             self.data[self.server_id]["commands_server"] = self.commands_server
 
-            await HandleData.dump_data(self)
+            await HandleData.dump_data(self, "data")
 
         # Return the server information
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
@@ -117,7 +117,7 @@ class HandleData:
         self.data[self.server_id]["prefix_server"] = self.new_prefix
 
         # Dump the prefix
-        await HandleData.dump_data(self)
+        await HandleData.dump_data(self, "data")
 
         client.command_prefix = get_prefix(client, ctx.message)
 
@@ -131,7 +131,7 @@ class HandleData:
         self.data[self.server_id]["lang_server"] = self.new_lang
 
         # Dump the language
-        await HandleData.dump_data(self)
+        await HandleData.dump_data(self, "data")
 
     async def change_autorole(self, ctx, new_role):
         """Change the language of the server"""
@@ -143,7 +143,7 @@ class HandleData:
         self.data[self.server_id]["autorole_server"] = self.new_role
 
         # Dump the autorole
-        await HandleData.dump_data(self)
+        await HandleData.dump_data(self, "data")
 
 # TYPE Bot init
 
