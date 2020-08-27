@@ -201,6 +201,13 @@ async def on_message(message):
     if client.user.mention == message.content.replace("!", ""):
         await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
 
+    triggers = await HandleData.get_data(client, "triggers")
+    if not message.author.bot == True:
+        if server_id and any(x == str(server_id) for x in triggers.keys()):
+            if any(x == message.content.lower() for x in triggers[str(server_id)].keys()):
+                response = triggers[str(server_id)].get(message.content.lower())
+                return await message.channel.send(response)
+
 if not debug:
     @client.event
     async def on_command_error(ctx, error):

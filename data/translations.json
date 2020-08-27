@@ -752,6 +752,52 @@
             "msg_role_set": "Successfully set autorole to role `{}`."
         }
     },
+    "trigger": {
+        "type": "admin_configs",
+        "type_emoji": "configs",
+        "fr": {
+            "type_name": "Configurations Admin",
+            "description": "Permet au bot de répondre automatiquement à un message spécifique définis.",
+            "usage": "[\"déclencheur\" / list / remove / removeall] [\"réponse\" / url]",
+            "aliases": "triggers/reaction/customreaction/customtrigger",
+            "example": "\"bonjour\" \"Hey, ça va?\"",
+            "msg_perm_admin_user": ":x: {}, vous n'avez pas la permission **Administrateur** !",
+            "msg_specify_trigger": "Veuillez préciser un déclencheur et une réponse : `{}trigger [\"déclencheur\" / liste / remove] [\"réponse\" / url]`",
+            "msg_reactions_list": "Réactions customisées ({}) :",
+            "msg_no_reactions": "Il n'y a aucunes réactions customisées.",
+            "msg_specify_trigger_delete": "Veuillez préciser un déclencheur à supprimer : `{}trigger [remove / delete] [\"déclencheur\"]`",
+            "msg_reaction_deleted": "Réaction supprimée :",
+            "msg_unknown_reaction": "Aucune réaction ne correspond à celle choisie.",
+            "msg_reaction_all_deleted": "Toutes les réactions ont été supprimées.",
+            "msg_not_enough_args": "Il n'y a pas assez d'arguments pour créer la réaction, ajoutez-en entre des guillemets pour délimiter votre message.",
+            "msg_too_many_args": "Il y a trop d'arguments pour créer la réaction, mettez des guillemets pour délimiter votre message.",
+            "msg_trigger_exists": "Il y a déjà un déclencheur pour ce message. Supprimer le puis refaites la commande.",
+            "msg_new_reaction": "Nouvelle réaction customisée :",
+            "msg_trigger": "Déclencheur",
+            "msg_reply": "Réponse"
+        },
+        "en": {
+            "type_name": "Admin Configurations",
+            "description": "Allows the bot to automatically reply to a specific message.",
+            "usage": "[\"trigger\" / list / remove / removeall] [\"answer\" / url]",
+            "aliases": "triggers/reaction/customreaction/customtrigger",
+            "example": "\"hello\" \"Hey, what's up!\"",
+            "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
+            "msg_specify_trigger": "Please specify a trigger and an answer: `{}trigger [\"trigger\" / list / remove] [\"answer\" / url]`",
+            "msg_reactions_list": "Customized reactions ({}) :",
+            "msg_no_reactions": "There are no custom reactions.",
+            "msg_specify_trigger_delete": "Please specify a trigger to delete: `{}trigger [remove / delete] [\"trigger\"]`",
+            "msg_reaction_deleted": "Deleted reaction:",
+            "msg_unknown_reaction": "No reaction corresponds to that chosen.",
+            "msg_reaction_all_deleted": "All reactions have been removed.",
+            "msg_not_enough_args": "There are not enough arguments to create the reaction, add quotes to delimit your message.",
+            "msg_too_many_args": "There are too many arguments to create the reaction, add some quotes to delimit your message.",
+            "msg_trigger_exists": "There is already a trigger for this message. Delete it and redo the command.",
+            "msg_new_reaction": "New customized reaction:",
+            "msg_trigger": "Trigger",
+            "msg_reply": "Reply"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
