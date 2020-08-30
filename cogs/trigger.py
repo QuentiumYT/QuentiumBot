@@ -20,7 +20,7 @@ class TriggerAdminConfig(commands.Cog):
         no_pm=True
     )
     @commands.guild_only()
-    async def autorole_cmd(self, ctx, *, args=None):
+    async def trigger_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
