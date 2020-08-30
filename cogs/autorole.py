@@ -33,7 +33,7 @@ class AutoroleAdminConfig(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if not(ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):  # Quentium user IDs
+            if not(ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_roles_user"].format(ctx.message.author.name))
             if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
                 return await ctx.send(cmd_tran["msg_perm_roles_bot"])

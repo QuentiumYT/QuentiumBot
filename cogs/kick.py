@@ -7,8 +7,8 @@ cmd_name = "kick"
 tran = get_translations()
 aliases = [] if not tran[cmd_name]["fr"]["aliases"] else tran[cmd_name]["fr"]["aliases"].split("/")
 
-class KickAdministration(commands.Cog):
-    """Kick command in Administration section"""
+class KickAdminRights(commands.Cog):
+    """Kick command in Administration Rights section"""
 
     def __init__(self, client):
         self.client = client
@@ -46,4 +46,4 @@ class KickAdministration(commands.Cog):
             await ctx.send(embed=embed)
 
 def setup(client):
-    client.add_cog(KickAdministration(client))
+    client.add_cog(KickAdminRights(client))
