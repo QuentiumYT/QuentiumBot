@@ -807,8 +807,8 @@
             "usage": "[\"nombre\"]",
             "aliases": "clearmsg/clean/cleanmsg",
             "example": "10",
-            "msg_perm_kick_user": ":x: {}, vous n'avez pas la permission **Gérer les messages** !",
-            "msg_perm_kick_bot": ":x: Il manque la permission **Gérer les messages** au bot.",
+            "msg_perm_manage_msg_user": ":x: {}, vous n'avez pas la permission **Gérer les messages** !",
+            "msg_perm_manage_msg_bot": ":x: Il manque la permission **Gérer les messages** au bot.",
             "msg_specify_number": "Merci de préciser un nombre.",
             "msg_limit_number": "Le nombre doit être compris entre 1 et 99 pour limiter les erreurs.",
             "msg_invalid_number": "Le nombre est invalide, merci de rentrer un nombre correct."
@@ -819,8 +819,8 @@
             "usage": "[\"number\"]",
             "aliases": "clearmsg/clean/cleanmsg",
             "example": "10",
-            "msg_perm_kick_user": ":x: {}, you don't have the **Manage messages** permission!",
-            "msg_perm_kick_bot": ":x: The bot is missing the **Manage messages** permissions.",
+            "msg_perm_manage_msg_user": ":x: {}, you don't have the **Manage messages** permission!",
+            "msg_perm_manage_msg_bot": ":x: The bot is missing the **Manage messages** permission.",
             "msg_specify_number": "Please specify a number.",
             "msg_limit_number": "The number must be between 1 and 99 to prevent errors.",
             "msg_invalid_number": "The specified number is invalid, please enter a correct number."

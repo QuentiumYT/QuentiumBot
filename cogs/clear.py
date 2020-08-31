@@ -32,9 +32,9 @@ class ClearAdminRights(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not ctx.message.author.permissions_in(ctx.message.channel).manage_messages:
-                return await ctx.send(cmd_tran["msg_perm_kick_user"].format(ctx.message.author.name))
+                return await ctx.send(cmd_tran["msg_perm_manage_msg_user"].format(ctx.message.author.name))
             if not ctx.message.channel.guild.me.guild_permissions.manage_messages:
-                return await ctx.send(cmd_tran["msg_perm_kick_bot"])
+                return await ctx.send(cmd_tran["msg_perm_manage_msg_bot"])
             if not args:
                 await ctx.send(cmd_tran["msg_specify_number"])
             else:
