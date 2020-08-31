@@ -826,6 +826,42 @@
             "msg_invalid_number": "The specified number is invalid, please enter a correct number."
         }
     },
+    "move": {
+        "type": "admin_rights",
+        "type_emoji": "rights",
+        "fr": {
+            "type_name": "Droits Admin",
+            "description": "Déplace les personnes du salon vocal dans un autre salon vocal.",
+            "usage": "[\"numéro de salon\"]",
+            "aliases": "moves",
+            "example": "3",
+            "msg_perm_move_user": ":x: {}, vous n'avez pas la permission **Déplacer des membres** !",
+            "msg_perm_move_bot": ":x: Il manque la permission **Déplacer des membres** au bot.",
+            "msg_moving_into": "Déplacement dans le salon : {}",
+            "msg_same_channel": "Vous êtes déjà dans le même salon vocal.",
+            "msg_not_in_channel": "Vous n'êtes pas dans un salon vocal.",
+            "msg_number_no_channel": "Le numéro de salon ne correspond à aucuns salons vocaux.",
+            "msg_no_voice_channel": "Il n'y a aucuns salons vocaux sur votre serveur.",
+            "msg_voice_channels": "Salons vocaux :",
+            "msg_specify_channel": "Merci de préciser un salon vocal par son numéro.\n\n"
+        },
+        "en": {
+            "type_name": "Admin Rights",
+            "description": "Move people from a vocal channel to another vocal channel.",
+            "usage": "[\"channel number\"]",
+            "aliases": "moves",
+            "example": "3",
+            "msg_perm_move_user": ":x: {}, you don't have the **Move members** permission!",
+            "msg_perm_move_bot": ":x: The bot is missing the **Move members** permission.",
+            "msg_moving_into": "Moving into the channel: {}",
+            "msg_same_channel": "You are already in the same voice channel.",
+            "msg_not_in_channel": "You are not in a voice channel.",
+            "msg_number_no_channel": "The salon number does not correspond to any voice channel.",
+            "msg_no_voice_channel": "There are no voice channel on your server.",
+            "msg_voice_channels": "Voice channels:",
+            "msg_specify_channel": "Please specify a vocal channel by its number.\n\n"
+        }
+    },
     "kick": {
         "type": "admin_rights",
         "type_emoji": "rights",
