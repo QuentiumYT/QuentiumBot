@@ -1,7 +1,7 @@
 {
     "TYPE GLOBAL": null,
     "GLOBAL": {
-        "website_url": "https://bot.quentium.fr/",
+        "website_url": "https://bot.quentium.fr",
         "logo_bot": "https://bot.quentium.fr/img/logo.png",
         "logo_question": "https://quentium.fr/+Files/discord/question.png",
         "fr": {
@@ -63,7 +63,7 @@
             "msg_title_theswe": " Commandes **THESWEMASTER** :",
             "msg_title_ism": " Commandes **INSOUMIS** :",
             "msg_title_quentium": " Commandes **QUENTIUM** :",
-            "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr/",
+            "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr",
             "msg_title": "Aide Commande",
             "msg_type": "Type :",
             "msg_aliases": "Alias :",

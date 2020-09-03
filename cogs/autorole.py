@@ -41,10 +41,10 @@ class AutoroleAdminConfig(commands.Cog):
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
             else:
-                if any([x == args.lower() for x in ["remove", "delete"]]):
+                if any(x == args.lower() for x in ["remove", "delete"]):
                     await HandleData.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_role_deleted"])
-                elif any([x == args.lower() for x in ["show", "see"]]):
+                elif any(x == args.lower() for x in ["show", "see"]):
                     if autorole_server == None:
                         return await ctx.send(cmd_tran["msg_role_not_defined"])
                     else:

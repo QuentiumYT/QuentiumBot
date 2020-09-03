@@ -74,7 +74,7 @@ class EmbedUtilities(commands.Cog):
             if color == "random":
                 color = self.random_color()
             elif color is not None:
-                if any([x for x in colors_embed.keys() if x == color]):
+                if any(x for x in colors_embed.keys() if x == color):
                     color = int(colors_embed[color], 16)
                 else:
                     if color.isdigit():

@@ -37,7 +37,7 @@ def get_translations(*args):
 def match_id(dis_id):
     """Match a discord id depending on mention or raw ID"""
 
-    if any([x in dis_id for x in ["<@!", "<@&"]]):
+    if any(x in dis_id for x in ["<@!", "<@&"]):
         if len(dis_id) == 22:
             return int(dis_id[3:-1])
     elif "<@" in dis_id:
