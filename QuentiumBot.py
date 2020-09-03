@@ -37,12 +37,15 @@ def get_translations(*args):
 def match_id(dis_id):
     """Match a discord id depending on mention or raw ID"""
 
+    # ID is user mention or role mention
     if any(x in dis_id for x in ["<@!", "<@&"]):
         if len(dis_id) == 22:
             return int(dis_id[3:-1])
+    # Simple mention
     elif "<@" in dis_id:
         if len(dis_id) == 21:
             return int(dis_id[2:-1])
+    # No mention, just ID
     elif dis_id.isdigit():
         if len(dis_id) == 18:
             return int(dis_id)
@@ -157,6 +160,7 @@ class HandleData:
 
 async def get_prefix(client, message):
     if message.guild:
+        # Get the server custom prefix
         data = await HandleData.retrieve_data(client, message.guild)
         prefix_server = data[3]
     else:
@@ -174,8 +178,11 @@ client = commands.Bot(command_prefix=get_prefix,
                       max_messages=999999)
 
 async def post_topgg_data():
+    # URL for top.gg
     top_gg_url = "https://top.gg/api/bots/{" + str(client.user.id) + "}/stats"
+    # Token for authorization
     headers = {"Authorization": get_config("GLOBAL", "token_dbl")}
+    # Guild count
     payload = {"server_count": len(client.guilds)}
     try:
         requests.post(top_gg_url,
@@ -202,11 +209,13 @@ async def on_ready():
     else:
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
+    # Change the bot presence
     await client.change_presence(
         status=discord.Status.online,
         activity=discord.Activity(
             name=presence,
-            type=discord.ActivityType.playing)
+            type=discord.ActivityType.playing
+        )
     )
 
 @client.listen()
@@ -224,10 +233,13 @@ async def on_message(message):
         prefix_server = "+"
     tran = get_translations("GLOBAL", lang_server)
 
+    # Reply with prefix on bot mention
     if client.user.mention == message.content.replace("!", ""):
         await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
 
+    # Doesn't respond to bots
     if not message.author.bot == True:
+        # Respond with trigger reply
         triggers = await HandleData.get_data(client, "triggers")
         if server_id and any(x == str(server_id) for x in triggers.keys()):
             if any(x == message.content.lower() for x in triggers[str(server_id)].keys()):
@@ -235,7 +247,7 @@ async def on_message(message):
                 await message.channel.send(response)
 
     ### Delete advertising messages on TheSweMaster server
-    if server_id == 199189022894063627:  # TheSweMaster server ID
+    if server_id == 199189022894063627: # TheSweMaster server ID
         if len([x.name for x in message.author.roles]) == 1:
             if any(x in message.content.lower() for x in ["oauth2", "discord.gg"]):
                 await message.delete()
@@ -247,10 +259,12 @@ async def on_member_join(member):
     server_id = member.guild.id
     autorole_server = await HandleData.retrieve_data(client, member.guild)[2]
 
+    # Check if automatic role is set
     if autorole_server:
         role = discord.utils.get(member.guild.roles, id=autorole_server)
         if role:
             try:
+                # Add the role to the new member
                 await member.add_roles(role)
             except:
                 pass
@@ -258,32 +272,38 @@ async def on_member_join(member):
     ### Welcome message and ban ads accounts on TheSweMaster server
     if server_id == 199189022894063627: # TheSweMaster server ID
         if any(x in member.name for x in ["discord.gg", "twitter.com"]):
+            # Ban the ads account
             await member.ban()
             msg = "A bot has been banned because we don't like them :ok_hand:"
-            return await discord.utils.get(member.guild.channels, id=290905147826110464).send(msg)
+            channel = discord.utils.get(member.guild.channels, id=290905147826110464)
+            await channel.send(msg)
         else:
+            # Send the welcome message
             msg = f"Hey {member.mention} ! Welcome on ***{member.guild.name}***! Feel free to ask for a cookie :cookie:"
-            return await discord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
+            await discord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
 
     ### Welcome message on QuentiumBot support server
     elif server_id == 380373195473027074: # Support QB server ID
         embed = discord.Embed(color=0x14F5F5)
         embed.title = "Welcome " + member.name
-        embed.url = "https://bot.quentium.fr"
-        embed.description = "You now have joined the Testers of QuentiumBot yikes! <a:yikes:731504778894508072> Spend some good time with us!"
+        embed.url = get_translations("GLOBAL")["website_url"]
+        embed.description = "You now have joined the Testers of QuentiumBot yikes! <a:happy:751103578957021264> Spend some good time with us!"
         embed.set_thumbnail(url=member.avatar_url)
         embed.set_footer(text="By QuentiumBot")
-        return await discord.utils.get(member.guild.channels, id=380373687284793344).send(embed=embed)
+        channel = discord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
+        await channel.send(embed=embed)
 
 async def on_server_join(server):
     """Bot added to a new server listener"""
 
+    # Post new server count on top.gg
     if not debug:
         await post_topgg_data()
 
 async def on_server_remove(server):
     """Bot removed from a server listener"""
 
+    # Post new server count on top.gg
     if not debug:
         await post_topgg_data()
 
@@ -291,11 +311,13 @@ async def on_server_remove(server):
 async def on_raw_reaction_add(ctx):
     """Non-cache reaction addition listener"""
 
+    # If Quentium react
     if is_owner(ctx, ctx.user_id):
         user = client.get_user(ctx.user_id)
         server = client.get_guild(ctx.guild_id)
         channel = server.get_channel(ctx.channel_id)
         message = await channel.fetch_message(ctx.message_id)
+        # Check embed and title
         if message.embeds and "Choisissez un ordinateur à démarrer" in message.embeds[0].title:
             await message.remove_reaction(ctx.emoji, user)
             emo = ctx.emoji.name
@@ -304,7 +326,7 @@ async def on_raw_reaction_add(ctx):
                     args = "etherwake -i eth0 40:16:7E:AD:F7:21"
                     tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC Quentium**")
                 elif emo == "pc2":
-                    args = "etherwake -i eth0 "
+                    args = "etherwake -i eth0 04:ED:33:08:C2:35"
                     tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC portable Quentium**")
                 elif emo == "pc3":
                     args = "etherwake -i eth0 40:61:86:93:B7:C7"
@@ -312,9 +334,11 @@ async def on_raw_reaction_add(ctx):
                 elif emo == "pc4":
                     args = "etherwake -i eth0 40:16:7E:AD:7B:6C"
                     tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC Space**")
+                # Run the etherwake command
                 await exec_command(args, message)
+                # Wait 10 seconds and delete the message
                 await asyncio.sleep(10)
-                return await tmp.delete()
+                await tmp.delete()
 
 if not debug:
     @client.event
@@ -326,6 +350,7 @@ if not debug:
             lang_server = data[0]
         else:
             lang_server = "en"
+        # Get error translations
         tran = get_translations("ERRORS", lang_server)
 
         if "is not found" in str(error):
@@ -358,6 +383,7 @@ if not debug:
             return
             # return await ctx.send(tran["msg_not_owner"])
 
+        # Log other error types to a file
         file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
         infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
         if isinstance(ctx.channel, discord.TextChannel):
@@ -377,19 +403,21 @@ async def do_tasks():
         else:
             await exec_command("python3 scripts/menu4tte.py", None)
     # TimeToEat project data generation
-    # if datetime.today().weekday() < 5:
-    #     if windows:
-    #         await exec_command("python scripts/data4tte.py 130", None)
-    #     else:
-    #         await exec_command("python3 scripts/data4tte.py 130", None)
+    if datetime.today().weekday() < 5:
+        if windows:
+            await exec_command("python scripts/data4tte.py 130", None)
+        else:
+            await exec_command("python3 scripts/data4tte.py 130", None)
 
     ### Insoumis server kick inactive members
     serv = client.get_guild(391272643229384705) # Insoumis server ID
     channel = serv.get_channel(485168827580284948) # Insoumis logs channel ID
     kick_list = [x for x in [x for x in serv.members if not x.bot] if len(x.roles) <= 1]
     kick_list_name = [x.name for x in [x for x in serv.members if not x.bot] if len(x.roles) <= 1]
+    # Kick the inactive members
     for member in kick_list:
         await member.kick()
+    # List the kicked members
     if kick_list_name:
         content = "- " + "\n- ".join(kick_list_name)
     else:
@@ -405,6 +433,7 @@ async def push_bot_stats():
 
     data = await HandleData.get_data(client, "data")
 
+    # Get all stats to show on the website
     stats = {}
     stats["hosted"] = "VPS Oserya.fr"
     stats["owner"] = "QuentiumYT#0207"
@@ -417,19 +446,19 @@ async def push_bot_stats():
     stats["uptime"] = f"{d} Days, {h} Hours, {m} Minutes, {s} Seconds"
     stats["creation_date"] = "16/08/2017 | 17h46"
     creation_date = date(2017, 8, 16)
-    today_date = date.today()
-    stats["creation_days"] = (today_date - creation_date).days
+    stats["creation_days"] = (date.today() - creation_date).days
     stats["lines_count"] = sum(1 for line in open("QuentiumBot.py"))
-    stats["memory"] = int(psutil.virtual_memory().used >> 20)
-    stats["storage"] = int((os.stat("QuentiumBot.py").st_size >> 10) + (os.stat("Quentium67Bot.py").st_size >> 10))
+    # Get RAM + size and shift bytes
+    stats["memory"] = psutil.virtual_memory().used >> 20
+    stats["storage"] = (os.stat("QuentiumBot.py").st_size >> 10) # + (os.stat("Quentium67Bot.py").st_size >> 10)
     bot_commands_get_total = 0
     for serv in data.keys():
         bot_commands_get_total += data[serv]["commands_server"]
-    stats["cmd_total"] = int(bot_commands_get_total)
+    stats["cmd_total"] = bot_commands_get_total
     users = 0
     for serv in client.guilds:
         users += len(serv.members)
-    stats["users_total"] = int(users)
+    stats["users_total"] = users
     stats["emojis_total"] = len(client.emojis)
     stats["servers_total"] = len(client.guilds)
     bot_lang_fr = bot_lang_en = bot_lang_de = 0
@@ -440,15 +469,20 @@ async def push_bot_stats():
             bot_lang_en += 1
         elif "de" in data[serv]["lang_server"]:
             bot_lang_de += 1
-    stats["registered_fr"] = int(bot_lang_fr)
-    stats["registered_en"] = int(bot_lang_en)
-    stats["registered_de"] = int(bot_lang_de)
+    stats["registered_fr"] = bot_lang_fr
+    stats["registered_en"] = bot_lang_en
+    stats["registered_de"] = bot_lang_de
+
+    # Dump the data
     with open("data/botstats.json", "w", encoding="utf-8", errors="ignore") as file:
         json.dump(stats, file, indent=4)
+
+    # Connect to the FTP server
     ftp = FTP(get_config("GLOBAL", "ftp_host"),
               get_config("GLOBAL", "ftp_login"),
               get_config("GLOBAL", "ftp_passwd"))
     file = open("data/botstats.json", "rb")
+    # Store the file
     ftp.storbinary("STOR /bot/json/botstats.json", file)
     file.close()
     ftp.close()
@@ -500,6 +534,7 @@ async def loop_repeat():
 
 loop = asyncio.get_event_loop()
 try:
+    # Add the function to bot's task
     client.loop.create_task(loop_repeat())
 except:
     loop.run_forever()
@@ -511,22 +546,26 @@ async def exec_command(args, msg):
         return discord.utils.get(client.emojis, name=text)
 
     if any(args == x for x in ["runpc", "setco"]):
+        # Create a reaction selection message
         embed = discord.Embed(color=0x000000)
         if args == "runpc":
+            # List of emojis objects
             emojis = list(map(emo, ["pc1", "pc2", "pc3", "pc4"]))
             content = f"{emojis[0]} Quentium PC\n{emojis[1]} Quentium Laptop\n{emojis[2]} Office PC\n{emojis[3]} Space PC"
             embed.title = f"{emo('vote')} Choisissez un ordinateur à démarrer :"
-        # else:
-        #     emojis = list(map(emo, ["co1", "co2", "co3", "co4"]))
-        #     content = f"{emojis[0]} ON 19H\n{emojis[1]} ON 22H\n{emojis[2]} OFF 19H\n{emojis[3]} OFF 22H"
-        #     embed.title = f"{emo('vote')} Choisissez une action à réaliser pour la connexion :"
+        else:
+            emojis = list(map(emo, ["co1", "co2", "co3", "co4"]))
+            content = f"{emojis[0]} ON 19H\n{emojis[1]} ON 22H\n{emojis[2]} OFF 19H\n{emojis[3]} OFF 22H"
+            embed.title = f"{emo('vote')} Choisissez une action à réaliser pour la connexion :"
         embed.description = content
         msg = await msg.channel.send(embed=embed)
         for emoji in emojis:
+            # React with every emoji
             await msg.add_reaction(emoji)
         return
 
     try:
+        # Execute the command and store the result
         result = check_output(args,
                               shell=True,
                               stderr=-2)
@@ -534,11 +573,14 @@ async def exec_command(args, msg):
         result = type(e).__name__ + ": " + str(e)
 
     try:
+        # Try to format with linux cp1252 encoding
         await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
     except:
         try:
+            # Try to format with global ISO-8859-1 encoding
             await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
         except:
+            # Else print string bytes
             await msg.channel.send("```autohotkey\n{}\n```".format(str(result)))
 
 # TYPE Global commands
@@ -587,6 +629,7 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Failed to load extension {extension}\n{type(e).__name__}: {e}.")
 
+    # Run with the private bot or the public one
     if debug:
         client.run(get_config("TEST", "token"))
     else:

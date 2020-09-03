@@ -41,9 +41,9 @@ class HelpInfos(commands.Cog):
             commands = [c for c in tran.keys() if not c.isupper()]
             # Create a dict of commands with subcommands
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
-            embed = discord.Embed(color=0x11FF11)
             # List all commands
             if args == None:
+                embed = discord.Embed(color=0x11FF11)
                 embed.url = tran["GLOBAL"]["website_url"]
                 embed.title = cmd_tran["msg_list_commands"]
                 embed.description = cmd_tran["msg_details"].format(prefix_server)
