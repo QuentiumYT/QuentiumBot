@@ -1,0 +1,6 @@
+discord.py
+asyncio
+psutil
+requests
+datetime
+bs4
