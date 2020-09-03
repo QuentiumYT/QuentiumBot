@@ -4,3 +4,5 @@ psutil
 requests
 datetime
 bs4
+ftplib
+subprocess

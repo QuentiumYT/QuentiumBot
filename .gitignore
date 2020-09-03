@@ -106,6 +106,7 @@ venv.bak/
 data/config.json
 data/data.json
 data/triggers.json
+scripts/
 old/
 feedback.txt
 errors.txt
