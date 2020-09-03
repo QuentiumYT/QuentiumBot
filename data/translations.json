@@ -884,8 +884,34 @@
             "example": "@QuentiumYT#0207",
             "msg_perm_kick_user": ":x: {}, you don't have the **Kick members** permission!",
             "msg_perm_kick_bot": ":x: The bot is missing the **Kick members** permission.",
-            "msg_mention_user": ":x: {}, please mention a member to kick him!",
+            "msg_mention_user": ":x: {}, please mention a member to kick!",
             "msg_user_kicked": "**{}** has been kicked!"
+        }
+    },
+    "ban": {
+        "type": "admin_rights",
+        "type_emoji": "rights",
+        "fr": {
+            "type_name": "Droits Admin",
+            "description": "Bannis la personne mentionnée.",
+            "usage": "[@membre]",
+            "aliases": "",
+            "example": "@QuentiumYT#0207",
+            "msg_perm_ban_user": ":x: {}, vous n'avez pas la permission **Bannir des membres** !",
+            "msg_perm_ban_bot": ":x: Il manque la permission **Bannir des membres** au bot.",
+            "msg_mention_user": ":x: {}, veuillez mentionnez une personne à bannir !",
+            "msg_user_baned": "**{}** a été bannis !"
+        },
+        "en": {
+            "type_name": "Admin Rights",
+            "description": "Ban the mentioned member.",
+            "usage": "[@member]",
+            "aliases": "",
+            "example": "@QuentiumYT#0207",
+            "msg_perm_ban_user": ":x: {}, you don't have the **Ban members** permission!",
+            "msg_perm_ban_bot": ":x: The bot is missing the **Ban members** permission.",
+            "msg_mention_user": ":x: {}, please mention a member to ban!",
+            "msg_user_baned": "**{}** has been banned!"
         }
     }
 }
