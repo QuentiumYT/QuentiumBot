@@ -1,4 +1,5 @@
 {
+    "TYPE GLOBAL": null,
     "GLOBAL": {
         "website_url": "https://bot.quentium.fr/",
         "logo_bot": "https://bot.quentium.fr/img/logo.png",
@@ -40,6 +41,7 @@
             "msg_not_owner": ":x: You're not the bot's owner :man_police_officer_tone1:"
         }
     },
+    "TYPE INFORMATIONS": null,
     "help": {
         "type": "info",
         "type_emoji": "information",
@@ -192,6 +194,7 @@
             "msg_shareme": "You can share this link to invite me to other servers:\n"
         }
     },
+    "TYPE UTILITIES": null,
     "msgtotal": {
         "type": "utilities",
         "type_emoji": "utilities",
@@ -368,6 +371,7 @@
             "example": "@QuentiumYT#0207"
         }
     },
+    "TYPE STATISTICS": null,
     "userstats": {
         "type": "stats",
         "type_emoji": "statistics",
@@ -616,6 +620,7 @@
             "msg_pong": ":ping_pong: Pong!\n- Bot's latency: `{}ms`\n- Message sending latency: `{}ms`"
         }
     },
+    "TYPE FEEDBACK": null,
     "idea": {
         "type": "feedback",
         "type_emoji": "letter",
@@ -662,6 +667,7 @@
             "msg_logs_infos": "Logs are shared when the bot gets a new important update."
         }
     },
+    "TYPE CONFIGURATION": null,
     "prefix": {
         "type": "admin_configs",
         "type_emoji": "configs",
@@ -798,6 +804,7 @@
             "msg_reply": "Reply"
         }
     },
+    "TYPE ADMINISTRATION": null,
     "clear": {
         "type": "admin_rights",
         "type_emoji": "rights",
