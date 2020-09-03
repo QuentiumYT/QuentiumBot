@@ -31,15 +31,14 @@ class WeatherUtilities(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            embed = discord.Embed(color=0x11FFFF)
             if not args:
-                embed = discord.Embed(color=0x11FFFF)
                 embed.title = cmd_tran["msg_specify_city"]
                 return await ctx.send(embed=embed)
             args = args.replace(" ", "%20")
             url = "https://api.openweathermap.org/data/2.5/weather?q=" + args
             data_weather = requests.get(url + f"&appid={get_config('GLOBAL', 'token_weather')}&lang={lang_server}").json()
             if "city not found" in str(data_weather):
-                embed = discord.Embed(color=0x11FFFF)
                 embed.title = cmd_tran["msg_city_not_found"]
                 return await ctx.send(embed=embed)
             if not data_weather["coord"]:
@@ -76,7 +75,6 @@ class WeatherUtilities(commands.Cog):
             sunrise_time = datetime.fromtimestamp(int(data_weather["sys"]["sunrise"])).strftime("%H:%M:%S")
             sunset_time = datetime.fromtimestamp(int(data_weather["sys"]["sunset"])).strftime("%H:%M:%S")
             content += cmd_tran["msg_sun"].format(sunrise_time, sunset_time)
-            embed = discord.Embed(color=0x11FFFF)
             embed.title = cmd_tran["msg_weather_loc"].format(data_weather["name"], data_weather["sys"]["country"].lower())
             embed.description = content
             embed.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/{emoji.id}.png")

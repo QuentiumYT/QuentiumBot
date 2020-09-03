@@ -44,10 +44,9 @@ class MsgtotalUtilities(commands.Cog):
                 if match_id(args[0]):
                     member = discord.utils.get(self.client.get_all_members(), id=match_id(args[0]))
                     args = "all"
-                elif not args[0] == "all" and not args[0] == "channel":
-                    return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
                 else:
                     member = ctx.message.author
+                    args = args[0]
             else:
                 member = ctx.message.author
                 args = "all"
@@ -59,8 +58,6 @@ class MsgtotalUtilities(commands.Cog):
             embed.title = cmd_tran["msg_calculating"]
             tmp = await ctx.send(embed=embed)
 
-            if args == "":
-                args = "all"
             if args == "all":
                 msg_total = True
                 channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.TextChannel)]
@@ -78,7 +75,6 @@ class MsgtotalUtilities(commands.Cog):
             else:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
-            embed = discord.Embed(color=0xFFA511)
             embed.title = cmd_tran["msg_number"]
             if msg_total == True:
                 embed.description = cmd_tran["msg_has_sent_total"].format(member, counter)
