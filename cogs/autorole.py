@@ -25,6 +25,7 @@ class AutoroleAdminConfig(commands.Cog):
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
             lang_server = data[0]
+            autorole_server = data[2]
             prefix_server = data[3]
         else:
             lang_server = "en"
@@ -44,12 +45,10 @@ class AutoroleAdminConfig(commands.Cog):
                     await HandleData.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_role_deleted"])
                 elif any([x == args.lower() for x in ["show", "see"]]):
-                    data = await HandleData.get_data(self, "data")
-                    saved_role = data[str(ctx.message.guild.id)]["autorole_server"]
-                    if saved_role == None:
+                    if autorole_server == None:
                         return await ctx.send(cmd_tran["msg_role_not_defined"])
                     else:
-                        role = discord.utils.get(ctx.message.guild.roles, id=saved_role)
+                        role = discord.utils.get(ctx.message.guild.roles, id=autorole_server)
                         if role == None:
                             return await ctx.send(cmd_tran["msg_unknown_role"])
                         else:
