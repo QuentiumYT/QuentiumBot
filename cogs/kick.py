@@ -16,8 +16,7 @@ class KickAdminRights(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
     @commands.guild_only()
     async def kick_cmd(self, ctx, *, member: discord.Member = None):
@@ -37,9 +36,10 @@ class KickAdminRights(commands.Cog):
             # Check bot perms
             if not ctx.message.guild.me.guild_permissions.kick_members:
                 return await ctx.send(cmd_tran["msg_perm_kick_bot"])
-            # If a member is mentionned
+            # No member, aborting
             if not member:
                 return await ctx.send(cmd_tran["msg_mention_user"].format(ctx.message.author.name))
+            # Kick the member
             await member.kick()
             embed = discord.Embed(color=0xFF1111)
             embed.description = cmd_tran["msg_user_kicked"].format(member.name)
