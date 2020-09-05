@@ -11,8 +11,9 @@ __filename__ = "QuentiumBot"
 debug = True
 windows = os.name == "nt"
 
-cogs_folder = "cogs."
-startup_cogs = [f.replace(".py", "") for f in os.listdir(cogs_folder) if os.path.isfile(os.path.join(cogs_folder, f))]
+startup_cogs = {**{"": [c.replace(".py", "") for c in os.listdir("cogs") if os.path.isfile(os.path.join("cogs", c))]}, # Public cogs
+                **{cat + ".": [c.replace(".py", "") for c in os.listdir("cogs/" + cat) if c != "__pycache__"]
+                   for cat in os.listdir("cogs") if os.path.isdir("cogs/" + cat) and cat != "__pycache__"}} # Other cogs
 start_time = datetime.now()
 
 # TYPE Data classes and functions
@@ -583,51 +584,16 @@ async def exec_command(args, msg):
             # Else print string bytes
             await msg.channel.send("```autohotkey\n{}\n```".format(str(result)))
 
-# TYPE Global commands
-
-@client.command(hidden=True)
-@commands.is_owner()
-async def load(ctx, extension):
-    """Loads an extension"""
-
-    try:
-        client.load_extension(cogs_folder + extension)
-    except Exception as e:
-        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-    await ctx.send(f"{extension} loaded.")
-
-@client.command(hidden=True)
-@commands.is_owner()
-async def unload(ctx, extension):
-    """Unloads an extension"""
-
-    try:
-        client.unload_extension(cogs_folder + extension)
-    except Exception as e:
-        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-    await ctx.send(f"{extension} unloaded.")
-
-@client.command(hidden=True)
-@commands.is_owner()
-async def reload(ctx, extension):
-    """Reloads an extension"""
-
-    client.unload_extension(cogs_folder + extension)
-    try:
-        client.load_extension(cogs_folder + extension)
-    except Exception as e:
-        return await ctx.send(f"```py\n{type(e).__name__}: {e}\n```")
-    await ctx.send(f"{extension} reloaded.")
-
 # TYPE Start
 
 if __name__ == "__main__":
     # Load extensions
-    for extension in startup_cogs:
-        try:
-            client.load_extension(cogs_folder + extension)
-        except Exception as e:
-            print(f"Failed to load extension {extension}\n{type(e).__name__}: {e}.")
+    for cat, exts in startup_cogs.items():
+        for ext in exts:
+            try:
+                client.load_extension("cogs." + cat + ext)
+            except Exception as e:
+                print(f"Failed to load extension {ext}\n{type(e).__name__}: {e}.")
 
     # Run with the private bot or the public one
     if debug:
