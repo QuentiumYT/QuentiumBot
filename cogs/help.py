@@ -20,11 +20,9 @@ class HelpInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def help_cmd(self, ctx, *, args=None):
-        global aliases
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
@@ -63,6 +61,7 @@ class HelpInfos(commands.Cog):
                         embed.add_field(name=self.emo(tran[latest_command]["type_emoji"]) + cmd_tran["msg_title_" + tran[latest_command]["type"]],
                                         value=commands_value,
                                         inline=True)
+                        # Add a field with usage else, just the command
                         if data["usage"]:
                             commands_value = f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
                         else:
@@ -112,10 +111,12 @@ class HelpInfos(commands.Cog):
                         aliases.remove(args)
                         aliases.append(command)
                     desc_text += f"**{cmd_tran['msg_aliases']}** `{'`, `'.join(aliases)}`\n\n"
+                # Add a field with usage if exists
                 if args_tran["usage"]:
                     desc_text += f"**{cmd_tran['msg_format']}** `{prefix_server}{args} {args_tran['usage']}`\n\n"
                 else:
                     desc_text += f"**{cmd_tran['msg_format']}** `{prefix_server}{args}`\n\n"
+                # Adds an example if provided
                 if args_tran["example"]:
                     desc_text += f"**{cmd_tran['msg_example']}** `{prefix_server}{args} {args_tran['example']}`"
                 embed.description = desc_text
