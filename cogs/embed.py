@@ -24,8 +24,7 @@ class EmbedUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def embed_cmd(self, ctx, *, args=None):
         # Get specific server data
@@ -40,12 +39,15 @@ class EmbedUtilities(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # No args given
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
+            # Get a list of every argument given
             content = [x.strip() for x in re.split(r".=", args)[1:]]
             sep = re.findall(r".=", args)
             title = description = color = thumbnail = footer = url = author = None
+            # Separate arguments in variables
             for x in range(len(sep)):
                 if "T=" == sep[x]:
                     title = content[x]
@@ -61,43 +63,55 @@ class EmbedUtilities(commands.Cog):
                     url = content[x]
                 if "A=" == sep[x]:
                     author = content[x]
+            # If no argument is given using the formatting, set the text as title
             if all(x is None for x in [title, description, color, thumbnail, footer, url, author]):
+                # Discord title length limit is 255 chars
                 if len(args) <= 255:
                     title = args
                 else:
                     title = None
                     description = args
+            # If only description is given, set as title
             if not title:
                 if description and len(args) <= 255:
                     title = description
                     description = None
+            # Using a random color
             if color == "random":
                 color = self.random_color()
+            # Find the given color
             elif color is not None:
+                # If color is string inside JSON file
                 if any(x for x in colors_embed.keys() if x == color):
                     color = int(colors_embed[color], 16)
+                # Decimal color number
+                elif color.isdigit():
+                    color = int(color)
+                    if color >= 16777215:
+                        color = 16777215
+                # Hexadecimal color string
                 else:
-                    if color.isdigit():
-                        color = int(color)
+                    try:
+                        # Convert the hex to int value
+                        color = int("0x" + color.replace("#", "").replace("0x", ""), 16)
                         if color >= 16777215:
                             color = 16777215
-                    else:
-                        try:
-                            color = int("0x" + color.replace("#", "").replace("0x", ""), 16)
-                            if color >= 16777215:
-                                color = 16777215
-                        except:
-                            return await ctx.send(cmd_tran["msg_invalid_color"])
+                    except:
+                        return await ctx.send(cmd_tran["msg_invalid_color"])
             else:
                 color = self.random_color()
+
+            # Send the personal embed
             embed = discord.Embed(color=color)
             embed.title = title
             embed.description = description
             embed.url = url
             if thumbnail:
+                # Convert http to https or add it
                 if not "http" in thumbnail:
                     thumbnail = "https://" + thumbnail.split("//", 1)[-1]
                 try:
+                    # Check if the picture is a real image
                     if "image/" in str(requests.get(thumbnail).headers):
                         embed.set_thumbnail(url=thumbnail)
                     else:
@@ -106,10 +120,10 @@ class EmbedUtilities(commands.Cog):
                     embed.set_thumbnail(url=tran["GLOBAL"]["logo_question"])
             if author:
                 embed.set_author(name=author)
-            if footer:
-                if not footer == "None":
-                    embed.set_footer(text=footer)
+            if footer and footer != "None":
+                embed.set_footer(text=footer)
             else:
+                # Set author name and url in footer
                 embed.set_footer(text=ctx.message.author.name,
                                  icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
