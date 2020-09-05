@@ -16,8 +16,7 @@ class BanAdminRights(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
     @commands.guild_only()
     async def ban_cmd(self, ctx, *, member: discord.Member = None):
@@ -37,9 +36,10 @@ class BanAdminRights(commands.Cog):
             # Check bot perms
             if not ctx.message.guild.me.guild_permissions.ban_members:
                 return await ctx.send(cmd_tran["msg_perm_ban_bot"])
-            # If a member is mentionned
+            # No member, aborting
             if not member:
                 return await ctx.send(cmd_tran["msg_mention_user"].format(ctx.message.author.name))
+            # Ban the member
             await member.ban()
             embed = discord.Embed(color=0xFF1111)
             embed.description = cmd_tran["msg_user_baned"].format(member.name)
