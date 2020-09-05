@@ -16,8 +16,7 @@ class AvatarUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def avatar_cmd(self, ctx, *, member: discord.Member = None):
         # Get specific server data
@@ -30,8 +29,10 @@ class AvatarUtilities(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # No member, using the author
             if not member:
                 member = ctx.message.author
+            # Retrieve the biggest avatar size
             icon = str(member.avatar_url)
             icon1 = icon.split(".", 999)
             icon2 = "".join(icon1[len(icon1) - 1])
@@ -40,6 +41,7 @@ class AvatarUtilities(commands.Cog):
                 avatar_url = icon3 + "gif?size=1024"
             else:
                 avatar_url = icon3 + "png?size=1024"
+            # Send an embed
             title = member.name + "#" + member.discriminator
             content = "[Avatar URL]({})".format(avatar_url)
             embed = discord.Embed(color=0x15F2C6)
