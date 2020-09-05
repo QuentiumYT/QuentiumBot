@@ -17,10 +17,8 @@ class BotstatsInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     async def botstats_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
@@ -34,6 +32,7 @@ class BotstatsInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Get some informations
             bot_host = cmd_tran["msg_bot_host"]
             bot_os = cmd_tran["msg_bot_os"]
             bot_owner = discord.utils.get(self.client.get_all_members(), id=self.client.owner_id)
@@ -46,6 +45,7 @@ class BotstatsInfos(commands.Cog):
             bot_commands_get = commands_server if not commands_server == None else cmd_tran["msg_not_available"]
             bot_commands_get_total = 0
 
+            # Count commands and servers in data file
             data = await HandleData.get_data(self, "data")
             for serv in data.keys():
                 bot_commands_get_total += data[serv]["commands_server"]
@@ -63,20 +63,20 @@ class BotstatsInfos(commands.Cog):
                 elif "de" in data[serv]["lang_server"]:
                     bot_lang_de += 1
 
+            # Send an embed with details
             embed = discord.Embed(color=0x1126FF)
             embed.url = tran["GLOBAL"]["website_url"]
             embed.set_thumbnail(url=tran["GLOBAL"]["logo_bot"])
-
+            # Using translation list and append data
             content = "".join(cmd_tran["msg_content"]) % (bot_host, bot_os, bot_owner, bot_uptime, bot_memory,
                                                           bot_commands_get, bot_commands_get_total, bot_users_total,
                                                           bot_servers_total, bot_lang_fr, bot_lang_en, bot_lang_de)
-
             embed.add_field(name=cmd_tran["msg_stats"],
                             value=content,
                             inline=True)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
-        await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(BotstatsInfos(client))
