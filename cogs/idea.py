@@ -17,10 +17,8 @@ class IdeaFeedback(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     # 2 commands every minute
     @commands.cooldown(2, 60, commands.BucketType.channel)
     async def idea_cmd(self, ctx, *, args=None):
@@ -37,14 +35,16 @@ class IdeaFeedback(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             cmd_received = ctx.message.content.replace(prefix_server, "").split()[0]
+            # No idea or bug given
             if not args:
-                if "ide" in cmd_received:
+                if "ide" in cmd_received: # ide for idea and idee (french)
                     return await ctx.send(cmd_tran["msg_specify_idea"])
                 elif "bug" in cmd_received:
                     return await ctx.send(cmd_tran["msg_specify_bug"])
+            # Join feedback details
             ideas = " --- ".join([datetime.now().strftime("%d.%m.%Y - %H:%M:%S"),
                                   ctx.message.author.name, cmd_received, args])
-            with open("data/feedback.txt", "a", encoding="utf-8", errors="ignore") as file:
+            with open("feedback.txt", "a", encoding="utf-8", errors="ignore") as file:
                 file.write(ideas + "\n")
             await ctx.send(cmd_tran["msg_thanks"])
 
