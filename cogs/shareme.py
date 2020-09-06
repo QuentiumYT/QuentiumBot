@@ -16,8 +16,7 @@ class SharemeInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def shareme_cmd(self, ctx):
         # Get specific server data

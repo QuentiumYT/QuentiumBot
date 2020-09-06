@@ -16,8 +16,7 @@ class TriggerAdminConfig(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
     @commands.guild_only()
     async def trigger_cmd(self, ctx, *, args=None):

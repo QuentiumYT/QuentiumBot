@@ -17,8 +17,7 @@ class WeatherUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def weather_cmd(self, ctx, *, args=None):
         # Get specific server data

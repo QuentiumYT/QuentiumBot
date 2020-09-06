@@ -34,13 +34,13 @@ class AutoroleAdminConfig(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            # Check if perms or owner
+            # Check user perms or owner
             if not(ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_roles_user"].format(ctx.message.author.name))
-            # Check if bot has perms
+            # Check bot perms
             if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
                 return await ctx.send(cmd_tran["msg_perm_roles_bot"])
-            # No args
+            # No args given
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 

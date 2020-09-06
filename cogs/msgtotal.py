@@ -16,8 +16,7 @@ class MsgtotalUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def msgtotal_cmd(self, ctx, *args):
         # Get specific server data
