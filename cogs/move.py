@@ -16,8 +16,7 @@ class MoveAdminRights(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
     @commands.guild_only()
     async def move_cmd(self, ctx, *, number=None):
@@ -31,11 +30,13 @@ class MoveAdminRights(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Check user perms
             if not ctx.message.author.guild_permissions.move_members:
                 return await ctx.send(cmd_tran["msg_perm_move_user"].format(ctx.message.author.name))
 
+            # Get a lit with all server channels
             channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.VoiceChannel)]
-
+            # Argument is random, move in random channel 5 or more times
             if number and "random" in number:
                 if number == "random":
                     nb_times = 5
@@ -57,7 +58,8 @@ class MoveAdminRights(commands.Cog):
                     for member in list_members:
                         await member.edit(voice_channel=channel_list[channel_number - 1])
                         await asyncio.sleep(0.1)
-                return await ctx.message.delete()
+                await ctx.message.delete()
+            # Move into a specific channel (using it's position)
             elif number and number.isdigit():
                 if not len(channel_list) == 0:
                     if not int(number) > len(channel_list):
@@ -71,13 +73,14 @@ class MoveAdminRights(commands.Cog):
                                 for member in list_members:
                                     await member.edit(voice_channel=channel)
                             else:
-                                return await ctx.send(cmd_tran["msg_same_channel"])
+                                await ctx.send(cmd_tran["msg_same_channel"])
                         else:
-                            return await ctx.send(cmd_tran["msg_not_in_channel"])
+                            await ctx.send(cmd_tran["msg_not_in_channel"])
                     else:
-                        return await ctx.send(cmd_tran["msg_number_no_channel"])
+                        await ctx.send(cmd_tran["msg_number_no_channel"])
                 else:
-                    return await ctx.send(cmd_tran["msg_no_voice_channel"])
+                    await ctx.send(cmd_tran["msg_no_voice_channel"])
+            # List the channel list position
             else:
                 embed = discord.Embed(color=0x3498DB)
                 embed.title = cmd_tran["msg_voice_channels"]
