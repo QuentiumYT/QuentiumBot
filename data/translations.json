@@ -117,7 +117,7 @@
             "usage": "",
             "aliases": "listserveurs/serveurslist/listeserveurs/serveurliste/listserver/serverlist/listserv/servlist/listservs/servslist",
             "example": "",
-            "msg_title": "**__Nom du serveur | Position enregistrée__**",
+            "msg_server_pos": "**__Nom du serveur | Position enregistrée__**",
             "msg_servers": "Serveurs : {}"
         },
         "en": {
@@ -126,7 +126,7 @@
             "usage": "",
             "aliases": "listserver/serverlist/listserv/servlist/listservs/servslist",
             "example": "",
-            "msg_title": "**__Server name | Registered position__**",
+            "msg_server_pos": "**__Server name | Registered position__**",
             "msg_servers": "Servers: {}"
         }
     },

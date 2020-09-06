@@ -16,8 +16,7 @@ class ListserversInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def listservers_cmd(self, ctx):
         # Get specific server data
@@ -31,19 +30,24 @@ class ListserversInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if not ctx.message.guild.id == 264445053596991498: # DBL ID
+                # Get the raw data
                 data = await HandleData.get_data(self, "data")
+                # Get all the servers the bot is in
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []
                 serv_pos = []
 
+                # For each server, get the server and it's position
                 for serv in data.keys():
                     for server in serv_id:
                         if server == serv:
                             serv_pos.append(list(data).index(serv))
                             serv_id_exist.append(server)
 
-                content = content2 = cmd_tran["msg_title"]
+                # 2 embeds needed
+                content = content2 = cmd_tran["msg_server_pos"]
                 for pos in range(len(serv_id_exist)):
+                    # Append the name and the postion to content
                     if len(content) < 2000:
                         content += "\n- " + str(self.client.get_guild(int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
                     else:
@@ -53,7 +57,8 @@ class ListserversInfos(commands.Cog):
                 embed.title = cmd_tran["msg_servers"].format(len(self.client.guilds))
                 embed.description = content
                 await ctx.send(embed=embed)
-                if content2 != cmd_tran["msg_title"]:
+                # Second embed empty
+                if content2 != cmd_tran["msg_server_pos"]:
                     embed2 = discord.Embed(color=0xFF9111)
                     embed2.title = None
                     embed2.description = content2
