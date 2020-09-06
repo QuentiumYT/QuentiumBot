@@ -14,10 +14,13 @@ class ManageCogs(commands.Cog):
 
     @commands.command(
         pass_context=True,
+        no_pm=False,
         hidden=True
     )
     @commands.is_owner()
     async def load(self, ctx, extension=None):
+        """Loads an extension"""
+
         if extension:
             await self.find_cogs()
             for cat, exts in self.startup_cogs.items():
@@ -32,10 +35,13 @@ class ManageCogs(commands.Cog):
 
     @commands.command(
         pass_context=True,
+        no_pm=False,
         hidden=True
     )
     @commands.is_owner()
     async def unload(self, ctx, extension=None):
+        """Unloads an extension"""
+
         if extension:
             await self.find_cogs()
             for cat, exts in self.startup_cogs.items():
@@ -50,10 +56,13 @@ class ManageCogs(commands.Cog):
 
     @commands.command(
         pass_context=True,
+        no_pm=False,
         hidden=True
     )
     @commands.is_owner()
     async def reload(self, ctx, extension=None):
+        """Reloads an extension"""
+
         if extension:
             await self.find_cogs()
             for cat, exts in self.startup_cogs.items():
