@@ -678,7 +678,7 @@
             "aliases": "prefixe",
             "example": "&",
             "msg_perm_admin_user": ":x: {}, vous n'avez pas la permission **Administrateur** !",
-            "msg_invalid_arg": "Merci de préciser un argument valide : `{}prefix [\"préfixe\" / delete / reset / remove]`.",
+            "msg_invalid_arg": "Merci de préciser un argument valide : `{}prefix [\"préfixe\" / delete]`.",
             "msg_prefix_reset": "Le préfixe à été réinitialisé.",
             "msg_prefix_changed": "Le préfixe à été changé en `{}`."
         },
@@ -689,7 +689,7 @@
             "aliases": "",
             "example": "&",
             "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
-            "msg_invalid_arg": "Please specify a valid argument: `{}prefix [\"prefix\" / delete / reset / remove]`.",
+            "msg_invalid_arg": "Please specify a valid argument: `{}prefix [\"prefix\" / delete]`.",
             "msg_prefix_reset": "The prefix has been reset.",
             "msg_prefix_changed": "The prefix has been changed to `{}`."
         }

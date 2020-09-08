@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+from QuentiumBot import HandleData, get_translations, match_id, is_owner
 
 # Basic command configs
 cmd_name = "prefix"
@@ -16,10 +16,8 @@ class PrefixAdminConfig(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     async def prefix_cmd(self, ctx, *, args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
@@ -33,15 +31,23 @@ class PrefixAdminConfig(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Check user perms or owner
             if not(ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_admin_user"].format(ctx.message.author.name))
+            # No args given
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
-            if any(x == args for x in ["delete", "reset", "remove"]):
+
+            # Delete the prefix variations
+            if any(x == args for x in ["delete", "reset", "remove", "suppr"]):
+                # Prefix is already default
                 if not prefix_server == "+":
                     await HandleData.change_prefix(self, ctx, "+")
                 return await ctx.send(cmd_tran["msg_prefix_reset"])
+            elif match_id(args):
+                return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
+            # Change the prefix with arguments
             await HandleData.change_prefix(self, ctx, args)
             await ctx.send(cmd_tran["msg_prefix_changed"].format(args))
 
