@@ -16,8 +16,7 @@ class SharemeInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def shareme_cmd(self, ctx):
         # Get specific server data
@@ -30,8 +29,10 @@ class SharemeInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Debug mode, send the testing invite link
             if debug:
                 await ctx.send(cmd_tran["msg_shareme"] + get_config("TEST", "invite"))
+            # Public invite link
             else:
                 await ctx.send(cmd_tran["msg_shareme"] + get_config("PUBLIC", "invite"))
 
