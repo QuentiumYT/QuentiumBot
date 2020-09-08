@@ -16,8 +16,7 @@ class ServerstatsInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
     @commands.guild_only()
     async def serverstats_cmd(self, ctx):
@@ -31,6 +30,7 @@ class ServerstatsInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Get some informations
             serv = ctx.message.guild
             serv_name = serv.name
             serv_id = serv.id
@@ -55,6 +55,7 @@ class ServerstatsInfos(commands.Cog):
             if len(serv_roles_list) > 450:
                 serv_roles_list = cmd_tran["msg_limit"]
 
+            # Send an embed with details
             embed = discord.Embed(color=0x1126FF)
             embed.url = tran["GLOBAL"]["website_url"]
             icon = str(serv.icon_url)
@@ -62,17 +63,17 @@ class ServerstatsInfos(commands.Cog):
             icon2 = "".join(icon1[len(icon1) - 1])
             icon3 = icon.replace(icon2, "")
             icon_url = icon3 + "png?size=1024"
+            # If icon_url is not found
             if len(serv.icon_url):
                 embed.set_thumbnail(url=icon_url)
             else:
                 embed.set_thumbnail(url=tran["GLOBAL"]["logo_question"])
-
+            # Using translation list and append data
             content = "".join(cmd_tran["msg_content"]) % (serv_name, serv_id, serv_owner, serv_owner_dis, serv_created,
                                                           serv_region, serv_members, serv_members_on, serv_users,
                                                           serv_users_on, serv_bots, serv_bots_on, serv_channels,
                                                           serv_text_channels, serv_voice_channels, serv_afk_channel,
                                                           serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
-
             embed.add_field(name=cmd_tran["msg_stats"].format(serv_name),
                             value=content + cmd_tran["msg_link_icon"].format(icon_url),
                             inline=True)
