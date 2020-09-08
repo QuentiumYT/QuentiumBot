@@ -16,10 +16,8 @@ class ShowlogsFeedback(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     async def showlogs_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
@@ -37,12 +35,16 @@ class ShowlogsFeedback(commands.Cog):
             embed.title = cmd_tran["msg_logs_bot"]
             embed.url = tran["GLOBAL"]["website_url"]
             counter = 1
+            # Read the log file
             with open("data/logs.txt", "r", encoding="utf-8", errors="ignore") as file:
                 for line in file:
+                    # Get data with three dash delimiter
                     line_time, line_content = line.replace("+", prefix_server).split(" --- ")
+                    # Add the field and replace double point with line break
                     embed.add_field(name=f"#{counter} / {line_time}",
                                     value=line_content.replace("..", ".\n"),
                                     inline=True)
+                    # Log count
                     counter += 1
             embed.set_footer(text=cmd_tran["msg_logs_infos"],
                              icon_url=tran["GLOBAL"]["logo_bot"])
