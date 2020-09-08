@@ -16,10 +16,8 @@ class UserstatsInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     async def userstats_cmd(self, ctx, *, member: discord.Member = None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
@@ -31,8 +29,10 @@ class UserstatsInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # No member, using the author
             if not member:
                 member = ctx.message.author
+            # Get some informations
             user_name = member.name
             user_nickname = cmd_tran["msg_any"] if member.nick == None else member.nick
             user_id = member.id
@@ -47,21 +47,22 @@ class UserstatsInfos(commands.Cog):
             user_roles = len(member.roles)
             user_roles_list = ", ".join([x.name for x in member.roles])
 
+            # Send an embed with details
             embed = discord.Embed(color=0x1126FF)
             icon = str(member.avatar_url)
             icon1 = icon.split(".")
             icon2 = "".join(icon1[len(icon1) - 1])
             icon3 = icon.replace(icon2, "")
             avatar_url = icon3 + "png?size=1024"
+            # If member avatar is not found use the default avatar
             if member.avatar_url is not None:
                 embed.set_thumbnail(url=avatar_url)
             else:
                 embed.set_thumbnail(url=member.default_avatar_url)
-
+             # Using translation list and append data
             content = "".join(cmd_tran["msg_content"]) % (user_name, user_nickname, user_id, user_tag, user_mention,
                                                           user_is_bot, user_status, user_game, user_joinserv,
                                                           user_joindiscord, user_best_role, user_roles, user_roles_list)
-
             embed.add_field(name=cmd_tran["msg_stats"].format(user_name),
                             value=content + cmd_tran["msg_link_icon"].format(avatar_url),
                             inline=True)
