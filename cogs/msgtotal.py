@@ -16,8 +16,7 @@ class MsgtotalUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
     async def msgtotal_cmd(self, ctx, *args):
         # Get specific server data
@@ -34,12 +33,15 @@ class MsgtotalUtilities(commands.Cog):
         if not ctx.message.author.bot == True:
             # if not ctx.message.channel.guild.me.guild_permissions.administrator:
             # return await ctx.send(cmd_tran["msg_perm_admin_user"])
+
+            # If two args, first arg is member, second count type
             if len(args) == 2:
                 if match_id(args[1]):
                     member = discord.utils.get(self.client.get_all_members(), id=match_id(args[1]))
                 else:
                     return await ctx.send(cmd_tran["msg_invalid_member"])
                 args = args[0]
+            # If only one argument is given, check if member or count type
             elif len(args) == 1:
                 if match_id(args[0]):
                     member = discord.utils.get(self.client.get_all_members(), id=match_id(args[0]))
@@ -47,41 +49,52 @@ class MsgtotalUtilities(commands.Cog):
                 else:
                     member = ctx.message.author
                     args = args[0]
+            # Else count all messages from the author
             else:
                 member = ctx.message.author
                 args = "all"
 
             if not isinstance(ctx.channel, discord.TextChannel):
                 args = "channel"
+            # Init the counter
             counter = 0
             embed = discord.Embed(color=0xFFA511)
             embed.title = cmd_tran["msg_calculating"]
             tmp = await ctx.send(embed=embed)
 
+            # Loop all channels of the server
             if args == "all":
                 msg_total = True
+                # Channels accessible by the bot
                 channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.TextChannel)]
                 for channel in channel_list:
+                    # Count all messages in channels
                     if ctx.message.guild.me.permissions_in(channel).read_messages:
                         async for log in channel.history(limit=999999):
                             if log.author == member:
                                 counter += 1
+            # Use the current channel
             elif args == "channel":
                 msg_total = False
+                # Count all messages in channels
                 if ctx.message.guild.me.permissions_in(ctx.message.channel).read_messages:
                     async for log in ctx.message.channel.history(limit=999999):
                         if log.author == member:
                             counter += 1
+            # Count type is incorrect
             else:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
+            # Send the number of messages in an embed
             embed.title = cmd_tran["msg_number"]
+            # All or Channel count type specified
             if msg_total == True:
                 embed.description = cmd_tran["msg_has_sent_total"].format(member, counter)
             else:
                 embed.description = cmd_tran["msg_has_sent_channel"].format(member, counter)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
                              icon_url=ctx.message.author.avatar_url)
+            # Edit the temp message
             await tmp.edit(embed=embed)
 
 def setup(client):
