@@ -17,10 +17,8 @@ class UptimeInfos(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=True
+        pass_context=True
     )
-    @commands.guild_only()
     async def uptime_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
@@ -32,10 +30,13 @@ class UptimeInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Get the number of seconds since the bot started
             time = (datetime.now() - start_time).total_seconds()
+            # Calculates the days, hours, minutes, seconds with divmod
             m, s = divmod(int(time), 60)
             h, m = divmod(m, 60)
             d, h = divmod(h, 24)
+            # Send the formatted uptime
             await ctx.send(cmd_tran["msg_uptime"].format(d, h, m, s))
 
 def setup(client):
