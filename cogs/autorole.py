@@ -34,13 +34,13 @@ class AutoroleAdminConfig(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            # Check if perms or owner
+            # Check user perms or owner
             if not(ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_roles_user"].format(ctx.message.author.name))
-            # Check if bot has perms
+            # Check bot perms
             if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
                 return await ctx.send(cmd_tran["msg_perm_roles_bot"])
-            # No args
+            # No args given
             if not args:
                 return await ctx.send(cmd_tran["msg_invalid_arg"].format(prefix_server))
 
@@ -55,6 +55,8 @@ class AutoroleAdminConfig(commands.Cog):
                 # Get the role object
                 role = discord.utils.get(ctx.message.guild.roles, id=autorole_server)
                 if role == None:
+                    # Delete the role if it was deleted from the server
+                    await HandleData.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_unknown_role"])
                 return await ctx.send(cmd_tran["msg_current_role"].format(role.name))
 
@@ -64,6 +66,7 @@ class AutoroleAdminConfig(commands.Cog):
             # Find the role using it's name
             else:
                 for role in ctx.message.guild.roles:
+                    # Match the argument with all roles names
                     if args.lower() == role.name.lower():
                         role = discord.utils.get(ctx.message.guild.roles, name=role.name)
                         break
