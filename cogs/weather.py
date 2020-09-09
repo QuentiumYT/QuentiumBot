@@ -17,10 +17,9 @@ class WeatherUtilities(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True,
-        no_pm=False
+        pass_context=True
     )
-    async def weather_cmd(self, ctx, *, args=None):
+    async def weather_cmd(self, ctx, *, city=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
@@ -31,29 +30,44 @@ class WeatherUtilities(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            # Global embed
             embed = discord.Embed(color=0x11FFFF)
-            if not args:
+
+            # No city given
+            if not city:
                 embed.title = cmd_tran["msg_specify_city"]
                 return await ctx.send(embed=embed)
-            args = args.replace(" ", "%20")
-            url = "https://api.openweathermap.org/data/2.5/weather?q=" + args
-            data_weather = requests.get(url + f"&appid={get_config('GLOBAL', 'token_weather')}&lang={lang_server}").json()
-            if "city not found" in str(data_weather):
+
+            # Using HTML escaping
+            city = city.replace(" ", "%20")
+            url = "https://api.openweathermap.org/data/2.5/weather?q=" + city
+
+            # Weather token
+            token_w = get_config("GLOBAL", "token_weather")
+            # Get weather data
+            data_weather = requests.get(url + f"&appid={token_w}&lang={lang_server}").json()
+            if "city not found" in str(data_weather) or not data_weather["coord"]:
                 embed.title = cmd_tran["msg_city_not_found"]
                 return await ctx.send(embed=embed)
-            if not data_weather["coord"]:
-                return
+
             lat, lon = str(data_weather["coord"]["lat"]), str(data_weather["coord"]["lon"])
-            url = f"https://api.timezonedb.com/v2/get-time-zone?key={get_config('GLOBAL', 'token_timezone')}&format=json&by=position&lat={lat}&lng={lon}"
+            # Timezone token
+            token_tz = get_config("GLOBAL", "token_timezone")
+            # Get timezone of location for time
+            url = f"https://api.timezonedb.com/v2/get-time-zone?key={token_tz}&format=json&by=position&lat={lat}&lng={lon}"
+            # Use timezone time or weather time
             try:
                 current_time = requests.get(url).json()["formatted"]
             except:
                 current_time = data_weather["dt"]
+            # Get weather emojis status
             emoji = discord.utils.get(self.client.emojis, name=data_weather["weather"][0]["icon"])
+
+            condition = data_weather["weather"][0]["main"]
+            # Get other weather status translations
             if lang_server != "en":
-                condition = cmd_tran[data_weather["weather"][0]["main"]]
-            else:
-                condition = data_weather["weather"][0]["main"]
+                condition = cmd_tran[condition]
+            # Get other weather data
             desc = data_weather["weather"][0]["description"]
             content = f"{emoji} {cmd_tran['msg_condition']} {condition} - \"{desc.title()}\"\n"
             if "clouds" in data_weather:
@@ -64,8 +78,10 @@ class WeatherUtilities(commands.Cog):
             if "snow" in data_weather:
                 first_key = list(data_weather["snow"].keys())[0]
                 content += cmd_tran["msg_snowy"].format(first_key) + str(data_weather["snow"]["3h"]) + "L/m²\n"
+            # Calculates temperatures with Kelvin
             temp_celsius = str(round(data_weather["main"]["temp"] - 273.15, 1))
             temp_fahrenheit = str(round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
+            # Add celsius if english lang
             if lang_server != "en":
                 content += f"{cmd_tran['msg_temperature']} {temp_celsius}°C\n"
             else:
@@ -77,6 +93,7 @@ class WeatherUtilities(commands.Cog):
             content += cmd_tran["msg_sun"].format(sunrise_time, sunset_time)
             embed.title = cmd_tran["msg_weather_loc"].format(data_weather["name"], data_weather["sys"]["country"].lower())
             embed.description = content
+            # Weather status emoji
             embed.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/{emoji.id}.png")
             embed.set_footer(text=cmd_tran["msg_local_date"] + current_time,
                              icon_url="https://cdn.discordapp.com/emojis/475328334557872129.png")
