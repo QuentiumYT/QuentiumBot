@@ -24,7 +24,7 @@ class DtmineFLC(commands.Cog):
         aliases=aliases,
         pass_context=True
     )
-    async def dtmine_cmd(self, ctx, *args):
+    async def dtmine_cmd(self, ctx, *args=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
