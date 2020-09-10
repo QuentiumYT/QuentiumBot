@@ -920,5 +920,32 @@
             "msg_mention_user": ":x: {}, please mention a member to ban!",
             "msg_user_baned": "**{}** has been banned!"
         }
+    },
+    "TYPE FRANCE LES CITES": null,
+    "dtmine": {
+        "type": "flc",
+        "type_emoji": "serv_flc",
+        "fr": {
+            "type_name": "France Les Cités",
+            "description": "Affiche les 10 meilleurs endroits pour miner une ressource (© Fomys :smile:).",
+            "usage": "[\"minerais\"]",
+            "aliases": "minedt",
+            "example": "platine",
+            "msg_specify_ore": "Merci de préciser au moins un minerais : `{}dtmine [\"minerais\"] [\"secteur_max\"]`.",
+            "msg_ore_dont_exist": "Le minerais {} n'existe pas :frowning:",
+            "msg_top_10": "Voici les 10 meilleurs emplacements pour le minerais {} :```",
+            "msg_top_10_sector": "Voici les 10 meilleurs emplacements pour le minerais {} jusqu'au secteur {} :```"
+        },
+        "en": {
+            "type_name": "France Les Cités",
+            "description": "Shows the top 10 places to mine a resource (© Fomys :smile:).",
+            "usage": "[\"ore\"]",
+            "aliases": "minedt",
+            "example": "platinum",
+            "msg_specify_ore": "Please specify at least one ore: `{}dtmine [\"ore\"] [\"max_sector\"]`.",
+            "msg_ore_dont_exist": "The ore {} does not exist :frowning:",
+            "msg_top_10": "Here are the 10 best locations for {} ores:```",
+            "msg_top_10_sector": "Here are the 10 best locations for {} ores up to sector {}:```"
+        }
     }
 }
