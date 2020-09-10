@@ -258,11 +258,11 @@ async def on_member_join(member):
     """Bot member join a server listener"""
 
     server_id = member.guild.id
-    autorole_server = await HandleData.retrieve_data(client, member.guild)[2]
+    autorole_server = await HandleData.retrieve_data(client, member.guild)
 
     # Check if automatic role is set
-    if autorole_server:
-        role = discord.utils.get(member.guild.roles, id=autorole_server)
+    if autorole_server[2]:
+        role = discord.utils.get(member.guild.roles, id=autorole_server[2])
         if role:
             try:
                 # Add the role to the new member
