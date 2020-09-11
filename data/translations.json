@@ -947,5 +947,34 @@
             "msg_top_10": "Here are the 10 best locations for {} ores:```",
             "msg_top_10_sector": "Here are the 10 best locations for {} ores up to sector {}:```"
         }
+    },
+    "absent": {
+        "type": "flc",
+        "type_emoji": "serv_flc",
+        "fr": {
+            "description": "Attribuez vous le rôle Absent si vous devez vous absenter un moment.",
+            "usage": "[\"durée + (raison)\"]",
+            "aliases": "abs",
+            "example": "10 jours (vacances)",
+            "msg_perm_roles_bot": ":x: Il manque la permissions **Gérer les rôles** au bot.",
+            "msg_specify_reason": "Pour vous mettre le statut d'absent, il faut que vous spécifiez une raison et une durée d'absence ! (ex : `-absent Vacances 7 jours`)",
+            "msg_absent_reason": "**{}** est désormais absent pour la raison : ***{}***",
+            "msg_join_absent": "Vous avez bien rejoint le statut d'absent !",
+            "msg_is_back": "**{}** est de retour parmi nous !",
+            "msg_join_present": "Vous avez bien quitté le statut d'absent !"
+        },
+        "en": {
+            "type_name": "France Les Cités",
+            "description": "Assign yourself the Absent role if you have to be away for a while.",
+            "usage": "[\"duration + (reason)\"]",
+            "aliases": "abs",
+            "example": "10 days (vacations)",
+            "msg_perm_roles_bot": "",
+            "msg_specify_reason": "",
+            "msg_absent_reason": "",
+            "msg_join_absent": "",
+            "msg_is_back": "",
+            "msg_join_present": ""
+        }
     }
 }
