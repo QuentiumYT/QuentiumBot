@@ -22,11 +22,7 @@ class AbsentFLC(commands.Cog):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
-            lang_server = data[0]
-            prefix_server = data[3]
-        else:
-            lang_server = "en"
-            prefix_server = "+"
+        lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
         # Doesn't respond to bots

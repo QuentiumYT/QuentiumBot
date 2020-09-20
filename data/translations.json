@@ -952,6 +952,7 @@
         "type": "flc",
         "type_emoji": "serv_flc",
         "fr": {
+            "type_name": "France Les Cités",
             "description": "Attribuez vous le rôle Absent si vous devez vous absenter un moment.",
             "usage": "[\"durée + (raison)\"]",
             "aliases": "abs",
