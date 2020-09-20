@@ -976,5 +976,41 @@
             "msg_is_back": "",
             "msg_join_present": ""
         }
+    },
+    "vote": {
+        "type": "flc",
+        "type_emoji": "serv_flc",
+        "fr": {
+            "type_name": "France Les Cités",
+            "description": "Permet de voter pour un gagnant.",
+            "usage": "[\"numéro\"]",
+            "aliases": "votes/voter/votemax/voteresults",
+            "example": "5",
+            "msg_no_args": "Merci de bien vouloir préciser un vote par son numéro.",
+            "msg_votemax_set": "Le nombre de votes max à été mis à **{}**",
+            "msg_results": "Résultats :",
+            "msg_place": "Place {} :",
+            "msg_votes": "n°{} avec {} votes.",
+            "msg_wrong_arg": "Cet argument ne correspond pas au numéros de la liste des votes.",
+            "msg_number_too_high": "Ce nombre dépasse le nombre de votes dans la liste.",
+            "msg_already_voted": "Vous avez déjà voté, il est impossible de changer son vote.",
+            "msg_voted": "Vous avez bien voté pour le participant **{}**."
+        },
+        "en": {
+            "type_name": "France Les Cités",
+            "description": "Allows voting for a winner.",
+            "usage": "[\"number\"]",
+            "aliases": "votes/voter/votemax/voteresults",
+            "example": "5",
+            "msg_no_args": "",
+            "msg_votemax_set": "",
+            "msg_results": "",
+            "msg_place": "",
+            "msg_votes": "",
+            "msg_wrong_arg": "",
+            "msg_number_too_high": "",
+            "msg_already_voted": "",
+            "msg_voted": ""
+        }
     }
 }
