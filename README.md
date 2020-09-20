@@ -18,6 +18,8 @@ Visit [bot.quentium.fr](https://bot.quentium.fr) for more information or [top.gg
 These bots are licensed under the MIT license, so feel free to copy small or large parts of the code here without having to ask. Just prefer to learn by yourself and take inspiration of it instead of running it directly :D
 
 Source code of Bots is now cleaner with the rewrite! Every command is located in the cogs folder.
+For private commands (bot management), please see the `private` folder.
+For specific commands (server private commands), feel free to submit any kind of command for your server in the `custom` folder! Just create a pull request and I will add it to the bot
 
 ## 🚀 Features
 
