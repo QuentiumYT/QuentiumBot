@@ -1013,5 +1013,37 @@
             "msg_already_voted": "",
             "msg_voted": ""
         }
+    },
+    "role": {
+        "type": "ism",
+        "type_emoji": "serv_ism",
+        "fr": {
+            "type_name": "Insoumis",
+            "description": "Attribuez vous les rôles qui vous correspondent sur le serveur.",
+            "usage": "[\"rôle\" / liste]",
+            "aliases": "roles",
+            "example": "Payday 2",
+            "msg_not_enabled": "Ce serveur n'a pas activé l'attribution des rôles, veuillez contacter `QuentiumYT#0207`.",
+            "msg_specify_role": "Merci de préciser un rôle à vous attribuer : `{}`",
+            "msg_list_role": "Voiçi la liste des rôles : `{}`",
+            "msg_unknown_role": "Ce rôle n'existe pas :frowning:",
+            "msg_role_added": "Le rôle {} à bien été mis.",
+            "msg_role_removed": "Le rôle {} à bien été enlevé.",
+            "msg_role_not_allowed": "Vous n'avez pas le droit de vous attribuer ce rôle."
+        },
+        "en": {
+            "type_name": "Insoumis",
+            "description": "Assign you the roles you want on the server.",
+            "usage": "[\"role\" / list]",
+            "aliases": "roles",
+            "example": "Payday 2",
+            "msg_not_enabled": "",
+            "msg_specify_role": "",
+            "msg_list_role": "",
+            "msg_unknown_role": "",
+            "msg_role_added": "",
+            "msg_role_removed": "",
+            "msg_role_not_allowed": ""
+        }
     }
 }

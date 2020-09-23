@@ -6,3 +6,4 @@ datetime
 bs4
 ftplib
 subprocess
+difflib
