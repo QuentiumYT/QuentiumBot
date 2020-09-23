@@ -16,7 +16,8 @@ class AbsentFLC(commands.Cog):
     @commands.command(
         name=cmd_name,
         aliases=aliases,
-        pass_context=True
+        pass_context=True,
+        no_pm=True
     )
     async def absent_cmd(self, ctx, *, reason=None):
         # Get specific server data
