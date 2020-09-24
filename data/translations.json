@@ -1045,5 +1045,25 @@
             "msg_role_removed": "",
             "msg_role_not_allowed": ""
         }
+    },
+    "cookie": {
+        "type": "theswe",
+        "type_emoji": "serv_theswe",
+        "fr": {
+            "type_name": "TheSweMaster",
+            "description": "Vous voulez des cookies, en voila !",
+            "usage": "",
+            "aliases": "cookies",
+            "example": "",
+            "msg_cookies": "Voici tes cookies ***{}***  :cookie:{}"
+        },
+        "en": {
+            "type_name": "TheSweMaster",
+            "description": "You want cookies, here are some!",
+            "usage": "",
+            "aliases": "cookies",
+            "example": "",
+            "msg_cookies": "Here are your cookies ***{}***  :cookie:{}"
+        }
     }
 }
