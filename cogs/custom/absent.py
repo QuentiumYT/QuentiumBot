@@ -1,4 +1,4 @@
-import discord, json
+import discord
 from discord.ext import commands
 from QuentiumBot import HandleData, get_translations
 
