@@ -310,7 +310,7 @@ async def on_server_remove(server):
 
 @client.event
 async def on_raw_reaction_add(ctx):
-    """Non-cache reaction addition listener"""
+    """Non-cache reaction listener"""
 
     # If Quentium react
     if is_owner(ctx, ctx.user_id):
@@ -356,11 +356,12 @@ if not debug:
 
         if "is not found" in str(error):
             return
+        elif "Missing Access" in str(error):
+            return
+            # return await ctx.send(tran["msg_missing_access"])
         elif "Cannot send an empty message" in str(error):
             return await ctx.message.delete()
 
-        elif "Missing Access" in str(error):
-            return await ctx.send(tran["msg_missing_access"])
         elif "Unknown Message" in str(error):
             return await ctx.send(tran["msg_unknown_message"])
         elif "You can only bulk delete messages that are under 14 days old" in str(error):
