@@ -1055,7 +1055,7 @@
             "usage": "",
             "aliases": "cookies",
             "example": "",
-            "msg_cookies": "Voici tes cookies ***{}***  :cookie:{}"
+            "msg_cookies": ""
         },
         "en": {
             "type_name": "TheSweMaster",
@@ -1064,6 +1064,30 @@
             "aliases": "cookies",
             "example": "",
             "msg_cookies": "Here are your cookies ***{}***  :cookie:{}"
+        }
+    },
+    "showideas": {
+        "type": "quentium",
+        "type_emoji": "user_quentium",
+        "fr": {
+            "type_name": "QuentiumYT",
+            "description": "Affiche la liste des idées proposées.",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_ideas": "Idées :",
+            "msg_empty_file": "Le fichier est vide :weary:",
+            "msg_none": "Aucunes"
+        },
+        "en": {
+            "type_name": "QuentiumYT",
+            "description": "Displays the list of suggested ideas.",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_ideas": "",
+            "msg_empty_file": "",
+            "msg_none": ""
         }
     }
 }
