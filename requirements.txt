@@ -1,9 +1,5 @@
-discord.py
-asyncio
-psutil
 requests
-datetime
+discord.py
 bs4
-ftplib
+psutil
 subprocess
-difflib
