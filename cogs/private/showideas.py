@@ -19,7 +19,7 @@ class ShowIdeasQuentium(commands.Cog):
         pass_context=True
     )
     @commands.is_owner()
-    async def showideas_cmd(self, ctx, *, reason=None):
+    async def showideas_cmd(self, ctx):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
             data = await HandleData.retrieve_data(self, ctx.message.guild)
