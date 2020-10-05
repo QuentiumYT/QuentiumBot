@@ -1089,5 +1089,23 @@
             "msg_empty_file": "",
             "msg_none": ""
         }
+    },
+    "addlogs": {
+        "type": "quentium",
+        "type_emoji": "user_quentium",
+        "fr": {
+            "type_name": "QuentiumYT",
+            "description": "Permet d'ajouter des logs de mise à jour.",
+            "usage": "[\"logs\"]",
+            "aliases": "",
+            "example": "- Log #1..- Log #2."
+        },
+        "en": {
+            "type_name": "QuentiumYT",
+            "description": "Adds update logs.",
+            "usage": "[\"logs\"]",
+            "aliases": "",
+            "example": "- Log #1..- Log #2."
+        }
     }
 }
