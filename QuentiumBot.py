@@ -480,9 +480,9 @@ async def push_bot_stats():
         json.dump(stats, file, indent=4)
 
     # Connect to the FTP server
-    ftp = FTP(get_config("GLOBAL", "ftp_host"),
-              get_config("GLOBAL", "ftp_login"),
-              get_config("GLOBAL", "ftp_passwd"))
+    ftp = FTP(get_config("PUBLIC", "ftp_host"),
+              get_config("PUBLIC", "ftp_login"),
+              get_config("PUBLIC", "ftp_passwd"))
     file = open("data/botstats.json", "rb")
     # Store the file
     ftp.storbinary("STOR /bot/json/botstats.json", file)
