@@ -2,7 +2,7 @@ import discord, os
 from discord.ext import commands
 
 class ManageCogs(commands.Cog):
-    """Commands to load, unload, reload cogs"""
+    """Commands to load, unload, reload cogs for QuentiumYT (private)"""
 
     def __init__(self, client):
         self.client = client
