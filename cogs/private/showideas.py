@@ -1,6 +1,6 @@
 import discord, os, asyncio
 from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+from QuentiumBot import HandleData, get_translations
 
 # Basic command configs
 cmd_name = "showideas"
@@ -26,29 +26,27 @@ class ShowIdeasQuentium(commands.Cog):
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
-        # Doesn't respond to bots
-        if not ctx.message.author.bot == True:
-            feedback_file = "feedback.txt"
+        feedback_file = "feedback.txt"
 
-            # Create a basic embed
-            embed = discord.Embed(color=0x115050)
-            embed.title = cmd_tran["msg_ideas"]
-            embed.description = cmd_tran["msg_none"]
+        # Create a basic embed
+        embed = discord.Embed(color=0x115050)
+        embed.title = cmd_tran["msg_ideas"]
+        embed.description = cmd_tran["msg_none"]
 
-            # If feedback file does not exist
-            if not os.path.isfile(feedback_file):
-                embed.description = cmd_tran["msg_empty_file"]
-            else:
-                # Set the description to all the file content
-                with open(feedback_file, "r", encoding="utf-8", errors="ignore") as file:
-                    embed.description = "".join(file.readlines())
+        # If feedback file does not exist
+        if not os.path.isfile(feedback_file):
+            embed.description = cmd_tran["msg_empty_file"]
+        else:
+            # Set the description to all the file content
+            with open(feedback_file, "r", encoding="utf-8", errors="ignore") as file:
+                embed.description = "".join(file.readlines())
 
-            # Send the embed temporary
-            tmp = await ctx.send(embed=embed)
-            await asyncio.sleep(5)
-            # After 5 seconds, delete both messages for privacy
-            await ctx.message.delete()
-            await tmp.delete()
+        # Send the embed temporary
+        tmp = await ctx.send(embed=embed)
+        await asyncio.sleep(5)
+        # After 5 seconds, delete both messages for privacy
+        await ctx.message.delete()
+        await tmp.delete()
 
 def setup(client):
     client.add_cog(ShowIdeasQuentium(client))
