@@ -41,7 +41,7 @@
             "msg_not_owner": ":x: You're not the bot's owner :man_police_officer_tone1:"
         }
     },
-    "TYPE INFORMATIONS": null,
+    "TYPE INFORMATION": null,
     "help": {
         "type": "info",
         "type_emoji": "information",
@@ -667,7 +667,7 @@
             "msg_logs_infos": "Logs are shared when the bot gets a new important update."
         }
     },
-    "TYPE CONFIGURATION": null,
+    "TYPE CONFIGURATIONS": null,
     "prefix": {
         "type": "admin_configs",
         "type_emoji": "configs",
@@ -804,7 +804,7 @@
             "msg_reply": "Reply"
         }
     },
-    "TYPE ADMINISTRATION": null,
+    "TYPE RIGHTS": null,
     "clear": {
         "type": "admin_rights",
         "type_emoji": "rights",
@@ -1014,6 +1014,7 @@
             "msg_voted": ""
         }
     },
+    "TYPE INSOUMIS": null,
     "role": {
         "type": "ism",
         "type_emoji": "serv_ism",
@@ -1046,6 +1047,7 @@
             "msg_role_not_allowed": ""
         }
     },
+    "TYPE THESWEMASTER": null,
     "cookie": {
         "type": "theswe",
         "type_emoji": "serv_theswe",
@@ -1066,6 +1068,7 @@
             "msg_cookies": "Here are your cookies ***{}***  :cookie:{}"
         }
     },
+    "TYPE QUENTIUM": null,
     "showideas": {
         "type": "quentium",
         "type_emoji": "user_quentium",

@@ -288,7 +288,7 @@ async def on_member_join(member):
         embed = discord.Embed(color=0x14F5F5)
         embed.title = "Welcome " + member.name
         embed.url = get_translations("GLOBAL")["website_url"]
-        embed.description = "You now have joined the Testers of QuentiumBot yikes! <a:happy:751103578957021264> Spend some good time with us!"
+        embed.description = "You now have joined the testers of QuentiumBot yikes! <a:happy:751103578957021264> Spend some good time with us!"
         embed.set_thumbnail(url=member.avatar_url)
         embed.set_footer(text="By QuentiumBot")
         channel = discord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
