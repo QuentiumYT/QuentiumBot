@@ -1,7 +1,7 @@
 import random, requests, sys
 from _tte import cypher, alpha, url
 
-# Send random requests to TimeToEat website (https://timetoeat.alwaysdata.net/)
+# Send random requests to TimeToEat website (https://timetoeat.tk or https://timetoeat.alwaysdata.net)
 
 # 130 for 11h30 to 13h30 (10 per 10 minutes)
 number_request = 130
@@ -38,3 +38,5 @@ for i in range(number_request):
     # Pass the args with the GET method
     args = "?count=" + count_crypt + "&debit=" + debit_crypt + "&key=" + str(key)
     requests.get(url + args)
+
+print("All requests have been sent successfully!")

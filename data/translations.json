@@ -1127,5 +1127,25 @@
             "example": "",
             "msg_sending_data": ""
         }
+    },
+    "data4tte": {
+        "type": "quentium",
+        "type_emoji": "user_timetoeat",
+        "fr": {
+            "type_name": "TimeToEat",
+            "description": "Envoie des requêtes au projet (timetoeat.tk).",
+            "usage": "[\"nombre\"]",
+            "aliases": "",
+            "example": "130",
+            "msg_sending_data": "Envoi des données au site, veuillez patienter..."
+        },
+        "en": {
+            "type_name": "TimeToEat",
+            "description": "Send requests to the project (timetoeat.tk).",
+            "usage": "[\"number\"]",
+            "aliases": "",
+            "example": "130",
+            "msg_sending_data": ""
+        }
     }
 }
