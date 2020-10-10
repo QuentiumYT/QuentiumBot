@@ -11,4 +11,4 @@
 17.05.2019 - 20:07 --- - Added `+embed` command, check it out !..- Changed the caption of `+help` command (simpler)..- Fixed various bugs from rewrite.
 07.06.2019 - 23:24 --- - Added `+lyrics` command, you can now search for lyrics of a song..- Fixed `+letter` again, you can now send a lot of text and discord will no longer limit this command 👌..- Fixed small problems like always (rewrite ones) :).
 09.08.2019 - 20:11 --- - Added a new `+trigger` command to make the bot react to specific messages.. Fixed a lot of translations and added some to a few commands.. - Added more flexibility on some commands (documentation).. - Working on a new help command.
-03.09.2020 - 16:00 --- - This command will not be kept with up to date changelog anymore. Please visit my GitHub commits for the timeline: https://github.com/QuentiumYT/QuentiumBot/commits/master
+03.09.2020 - 16:00 --- - This command will not be kept with up to date changelog anymore. Please visit my GitHub commits for the timeline: https://github.com/QuentiumYT/QuentiumBot/commits/cogs-rewrite
