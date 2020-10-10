@@ -39,8 +39,8 @@ class HelpInfos(commands.Cog):
             commands = [c for c in tran.keys() if not c.isupper()]
             # Create a dict of commands with subcommands
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
-            # List all commands
-            if args == None:
+            # List all commands if no arguments
+            if not args:
                 embed = discord.Embed(color=0x11FF11)
                 embed.url = tran["GLOBAL"]["website_url"]
                 embed.title = cmd_tran["msg_list_commands"]
@@ -67,7 +67,7 @@ class HelpInfos(commands.Cog):
                         else:
                             commands_value = f"- **`{prefix_server}{command}` >** {data['description']}\n"
                         latest_command = command
-                embed.add_field(name=self.emo(tran[command]["type_emoji"]) + cmd_tran["msg_title_" + tran[command]["type"]],
+                embed.add_field(name=self.emo(tran[latest_command]["type_emoji"]) + cmd_tran["msg_title_" + tran[command]["type"]],
                                 value=commands_value,
                                 inline=True)
                 embed.add_field(name=cmd_tran["msg_caption"],
