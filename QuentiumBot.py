@@ -398,12 +398,12 @@ if not debug:
 async def do_tasks():
     """Execute cron tasks actions"""
 
-    ### TimeToEat project menu upload
+    # TimeToEat project menu upload
     if datetime.today().weekday() == 6:
         if windows:
             await exec_command("python scripts/menu4tte.py", None)
         else:
-            await exec_command("python3 scripts/menu4tte.py", None)
+            await exec_command("python3 ~/scripts/menu4tte.py", None)
     # TimeToEat project data generation
     if datetime.today().weekday() < 5:
         if windows:

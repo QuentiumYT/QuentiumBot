@@ -1107,5 +1107,25 @@
             "aliases": "",
             "example": "- Log #1..- Log #2."
         }
+    },
+    "menu4tte": {
+        "type": "quentium",
+        "type_emoji": "user_timetoeat",
+        "fr": {
+            "type_name": "TimeToEat",
+            "description": "Récupère et envoie les menus au projet (timetoeat.tk).",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_sending_data": "Récupération et envoi des menus en cours, veuillez patienter..."
+        },
+        "en": {
+            "type_name": "TimeToEat",
+            "description": "Get and send menus to the project (timetoeat.tk).",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_sending_data": ""
+        }
     }
 }

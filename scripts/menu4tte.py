@@ -82,3 +82,5 @@ except Exception as e:
     print(e)
 
 ftp.close()
+
+print("All menus have been sent successfully!")
