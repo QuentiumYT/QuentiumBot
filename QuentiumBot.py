@@ -547,7 +547,9 @@ async def exec_command(args, msg):
     def emo(text):
         return discord.utils.get(client.emojis, name=text)
 
+    # Personal arguments to start a PC or enable the connection using discord
     if any(args == x for x in ["runpc", "setco"]):
+        await msg.delete()
         # Create a reaction selection message
         embed = discord.Embed(color=0x000000)
         if args == "runpc":
@@ -567,10 +569,10 @@ async def exec_command(args, msg):
         return
 
     try:
-        # Execute the command and store the result
+        # Execute the command and send the result
         result = check_output(args,
                               shell=True,
-                              stderr=-2)
+                              stderr=-2) # -2 is equal to STDOUT
     except Exception as e:
         result = type(e).__name__ + ": " + str(e)
 
