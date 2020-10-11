@@ -36,7 +36,7 @@ class Data4TTEQuentium(commands.Cog):
             if windows:
                 await exec_command("python scripts/data4tte.py " + number, ctx.message)
             else:
-                await exec_command("python3 ~/scripts/data4tte.py " + number, ctx.message)
+                await exec_command("python3 scripts/data4tte.py " + number, ctx.message)
             await asyncio.sleep(5)
             await ctx.message.delete()
             await temp.delete()

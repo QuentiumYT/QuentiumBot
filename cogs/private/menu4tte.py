@@ -33,7 +33,7 @@ class Menu4TTEQuentium(commands.Cog):
             if windows:
                 await exec_command("python scripts/menu4tte.py", ctx.message)
             else:
-                await exec_command("python3 ~/scripts/menu4tte.py", ctx.message)
+                await exec_command("python3 scripts/menu4tte.py", ctx.message)
             await asyncio.sleep(5)
             await ctx.message.delete()
             await temp.delete()

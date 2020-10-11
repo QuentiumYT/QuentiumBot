@@ -403,13 +403,13 @@ async def do_tasks():
         if windows:
             await exec_command("python scripts/menu4tte.py", None)
         else:
-            await exec_command("python3 ~/scripts/menu4tte.py", None)
+            await exec_command("python3 scripts/menu4tte.py", None)
     # TimeToEat project data generation
     if datetime.today().weekday() < 5:
         if windows:
             await exec_command("python scripts/data4tte.py 130", None)
         else:
-            await exec_command("python3 ~/scripts/data4tte.py 130", None)
+            await exec_command("python3 scripts/data4tte.py 130", None)
 
     ### Insoumis server kick inactive members
     serv = client.get_guild(391272643229384705) # Insoumis server ID
