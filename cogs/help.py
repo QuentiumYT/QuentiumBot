@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+from QuentiumBot import HandleData, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "help"
@@ -35,8 +35,19 @@ class HelpInfos(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
+            def allow_type(cmd):
+                if any(tran[cmd]["type"] == x for x in ["flc", "ism", "theswe", "quentium"]):
+                    if tran[cmd]["type"] == "flc" and ctx.guild.id == 371687157817016331: # France Les Cités server ID
+                        return False
+                    if tran[cmd]["type"] == "ism" and ctx.guild.id == 391272643229384705: # Insoumis server ID
+                        return False
+                    if tran[cmd]["type"] == "theswe" and ctx.guild.id == 199189022894063627: # TheSweMaster server ID
+                        return False
+                    if tran[cmd]["type"] == "quentium" and is_owner(ctx):
+                        return False
+                    return True
             # Create a list of all commands
-            commands = [c for c in tran.keys() if not c.isupper()]
+            commands = [c for c in tran.keys() if not c.isupper() if not allow_type(c)]
             # Create a dict of commands with subcommands
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
             # List all commands if no arguments
@@ -51,30 +62,37 @@ class HelpInfos(commands.Cog):
                 for command in commands:
                     data = tran[command][lang_server]
                     # Check if category is ended for embed fields
-                    if tran[latest_command]["type"] == tran[command]["type"]:
-                        if data["usage"]:
-                            commands_value += f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
-                        else:
-                            commands_value += f"- **`{prefix_server}{command}` >** {data['description']}\n"
-                    else:
+                    if tran[latest_command]["type"] != tran[command]["type"]:
+                        first_section_cmd = command
                         # Create a field for each category
                         embed.add_field(name=self.emo(tran[latest_command]["type_emoji"]) + cmd_tran["msg_title_" + tran[latest_command]["type"]],
                                         value=commands_value,
                                         inline=True)
-                        # Add a field with usage else, just the command
+                        # Initialise the value to the first command of type
                         if data["usage"]:
                             commands_value = f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
                         else:
                             commands_value = f"- **`{prefix_server}{command}` >** {data['description']}\n"
-                        latest_command = command
-                embed.add_field(name=self.emo(tran[latest_command]["type_emoji"]) + cmd_tran["msg_title_" + tran[command]["type"]],
-                                value=commands_value,
-                                inline=True)
+                    else:
+                        if data["usage"]:
+                            commands_value += f"- **`{prefix_server}{command} {data['usage']}` >** {data['description']}\n"
+                        else:
+                            commands_value += f"- **`{prefix_server}{command}` >** {data['description']}\n"
+
+                    # Last command, adding last field
+                    if command == commands[-1]:
+                        embed.add_field(name=self.emo(tran[first_section_cmd]["type_emoji"]) + cmd_tran["msg_title_" + tran[command]["type"]],
+                                        value=commands_value,
+                                        inline=True)
+                    latest_command = command
+
+                # Add the caption field
                 embed.add_field(name=cmd_tran["msg_caption"],
                                 value=cmd_tran["msg_caption_desc"],
                                 inline=True)
                 # Format the link to allow discord markdown
                 donation = cmd_tran["msg_donation"].format("https://www.paypal.me/QuentiumYT/1")
+                # Add the warning field
                 embed.add_field(name=cmd_tran["msg_warning"],
                                 value=cmd_tran["msg_warning_desc"].format(prefix_server) + donation,
                                 inline=True)
