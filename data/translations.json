@@ -28,7 +28,7 @@
             "msg_command_disabled": ":x: Cette commande à été désactivée :confounded:",
             "msg_bad_argument": ":x: Un mauvais argument à été donné :slight_frown:",
             "msg_too_many_arguments": ":x: Trop d'arguments ont étés donnés :scream:",
-            "msg_command_cooldown": ":x: Doucement, il y a un cooldown sur cette commande, il vous reste {time_left} secondes à attendre :raised_hand:",
+            "msg_command_cooldown": ":x: Doucement, il y a un cooldown sur cette commande, il vous reste {} secondes à attendre :raised_hand:",
             "msg_not_owner": ":x: Vous n'êtes pas le propriétaire du bot :man_police_officer_tone1:"
         },
         "en": {
@@ -41,7 +41,7 @@
             "msg_command_disabled": ":x: This command has been disabled :confounded:",
             "msg_bad_argument": ":x: A wrong argument has been given :slight_frown:",
             "msg_too_many_arguments": ":x: Too many arguments has been given :scream:",
-            "msg_command_cooldown": ":x: Slow down, there is a cooldown on that command, you have to wait {time_left} more seconds :raised_hand:",
+            "msg_command_cooldown": ":x: Slow down, there is a cooldown on that command, you have to wait {} more seconds :raised_hand:",
             "msg_not_owner": ":x: You're not the bot's owner :man_police_officer_tone1:"
         },
         "de": {
@@ -54,7 +54,7 @@
             "msg_command_disabled": ":x: Dieser Befehl wurde deaktiviert :confounded:",
             "msg_bad_argument": ":x: Es wurde ein falsches argument gegeben :slight_frown:",
             "msg_too_many_arguments": ":x: Es wurden zu viele argumente gegeben :scream:",
-            "msg_command_cooldown": ":x: Langsam, dieser befehl hat einen cool down, Sie haben noch {time_left} sekunden zu warten :raised_hand:",
+            "msg_command_cooldown": ":x: Langsam, dieser befehl hat einen cool down, Sie haben noch {} sekunden zu warten :raised_hand:",
             "msg_not_owner": ":x: Du bist nicht der der Bot-Besitzer :man_police_officer_tone1:"
         }
     },
