@@ -11,6 +11,10 @@
         "en": {
             "bot_prefix": "The prefix of the bot is `{}`. Use the `{}help` command for the list of commands.",
             "requested_by": "Requested by: {}"
+        },
+        "de": {
+            "bot_prefix": "Das Präfix des Bots ist `{}`. Verwenden Sie den Befehl `{}help` für die Liste der Befehle.",
+            "requested_by": "Angefordert von: {}"
         }
     },
     "ERRORS": {
@@ -39,6 +43,19 @@
             "msg_too_many_arguments": ":x: Too many arguments has been given :scream:",
             "msg_command_cooldown": ":x: Slow down, there is a cooldown on that command, you have to wait {time_left} more seconds :raised_hand:",
             "msg_not_owner": ":x: You're not the bot's owner :man_police_officer_tone1:"
+        },
+        "de": {
+            "msg_missing_perms": ":x: Einige Berechtigungen fehlen.",
+            "msg_missing_access": ":x: Einige Zugriffe fehlen.",
+            "msg_unknown_message": ":x: Eine der Nachrichten wurde nicht gefunden oder existiert nicht mehr.",
+            "msg_del_old_message": ":x: Sie können nur Nachrichten löschen, die weniger als 14 Tage alt sind :pensive:",
+            "msg_argument_missing": ":x: Ein Erfordertes argument fehlt :rolling_eyes:",
+            "msg_command_no_pm": ":x: Dieser Befehl kann nicht in direkt nachrichten verwendet werden :confused:",
+            "msg_command_disabled": ":x: Dieser Befehl wurde deaktiviert :confounded:",
+            "msg_bad_argument": ":x: Es wurde ein falsches argument gegeben :slight_frown:",
+            "msg_too_many_arguments": ":x: Es wurden zu viele argumente gegeben :scream:",
+            "msg_command_cooldown": ":x: Langsam, dieser befehl hat einen cool down, Sie haben noch {time_left} sekunden zu warten :raised_hand:",
+            "msg_not_owner": ":x: Du bist nicht der der Bot-Besitzer :man_police_officer_tone1:"
         }
     },
     "TYPE INFORMATION": null,
@@ -106,6 +123,37 @@
             "msg_warning_desc": "If you have any problem, please submit it with the `{}bug` command or join our support server: https://discord.gg/5sehgXx\n",
             "msg_donation": "\n:dollar: For a small donation: [Click here]({})",
             "msg_no_command_found": "The specified command/alias was not found."
+        },
+        "de": {
+            "type_name": "Informationen",
+            "description": "Zeigt die Liste der Befehle an oder informiert über die Verwendung eines bestimmten Befehls.",
+            "usage": "[\"Befehle\"]",
+            "aliases": "cmd/commands",
+            "example": "embed",
+            "msg_title_info": " **INFORMATIONEN** Befehle:",
+            "msg_title_utilities": " **NUTZEN** Befehle:",
+            "msg_title_stats": " **STATISTIKEN** Befehle:",
+            "msg_title_feedback": " **RÜCKMELDUNG** Befehle:",
+            "msg_title_admin_configs": " **KONFIGURATIONEN (Admin)** Befehle:",
+            "msg_title_admin_rights": " **VERWALTUNG (Admin)** Befehle:",
+            "msg_title_flc": " **FRANCE LES CITES** Befehle:",
+            "msg_title_theswe": " **THESWEMASTER** Befehle:",
+            "msg_title_ism": " **INSOUMIS** Befehle:",
+            "msg_title_quentium": " **QUENTIUM** Befehle:",
+            "msg_list_commands": "----- Liste der Befehle -----",
+            "msg_details": ":bulb: ***Geben Sie für weitere Befehlsdetails `{}help [\"command\"]` ein.***",
+            "msg_more_infos": "Für weitere Informationen, Bitte besuchen Sie die Website: https://bot.quentium.fr/",
+            "msg_title": "Help Befehle",
+            "msg_type": "Typ:",
+            "msg_aliases": "Aliase:",
+            "msg_format": "Format:",
+            "msg_example": "Beispiel:",
+            "msg_caption": ":bookmark_tabs: Bildbeschriftung :bookmark_tabs:",
+            "msg_caption_desc": "**`[auferlegte_argument]` - `[\"angefordertes_argument\"]` - `[@erwähnen]` - `[1 / 2]` (Wahl 1 ODER 2).**",
+            "msg_warning": ":warning: Warnung :warning:",
+            "msg_warning_desc": "Wenn ihr einen Fehler findet, bitte meldet ihn mit `{}bug` befehle oder indem Sie dem test/support-Server beitreten: https://discord.gg/5sehgXx\n",
+            "msg_donation": "\n:euro: Für eine kleine spende: [Hier klicken]({})",
+            "msg_no_command_found": "Der angegebene Befehl/Aliase wurde nicht gefunden."
         }
     },
     "listservers": {
@@ -128,6 +176,15 @@
             "example": "",
             "msg_server_pos": "**__Server name | Registered position__**",
             "msg_servers": "Servers: {}"
+        },
+        "de": {
+            "type_name": "Informationen",
+            "description": "Zeigt die Liste des Servers mit dem Bot.",
+            "usage": "",
+            "aliases": "listserver/serverlist/listserv/servlist/listservs/servslist",
+            "example": "",
+            "msg_server_pos": "",
+            "msg_servers": ""
         }
     },
     "listinvites": {
@@ -150,6 +207,15 @@
             "example": "",
             "msg_any": "Any",
             "msg_title": "Invite links:"
+        },
+        "de": {
+            "type_name": "Information",
+            "description": "Zeigt die Liste der Einladungslinks.",
+            "usage": "",
+            "aliases": "listinvite/invitelist/inviteslist",
+            "example": "",
+            "msg_any": "",
+            "msg_title": ""
         }
     },
     "listbans": {
@@ -172,6 +238,15 @@
             "example": "",
             "msg_any": "Any",
             "msg_title": "List of banned members:"
+        },
+        "de": {
+            "type_name": "Informationen",
+            "description": "Zeigt die Liste der verbanden Benutzer.",
+            "usage": "",
+            "aliases": "listban/banlist/banslist",
+            "example": "",
+            "msg_any": "",
+            "msg_title": ""
         }
     },
     "shareme": {
@@ -192,6 +267,14 @@
             "aliases": "sharebot/share/invitebot/botinvite",
             "example": "",
             "msg_shareme": "You can share this link to invite me to other servers:\n"
+        },
+        "de": {
+            "type_name": "Informationen",
+            "description": "Lädet den Bot auf Deinen Server ein.",
+            "usage": "",
+            "aliases": "sharebot/share/invitebot/botinvite",
+            "example": "",
+            "msg_shareme": ""
         }
     },
     "TYPE UTILITIES": null,
@@ -225,6 +308,20 @@
             "msg_number": "**Number of messages:**",
             "msg_has_sent_total": "**{}** has sent **{}** messages in total.",
             "msg_has_sent_channel": "**{}** has sent **{}** messages in this channel."
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Berechnet die Anzahl der Nachrichten eines Mitglieds insgesamt oder im Chatroom.",
+            "usage": "[all / channel] [@Mitglied]",
+            "aliases": "totalmsg",
+            "example": "channel @QuentiumYT#0207",
+            "msg_perm_admin_user": "",
+            "msg_invalid_member": "",
+            "msg_invalid_arg": "",
+            "msg_calculating": "",
+            "msg_number": "",
+            "msg_has_sent_total": "",
+            "msg_has_sent_channel": ""
         }
     },
     "embed": {
@@ -247,6 +344,15 @@
             "example": "T=My personal embed D=I like this command C=green F=Yay!",
             "msg_invalid_arg": "Please specify a valid argument: `{}embed T=Title D=Description C=Color I=ImageURL F=Footer U=URL A=Author`.",
             "msg_invalid_color": "The mentioned color does not exists. Supported parameters: `color name`, `hex value`, `integer`, `random`."
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Zeigt eine personifizierte embed an.",
+            "usage": "[T=\"Titel\"] [D=\"Beschreibung\"] [C=\"Farbe\"] [I=\"Bild url\"] [F=\"Fußzeile\"] [U=\"url\"] [A=\"Autor\"]",
+            "aliases": "embeds/richembed",
+            "example": "T=Meine personalle embed D=Ich mag diesen Befehl C=green F=Yay!",
+            "msg_invalid_arg": "",
+            "msg_invalid_color": ""
         }
     },
     "letter": {
@@ -267,6 +373,14 @@
             "aliases": "letters/emojis/emoji",
             "example": "Hello world!",
             "msg_specify_text": "Please specify a text."
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Schreibe eine Nachricht mit emojis.",
+            "usage": "[\"Text\"]",
+            "aliases": "letters/emojis/emoji",
+            "example": "Hallo allerseits!",
+            "msg_specify_text": ""
         }
     },
     "weather": {
@@ -319,6 +433,25 @@
             "msg_sun": "<:time:475328338542592000> Sunrise: {} • Sunset: {} (CEST)",
             "msg_weather_loc": "Current weather at {} :flag_{}:\n",
             "msg_local_date": "Local date: "
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Zeigt das Wetter der angegebenen Stadt an.",
+            "usage": "[\"Stadt\"]",
+            "aliases": "",
+            "example": "Berlin",
+            "msg_specify_city": "",
+            "msg_city_not_found": "",
+            "msg_condition": "",
+            "msg_cloudy": "",
+            "msg_rainy": "",
+            "msg_snowy": "",
+            "msg_temperature": "",
+            "msg_humidity": "",
+            "msg_wind_speed": "",
+            "msg_sun": "",
+            "msg_weather_loc": "",
+            "msg_local_date": ""
         }
     },
     "lyrics": {
@@ -351,6 +484,20 @@
             "msg_not_match": "The search does not match the title, make sure you have entered the name of the music.",
             "msg_result_found": "Result found with: **{}**",
             "msg_lyrics": "Lyrics of: __**{}**__"
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Durchsucht den Text einer Musik.",
+            "usage": "[\"Musik\"]",
+            "aliases": "lyric",
+            "example": "Linkin Park Numb",
+            "msg_specify_music": "",
+            "msg_not_found": "",
+            "msg_no_lyrics": "",
+            "msg_too_long": "",
+            "msg_not_match": "",
+            "msg_result_found": "",
+            "msg_lyrics": ""
         }
     },
     "avatar": {
@@ -367,6 +514,13 @@
             "type_name": "Utilities",
             "description": "Displays the avatar and its link of a person.",
             "usage": "[@member]",
+            "aliases": "av/avatars",
+            "example": "@QuentiumYT#0207"
+        },
+        "de": {
+            "type_name": "Nutzen",
+            "description": "Zeigt den Avatar und den Link einer Person an.",
+            "usage": "[@Mitglied]",
             "aliases": "av/avatars",
             "example": "@QuentiumYT#0207"
         }
@@ -440,6 +594,39 @@
             ],
             "msg_stats": "Statistics of __***{}***__",
             "msg_link_icon": " ***[Icon link]({})***"
+        },
+        "de": {
+            "type_name": "Statistiken",
+            "description": "Zeigt die Statistiken des jeweiligen Mitglieds an.",
+            "usage": "[@Mitglied]",
+            "aliases": "statsuser/statuser/userstat",
+            "example": "@QuentiumYT#0207",
+            "msg_any": "",
+            "msg_yes": "",
+            "msg_no": "",
+            "msg_online": "",
+            "msg_offline": "",
+            "msg_idle": "",
+            "msg_dnd": "",
+            "msg_invisible": "",
+            "msg_content": [
+                "```autohotkey\n",
+                "Name:               %s\n",
+                "Nickname:           %s\n",
+                "ID:                 %s\n",
+                "Tag:                %s\n",
+                "Mention:            %s\n",
+                "Bot:                %s\n",
+                "Status:             %s\n",
+                "Game:               %s\n",
+                "Join server at:     %s\n",
+                "Join Discord at:    %s\n",
+                "Best role:          %s\n",
+                "Roles:              %s\n",
+                "%s```"
+            ],
+            "msg_stats": "",
+            "msg_link_icon": ""
         }
     },
     "serverstats": {
@@ -512,6 +699,40 @@
             ],
             "msg_stats": "Statistics of __***{}***__",
             "msg_link_icon": " ***[Icon link]({})***"
+        },
+        "de": {
+            "type_name": "Statistiken",
+            "description": "Zeigt die Serverstatistiken an.",
+            "usage": "",
+            "aliases": "statserver/statsserver/servstats/serverinfos/serverinfo/servinfo",
+            "example": "",
+            "msg_none": "",
+            "msg_low": "",
+            "msg_medium": "",
+            "msg_high": "",
+            "msg_extreme": "",
+            "msg_limit": "",
+            "msg_content": [
+                "```autohotkey\n",
+                "Name:               %s\n",
+                "ID:                 %s\n",
+                "Owner:              %s (%s)\n",
+                "Created at:         %s\n",
+                "Region:             %s\n",
+                "Members:            %s (%s online)\n",
+                "    Users:          %s (%s online)\n",
+                "    Bots:           %s (%s online)\n",
+                "Channels:           %s\n",
+                "    Text:           %s\n",
+                "    Voice:          %s\n",
+                "AFK Channel:        %s\n",
+                "AFK Time:           %s min\n",
+                "Verify level:       %s\n",
+                "Roles:              %s\n",
+                "%s```"
+            ],
+            "msg_stats": "",
+            "msg_link_icon": ""
         }
     },
     "botstats": {
@@ -576,6 +797,36 @@
                 "```"
             ],
             "msg_stats": "Statistics of __***QuentiumBot***__"
+        },
+        "de": {
+            "type_name": "Statistiken",
+            "description": "Zeigt die Botstatistiken an.",
+            "usage": "",
+            "aliases": "botstat/statsbot/statbot",
+            "example": "",
+            "msg_day": "",
+            "msg_hour": "",
+            "msg_min": "",
+            "msg_sec": "",
+            "msg_bot_host": "",
+            "msg_bot_os": "",
+            "msg_not_available": "",
+            "msg_content": [
+                "```autohotkey\n",
+                "Hosted on:            %s\n",
+                "OS:                   %s\n",
+                "Owner:                %s\n",
+                "Uptime:               %s\n",
+                "Memory usage:         %s MB\n",
+                "Commands received:    %s (server)\n",
+                "Commands received:    %s (total)\n",
+                "Total users:          %s users in %s servers\n",
+                "Servers FR:           %s\n",
+                "Servers EN:           %s\n",
+                "Servers DE:           %s\n",
+                "```"
+            ],
+            "msg_stats": ""
         }
     },
     "uptime": {
@@ -596,6 +847,14 @@
             "aliases": "timeup/runningtime/runtime/timerun",
             "example": "",
             "msg_uptime": "The bot is online for {} Days, {} Hours, {} Minutes, {} Seconds."
+        },
+        "de": {
+            "type_name": "Statistiken",
+            "description": "Zeigt die Dauer seit dem Booten des Bot an.",
+            "usage": "",
+            "aliases": "timeup/runningtime/runtime/timerun",
+            "example": "",
+            "msg_uptime": ""
         }
     },
     "ping": {
@@ -618,6 +877,15 @@
             "example": "",
             "msg_ping_test": "***Ping message***",
             "msg_pong": ":ping_pong: Pong!\n- Bot's latency: `{}ms`\n- Message sending latency: `{}ms`"
+        },
+        "de": {
+            "type_name": "Statistiken",
+            "description": "Berechnen Sie die Latenz des Bots.",
+            "usage": "",
+            "aliases": "pong/latency",
+            "example": "",
+            "msg_ping_test": "",
+            "msg_pong": ""
         }
     },
     "TYPE FEEDBACK": null,
@@ -643,6 +911,16 @@
             "msg_specify_idea": "Please specify an idea.",
             "msg_specify_bug": "Please specify a bug.",
             "msg_thanks": "Thank you for contributing to improve the bot!"
+        },
+        "de": {
+            "type_name": "Rückmeldung",
+            "description": "Schlag eine Idee vor oder melde einen Fehler um den Bot zu verbessern.",
+            "usage": "[\"Text\"]",
+            "aliases": "bug/bugs/ideas",
+            "example": "Neuer Befehl zum Behandeln von Nachrichten.",
+            "msg_specify_idea": "",
+            "msg_specify_bug": "",
+            "msg_thanks": ""
         }
     },
     "showlogs": {
@@ -665,6 +943,15 @@
             "example": "",
             "msg_logs_bot": "Changelog of the bot:",
             "msg_logs_infos": "Logs are shared when the bot gets a new important update."
+        },
+        "de": {
+            "type_name": "Rückmeldung",
+            "description": "Zeigt die liste der Neuigkeiten des Bots an.",
+            "usage": "",
+            "aliases": "showlog/logs/log/changelog/whatsnew/whatnew",
+            "example": "",
+            "msg_logs_bot": "",
+            "msg_logs_infos": ""
         }
     },
     "TYPE CONFIGURATIONS": null,
@@ -692,6 +979,17 @@
             "msg_invalid_arg": "Please specify a valid argument: `{}prefix [\"prefix\" / delete]`.",
             "msg_prefix_reset": "The prefix has been reset.",
             "msg_prefix_changed": "The prefix has been changed to `{}`."
+        },
+        "de": {
+            "type_name": "Admin-Konfigurationen",
+            "description": "Ermöglicht das Ändern des Präfix des Bots.",
+            "usage": "[\"Präfix\" / delete / reset / remove]",
+            "aliases": "",
+            "example": "&",
+            "msg_perm_admin_user": "",
+            "msg_invalid_arg": "",
+            "msg_prefix_reset": "",
+            "msg_prefix_changed": ""
         }
     },
     "lang": {
@@ -700,26 +998,38 @@
         "fr": {
             "type_name": "Configurations Admin",
             "description": "Change la langue du bot. (Langue par défaut : en)",
-            "usage": "[fr / en]",
+            "usage": "[fr / en / de]",
             "aliases": "langs/langage/langages/language/languages",
             "example": "en",
             "msg_perm_admin_user": ":x: {}, vous n'avez pas la permission **Administrateur** !",
-            "msg_specify_lang": "Merci de préciser la langue à changer. `(fr / en)`",
+            "msg_specify_lang": "Merci de préciser la langue à changer. `(fr / en / de)`",
             "msg_lang_same": "La langue du bot est déjà définie sur **Français**.",
             "msg_lang_set": "La langue du bot a été changée en **Français**.",
-            "msg_lang_not_exist": "Cette langue n'existe pas, merci de rentrer une language correcte : `(fr / en)`."
+            "msg_lang_not_exist": "Cette langue n'existe pas, merci de rentrer une language correcte : `(fr / en / de)`."
         },
         "en": {
             "type_name": "Admin Configurations",
             "description": "Change the language of the bot. (Default language: en)",
-            "usage": "[fr / en]",
+            "usage": "[fr / en / de]",
             "aliases": "langs/language/languages",
             "example": "fr",
             "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
-            "msg_specify_lang": "Please specify the language to change. `(fr / en)`",
+            "msg_specify_lang": "Please specify the language to change. `(fr / en / de)`",
             "msg_lang_same": "The language of the bot is already set to **English**.",
             "msg_lang_set": "The language of the bot has been changed to **English**.",
-            "msg_lang_not_exist": "This language doesn't exist, please enter a correct language: `(fr / en)`."
+            "msg_lang_not_exist": "This language doesn't exist, please enter a correct language: `(fr / en / de)`."
+        },
+        "de": {
+            "type_name": "Admin-Konfigurationen",
+            "description": "Verändert die Sprache des Bots. (Standardsprache : en)",
+            "usage": "[fr / en / de]",
+            "aliases": "langs/language/languages",
+            "example": "en",
+            "msg_perm_admin_user": "",
+            "msg_specify_lang": "",
+            "msg_lang_same": "",
+            "msg_lang_set": "",
+            "msg_lang_not_exist": ""
         }
     },
     "autorole": {
@@ -728,7 +1038,7 @@
         "fr": {
             "type_name": "Configurations Admin",
             "description": "Donne un rôle automatiquement à quelqu'un lorsqu'il rejoint le serveur.",
-            "usage": "[\"nom du rôle\" / show / see / remove / delete]",
+            "usage": "[\"nom du rôle\" / show / remove]",
             "aliases": "autoroles/roleauto",
             "example": "Joueur",
             "msg_perm_roles_user": ":x: {}, vous n'avez pas la permission **Gérer les rôles** !",
@@ -744,7 +1054,7 @@
         "en": {
             "type_name": "Admin Configurations",
             "description": "Give automatically a role to someone when he join the server.",
-            "usage": "[\"role name\" / show / see / remove / delete]",
+            "usage": "[\"role name\" / show / remove]",
             "aliases": "autoroles/roleauto",
             "example": "Player",
             "msg_perm_roles_user": ":x: {}, you don't have the **Manage roles** permission!",
@@ -756,6 +1066,22 @@
             "msg_current_role": "The autorole is set to `{}`.",
             "msg_invalid_role": "The mentioned role does not exists. Supported parameters: `role name`, `role mention`, `role id`.",
             "msg_role_set": "Successfully set autorole to role `{}`."
+        },
+        "de": {
+            "type_name": "Admin-Konfigurationen",
+            "description": "Gibt jemandem automatisch eine Rolle, wenn er dem Server beitritt.",
+            "usage": "[\"Rollenname\" / show / remove]",
+            "aliases": "autoroles/roleauto",
+            "example": "Spieler",
+            "msg_perm_roles_user": "",
+            "msg_perm_roles_bot": "",
+            "msg_invalid_arg": "",
+            "msg_role_deleted": "",
+            "msg_role_not_defined": "",
+            "msg_unknown_role": "",
+            "msg_current_role": "",
+            "msg_invalid_role": "",
+            "msg_role_set": ""
         }
     },
     "trigger": {
@@ -802,6 +1128,27 @@
             "msg_new_reaction": "New customized reaction:",
             "msg_trigger": "Trigger",
             "msg_reply": "Reply"
+        },
+        "de": {
+            "type_name": "Admin-Konfigurationen",
+            "description": "Ermöglicht dem Bot, automatisch auf eine bestimmte Nachricht zu antworten.",
+            "usage": "[\"Auslösen\" / list / remove / removeall] [\"Antwort\" / url]",
+            "aliases": "triggers/reaction/customreaction/customtrigger",
+            "example": "\"hallo\" \"Hey, wie geht es dir?\"",
+            "msg_perm_admin_user": "",
+            "msg_specify_trigger": "",
+            "msg_reactions_list": "",
+            "msg_no_reactions": "",
+            "msg_specify_trigger_delete": "",
+            "msg_reaction_deleted": "",
+            "msg_unknown_reaction": "",
+            "msg_reaction_all_deleted": "",
+            "msg_not_enough_args": "",
+            "msg_too_many_args": "",
+            "msg_trigger_exists": "",
+            "msg_new_reaction": "",
+            "msg_trigger": "",
+            "msg_reply": ""
         }
     },
     "TYPE RIGHTS": null,
@@ -831,6 +1178,18 @@
             "msg_specify_number": "Please specify a number.",
             "msg_limit_number": "The number must be between 1 and 99 to prevent errors.",
             "msg_invalid_number": "The specified number is invalid, please enter a correct number."
+        },
+        "de": {
+            "type_name": "Admin-Rechte",
+            "description": "Löscht eine bestimmte Anzahl von Nachrichten.",
+            "usage": "[\"Nummer\"]",
+            "aliases": "clearmsg/clean/cleanmsg",
+            "example": "10",
+            "msg_perm_manage_msg_user": "",
+            "msg_perm_manage_msg_bot": "",
+            "msg_specify_number": "",
+            "msg_limit_number": "",
+            "msg_invalid_number": ""
         }
     },
     "move": {
@@ -867,6 +1226,22 @@
             "msg_no_voice_channel": "There are no voice channel on your server.",
             "msg_voice_channels": "Voice channels:",
             "msg_specify_channel": "Please specify a vocal channel by its number.\n\n"
+        },
+        "de": {
+            "type_name": "Admin-Rechte",
+            "description": "Bewegen Sie Personen von einem Vokalkanal zu einem anderen Vokalkanal.",
+            "usage": "[\"Kanal Nummer\"]",
+            "aliases": "moves",
+            "example": "3",
+            "msg_perm_move_user": "",
+            "msg_perm_move_bot": "",
+            "msg_moving_into": "",
+            "msg_same_channel": "",
+            "msg_not_in_channel": "",
+            "msg_number_no_channel": "",
+            "msg_no_voice_channel": "",
+            "msg_voice_channels": "",
+            "msg_specify_channel": ""
         }
     },
     "kick": {
@@ -893,6 +1268,17 @@
             "msg_perm_kick_bot": ":x: The bot is missing the **Kick members** permission.",
             "msg_mention_user": ":x: {}, please mention a member to kick!",
             "msg_user_kicked": "**{}** has been kicked!"
+        },
+        "de": {
+            "type_name": "Admin-Rechte",
+            "description": "Kickt das genannte Mitglied.",
+            "usage": "[@Mitglied]",
+            "aliases": "",
+            "example": "@QuentiumYT#0207",
+            "msg_perm_kick_user": "",
+            "msg_perm_kick_bot": "",
+            "msg_mention_user": "",
+            "msg_user_kicked": ""
         }
     },
     "ban": {
@@ -919,6 +1305,17 @@
             "msg_perm_ban_bot": ":x: The bot is missing the **Ban members** permission.",
             "msg_mention_user": ":x: {}, please mention a member to ban!",
             "msg_user_baned": "**{}** has been banned!"
+        },
+        "de": {
+            "type_name": "Admin-Rechte",
+            "description": "Verbannt das genannte Mitglied.",
+            "usage": "[@Mitglied]",
+            "aliases": "",
+            "example": "@QuentiumYT#0207",
+            "msg_perm_ban_user": "",
+            "msg_perm_ban_bot": "",
+            "msg_mention_user": "",
+            "msg_user_baned": ""
         }
     },
     "TYPE FRANCE LES CITES": null,
@@ -946,6 +1343,17 @@
             "msg_ore_dont_exist": "The ore {} does not exist :frowning:",
             "msg_top_10": "Here are the 10 best locations for {} ores:```",
             "msg_top_10_sector": "Here are the 10 best locations for {} ores up to sector {}:```"
+        },
+        "de": {
+            "type_name": "France Les Cités",
+            "description": "Zeigt die 10 besten Orte an, an denen eine Ressource abgebaut werden kann (© Fomys :smile:).",
+            "usage": "[\"Erz\"]",
+            "aliases": "minedt",
+            "example": "platinum",
+            "msg_specify_ore": "",
+            "msg_ore_dont_exist": "",
+            "msg_top_10": "",
+            "msg_top_10_sector": ""
         }
     },
     "absent": {
@@ -970,6 +1378,19 @@
             "usage": "[\"duration + (reason)\"]",
             "aliases": "abs",
             "example": "10 days (vacations)",
+            "msg_perm_roles_bot": "",
+            "msg_specify_reason": "",
+            "msg_absent_reason": "",
+            "msg_join_absent": "",
+            "msg_is_back": "",
+            "msg_join_present": ""
+        },
+        "de": {
+            "type_name": "France Les Cités",
+            "description": "Weisen Sie sich die Rolle Abwesend zu, wenn Sie eine Weile weg sein müssen.",
+            "usage": "[\"Dauer + (Grund)\"]",
+            "aliases": "abs",
+            "example": "10 Tage (Urlaub)",
             "msg_perm_roles_bot": "",
             "msg_specify_reason": "",
             "msg_absent_reason": "",
@@ -1001,6 +1422,22 @@
             "type_name": "France Les Cités",
             "description": "Allows voting for a winner.",
             "usage": "[\"number\"]",
+            "aliases": "votes/voter/votemax/voteresults",
+            "example": "5",
+            "msg_no_args": "",
+            "msg_votemax_set": "",
+            "msg_results": "",
+            "msg_place": "",
+            "msg_votes": "",
+            "msg_wrong_arg": "",
+            "msg_number_too_high": "",
+            "msg_already_voted": "",
+            "msg_voted": ""
+        },
+        "de": {
+            "type_name": "France Les Cités",
+            "description": "Ermöglicht die Abstimmung für einen Gewinner.",
+            "usage": "[\"Nummer\"]",
             "aliases": "votes/voter/votemax/voteresults",
             "example": "5",
             "msg_no_args": "",
@@ -1045,6 +1482,20 @@
             "msg_role_added": "",
             "msg_role_removed": "",
             "msg_role_not_allowed": ""
+        },
+        "de": {
+            "type_name": "Insoumis",
+            "description": "Weisen Sie die zu Ihnen passenden Rollen auf dem Server zu.",
+            "usage": "[\"Rolle\" / list]",
+            "aliases": "roles",
+            "example": "Payday 2",
+            "msg_not_enabled": "",
+            "msg_specify_role": "",
+            "msg_list_role": "",
+            "msg_unknown_role": "",
+            "msg_role_added": "",
+            "msg_role_removed": "",
+            "msg_role_not_allowed": ""
         }
     },
     "TYPE THESWEMASTER": null,
@@ -1066,6 +1517,14 @@
             "aliases": "cookies",
             "example": "",
             "msg_cookies": "Here are your cookies ***{}***  :cookie:{}"
+        },
+        "de": {
+            "type_name": "TheSweMaster",
+            "description": "Sie wollen Cookies, hier ist es!",
+            "usage": "",
+            "aliases": "cookies",
+            "example": "",
+            "msg_cookies": ""
         }
     },
     "TYPE QUENTIUM": null,
@@ -1091,6 +1550,16 @@
             "msg_ideas": "",
             "msg_empty_file": "",
             "msg_none": ""
+        },
+        "de": {
+            "type_name": "QuentiumYT",
+            "description": "Zeigt die Liste der vorgeschlagenen Ideen an.",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_ideas": "",
+            "msg_empty_file": "",
+            "msg_none": ""
         }
     },
     "addlogs": {
@@ -1106,6 +1575,13 @@
         "en": {
             "type_name": "QuentiumYT",
             "description": "Adds update logs.",
+            "usage": "[\"logs\"]",
+            "aliases": "",
+            "example": "- Log #1..- Log #2."
+        },
+        "de": {
+            "type_name": "QuentiumYT",
+            "description": "Fügt Aktualisierungsprotokolle hinzu.",
             "usage": "[\"logs\"]",
             "aliases": "",
             "example": "- Log #1..- Log #2."
@@ -1129,6 +1605,14 @@
             "aliases": "",
             "example": "",
             "msg_sending_data": ""
+        },
+        "de": {
+            "type_name": "TimeToEat",
+            "description": "Holen Sie sich Menüs und senden Sie sie an das Projekt (timetoeat.tk).",
+            "usage": "",
+            "aliases": "",
+            "example": "",
+            "msg_sending_data": ""
         }
     },
     "data4tte": {
@@ -1145,6 +1629,14 @@
         "en": {
             "type_name": "TimeToEat",
             "description": "Send requests to the project (timetoeat.tk).",
+            "usage": "[\"number\"]",
+            "aliases": "",
+            "example": "130",
+            "msg_sending_data": ""
+        },
+        "de": {
+            "type_name": "TimeToEat",
+            "description": "Senden Sie Anfragen an das Projekt (timetoeat.tk).",
             "usage": "[\"number\"]",
             "aliases": "",
             "example": "130",

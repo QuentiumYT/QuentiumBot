@@ -38,7 +38,7 @@ class LangAdminConfig(commands.Cog):
                 return await ctx.send(cmd_tran["msg_specify_lang"])
 
             # Check if lang is existing
-            if any(lang == x for x in ["fr", "en"]):
+            if any(lang == x for x in ["fr", "en", "de"]):
                 if lang_server == lang:
                     await ctx.send(cmd_tran["msg_lang_same"])
                 else:
