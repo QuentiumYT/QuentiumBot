@@ -60,13 +60,14 @@ class WeatherUtilities(commands.Cog):
                 current_time = requests.get(url).json()["formatted"]
             except:
                 current_time = data_weather["dt"]
-            # Get weather emojis status
+            # Get weather emojis for embed icon
             emoji = discord.utils.get(self.client.emojis, name=data_weather["weather"][0]["icon"])
 
             condition = data_weather["weather"][0]["main"]
-            # Get other weather status translations
+            # Get translations for weather status
             if lang_server != "en":
                 condition = cmd_tran[condition]
+
             # Get other weather data
             desc = data_weather["weather"][0]["description"]
             content = f"{emoji} {cmd_tran['msg_condition']} {condition} - \"{desc.title()}\"\n"
@@ -77,7 +78,7 @@ class WeatherUtilities(commands.Cog):
                 content += cmd_tran["msg_rainy"].format(first_key) + str(data_weather["rain"][first_key]) + "L/m²\n"
             if "snow" in data_weather:
                 first_key = list(data_weather["snow"].keys())[0]
-                content += cmd_tran["msg_snowy"].format(first_key) + str(data_weather["snow"]["3h"]) + "L/m²\n"
+                content += cmd_tran["msg_snowy"].format(first_key) + str(data_weather["snow"][first_key]) + "L/m²\n"
             # Calculates temperatures with Kelvin
             temp_celsius = str(round(data_weather["main"]["temp"] - 273.15, 1))
             temp_fahrenheit = str(round(data_weather["main"]["temp"] * 9 / 5 - 459.67, 1))
