@@ -141,7 +141,7 @@
             "msg_title_ism": " **INSOUMIS** Befehle:",
             "msg_title_quentium": " **QUENTIUM** Befehle:",
             "msg_list_commands": "----- Liste der Befehle -----",
-            "msg_details": ":bulb: ***Geben Sie für weitere Befehlsdetails `{}help [\"command\"]` ein.***",
+            "msg_details": ":bulb: ***Geben Sie für weitere Befehlsdetails `{}help [\"Befehl\"]` ein.***",
             "msg_more_infos": "Für weitere Informationen, Bitte besuchen Sie die Website: https://bot.quentium.fr/",
             "msg_title": "Help Befehle",
             "msg_type": "Typ:",
@@ -183,8 +183,8 @@
             "usage": "",
             "aliases": "listserver/serverlist/listserv/servlist/listservs/servslist",
             "example": "",
-            "msg_server_pos": "",
-            "msg_servers": ""
+            "msg_server_pos": "**__Servername | Registrierte Position__**",
+            "msg_servers": "Server: {}"
         }
     },
     "listinvites": {
@@ -214,8 +214,8 @@
             "usage": "",
             "aliases": "listinvite/invitelist/inviteslist",
             "example": "",
-            "msg_any": "",
-            "msg_title": ""
+            "msg_any": "Keine",
+            "msg_title": "Einladungslinks:"
         }
     },
     "listbans": {
@@ -245,8 +245,8 @@
             "usage": "",
             "aliases": "listban/banlist/banslist",
             "example": "",
-            "msg_any": "",
-            "msg_title": ""
+            "msg_any": "Keine",
+            "msg_title": "Liste der verbotenen Mitglied:"
         }
     },
     "shareme": {
@@ -274,7 +274,7 @@
             "usage": "",
             "aliases": "sharebot/share/invitebot/botinvite",
             "example": "",
-            "msg_shareme": ""
+            "msg_shareme": "Sie können diesen Link teilen, um mich zu anderen Servern einzuladen:\n"
         }
     },
     "TYPE UTILITIES": null,
@@ -315,13 +315,13 @@
             "usage": "[all / channel] [@Mitglied]",
             "aliases": "totalmsg",
             "example": "channel @QuentiumYT#0207",
-            "msg_perm_admin_user": "",
-            "msg_invalid_member": "",
-            "msg_invalid_arg": "",
-            "msg_calculating": "",
-            "msg_number": "",
-            "msg_has_sent_total": "",
-            "msg_has_sent_channel": ""
+            "msg_perm_admin_user": ":x: Dem Bot fehlt die Berechtigungen **Administrator**.",
+            "msg_invalid_member": "Das angegebene Mitglied existiert nicht, ist nicht korrekt oder wurde nicht gefunden.",
+            "msg_invalid_arg": "Bitte geben Sie eine richtiges Argument: `{}msgtotal [all / channel] [@Mitglied]",
+            "msg_calculating": "Nachrichten werden berechnet...",
+            "msg_number": "**Anzahl der Nachrichten:**",
+            "msg_has_sent_total": "**{}** hast **{}** Nachrichten insgesamt gesendet.",
+            "msg_has_sent_channel": "**{}** hast **{}** Nachrichten in diesem Chatroom gesendet."
         }
     },
     "embed": {
@@ -351,8 +351,8 @@
             "usage": "[T=\"Titel\"] [D=\"Beschreibung\"] [C=\"Farbe\"] [I=\"Bild url\"] [F=\"Fußzeile\"] [U=\"url\"] [A=\"Autor\"]",
             "aliases": "embeds/richembed",
             "example": "T=Meine personalle embed D=Ich mag diesen Befehl C=green F=Yay!",
-            "msg_invalid_arg": "",
-            "msg_invalid_color": ""
+            "msg_invalid_arg": "Bitte geben Sie eine ein richtiges Argument: `{prefix_server}embed T=Titel D=Description C=Color I=ImageURL F=Fußzeile U=URL A=Autor`.",
+            "msg_invalid_color": "Die angegebene Farbe existiert nicht. Unterstützte Parameter: `Farbname`, `Hex-Wert`, `Nummer-Wert`, `random`."
         }
     },
     "letter": {
@@ -380,7 +380,7 @@
             "usage": "[\"Text\"]",
             "aliases": "letters/emojis/emoji",
             "example": "Hallo allerseits!",
-            "msg_specify_text": ""
+            "msg_specify_text": "Bitte geben Sie einen text an."
         }
     },
     "weather": {
@@ -440,18 +440,28 @@
             "usage": "[\"Stadt\"]",
             "aliases": "",
             "example": "Berlin",
-            "msg_specify_city": "",
-            "msg_city_not_found": "",
-            "msg_condition": "",
-            "msg_cloudy": "",
-            "msg_rainy": "",
-            "msg_snowy": "",
-            "msg_temperature": "",
-            "msg_humidity": "",
-            "msg_wind_speed": "",
-            "msg_sun": "",
-            "msg_weather_loc": "",
-            "msg_local_date": ""
+            "msg_specify_city": "Bitte geben Sie eine Stadt an.",
+            "msg_city_not_found": "Die Stadt wurde nicht gefunden.",
+            "Thunderstorm": "Gewitter",
+            "Drizzle": "Nieselregen",
+            "Rain": "Regen",
+            "Snow": "Schnee",
+            "Mist": "Nebel",
+            "Clear": "Klar",
+            "Clouds": "Wolken",
+            "Tornado": "Orkan",
+            "Haze": "Dunst",
+            "Fog": "Nebel",
+            "msg_condition": "Wetterlage:",
+            "msg_cloudy": ":cloud: Trübung: ",
+            "msg_rainy": ":cloud_rain: Regenvolumen (letzte {}): ",
+            "msg_snowy": ":cloud_snow: Schneevolumen (letzte {}): ",
+            "msg_temperature": ":thermometer: Temperatur:",
+            "msg_humidity": ":sweat_drops: Feuchtigkeit:",
+            "msg_wind_speed": ":wind_blowing_face: Windgeschwindigkeit:",
+            "msg_sun": "<:time:475328338542592000> Sonnenaufgang: {} • Sonnenuntergang: {} (CEST)",
+            "msg_weather_loc": "Aktuelles Wetter bei {} :flag_{}:\n",
+            "msg_local_date": "Lokales Datum: "
         }
     },
     "lyrics": {
@@ -491,13 +501,13 @@
             "usage": "[\"Musik\"]",
             "aliases": "lyric",
             "example": "Linkin Park Numb",
-            "msg_specify_music": "",
-            "msg_not_found": "",
-            "msg_no_lyrics": "",
-            "msg_too_long": "",
-            "msg_not_match": "",
-            "msg_result_found": "",
-            "msg_lyrics": ""
+            "msg_specify_music": "Bitte geben Sie eine Musik.",
+            "msg_not_found": "Die Musik wurde nicht gefunden oder existiert nicht.",
+            "msg_no_lyrics": "Die angeforderte Musik enthält keinen Text.",
+            "msg_too_long": "Das Ergebnis ist zu lang (discord Limit). Dies kann auch durch das Fehlen von Texten aus Ihrer Forschung verursacht werden.",
+            "msg_not_match": "Die Suche stimmt nicht mit dem Titel überein. Vergewissern Sie sich, dass Sie den Namen der Musik eingegeben haben.",
+            "msg_result_found": "Ergebnis gefunden mit: **{}**",
+            "msg_lyrics": "Songtexte von: __**{}**__"
         }
     },
     "avatar": {
@@ -601,32 +611,32 @@
             "usage": "[@Mitglied]",
             "aliases": "statsuser/statuser/userstat",
             "example": "@QuentiumYT#0207",
-            "msg_any": "",
-            "msg_yes": "",
-            "msg_no": "",
-            "msg_online": "",
-            "msg_offline": "",
-            "msg_idle": "",
-            "msg_dnd": "",
-            "msg_invisible": "",
+            "msg_any": "Keine",
+            "msg_yes": "Ja",
+            "msg_no": "Nein",
+            "msg_online": "Online",
+            "msg_offline": "Offline",
+            "msg_idle": "Abwesend",
+            "msg_dnd": "Beschäftigt",
+            "msg_invisible": "Unsichtbar",
             "msg_content": [
                 "```autohotkey\n",
                 "Name:               %s\n",
-                "Nickname:           %s\n",
+                "Spitzname:          %s\n",
                 "ID:                 %s\n",
                 "Tag:                %s\n",
-                "Mention:            %s\n",
+                "Erwähnung:          %s\n",
                 "Bot:                %s\n",
                 "Status:             %s\n",
-                "Game:               %s\n",
-                "Join server at:     %s\n",
-                "Join Discord at:    %s\n",
-                "Best role:          %s\n",
-                "Roles:              %s\n",
+                "Spiele:             %s\n",
+                "Trat Server bei:    %s\n",
+                "Trat Discord bei:   %s\n",
+                "Primaire Rolle:     %s\n",
+                "Rollen:             %s\n",
                 "%s```"
             ],
-            "msg_stats": "",
-            "msg_link_icon": ""
+            "msg_stats": "__***{}***__'s Statistiken",
+            "msg_link_icon": " ***[Symbolverbindung]({})***"
         }
     },
     "serverstats": {
@@ -706,33 +716,33 @@
             "usage": "",
             "aliases": "statserver/statsserver/servstats/serverinfos/serverinfo/servinfo",
             "example": "",
-            "msg_none": "",
-            "msg_low": "",
-            "msg_medium": "",
-            "msg_high": "",
-            "msg_extreme": "",
-            "msg_limit": "",
+            "msg_none": "Keine",
+            "msg_low": "Niedrig",
+            "msg_medium": "Mittel",
+            "msg_high": "Hoch",
+            "msg_extreme": "Extrem",
+            "msg_limit": "Die länge der Rollenliste ist Größer als die die Discord senden kann.",
             "msg_content": [
                 "```autohotkey\n",
                 "Name:               %s\n",
                 "ID:                 %s\n",
-                "Owner:              %s (%s)\n",
-                "Created at:         %s\n",
+                "Inhaber:            %s (%s)\n",
+                "Hergestellt in:     %s\n",
                 "Region:             %s\n",
-                "Members:            %s (%s online)\n",
-                "    Users:          %s (%s online)\n",
+                "Mitglied:           %s (%s online)\n",
+                "    Leute:          %s (%s online)\n",
                 "    Bots:           %s (%s online)\n",
-                "Channels:           %s\n",
-                "    Text:           %s\n",
-                "    Voice:          %s\n",
-                "AFK Channel:        %s\n",
-                "AFK Time:           %s min\n",
-                "Verify level:       %s\n",
-                "Roles:              %s\n",
+                "Kanäle:             %s\n",
+                "    Texte:          %s\n",
+                "    Sprach:         %s\n",
+                "AFK Kanäle:         %s\n",
+                "AFK Zeit:           %s min\n",
+                "Verify Stufe:       %s\n",
+                "Rollen:             %s\n",
                 "%s```"
             ],
-            "msg_stats": "",
-            "msg_link_icon": ""
+            "msg_stats": "__***{}***__'s Serverstatistiken",
+            "msg_link_icon": " ***[Symbolverbindung]({})***"
         }
     },
     "botstats": {
@@ -804,29 +814,29 @@
             "usage": "",
             "aliases": "botstat/statsbot/statbot",
             "example": "",
-            "msg_day": "",
-            "msg_hour": "",
-            "msg_min": "",
-            "msg_sec": "",
-            "msg_bot_host": "",
-            "msg_bot_os": "",
-            "msg_not_available": "",
+            "msg_day": "Tage",
+            "msg_hour": "Stunden",
+            "msg_min": "Minuten",
+            "msg_sec": "Sekunden",
+            "msg_bot_host": "VPS Oserya.fr",
+            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_not_available": "In PN nicht verfügbar.",
             "msg_content": [
                 "```autohotkey\n",
-                "Hosted on:            %s\n",
+                "Gehostet am:         %s\n",
                 "OS:                   %s\n",
-                "Owner:                %s\n",
-                "Uptime:               %s\n",
-                "Memory usage:         %s MB\n",
-                "Commands received:    %s (server)\n",
-                "Commands received:    %s (total)\n",
-                "Total users:          %s users in %s servers\n",
+                "Inhaber:              %s\n",
+                "Betriebszeit:         %s\n",
+                "Speichernutzung:      %s MB\n",
+                "Befehle bekommen:     %s (server)\n",
+                "Befehle bekommen:     %s (total)\n",
+                "Total Benutzer:       %s users in %s servers\n",
                 "Servers FR:           %s\n",
                 "Servers EN:           %s\n",
                 "Servers DE:           %s\n",
                 "```"
             ],
-            "msg_stats": ""
+            "msg_stats": "__***QuentiumBot***__'s Statistiken"
         }
     },
     "uptime": {
@@ -854,7 +864,7 @@
             "usage": "",
             "aliases": "timeup/runningtime/runtime/timerun",
             "example": "",
-            "msg_uptime": ""
+            "msg_uptime": "Der Bot ist online seit {} Tage, {} Stunden, {} Minuten, {} Sekunden."
         }
     },
     "ping": {
@@ -884,8 +894,8 @@
             "usage": "",
             "aliases": "pong/latency",
             "example": "",
-            "msg_ping_test": "",
-            "msg_pong": ""
+            "msg_ping_test": "***Ping-Nachricht***",
+            "msg_pong": ":ping_pong: Pong!\n- Bot's Latenz: `{}ms`\n- Nachrichtensende-Latenz: `{}ms"
         }
     },
     "TYPE FEEDBACK": null,
@@ -918,9 +928,9 @@
             "usage": "[\"Text\"]",
             "aliases": "bug/bugs/ideas",
             "example": "Neuer Befehl zum Behandeln von Nachrichten.",
-            "msg_specify_idea": "",
-            "msg_specify_bug": "",
-            "msg_thanks": ""
+            "msg_specify_idea": "Bitte geben Sie eine Idee an.",
+            "msg_specify_bug": "Bitte geben Sie eine Bug an.",
+            "msg_thanks": "Danke, dass Sie zur Verbesserung des Bot beigetragen haben!"
         }
     },
     "showlogs": {
@@ -950,8 +960,8 @@
             "usage": "",
             "aliases": "showlog/logs/log/changelog/whatsnew/whatnew",
             "example": "",
-            "msg_logs_bot": "",
-            "msg_logs_infos": ""
+            "msg_logs_bot": "Bot Update-Protokolle:",
+            "msg_logs_infos": "Die Protokolle werden veröffentlicht, sobald eine wichtig neue Update der Bots stattfindet."
         }
     },
     "TYPE CONFIGURATIONS": null,
@@ -986,10 +996,10 @@
             "usage": "[\"Präfix\" / delete / reset / remove]",
             "aliases": "",
             "example": "&",
-            "msg_perm_admin_user": "",
-            "msg_invalid_arg": "",
-            "msg_prefix_reset": "",
-            "msg_prefix_changed": ""
+            "msg_perm_admin_user": ":x: {}, Sie haben nicht die Berechtigung **Verwalter**!",
+            "msg_invalid_arg": "Bitte geben Sie ein richtiges Argument an: `{}prefix [\"Präfix\" / reset]`.",
+            "msg_prefix_reset": "Das Präfix wurde zurückgesetzt.",
+            "msg_prefix_changed": "Das Präfix wurde in `{}` geändert."
         }
     },
     "lang": {
@@ -1025,11 +1035,11 @@
             "usage": "[fr / en / de]",
             "aliases": "langs/language/languages",
             "example": "en",
-            "msg_perm_admin_user": "",
-            "msg_specify_lang": "",
-            "msg_lang_same": "",
-            "msg_lang_set": "",
-            "msg_lang_not_exist": ""
+            "msg_perm_admin_user": ":x: {}, Sie haben nicht die Berechtigung **Verwalter**!",
+            "msg_specify_lang": "Bitte geben Sie die gewünschte Sprache ein. `(fr / en / de)`",
+            "msg_lang_same": "Die Sprache des Bots ist bereits auf **Deutsch** eingestellt.",
+            "msg_lang_set": "Die Sprache des Bots wurde auf **Deutsch** geändert.",
+            "msg_lang_not_exist": "Diese Sprache existiert nicht, bitte geben Sie eine korrekte Sprache ein : `(fr / en / de)`."
         }
     },
     "autorole": {
@@ -1043,7 +1053,7 @@
             "example": "Joueur",
             "msg_perm_roles_user": ":x: {}, vous n'avez pas la permission **Gérer les rôles** !",
             "msg_perm_roles_bot": ":x: Il manque la permission **Gérer les rôles** au bot.",
-            "msg_invalid_arg": "Merci de préciser un argument. `{}autorole [<rôle> / show / see / remove / delete]`",
+            "msg_invalid_arg": "Merci de préciser un argument. `{}autorole [<rôle> / show / remove]`",
             "msg_role_deleted": "L'autorole a été correctement supprimé.",
             "msg_role_not_defined": "L'autorole n'est pas été défini !",
             "msg_unknown_role": "Le rôle n'a pas été trouvé, il a pu être supprimé ou changé.",
@@ -1059,7 +1069,7 @@
             "example": "Player",
             "msg_perm_roles_user": ":x: {}, you don't have the **Manage roles** permission!",
             "msg_perm_roles_bot": ":x: The bot is missing the **Manage roles** permission.",
-            "msg_invalid_arg": "Please specify a valid argument. `{}autorole [<role> / show / see / remove / delete]`",
+            "msg_invalid_arg": "Please specify a valid argument. `{}autorole [<role> / show / remove]`",
             "msg_role_deleted": "The autorole has been successfully deleted.",
             "msg_role_not_defined": "The autorole is not defined!",
             "msg_unknown_role": "The role has not been found, it may have been removed or changed.",
@@ -1073,15 +1083,15 @@
             "usage": "[\"Rollenname\" / show / remove]",
             "aliases": "autoroles/roleauto",
             "example": "Spieler",
-            "msg_perm_roles_user": "",
-            "msg_perm_roles_bot": "",
-            "msg_invalid_arg": "",
-            "msg_role_deleted": "",
-            "msg_role_not_defined": "",
-            "msg_unknown_role": "",
-            "msg_current_role": "",
-            "msg_invalid_role": "",
-            "msg_role_set": ""
+            "msg_perm_roles_user": ":x: {}, Sie haben nicht die Berechtigung **Rollen verwalten**!",
+            "msg_perm_roles_bot": ":x: Dem Bot fehlt die Berechtigungen **Rollen verwalten**.",
+            "msg_invalid_arg": "Bitte geben Sie eine argument. `{}autorole [<role> / show / remove]`",
+            "msg_role_deleted": "Die Autorole wurde korrekt gelöscht.",
+            "msg_role_not_defined": "Die Autorole wurde nicht definiert!",
+            "msg_unknown_role": "Die Rolle wurde nicht gefunden, sie wurde möglicherweise entfernt oder geändert.",
+            "msg_current_role": "Die Autorole ist auf `{}` gesetzt.",
+            "msg_invalid_role": "Die erwähnte Rolle existiert nicht. Unterstützte Parameter: `Rollenname`,`Rollen-erwähnen`, `Rollen-ID`.",
+            "msg_role_set": "Die Autorolle wurde erfolgreich auf `{}` gesetzt."
         }
     },
     "trigger": {
@@ -1116,7 +1126,7 @@
             "example": "\"hello\" \"Hey, what's up!\"",
             "msg_perm_admin_user": ":x: {}, you don't have the **Administrator** permission!",
             "msg_specify_trigger": "Please specify a trigger and an answer: `{}trigger [\"trigger\" / list / remove] [\"answer\" / url]`",
-            "msg_reactions_list": "Customized reactions ({}) :",
+            "msg_reactions_list": "Customized reactions ({}):",
             "msg_no_reactions": "There are no custom reactions.",
             "msg_specify_trigger_delete": "Please specify a trigger to delete: `{}trigger [remove / delete] [\"trigger\"]`",
             "msg_reaction_deleted": "Deleted reaction:",
@@ -1135,20 +1145,20 @@
             "usage": "[\"Auslösen\" / list / remove / removeall] [\"Antwort\" / url]",
             "aliases": "triggers/reaction/customreaction/customtrigger",
             "example": "\"hallo\" \"Hey, wie geht es dir?\"",
-            "msg_perm_admin_user": "",
-            "msg_specify_trigger": "",
-            "msg_reactions_list": "",
-            "msg_no_reactions": "",
-            "msg_specify_trigger_delete": "",
-            "msg_reaction_deleted": "",
-            "msg_unknown_reaction": "",
-            "msg_reaction_all_deleted": "",
-            "msg_not_enough_args": "",
-            "msg_too_many_args": "",
-            "msg_trigger_exists": "",
-            "msg_new_reaction": "",
-            "msg_trigger": "",
-            "msg_reply": ""
+            "msg_perm_admin_user": ":x: {}, Sie haben nicht die Berechtigung **Verwalter**!",
+            "msg_specify_trigger": "Bitte geben Sie eine Nachricht und eine Antwort an: `{}trigger [\"Nachricht\" / list / remove] [\"Antwort\" / url]`",
+            "msg_reactions_list": "Kundenspezifische Reaktionen ({}):",
+            "msg_no_reactions": "Es gibt keine benutzerdefinierten Reaktionen.",
+            "msg_specify_trigger_delete": "Bitte geben Sie einen Reaktion zum Löschen an: `{}trigger [remove / delete] [\"auslösen\"]`",
+            "msg_reaction_deleted": "Reaktion gelöscht:",
+            "msg_unknown_reaction": "Keine Reaktion entspricht der gewählten.",
+            "msg_reaction_all_deleted": "Alle Reaktionen wurden entfernt.",
+            "msg_not_enough_args": "Es gibt nicht genügend Argumente, um die Reaktion auszulösen. Fügen Sie einige Anführungszeichen hinzu, um Ihre Nachricht einzugrenzen.",
+            "msg_too_many_args": "Es gibt zu viele Argumente, um die Reaktion auszulösen. Setzen Sie Anführungszeichen, um Ihre Nachricht einzugrenzen.",
+            "msg_trigger_exists": "Es gibt bereits einen Auslöser für diese Nachricht. Löschen Sie es und wiederholen Sie den Befehl.",
+            "msg_new_reaction": "Neue angepasste Reaktion:",
+            "msg_trigger": "Auslöser",
+            "msg_reply": "Antwort"
         }
     },
     "TYPE RIGHTS": null,
@@ -1185,11 +1195,11 @@
             "usage": "[\"Nummer\"]",
             "aliases": "clearmsg/clean/cleanmsg",
             "example": "10",
-            "msg_perm_manage_msg_user": "",
-            "msg_perm_manage_msg_bot": "",
-            "msg_specify_number": "",
-            "msg_limit_number": "",
-            "msg_invalid_number": ""
+            "msg_perm_manage_msg_user": ":x: {}, Sie haben nicht die Berechtigung **Nachrichten verwalten**!",
+            "msg_perm_manage_msg_bot": ":x: Dem Bot fehlt die Berechtigungen **Nachrichten verwalten**.",
+            "msg_specify_number": "Bitte geben Sie eine Nummer an.",
+            "msg_limit_number": "Die Nummer muss zwischen 1 und 99 liegen um Fehler zu begrenzen.",
+            "msg_invalid_number": "Unbekannte Nummer, bitte geben Sie eine korrekte Nummer ein."
         }
     },
     "move": {
@@ -1233,15 +1243,15 @@
             "usage": "[\"Kanal Nummer\"]",
             "aliases": "moves",
             "example": "3",
-            "msg_perm_move_user": "",
-            "msg_perm_move_bot": "",
-            "msg_moving_into": "",
-            "msg_same_channel": "",
-            "msg_not_in_channel": "",
-            "msg_number_no_channel": "",
-            "msg_no_voice_channel": "",
-            "msg_voice_channels": "",
-            "msg_specify_channel": ""
+            "msg_perm_move_user": ":x: {}, Sie haben nicht die Berechtigung **Mitglieder verschieben**!",
+            "msg_perm_move_bot": ":x: Dem Bot fehlt die Berechtigung **Mitglieder verschieben**!",
+            "msg_moving_into": "Umzug in: {}",
+            "msg_same_channel": "Sie befinden sich bereits im selben Sprachkanäle.",
+            "msg_not_in_channel": "Sie befinden sich nicht in einer Sprachkanäle.",
+            "msg_number_no_channel": "Die Salonnummer entspricht keinem Sprachkanäle.",
+            "msg_no_voice_channel": "Auf Ihrem Server sind keine Sprachkanäle vorhanden.",
+            "msg_voice_channels": "Sprachkanäle:",
+            "msg_specify_channel": "Bitte geben Sie einen Sprachkanäle anhand seiner Nummer an.\n\n"
         }
     },
     "kick": {
@@ -1275,10 +1285,10 @@
             "usage": "[@Mitglied]",
             "aliases": "",
             "example": "@QuentiumYT#0207",
-            "msg_perm_kick_user": "",
-            "msg_perm_kick_bot": "",
-            "msg_mention_user": "",
-            "msg_user_kicked": ""
+            "msg_perm_kick_user": ":x: {}, Sie haben nicht die Berechtigung **Kick-Mitglieder**!",
+            "msg_perm_kick_bot": ":x: Dem Bot fehlt die Berechtigungen **Kick-Mitglieder**.",
+            "msg_mention_user": ":x: {}, erwähnen Sie das ausgestoßene Mitglied!",
+            "msg_user_kicked": "**{}** wurde rausgeschmissen!"
         }
     },
     "ban": {
@@ -1312,10 +1322,10 @@
             "usage": "[@Mitglied]",
             "aliases": "",
             "example": "@QuentiumYT#0207",
-            "msg_perm_ban_user": "",
-            "msg_perm_ban_bot": "",
-            "msg_mention_user": "",
-            "msg_user_baned": ""
+            "msg_perm_kick_user": ":x: {}, Sie haben nicht die Berechtigung **Verbot-Mitglieder**!",
+            "msg_perm_kick_bot": ":x: Dem Bot fehlt die Berechtigungen **Verbot-Mitglieder**.",
+            "msg_mention_user": ":x: {}, erwähnen Sie das ausgestoßene Mitglied!",
+            "msg_user_kicked": "**{}** wurde verboten!"
         }
     },
     "TYPE FRANCE LES CITES": null,
@@ -1350,10 +1360,10 @@
             "usage": "[\"Erz\"]",
             "aliases": "minedt",
             "example": "platinum",
-            "msg_specify_ore": "",
-            "msg_ore_dont_exist": "",
-            "msg_top_10": "",
-            "msg_top_10_sector": ""
+            "msg_specify_ore": "Bitte geben Sie mindestens ein Erz an: `{}dtmine [\"Erz\"] [\"max_sektor\"]`.",
+            "msg_ore_dont_exist": "Die Erze {} existieren nicht :frowning:",
+            "msg_top_10": "Hier sind die 10 besten Standorte für {} Erz :```",
+            "msg_top_10_sector": "Hier sind die 10 besten Standorte für {} Erz zu Sektor {}:```"
         }
     },
     "absent": {
