@@ -2,4 +2,3 @@ requests
 discord.py
 bs4
 psutil
-subprocess
