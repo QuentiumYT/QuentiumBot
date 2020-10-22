@@ -4,11 +4,11 @@ from datetime import datetime, date, timedelta
 from ftplib import FTP
 from subprocess import check_output
 
-__version__ = 2.0
+__version__ = 1.0
 __author__ = "QuentiumYT"
 __filename__ = "QuentiumBot"
 
-debug = False
+debug = True
 windows = os.name == "nt"
 
 startup_cogs = {**{"": [c.replace(".py", "") for c in os.listdir("cogs") if os.path.isfile(os.path.join("cogs", c))]}, # Public cogs
@@ -418,6 +418,12 @@ async def do_tasks():
     kick_list_name = [x.name for x in [x for x in serv.members if not x.bot] if len(x.roles) <= 1]
     # Kick the inactive members
     for member in kick_list:
+        embed = discord.Embed(color=0x55EE33)
+        embed.description = f"Hey {member}, tu t'es fais expulsé du serveur des Insoumis car \
+                            tu ne t'es pas assigné de rôles :( Tu peux nous rejoindre à nouveau \
+                            ici: https://discord.gg/bg6f6EV et n'oublies pas de lire les règles ;)"
+        await member.send(embed=embed)
+        asyncio.sleep(3)
         await member.kick()
     # List the kicked members
     if kick_list_name:
