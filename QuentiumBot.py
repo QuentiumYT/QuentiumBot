@@ -4,11 +4,11 @@ from datetime import datetime, date, timedelta
 from ftplib import FTP
 from subprocess import check_output
 
-__version__ = 1.0
+__version__ = 2.0
 __author__ = "QuentiumYT"
 __filename__ = "QuentiumBot"
 
-debug = True
+debug = False
 windows = os.name == "nt"
 
 startup_cogs = {**{"": [c.replace(".py", "") for c in os.listdir("cogs") if os.path.isfile(os.path.join("cogs", c))]}, # Public cogs
