@@ -170,8 +170,10 @@ async def get_prefix(client, message):
     return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
-intents = discord.Intents.default()
-intents.members = True
+intents = discord.Intents.all()
+intents.webhooks = False
+intents.presences = False
+intents.typing = False
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
                       owner_ids=[246943045105221633, 324570532324442112],
@@ -575,16 +577,17 @@ async def exec_command(args, msg):
     except Exception as e:
         result = type(e).__name__ + ": " + str(e)
 
-    try:
-        # Try to format with linux cp1252 encoding
-        await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
-    except:
+    if msg:
         try:
-            # Try to format with global ISO-8859-1 encoding
-            await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
+            # Try to format with linux cp1252 encoding
+            await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
         except:
-            # Else print string bytes
-            await msg.channel.send("```autohotkey\n{}\n```".format(str(result)))
+            try:
+                # Try to format with global ISO-8859-1 encoding
+                await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
+            except:
+                # Else print string bytes
+                await msg.channel.send("```autohotkey\n{}\n```".format(str(result)))
 
 # TYPE Start
 
