@@ -170,13 +170,16 @@ async def get_prefix(client, message):
     return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
+intents = discord.Intents.default()
+intents.members = True
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
                       owner_ids=[246943045105221633, 324570532324442112],
                       pm_help=True,
                       help_command=None,
                       case_insensitive=True,
-                      max_messages=999999)
+                      max_messages=999999,
+                      intents=intents)
 
 async def post_topgg_data():
     # URL for top.gg
@@ -354,20 +357,13 @@ if not debug:
         # Get error translations
         tran = get_translations("ERRORS", lang_server)
 
-        if "is not found" in str(error):
-            return
-        elif "Missing Access" in str(error):
-            return
-            # return await ctx.send(tran["msg_missing_access"])
-        elif "Cannot send an empty message" in str(error):
+        if "Cannot send an empty message" in str(error):
             return await ctx.message.delete()
 
         elif "Unknown Message" in str(error):
             return await ctx.send(tran["msg_unknown_message"])
         elif "You can only bulk delete messages that are under 14 days old" in str(error):
             return await ctx.send(tran["msg_del_old_message"])
-        elif isinstance(error, commands.MissingPermissions):
-            return await ctx.send(tran["msg_missing_perms"])
         elif isinstance(error, commands.MissingRequiredArgument):
             return await ctx.send(tran["msg_argument_missing"])
         elif isinstance(error, commands.NoPrivateMessage):
@@ -381,9 +377,6 @@ if not debug:
         elif isinstance(error, commands.CommandOnCooldown):
             time_left = str(error).split("Try again in ", 1)[1].split(".", 1)[0]
             return await ctx.send(tran["msg_command_cooldown"].format(time_left))
-        elif isinstance(error, commands.NotOwner):
-            return
-            # return await ctx.send(tran["msg_not_owner"])
 
         # Log other error types to a file
         file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
