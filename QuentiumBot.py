@@ -215,6 +215,8 @@ async def on_ready():
     else:
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
+    # Push the stats of the bot at start
+    await push_bot_stats(client)
     # Change the bot presence
     await client.change_presence(
         status=discord.Status.online,
@@ -393,6 +395,9 @@ if not debug:
 async def do_tasks():
     """Execute cron tasks actions"""
 
+    # Push the statistics to the website using FTP
+    await push_bot_stats(client)
+
     # TimeToEat project menu upload
     if datetime.today().weekday() == 6:
         if windows:
@@ -431,8 +436,8 @@ async def do_tasks():
     embed.set_footer(text=str(datetime.now().strftime("%d.%m.%Y - %H:%M:%S")))
     await channel.send(embed=embed)
 
-async def push_bot_stats():
-    """Send a JSON recap with data to the website"""
+async def push_bot_stats(client):
+    """Send a JSON recap with data to the website using FTP"""
 
     data = await HandleData.get_data(client, "data")
 
@@ -524,7 +529,6 @@ async def loop_repeat():
                 timer_finished = time_now.replace(minute=time_now.minute + 1, second=0)
         if timer_finished == clock:
             await do_tasks()
-            await push_bot_stats()
             now = datetime.today().replace(microsecond=0)
             if day_time == num_days_month:
                 if now.month == 12:
