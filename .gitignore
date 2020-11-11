@@ -103,11 +103,15 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Data and personnal files
 data/config.json
 data/data.json
 data/triggers.json
+
+# Hidden scripts (usually credentials) / old bot (very old versions + tests)
 scripts/_*
 old/
-feedback.txt
-errors.txt
-Restart_bots.bat
+
+# Other bots not public
+QuentiumPrivateBot.py
+QuentiumTest.py
