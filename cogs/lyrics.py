@@ -50,20 +50,27 @@ class LyricsUtilities(commands.Cog):
             page = requests.get(genius_url)
             html = BeautifulSoup(page.text, "html.parser")
 
-            # Find the old or new version of the webpage
-            old_div = html.find("div", class_="lyrics")
-            new_div = html.find("div", class_="SongPageGrid-sc-1vi6xda-0 DGVcp Lyrics__Root-sc-1ynbvzw-0 jvlKWy")
-            if old_div:
-                lyrics = old_div.get_text()
-            elif new_div:
+            # Find whatever class is containing lyrics
+            # Tip from https://github.com/johnwmillr/LyricsGenius/blob/master/lyricsgenius/genius.py#L133
+            lyrics_div = html.find("div", class_=re.compile("^lyrics$|Lyrics__Root"))
+            if "Lyrics__Root" in str(lyrics_div):
                 # Clean the lyrics since get_text() fails to convert "</br/>"
-                lyrics = str(lyrics).replace('<br/>', '\n')
-                lyrics = re.sub(r'(\<.*?\>)', '', lyrics)
+                lyrics = str(lyrics_div).replace("<br/></div>", "\n\n").replace("<br/>", "\n").replace("&amp;", "&")
+                # Add extra break lines at the beginning and end (parse like old lyrics)
+                lyrics = "\n\n" + lyrics + "\n\n"
             else:
+                # Get only the text of the page
+                lyrics = lyrics_div.get_text()
+            # Remove extra tags
+            lyrics = re.sub(r"(\<.*?\>)", "", lyrics)
+
+            if not lyrics_div:
                 return await ctx.send(cmd_tran["msg_no_lyrics"])
+
             # If length is too long, the song does not contain lyrics
             if len(lyrics) > 6000:
                 return await ctx.send(cmd_tran["msg_too_long"])
+
             # Get music details
             title = r["response"]["hits"][0]["result"]["full_title"]
             image = r["response"]["hits"][0]["result"]["header_image_url"]
