@@ -33,6 +33,9 @@ class MoveAdminRights(commands.Cog):
             # Check user perms
             if not ctx.message.author.guild_permissions.move_members:
                 return await ctx.send(cmd_tran["msg_perm_move_user"].format(ctx.message.author.name))
+            # Check bot perms
+            if not ctx.message.guild.me.guild_permissions.move_members:
+                return await ctx.send(cmd_tran["msg_perm_move_bot"])
 
             # Get a lit with all server channels
             channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.VoiceChannel)]
