@@ -425,7 +425,7 @@ async def do_tasks():
                             tu ne t'es pas assigné de rôles :( Tu peux nous rejoindre à nouveau \
                             ici: https://discord.gg/bg6f6EV et n'oublies pas de lire les règles ;)"
         await member.send(embed=embed)
-        asyncio.sleep(3)
+        await asyncio.sleep(3)
         await member.kick()
     # List the kicked members
     if kick_list_name:
