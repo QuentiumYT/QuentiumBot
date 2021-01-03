@@ -518,10 +518,13 @@ async def loop_repeat():
         min_time = int(time_now.strftime("%M"))
         hour_time = int(time_now.strftime("%H"))
         day_time = int(time_now.strftime("%d"))
+        month_time = int(time_now.strftime("%m"))
         if sec_time > 55 and sec_time <= 59:
             if min_time == 59:
                 if hour_time == 23:
                     if day_time == num_days_month:
+                        if month_time == 12:
+                            timer_finished = time_now.replace(year=time_now.year + 1, month=1, day=0, hour=0, minute=0, second=0)
                         timer_finished = time_now.replace(month=time_now.month + 1, day=1, hour=0, minute=0, second=0)
                     else:
                         timer_finished = time_now.replace(day=time_now.day + 1, hour=0, minute=0, second=0)
