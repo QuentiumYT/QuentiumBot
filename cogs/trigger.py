@@ -98,12 +98,9 @@ class TriggerAdminConfig(commands.Cog):
                 if args.count("'") > 1 or args.count('"') > 1:
                     # Get the trigger
                     trigger = re.findall(r'["\'](.*?)["\']', args)[0]
-                    # Response is a link
-                    if "http://" in args or "https://" in args:
-                        response = args.split()[-1].replace('"', "").replace("'", "")
-                    else:
-                        response = re.findall(r'["\'](.*?)["\']', args)[1]
-                # Both arguments are between quotes
+                    # Displays all links even images in response (if only 1 image link, displays the preview directly)
+                    response = re.findall(r'["\'](.*?)["\']', args)[1]
+                # Both arguments are valid and not between quotes
                 else:
                     trigger = args.split()[0]
                     response = args.split()[1]
