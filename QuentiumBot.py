@@ -301,6 +301,17 @@ async def on_member_join(member):
         channel = discord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
         await channel.send(embed=embed)
 
+    ### Welcome message on SparseSneakers server
+    elif server_id == 798511986559287297: # SparseSneakers server ID
+        embed = discord.Embed(color=0x158DEE)
+        embed.title = "Welcome " + member.name + " !"
+        embed.url = "https://www.instagram.com/sparsesneakers"
+        embed.description = "Bienvenue sur notre serveur Discord, si tu as besoin d'aide n'hésite pas à te manifester ! :v_tone2:"
+        embed.set_thumbnail(url="https://quentium.fr/+Files/discord/sparse.jpg")
+        embed.set_footer(text="SparseSneakers")
+        channel = discord.utils.get(member.guild.channels, id=798514766188118047) # SparseSneakers accueil channel ID
+        await channel.send(embed=embed)
+
 async def on_server_join(server):
     """Bot added to a new server listener"""
 
