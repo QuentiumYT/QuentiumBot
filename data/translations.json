@@ -77,8 +77,9 @@
             "msg_title_admin_configs": " Commandes **CONFIGURATIONS (Admin)** :",
             "msg_title_admin_rights": " Commandes **ADMINISTRATION (Admin)** :",
             "msg_title_flc": " Commandes **FRANCE LES CITES** :",
-            "msg_title_theswe": " Commandes **THESWEMASTER** :",
             "msg_title_ism": " Commandes **INSOUMIS** :",
+            "msg_title_sparse": " Commandes **SPARSESNEAKERS** :",
+            "msg_title_theswe": " Commandes **THESWEMASTER** :",
             "msg_title_quentium": " Commandes **QUENTIUM** :",
             "msg_more_infos": "Pour plus d'informations, veuillez visiter le site : https://bot.quentium.fr",
             "msg_title": "Aide Commande",
@@ -106,8 +107,9 @@
             "msg_title_admin_configs": " **CONFIGURATION (Admin)** commands:",
             "msg_title_admin_rights": " **ADMINISTRATION (Admin)** commands:",
             "msg_title_flc": " **FRANCE LES CITES** commands:",
-            "msg_title_theswe": " **THESWEMASTER** commands:",
             "msg_title_ism": " **INSOUMIS** commands:",
+            "msg_title_sparse": " **SPARSESNEAKERS** commands:",
+            "msg_title_theswe": " **THESWEMASTER** commands:",
             "msg_title_quentium": " **QUENTIUM** commands:",
             "msg_list_commands": "----- List of Commands -----",
             "msg_details": ":bulb: ***For any further command details, type `{}help [\"command\"]`***",
@@ -137,8 +139,9 @@
             "msg_title_admin_configs": " **KONFIGURATIONEN (Admin)** Befehle:",
             "msg_title_admin_rights": " **VERWALTUNG (Admin)** Befehle:",
             "msg_title_flc": " **FRANCE LES CITES** Befehle:",
-            "msg_title_theswe": " **THESWEMASTER** Befehle:",
             "msg_title_ism": " **INSOUMIS** Befehle:",
+            "msg_title_sparse": " **SPARSESNEAKERS** Befehle:",
+            "msg_title_theswe": " **THESWEMASTER** Befehle:",
             "msg_title_quentium": " **QUENTIUM** Befehle:",
             "msg_list_commands": "----- Liste der Befehle -----",
             "msg_details": ":bulb: ***Geben Sie für weitere Befehlsdetails `{}help [\"Befehl\"]` ein.***",
@@ -1535,6 +1538,38 @@
             "aliases": "cookies",
             "example": "",
             "msg_cookies": ""
+        }
+    },
+    "TYPE SPARSESNEAKERS": null,
+    "definition": {
+        "type": "sparse",
+        "type_emoji": "serv_sparse",
+        "fr": {
+            "type_name": "SparseSneakers",
+            "description": "Affiche une définition du lexique des baskets",
+            "usage": "[\"mot\"]",
+            "aliases": "def/sparse",
+            "example": "cop",
+            "msg_def_list": "Liste des définitions :",
+            "msg_footer": "SparseSneakers definition"
+        },
+        "en": {
+            "type_name": "TheSweMaster",
+            "description": "Displays a definition of the sneaker lexicon",
+            "usage": "[\"word\"]",
+            "aliases": "def/sparse",
+            "example": "cop",
+            "msg_def_list": "",
+            "msg_footer": ""
+        },
+        "de": {
+            "type_name": "TheSweMaster",
+            "description": "Zeigt eine Definition des Sneaker-Lexikons an",
+            "usage": "[\"wort\"]",
+            "aliases": "def/sparse",
+            "example": "cop",
+            "msg_def_list": "",
+            "msg_footer": ""
         }
     },
     "TYPE QUENTIUM": null,

@@ -1,0 +1,112 @@
+{
+    "Reseller": {
+        "url": null,
+        "equivalent": "Revendeur",
+        "definition": "Un \"reseller\" est une entité (personne ou shop), qui va revendre une paire."
+    },
+    "WTB": {
+        "url": null,
+        "equivalent": "Je souhaite acheter",
+        "definition": "On utilise l'abréviation WTB lorsque l'on souhaite acheter une paire, sur un cookgroup par exemple."
+    },
+    "Want to Buy": {
+        "url": null,
+        "equivalent": "Je souhaite acheter",
+        "definition": "On utilise l'abréviation WTB lorsque l'on souhaite acheter une paire, sur un cookgroup par exemple."
+    },
+    "WTS": {
+        "url": null,
+        "equivalent": "Je souhaite vendre",
+        "definition": "On utilise l'abréviation WTS lorsque l'on souhaite vendre une paire en notre possession."
+    },
+    "Want to Sell": {
+        "url": null,
+        "equivalent": "Je souhaite vendre",
+        "definition": "On utilise l'abréviation WTS lorsque l'on souhaite vendre une paire en notre possession."
+    },
+    "WTT": {
+        "url": null,
+        "equivalent": "Je souhaite échanger",
+        "definition": "On utilise l'abréviation WTt lorsque l'on souhaite échanger une paire en notre possession contre une autre paire équivalente."
+    },
+    "Want to Trade": {
+        "url": null,
+        "equivalent": "Je souhaite échanger",
+        "definition": "On utilise l'abréviation WTt lorsque l'on souhaite échanger une paire en notre possession contre une autre paire équivalente."
+    },
+    "Rock": {
+        "url": null,
+        "equivalent": "Porter",
+        "definition": "Ce terme signifie porter une paire."
+    },
+    "Cop": {
+        "url": null,
+        "equivalent": "Acheter, gagner",
+        "definition": "Le fait de vouloir acheter la paire."
+    },
+    "Hold": {
+        "url": null,
+        "equivalent": "Maintenir, garder, conserver",
+        "definition": "Le terme hold signifie la volonté de conserver une paire, notamment dans le but d'une hausse de la cote."
+    },
+    "Fair": {
+        "url": null,
+        "equivalent": "Juste, arrangeant",
+        "definition": "On dit qu'un prix est fair (Fair Price), lorsque ce dernier est coïncident avec l'offre."
+    },
+    "LPU": {
+        "url": null,
+        "equivalent": "Last Pick Up > Dernier achat",
+        "definition": "Lorsque quelqu'un poste une paire avec comme légend \"LPU\", cela signifie que cette paire en question est la dernière qu'il a Cop."
+    },
+    "DS": {
+        "url": null,
+        "equivalent": "Neuf, Neuve",
+        "definition": "Une paire est DeadStock lorsqu'elle est complètement neuve."
+    },
+    "DeadStock": {
+        "url": null,
+        "equivalent": "Neuf, Neuve",
+        "definition": "Une paire est DeadStock lorsqu'elle est complètement neuve."
+    },
+    "TTS": {
+        "url": null,
+        "equivalent": "Taille correctement",
+        "definition": "Une paire est TTS lorsqu'elle taille correctement."
+    },
+    "True to Size": {
+        "url": null,
+        "equivalent": "Taille correctement",
+        "definition": "Une paire est TTS lorsqu'elle taille correctement."
+    },
+    "NDS": {
+        "url": null,
+        "equivalent": "Presque neuve",
+        "definition": "Une paire est NDS lorsqu'elle a déjà été portée une fois."
+    },
+    "Near Dead Stock": {
+        "url": null,
+        "equivalent": "Presque neuve",
+        "definition": "Une paire est NDS lorsqu'elle a déjà été portée une fois."
+    },
+    "Flake": {
+        "url": null,
+        "equivalent": "Personne qui ne respecte pas ses engagements",
+        "definition": "C'est un individu qui, lorsqu'il vend ou achète une paire, ne respecte pas ses engagements (à fuir !!)."
+    },
+    "CW": {
+        "url": null,
+        "equivalent": "Coloris",
+        "definition": "Le colorway est tout simplement le coloris d'une paire."
+    },
+    "Colorway": {
+        "url": null,
+        "equivalent": "Coloris",
+        "definition": "Le colorway est tout simplement le coloris d'une paire."
+    },
+    "Restock": {
+        "url": null,
+        "equivalent": "Ré approvisionnement",
+        "definition": "Quand une marque ou un shop décide de remettre en vente une paire qui était sold out."
+    }
+}

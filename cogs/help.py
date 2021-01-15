@@ -41,6 +41,8 @@ class HelpInfos(commands.Cog):
                         return False
                     if tran[cmd]["type"] == "ism" and ctx.guild.id == 391272643229384705: # Insoumis server ID
                         return False
+                    if tran[cmd]["type"] == "sparse" and ctx.guild.id == 798518855529005076: # SparseSneakers server ID
+                        return False
                     if tran[cmd]["type"] == "theswe" and ctx.guild.id == 199189022894063627: # TheSweMaster server ID
                         return False
                     if tran[cmd]["type"] == "quentium" and is_owner(ctx):
