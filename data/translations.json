@@ -1544,28 +1544,29 @@
     "definition": {
         "type": "sparse",
         "type_emoji": "serv_sparse",
+        "logo_url": "https://quentium.fr/+Files/discord/sparse.jpg",
         "fr": {
             "type_name": "SparseSneakers",
             "description": "Affiche une définition du lexique des baskets",
-            "usage": "[\"mot\"]",
+            "usage": "[\"mot\" / liste / list / show]",
             "aliases": "def/sparse",
             "example": "cop",
             "msg_def_list": "Liste des définitions :",
             "msg_footer": "SparseSneakers definition"
         },
         "en": {
-            "type_name": "TheSweMaster",
+            "type_name": "SparseSneakers",
             "description": "Displays a definition of the sneaker lexicon",
-            "usage": "[\"word\"]",
+            "usage": "[\"word\" / list / show]",
             "aliases": "def/sparse",
             "example": "cop",
             "msg_def_list": "",
             "msg_footer": ""
         },
         "de": {
-            "type_name": "TheSweMaster",
+            "type_name": "SparseSneakers",
             "description": "Zeigt eine Definition des Sneaker-Lexikons an",
-            "usage": "[\"wort\"]",
+            "usage": "[\"wort\" / list / show]",
             "aliases": "def/sparse",
             "example": "cop",
             "msg_def_list": "",

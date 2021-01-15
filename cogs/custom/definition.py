@@ -31,8 +31,8 @@ class DefinitionSparse(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if ctx.guild.id == 380373195473027074: # France Les Cités server ID
-                embed = discord.Embed(color=0xF1E2C3)
+            if ctx.guild.id == 798518855529005076: # Sparse Sneakers server ID
+                embed = discord.Embed(color=0x158DEE)
 
                 if any(args == x for x in ["list", "liste", "show"]):
                     content = "- " + "\n- ".join(definitions_sneakers.keys())
@@ -43,9 +43,10 @@ class DefinitionSparse(commands.Cog):
 
                 for word, definition in definitions_sneakers.items():
                     if args.lower() == word.lower():
-                        embed.title = word.title()
+                        embed.set_author(name=word.title(), icon_url=tran[cmd_name]["logo_url"])
+                        embed.title = definition["equivalent"]
                         embed.url = definition["url"]
-                        embed.description = definition["equivalent"]
+                        embed.description = definition["definition"]
                         embed.set_footer(text=cmd_tran["msg_footer"])
                         await ctx.send(embed=embed)
 
