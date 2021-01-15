@@ -256,7 +256,7 @@
             "type_name": "Informations",
             "description": "Invite le bot sur ton serveur.",
             "usage": "",
-            "aliases": "sharebot/share/invitebot/botinvite",
+            "aliases": "sharebot/share/invite/inviteme/invitebot/botinvite",
             "example": "",
             "msg_shareme": "Tu peux partager ce lien pour m'inviter sur d'autres serveurs :\n"
         },
@@ -264,7 +264,7 @@
             "type_name": "Information",
             "description": "Invite the bot to your server.",
             "usage": "",
-            "aliases": "sharebot/share/invitebot/botinvite",
+            "aliases": "sharebot/share/invite/inviteme/invitebot/botinvite",
             "example": "",
             "msg_shareme": "You can share this link to invite me to other servers:\n"
         },
@@ -272,7 +272,7 @@
             "type_name": "Informationen",
             "description": "Lädet den Bot auf Deinen Server ein.",
             "usage": "",
-            "aliases": "sharebot/share/invitebot/botinvite",
+            "aliases": "sharebot/share/invite/inviteme/invitebot/botinvite",
             "example": "",
             "msg_shareme": "Sie können diesen Link teilen, um mich zu anderen Servern einzuladen:\n"
         }
