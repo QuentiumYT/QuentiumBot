@@ -167,13 +167,20 @@ async def get_prefix(client, message):
     else:
         prefix_server = "+"
 
+    if debug:
+        prefix_server = "-"
+
     return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
-intents = discord.Intents.all()
-intents.webhooks = False
-intents.presences = False
-intents.typing = False
+if not debug:
+    intents = discord.Intents.all()
+    intents.webhooks = False
+    intents.presences = False
+    intents.typing = False
+else:
+    intents = discord.Intents.default()
+
 client = commands.Bot(command_prefix=get_prefix,
                       description="Quentium's Public Bot",
                       owner_ids=[246943045105221633, 324570532324442112],

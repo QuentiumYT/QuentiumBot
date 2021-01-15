@@ -22,7 +22,7 @@ class AbsentFLC(commands.Cog):
     async def absent_cmd(self, ctx, *, reason=None):
         # Get specific server data
         if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+            await HandleData.retrieve_data(self, ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
