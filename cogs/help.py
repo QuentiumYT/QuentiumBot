@@ -36,7 +36,7 @@ class HelpInfos(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             def allow_type(cmd):
-                if any(tran[cmd]["type"] == x for x in ["flc", "ism", "theswe", "quentium"]):
+                if any(tran[cmd]["type"] == x for x in ["flc", "ism", "theswe", "sparse", "quentium"]):
                     if tran[cmd]["type"] == "flc" and ctx.guild.id == 371687157817016331: # France Les Cités server ID
                         return False
                     if tran[cmd]["type"] == "ism" and ctx.guild.id == 391272643229384705: # Insoumis server ID
