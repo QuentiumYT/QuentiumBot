@@ -425,7 +425,7 @@ async def do_tasks():
     embed.set_footer(text=str(datetime.now().strftime("%d.%m.%Y - %H:%M:%S")))
     await channel.send(embed=embed)
 
-async def push_bot_stats():
+async def push_bot_stats(client=client):
     """Send a JSON recap with data to the website using FTP"""
 
     data = await HandleData.get_data(client, "data")
