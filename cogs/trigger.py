@@ -30,6 +30,8 @@ class TriggerAdminConfig(commands.Cog):
             prefix_server = "+"
         cmd_tran = tran[cmd_name][lang_server]
 
+        print(args)
+
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Global embed
@@ -67,8 +69,10 @@ class TriggerAdminConfig(commands.Cog):
                     return await ctx.send(embed=embed)
 
                 # Find trigger between quotes
-                if '"' in args or "'" in args:
-                    remove = re.findall(r'["\'](.*?)["\']', args)[-1].lower()
+                if args.count("'") > 1 or args.count('"') > 1:
+                    filter_args = re.findall(r"\"(.+?)\"|\'(.+?)\'", args)
+                    raw_args = [x[0] if x[0] != '' else x[1] for x in filter_args]
+                    remove = raw_args[-1].lower()
                 else:
                     remove = args.split()[-1].lower()
                 # Trigger found
@@ -93,19 +97,35 @@ class TriggerAdminConfig(commands.Cog):
                 return await ctx.send(embed=embed)
 
             # Add a trigger with two arguments
-            if len(args.split()) == 2 or len(re.findall(r'["\'](.*?)["\']', args)) == 2:
-                # If one of two args is surrounded with quotes
-                if args.count("'") > 1 or args.count('"') > 1:
-                    # Get the trigger
-                    trigger = re.findall(r'["\'](.*?)["\']', args)[0]
-                    # Displays all links even images in response (if only 1 image link, displays the preview directly)
-                    response = re.findall(r'["\'](.*?)["\']', args)[1]
-                # Both arguments are valid and not between quotes
-                else:
+            if len(args.split()) == 2:
+                if args.count("'") == 0 and args.count('"') == 0:
+                    # Both arguments are valid and not between quotes
                     trigger = args.split()[0]
                     response = args.split()[1]
+                else:
+                    embed.title = cmd_tran["msg_not_enough_args"]
+                    return await ctx.send(embed=embed)
+
+            elif len(re.findall(r"\"(.+?)\"|\'(.+?)\'", args)) == 2:
+                # If not all quotes required
+                if args.count("'") < 4 and args.count('"') < 4:
+                    embed.title = cmd_tran["msg_not_enough_args"]
+                    return await ctx.send(embed=embed)
+
+                # If one of two args is surrounded with quotes
+                if args.count("'") % 2 == 0 or args.count('"') % 2 == 0:
+                    filter_args = re.findall(r"\"(.+?)\"|\'(.+?)\'", args)
+                    raw_args = [x[0] if x[0] != '' else x[1] for x in filter_args]
+                    # Get the trigger
+                    trigger = raw_args[0]
+                    # Displays all links even images in response (if only 1 image link, displays the preview directly)
+                    response = raw_args[1]
+                else:
+                    embed.title = cmd_tran["msg_too_many_args"]
+                    return await ctx.send(embed=embed)
+
             # Just one arg given
-            elif len(args.split()) < 2 or len(re.findall(r'["\'](.*?)["\']', args)) < 2:
+            elif len(args.split()) < 2 or len(re.findall(r"\"(.+?)\"|\'(.+?)\'", args)) < 2:
                 embed.title = cmd_tran["msg_not_enough_args"]
                 return await ctx.send(embed=embed)
             # Multiple args given or no quotes to delimit
