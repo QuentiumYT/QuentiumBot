@@ -5,6 +5,8 @@ from ftplib import FTP
 
 from _tte import ftp_tte, schuman_auth
 
+remove = True
+
 ftp = FTP(ftp_tte["host"],
           ftp_tte["user"],
           ftp_tte["pwd"])
@@ -25,12 +27,13 @@ try:
 
     # Connect to FTP TimeToEat and send menu file
     f = open("menu.jpg", "rb")
-    ftp.storbinary("STOR img/menu.jpg", f)
+    ftp.storbinary("STOR menu.jpg", f)
     f.close()
 
     # Remove files
-    os.remove("menu.pdf")
-    os.remove("menu.jpg")
+    if remove:
+        os.remove("menu.pdf")
+        os.remove("menu.jpg")
 except Exception as e:
     print(e)
 
@@ -38,21 +41,22 @@ try:
     try:
         # Get menu from the website and download
         week = str(datetime.utcnow().isocalendar()[1] + 1).zfill(2)
-        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.jpg"
+        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.png"
         urlretrieve(url_menu, "menu1.jpg")
     except:
         # Get menu next week from the website and download
         week = str(datetime.utcnow().isocalendar()[1] + 0).zfill(2)
-        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.jpg"
+        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.png"
         urlretrieve(url_menu, "menu1.jpg")
 
     # Connect to FTP TimeToEat and send menu file
     f = open("menu1.jpg", "rb")
-    ftp.storbinary("STOR img/menu1.jpg", f)
+    ftp.storbinary("STOR menu1.jpg", f)
     f.close()
 
     # Remove files
-    os.remove("menu1.jpg")
+    if remove:
+        os.remove("menu1.jpg")
 except Exception as e:
     print(e)
 
@@ -73,11 +77,13 @@ try:
 
     # Connect to FTP TimeToEat and send menu file
     f = open("menu2.jpg", "rb")
-    ftp.storbinary("STOR img/menu2.jpg", f)
+    ftp.storbinary("STOR menu2.jpg", f)
     f.close()
 
-    os.remove("menu2.pdf")
-    os.remove("menu2.jpg")
+    # Remove files
+    if remove:
+        os.remove("menu2.pdf")
+        os.remove("menu2.jpg")
 except Exception as e:
     print(e)
 
