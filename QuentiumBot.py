@@ -381,7 +381,9 @@ if not debug:
 
         if any(x in str(error) for x in ["is not found", "Missing Access", "Missing Permissions"]):
             return
-        elif "Cannot send an empty message" in str(error):
+        if isinstance(error, commands.NotOwner):
+            return
+        if "Cannot send an empty message" in str(error):
             return await ctx.message.delete()
 
         elif "Unknown Message" in str(error):
