@@ -473,6 +473,7 @@ async def push_bot_stats(client):
     m, s = divmod(int(time), 60)
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
+    stats["last_update"] = datetime.now().strftime("%d.%m.%Y - %H:%M:%S")
     stats["uptime"] = f"{d} Days, {h} Hours, {m} Minutes, {s} Seconds"
     stats["creation_date"] = "16/08/2017 | 17h46"
     creation_date = date(2017, 8, 16)
@@ -513,7 +514,7 @@ async def push_bot_stats(client):
               get_config("PUBLIC", "ftp_passwd"))
     file = open("data/botstats.json", "rb")
     # Store the file
-    ftp.storbinary("STOR /bot/json/botstats.json", file)
+    ftp.storbinary("STOR botstats.json", file)
     file.close()
     ftp.close()
 
