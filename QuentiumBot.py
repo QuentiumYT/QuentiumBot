@@ -223,7 +223,7 @@ async def on_ready():
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
     # Push the stats of the bot at start
-    await push_bot_stats(client)
+    await push_bot_stats()
     # Change the bot presence
     await client.change_presence(
         status=discord.Status.online,
@@ -333,39 +333,6 @@ async def on_server_remove(server):
     if not debug:
         await post_topgg_data()
 
-@client.event
-async def on_raw_reaction_add(ctx):
-    """Non-cache reaction listener"""
-
-    # If Quentium react
-    if is_owner(ctx, ctx.user_id):
-        user = client.get_user(ctx.user_id)
-        server = client.get_guild(ctx.guild_id)
-        channel = server.get_channel(ctx.channel_id)
-        message = await channel.fetch_message(ctx.message_id)
-        # Check embed and title
-        if message.embeds and "Choisissez un ordinateur à démarrer" in message.embeds[0].title:
-            await message.remove_reaction(ctx.emoji, user)
-            emo = ctx.emoji.name
-            if emo and emo[:2] == "pc":
-                if emo == "pc1":
-                    args = "etherwake -i eth0 40:16:7E:AD:F7:21"
-                    tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC Quentium**")
-                elif emo == "pc2":
-                    args = "etherwake -i eth0 04:ED:33:08:C2:35"
-                    tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC portable Quentium**")
-                elif emo == "pc3":
-                    args = "etherwake -i eth0 40:61:86:93:B7:C7"
-                    tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC Bureau**")
-                elif emo == "pc4":
-                    args = "etherwake -i eth0 40:16:7E:AD:7B:6C"
-                    tmp = await channel.send(str(ctx.emoji) + " Démarrage de **PC Space**")
-                # Run the etherwake command
-                await exec_command(args, message)
-                # Wait 10 seconds and delete the message
-                await asyncio.sleep(10)
-                await tmp.delete()
-
 if not debug:
     @client.event
     async def on_command_error(ctx, error):
@@ -418,7 +385,7 @@ async def do_tasks():
     """Execute cron tasks actions"""
 
     # Push the statistics to the website using FTP
-    await push_bot_stats(client)
+    await push_bot_stats()
 
     # TimeToEat project menu upload
     if datetime.today().weekday() == 6:
@@ -458,7 +425,7 @@ async def do_tasks():
     embed.set_footer(text=str(datetime.now().strftime("%d.%m.%Y - %H:%M:%S")))
     await channel.send(embed=embed)
 
-async def push_bot_stats(client):
+async def push_bot_stats():
     """Send a JSON recap with data to the website using FTP"""
 
     data = await HandleData.get_data(client, "data")
@@ -574,30 +541,6 @@ except:
 
 async def exec_command(args, msg):
     """Execute a command on the hosting server"""
-
-    def emo(text):
-        return discord.utils.get(client.emojis, name=text)
-
-    # Personal arguments to start a PC or enable the connection using discord
-    if any(args == x for x in ["runpc", "setco"]):
-        await msg.delete()
-        # Create a reaction selection message
-        embed = discord.Embed(color=0x000000)
-        if args == "runpc":
-            # List of emojis objects
-            emojis = list(map(emo, ["pc1", "pc2", "pc3", "pc4"]))
-            content = f"{emojis[0]} Quentium PC\n{emojis[1]} Quentium Laptop\n{emojis[2]} Office PC\n{emojis[3]} Space PC"
-            embed.title = f"{emo('vote')} Choisissez un ordinateur à démarrer :"
-        else:
-            emojis = list(map(emo, ["co1", "co2", "co3", "co4"]))
-            content = f"{emojis[0]} ON 19H\n{emojis[1]} ON 22H\n{emojis[2]} OFF 19H\n{emojis[3]} OFF 22H"
-            embed.title = f"{emo('vote')} Choisissez une action à réaliser pour la connexion :"
-        embed.description = content
-        msg = await msg.channel.send(embed=embed)
-        for emoji in emojis:
-            # React with every emoji
-            await msg.add_reaction(emoji)
-        return
 
     try:
         # Execute the command and send the result
