@@ -30,8 +30,6 @@ class TriggerAdminConfig(commands.Cog):
             prefix_server = "+"
         cmd_tran = tran[cmd_name][lang_server]
 
-        print(args)
-
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Global embed
