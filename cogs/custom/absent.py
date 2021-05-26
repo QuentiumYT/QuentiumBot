@@ -47,13 +47,21 @@ class AbsentFLC(commands.Cog):
                         await ctx.message.author.add_roles(role)
                         # Send a message in the channel and to the user as well
                         await ctx.send(cmd_tran["msg_absent_reason"].format(member_name, reason))
-                        await ctx.message.author.send(cmd_tran["msg_join_absent"])
+                        try:
+                            await ctx.message.author.send(cmd_tran["msg_join_absent"])
+                        except:
+                            # User has disabled PM messages
+                            pass
                     else:
                         # Remove the absent role
                         await ctx.message.author.remove_roles(role)
                         # Send a message in the channel and to the user as well
                         await ctx.send(cmd_tran["msg_is_back"].format(member_name))
-                        await ctx.message.author.send(cmd_tran["msg_join_present"])
+                        try:
+                            await ctx.message.author.send(cmd_tran["msg_join_present"])
+                        except:
+                            # User has disabled PM messages
+                            pass
                     await ctx.message.delete()
 
 def setup(client):
