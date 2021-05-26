@@ -28,7 +28,12 @@ class VoteFLC(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if ctx.guild.id == 371687157817016331:  # France Les Cités server ID
+            if ctx.guild.id == 371687157817016331: # France Les Cités server ID
+
+                # No args given
+                if not args:
+                    return await ctx.message.author.send(cmd_tran["msg_no_args"])
+
                 # Delete the message to keep the vote anonym
                 await ctx.message.delete()
                 vote_file = "data/flc_votes.txt"
@@ -45,10 +50,6 @@ class VoteFLC(commands.Cog):
                 # Cityzoo / Scant / Quentium user ID
                 authorized = [348509601936834561, 358214022115360771, 246943045105221633]
                 if any(x == ctx.message.author.id for x in authorized):
-                    # No args given
-                    if not args:
-                        return await ctx.message.author.send(cmd_tran["msg_no_args"])
-
                     # Using votemax command
                     if "votemax" in ctx.message.content:
                         if args:
