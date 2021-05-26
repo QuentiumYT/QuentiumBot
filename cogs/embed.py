@@ -63,6 +63,7 @@ class EmbedUtilities(commands.Cog):
                     url = content[x]
                 if "A=" == sep[x]:
                     author = content[x]
+
             # If no argument is given using the formatting, set the text as title
             if all(x is None for x in [title, description, color, thumbnail, footer, url, author]):
                 # Discord title length limit is 255 chars
@@ -71,11 +72,13 @@ class EmbedUtilities(commands.Cog):
                 else:
                     title = None
                     description = args
+
             # If only description is given, set as title
             if not title:
                 if description and len(args) <= 255:
                     title = description
                     description = None
+
             # Using a random color
             if color == "random":
                 color = self.random_color()
@@ -105,7 +108,11 @@ class EmbedUtilities(commands.Cog):
             embed = discord.Embed(color=color)
             embed.title = title
             embed.description = description
+
+            if not "http" in url:
+                return await ctx.send(cmd_tran["msg_invalid_url_scheme"])
             embed.url = url
+
             if thumbnail:
                 # Convert http to https or add it
                 if not "http" in thumbnail:
@@ -118,14 +125,17 @@ class EmbedUtilities(commands.Cog):
                         embed.set_thumbnail(url=tran["GLOBAL"]["logo_question"])
                 except:
                     embed.set_thumbnail(url=tran["GLOBAL"]["logo_question"])
+
             if author:
                 embed.set_author(name=author)
+
             if footer and footer != "None":
                 embed.set_footer(text=footer)
             else:
                 # Set author name and url in footer
                 embed.set_footer(text=ctx.message.author.name,
                                  icon_url=ctx.message.author.avatar_url)
+
             await ctx.send(embed=embed)
 
 def setup(client):
