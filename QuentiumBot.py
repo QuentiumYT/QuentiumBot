@@ -182,7 +182,7 @@ else:
     intents = discord.Intents.default()
 
 client = commands.Bot(command_prefix=get_prefix,
-                      description="Quentium's Public Bot",
+                      description="Quentium Public Bot",
                       owner_ids=[246943045105221633, 324570532324442112],
                       pm_help=True,
                       help_command=None,
@@ -286,7 +286,7 @@ async def on_member_join(member):
 
     ### Welcome message and ban ads accounts on TheSweMaster server
     if server_id == 199189022894063627: # TheSweMaster server ID
-        if any(x in member.name for x in ["discord.gg", "twitter.com"]):
+        if any(x in member.name.lower() for x in ["discord.gg", "discord.com", "twitter.com", "twitch.tv"]):
             # Ban the ads account
             await member.ban()
             msg = "A bot has been banned because we don't like them :ok_hand:"
