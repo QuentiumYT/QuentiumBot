@@ -35,7 +35,7 @@ class AbsentFLC(commands.Cog):
                         return await ctx.send(cmd_tran["msg_perm_roles_bot"])
 
                     # Get the absent role
-                    role = discord.utils.get(ctx.message.guild.roles, name="Absent")
+                    role = discord.utils.get(ctx.message.guild.roles, name="DT:Absent")
                     # Get the nickname or the username of the member
                     member_name = ctx.message.author.nick if ctx.message.author.nick else ctx.message.author.name
                     if not role in ctx.message.author.roles:
