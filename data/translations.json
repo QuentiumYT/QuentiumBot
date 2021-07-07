@@ -1341,7 +1341,7 @@
         "fr": {
             "type_name": "France Les Cités",
             "description": "Affiche les 10 meilleurs endroits pour miner une ressource (© Fomys :smile:).",
-            "usage": "[\"minerais\"]",
+            "usage": "[\"minerais\"] [\"secteur_max\"]",
             "aliases": "minedt",
             "example": "platine",
             "msg_specify_ore": "Merci de préciser au moins un minerais : `{}dtmine [\"minerais\"] [\"secteur_max\"]`.",
@@ -1352,7 +1352,7 @@
         "en": {
             "type_name": "France Les Cités",
             "description": "Shows the top 10 places to mine a resource (© Fomys :smile:).",
-            "usage": "[\"ore\"]",
+            "usage": "[\"ore\"] [\"max_sector\"]",
             "aliases": "minedt",
             "example": "platinum",
             "msg_specify_ore": "Please specify at least one ore: `{}dtmine [\"ore\"] [\"max_sector\"]`.",
@@ -1363,7 +1363,7 @@
         "de": {
             "type_name": "France Les Cités",
             "description": "Zeigt die 10 besten Orte an, an denen eine Ressource abgebaut werden kann (© Fomys :smile:).",
-            "usage": "[\"Erz\"]",
+            "usage": "[\"Erz\"] [\"max_sektor\"]",
             "aliases": "minedt",
             "example": "platinum",
             "msg_specify_ore": "Bitte geben Sie mindestens ein Erz an: `{}dtmine [\"Erz\"] [\"max_sektor\"]`.",
