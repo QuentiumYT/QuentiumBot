@@ -15,7 +15,7 @@ try:
     # Get menu from the website and download
     url_static = "https://www.lycee-heinrich-nessel.fr/vivre-au-lycee/hebergement-restauration/menus-de-la-restauration-scolaire/"
     content_page = urlopen(url_static).read()
-    data_url_menu = str(content_page).split("restauration-scolaire/")[-1].split(" data-title=")[0]
+    data_url_menu = "403" + str(content_page).split("restauration-scolaire/403")[-1].split(" data-title=")[0]
     url_menu = url_static + data_url_menu
     urlretrieve(url_menu, "menu.pdf")
 
