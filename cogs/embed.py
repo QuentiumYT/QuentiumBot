@@ -109,7 +109,7 @@ class EmbedUtilities(commands.Cog):
             embed.title = title
             embed.description = description
 
-            if not "http" in url:
+            if url and not "http" in url:
                 return await ctx.send(cmd_tran["msg_invalid_url_scheme"])
             embed.url = url
 
