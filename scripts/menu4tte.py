@@ -41,12 +41,12 @@ try:
     try:
         # Get menu from the website and download
         week = str(datetime.utcnow().isocalendar()[1] + 1).zfill(2)
-        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.png"
+        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.jpg"
         urlretrieve(url_menu, "menu1.jpg")
     except:
         # Get menu next week from the website and download
         week = str(datetime.utcnow().isocalendar()[1] + 0).zfill(2)
-        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.png"
+        url_menu = f"https://www.macantineetmoi.com/sites/default/files/etablissement/sainte-philo/sainte-philo_S{week}.jpg"
         urlretrieve(url_menu, "menu1.jpg")
 
     # Connect to FTP TimeToEat and send menu file
