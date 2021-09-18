@@ -356,7 +356,7 @@
             "usage": "[T=\"Titel\"] [D=\"Beschreibung\"] [C=\"Farbe\"] [I=\"Bild url\"] [F=\"Fußzeile\"] [U=\"url\"] [A=\"Autor\"]",
             "aliases": "embeds/richembed",
             "example": "T=Meine personalle embed D=Ich mag diesen Befehl C=green F=Yay!",
-            "msg_invalid_arg": "Bitte geben Sie eine ein richtiges Argument: `{prefix_server}embed T=Titel D=Description C=Color I=ImageURL F=Fußzeile U=URL A=Autor`.",
+            "msg_invalid_arg": "Bitte geben Sie eine ein richtiges Argument: `{}embed T=Titel D=Description C=Color I=ImageURL F=Fußzeile U=URL A=Autor`.",
             "msg_invalid_color": "Die angegebene Farbe existiert nicht. Unterstützte Parameter: `Farbname`, `Hex-Wert`, `Nummer-Wert`, `random`.",
             "msg_invalid_url_scheme": "Das URL-Schema wird nicht unterstützt. Bitte geben Sie http oder https an."
         }
