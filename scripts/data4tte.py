@@ -1,7 +1,7 @@
 import random, requests, sys
 from _tte import cypher, alpha, url
 
-# Send random requests to TimeToEat website (https://timetoeat.tk or https://timetoeat.alwaysdata.net)
+# Send random requests to TimeToEat website
 
 # 130 for 11h30 to 13h30 (10 per 10 minutes)
 number_request = 130
