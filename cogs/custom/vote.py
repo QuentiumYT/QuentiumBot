@@ -15,7 +15,8 @@ class VoteFLC(commands.Cog):
 
     @commands.command(
         name=cmd_name,
-        aliases=aliases,
+        # Add hidden aliases
+        aliases=aliases + ["participants", "voteresults"],
         pass_context=True
     )
     @commands.guild_only()
@@ -28,10 +29,9 @@ class VoteFLC(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            if ctx.guild.id == 371687157817016331: # France Les Cités server ID
-
+            if True: # France Les Cités server ID
                 # No args given
-                if not args:
+                if not args and not "voteresults" in ctx.message.content:
                     return await ctx.message.author.send(cmd_tran["msg_no_args"])
 
                 # Delete the message to keep the vote anonym
@@ -50,14 +50,14 @@ class VoteFLC(commands.Cog):
                 # Cityzoo / Scant / Quentium user ID
                 authorized = [348509601936834561, 358214022115360771, 246943045105221633]
                 if any(x == ctx.message.author.id for x in authorized):
-                    # Using votemax command
-                    if "votemax" in ctx.message.content:
+                    # Using participants command
+                    if "participants" in ctx.message.content:
                         if args:
                             # Set the first line to the max number of voting participants
                             content[0] = f"{args}\n"
                             with open(vote_file, "w", encoding="utf-8") as file:
                                 file.write("".join(content))
-                            return await ctx.message.author.send(cmd_tran["msg_votemax_set"].format(args))
+                            return await ctx.message.author.send(cmd_tran["msg_participants_set"].format(args))
 
                     # Using voteresults command
                     if "voteresults" in ctx.message.content:
@@ -68,16 +68,16 @@ class VoteFLC(commands.Cog):
                             # Get results except first line
                             results = file.readlines()[1:]
                         for x in results:
-                            a = x.strip().split(" --> ")[1]
+                            a = x.strip().split(" --► ")[1]
                             final.append(a)
                         # Create a sorted dict of results
-                        d = {}
-                        [d.update({i: d.get(i, 0) + 1}) for i in final]
-                        e = sorted(d.items(), key=lambda x: x[1], reverse=True)
-                        for y in range(len(e)):
+                        vote_count = {}
+                        [vote_count.update({i: vote_count.get(i, 0) + 1}) for i in final]
+                        sorted_vote_count = sorted(vote_count.items(), key=lambda x: x[1], reverse=True)
+                        for i in range(len(sorted_vote_count)):
                             # Display the place and the number of votes
-                            embed.add_field(name=cmd_tran["msg_place"].format(y + 1),
-                                            value=cmd_tran["msg_votes"].format(e[y][0], e[y][1]),
+                            embed.add_field(name=cmd_tran["msg_place"].format(i + 1),
+                                            value=cmd_tran["msg_votes"].format(sorted_vote_count[i][0], sorted_vote_count[i][1]),
                                             inline=True)
                         return await ctx.send(embed=embed)
 
@@ -85,12 +85,17 @@ class VoteFLC(commands.Cog):
                 if not args.isdigit():
                     return await ctx.message.author.send(cmd_tran["msg_wrong_arg"])
 
+                # Vote max is not defined
+                if int(content[0]) == 0:
+                    os.remove(vote_file)
+                    return await ctx.message.author.send(cmd_tran["msg_max_not_defined"])
+
                 # Vote is bigger than the number of participants
                 if int(args) > int(content[0]):
                     return await ctx.message.author.send(cmd_tran["msg_number_too_high"])
 
                 # Member has already voted
-                if str(ctx.message.author.id) in content:
+                if any(str(ctx.message.author.id) in x for x in content):
                     return await ctx.message.author.send(cmd_tran["msg_already_voted"])
 
                 # Add the vote to the file
