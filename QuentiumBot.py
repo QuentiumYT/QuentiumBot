@@ -116,6 +116,9 @@ class HandleData:
 
             await HandleData.dump_data(self, "data")
 
+        if debug:
+            self.prefix_server = "-"
+
         # Return the server information
         return self.lang_server, self.commands_server, self.autorole_server, self.prefix_server
 
@@ -167,9 +170,6 @@ async def get_prefix(client, message):
     else:
         prefix_server = "+"
 
-    if debug:
-        prefix_server = "-"
-
     return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
@@ -191,18 +191,19 @@ client = commands.Bot(command_prefix=get_prefix,
                       intents=intents)
 
 async def post_topgg_data():
-    # URL for top.gg
-    top_gg_url = "https://top.gg/api/bots/{" + str(client.user.id) + "}/stats"
-    # Token for authorization
-    headers = {"Authorization": get_config("GLOBAL", "token_dbl")}
-    # Guild count
-    payload = {"server_count": len(client.guilds)}
-    try:
-        requests.post(top_gg_url,
-                      data=payload,
-                      headers=headers)
-    except:
-        pass
+    if not debug:
+        # URL for top.gg
+        top_gg_url = "https://top.gg/api/bots/{" + str(client.user.id) + "}/stats"
+        # Token for authorization
+        headers = {"Authorization": get_config("GLOBAL", "token_dbl")}
+        # Guild count
+        payload = {"server_count": len(client.guilds)}
+        try:
+            requests.post(top_gg_url,
+                          data=payload,
+                          headers=headers)
+        except:
+            pass
 
 # TYPE Global bot events
 
@@ -218,7 +219,7 @@ async def on_ready():
     print("ID: " + str(client.user.id))
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
     if debug:
-        presence = "Oh, a QuentiumBot rewrite!?"
+        presence = "Oh, a QuentiumBot update!?"
     else:
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
@@ -532,12 +533,8 @@ async def loop_repeat():
                 clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
         await asyncio.sleep(5)
 
-loop = asyncio.get_event_loop()
-try:
-    # Add the function to bot's task
-    client.loop.create_task(loop_repeat())
-except:
-    loop.run_forever()
+# Add the function to bot's task
+client.loop.create_task(loop_repeat())
 
 async def exec_command(args, msg):
     """Execute a command on the hosting server"""
