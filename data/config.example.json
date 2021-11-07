@@ -8,14 +8,16 @@
     "PUBLIC": {
         "token": "",
         "invite": "https://discordapp.com/oauth2/authorize?client_id=347405743235792908&scope=bot&permissions=322301047",
-        "ftp_host": "",
-        "ftp_login": "",
-        "ftp_passwd": ""
+        "ftp_bot": {
+            "host": "",
+            "login": "",
+            "passwd": "",
+            "port": 21
+        }
     },
     "PRIVATE": {
         "token": "",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=347823747992125441&scope=bot&permissions=322301047",
-        "co_passwd": ""
+        "invite": "https://discordapp.com/oauth2/authorize?client_id=347823747992125441&scope=bot&permissions=322301047"
     },
     "TEST": {
         "token": "",

@@ -436,7 +436,7 @@ async def push_bot_stats(client=client):
     stats["hosted"] = "VPS Oserya.fr"
     stats["owner"] = "QuentiumYT#0207"
     stats["helper"] = "Microsoft Visual Studio#1943"
-    stats["linux"] = "Debian GNU/Linux 10 (buster)"
+    stats["linux"] = "Ubuntu 20.04.3 (Focal Fossa) x64"
     time = round((datetime.now() - start_time).total_seconds())
     m, s = divmod(int(time), 60)
     h, m = divmod(m, 60)
@@ -477,9 +477,13 @@ async def push_bot_stats(client=client):
         json.dump(stats, file, indent=4)
 
     # Connect to the FTP server
-    ftp = FTP(get_config("PUBLIC", "ftp_host"),
-              get_config("PUBLIC", "ftp_login"),
-              get_config("PUBLIC", "ftp_passwd"))
+    ftp = FTP()
+    ftp_bot = get_config("PUBLIC", "ftp_bot")
+    ftp.connect(ftp_bot["host"],
+                ftp_bot["port"])
+    ftp.login(ftp_bot["login"],
+              ftp_bot["passwd"])
+
     file = open("data/botstats.json", "rb")
     # Store the file
     ftp.storbinary("STOR botstats.json", file)

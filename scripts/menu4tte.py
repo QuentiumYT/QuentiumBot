@@ -7,9 +7,11 @@ from _tte import ftp_tte, schuman_auth
 
 remove = True
 
-ftp = FTP(ftp_tte["host"],
-          ftp_tte["user"],
-          ftp_tte["pwd"])
+ftp = FTP()
+ftp.connect(ftp_tte["host"],
+            ftp_tte["port"])
+ftp.login(ftp_tte["user"],
+          ftp_tte["passwd"])
 
 try:
     # Get menu from the website and download
