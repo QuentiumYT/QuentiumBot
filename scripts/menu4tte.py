@@ -17,14 +17,14 @@ try:
     # Get menu from the website and download
     url_static = "https://www.lycee-heinrich-nessel.fr/vivre-au-lycee/hebergement-restauration/menus-de-la-restauration-scolaire/"
     content_page = urlopen(url_static).read()
-    data_url_menu = "403" + str(content_page).split("restauration-scolaire/403")[-1].split(" data-title=")[0]
+    data_url_menu = str(content_page).split("restauration-scolaire/")[-1].split(" data-title=")[0]
     url_menu = url_static + data_url_menu
     urlretrieve(url_menu, "menu.pdf")
 
     # Convert the menu to jpg format
     doc = fitz.open("menu.pdf")
-    pic = doc.loadPage(0).getPixmap(matrix=fitz.Matrix(150 / 72, 150 / 72))
-    pic.writePNG("menu.jpg")
+    pic = doc.load_page(0).get_pixmap(matrix=fitz.Matrix(150 / 72, 150 / 72))
+    pic.save("menu.jpg")
     doc.close()
 
     # Connect to FTP TimeToEat and send menu file
@@ -73,8 +73,8 @@ try:
 
     # Convert the menu to jpg format
     doc = fitz.open("menu2.pdf")
-    pic = doc.loadPage(0).getPixmap(matrix=fitz.Matrix(150 / 72, 150 / 72))
-    pic.writePNG("menu2.jpg")
+    pic = doc.load_page(0).get_pixmap(matrix=fitz.Matrix(150 / 72, 150 / 72))
+    pic.save("menu2.jpg")
     doc.close()
 
     # Connect to FTP TimeToEat and send menu file
