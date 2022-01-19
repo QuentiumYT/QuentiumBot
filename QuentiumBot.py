@@ -517,7 +517,7 @@ async def loop_repeat():
                 if hour_time == 23:
                     if day_time == num_days_month:
                         if month_time == 12:
-                            timer_finished = time_now.replace(year=time_now.year + 1, month=1, day=0, hour=0, minute=0, second=0)
+                            timer_finished = time_now.replace(year=time_now.year + 1, month=1, day=1, hour=0, minute=0, second=0)
                         timer_finished = time_now.replace(month=time_now.month + 1, day=1, hour=0, minute=0, second=0)
                     else:
                         timer_finished = time_now.replace(day=time_now.day + 1, hour=0, minute=0, second=0)
