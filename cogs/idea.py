@@ -43,7 +43,9 @@ class IdeaFeedback(commands.Cog):
                     return await ctx.send(cmd_tran["msg_specify_bug"])
             # Join feedback details
             ideas = " --- ".join([datetime.now().strftime("%d.%m.%Y - %H:%M:%S"),
-                                  ctx.message.author.name, cmd_received, args])
+                                  ctx.message.author.name + ctx.message.author.discriminator,
+                                  cmd_received,
+                                  args])
             with open("feedback.txt", "a", encoding="utf-8", errors="ignore") as file:
                 file.write(ideas + "\n")
             await ctx.send(cmd_tran["msg_thanks"])
