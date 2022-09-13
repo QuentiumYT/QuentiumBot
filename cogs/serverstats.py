@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "serverstats"
@@ -21,8 +21,8 @@ class ServerstatsInfos(commands.Cog):
     @commands.guild_only()
     async def serverstats_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -39,14 +39,14 @@ class ServerstatsInfos(commands.Cog):
             serv_created = serv.created_at.strftime("%d.%m.%Y - %H:%M:%S")
             serv_region = str(serv.region).capitalize()
             serv_members = len(serv.members)
-            serv_members_on = len([x for x in serv.members if not x.status == discord.Status.offline])
+            serv_members_on = len([x for x in serv.members if not x.status == nextcord.Status.offline])
             serv_users = len([x for x in serv.members if not x.bot])
-            serv_users_on = len([x for x in serv.members if not x.bot and not x.status == discord.Status.offline])
+            serv_users_on = len([x for x in serv.members if not x.bot and not x.status == nextcord.Status.offline])
             serv_bots = len([x for x in serv.members if x.bot])
-            serv_bots_on = len([x for x in serv.members if x.bot and not x.status == discord.Status.offline])
-            serv_channels = len([x for x in serv.channels if not isinstance(x, discord.CategoryChannel)])
-            serv_text_channels = len([x for x in serv.channels if isinstance(x, discord.TextChannel)])
-            serv_voice_channels = len([x for x in serv.channels if isinstance(x, discord.VoiceChannel)])
+            serv_bots_on = len([x for x in serv.members if x.bot and not x.status == nextcord.Status.offline])
+            serv_channels = len([x for x in serv.channels if not isinstance(x, nextcord.CategoryChannel)])
+            serv_text_channels = len([x for x in serv.channels if isinstance(x, nextcord.TextChannel)])
+            serv_voice_channels = len([x for x in serv.channels if isinstance(x, nextcord.VoiceChannel)])
             serv_afk_channel = cmd_tran["msg_none"] if serv.afk_channel == None else str(serv.afk_channel)
             serv_afk_time = round(serv.afk_timeout / 60)
             serv_verif_lvl = cmd_tran["msg_" + str(serv.verification_level)]
@@ -56,7 +56,7 @@ class ServerstatsInfos(commands.Cog):
                 serv_roles_list = cmd_tran["msg_limit"]
 
             # Send an embed with details
-            embed = discord.Embed(color=0x1126FF)
+            embed = nextcord.Embed(color=0x1126FF)
             embed.url = tran["GLOBAL"]["website_url"]
             icon = str(serv.icon_url)
             icon1 = icon.split(".")

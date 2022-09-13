@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "showlogs"
@@ -20,8 +20,8 @@ class ShowlogsFeedback(commands.Cog):
     )
     async def showlogs_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -31,7 +31,7 @@ class ShowlogsFeedback(commands.Cog):
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
-            embed = discord.Embed(color=0xFFFF11)
+            embed = nextcord.Embed(color=0xFFFF11)
             embed.title = cmd_tran["msg_logs_bot"]
             embed.url = tran["GLOBAL"]["website_url"]
             counter = 1

@@ -1,6 +1,6 @@
-import discord, json
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord, json
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "definition"
@@ -24,15 +24,15 @@ class DefinitionSparse(commands.Cog):
     @commands.guild_only()
     async def definition_cmd(self, ctx, *, args="list"):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             if ctx.guild.id == 798518855529005076: # Sparse Sneakers server ID
-                embed = discord.Embed(color=0x158DEE)
+                embed = nextcord.Embed(color=0x158DEE)
 
                 if any(args == x for x in ["list", "liste", "show"]):
                     content = "- " + "\n- ".join(definitions_sneakers.keys())

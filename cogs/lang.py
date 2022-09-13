@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "lang"
@@ -21,8 +21,8 @@ class LangAdminConfig(commands.Cog):
     @commands.guild_only()
     async def lang_cmd(self, ctx, *, lang=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -31,7 +31,7 @@ class LangAdminConfig(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Check user perms or owner
-            if not(ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
+            if not (ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_admin_user"].format(ctx.message.author.name))
             # No args given
             if not lang:
@@ -42,7 +42,7 @@ class LangAdminConfig(commands.Cog):
                 if lang_server == lang:
                     await ctx.send(cmd_tran["msg_lang_same"])
                 else:
-                    await HandleData.change_lang(self, ctx, lang)
+                    await storage.change_lang(self, ctx, lang)
                     # Lang changed before sending the msg
                     await ctx.send(tran[cmd_name][lang]["msg_lang_set"])
             else:

@@ -1,6 +1,6 @@
-import discord, asyncio, random
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord, asyncio, random
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "move"
@@ -21,8 +21,8 @@ class MoveAdminRights(commands.Cog):
     @commands.guild_only()
     async def move_cmd(self, ctx, *, number=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -38,7 +38,7 @@ class MoveAdminRights(commands.Cog):
                 return await ctx.send(cmd_tran["msg_perm_move_bot"])
 
             # Get a lit with all server channels
-            channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.VoiceChannel)]
+            channel_list = [x for x in ctx.message.guild.channels if isinstance(x, nextcord.VoiceChannel)]
             # Argument is random, move in random channel 5 or more times
             if number and "random" in number:
                 if number == "random":
@@ -85,7 +85,7 @@ class MoveAdminRights(commands.Cog):
                     await ctx.send(cmd_tran["msg_no_voice_channel"])
             # List the channel list position
             else:
-                embed = discord.Embed(color=0x3498DB)
+                embed = nextcord.Embed(color=0x3498DB)
                 embed.title = cmd_tran["msg_voice_channels"]
                 embed.description = cmd_tran["msg_specify_channel"]
                 channel_no = 0

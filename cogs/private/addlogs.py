@@ -1,7 +1,7 @@
-import discord, os, asyncio
-from discord.ext import commands
+import nextcord, os, asyncio
+from nextcord.ext import commands
 from datetime import datetime
-from QuentiumBot import HandleData, get_translations
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "addlogs"
@@ -22,8 +22,8 @@ class AddLogsQuentium(commands.Cog):
     @commands.is_owner()
     async def addlogs_cmd(self, ctx, *, logs=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 

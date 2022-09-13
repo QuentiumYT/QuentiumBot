@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "absent"
@@ -21,8 +21,8 @@ class AbsentFLC(commands.Cog):
     @commands.guild_only()
     async def absent_cmd(self, ctx, *, reason=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
@@ -35,7 +35,7 @@ class AbsentFLC(commands.Cog):
                         return await ctx.send(cmd_tran["msg_perm_roles_bot"])
 
                     # Get the absent role
-                    role = discord.utils.get(ctx.message.guild.roles, name="DT:Absent")
+                    role = nextcord.utils.get(ctx.message.guild.roles, name="DT:Absent")
                     # Get the nickname or the username of the member
                     member_name = ctx.message.author.nick if ctx.message.author.nick else ctx.message.author.name
                     if not role in ctx.message.author.roles:

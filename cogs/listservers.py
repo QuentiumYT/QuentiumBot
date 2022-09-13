@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "listservers"
@@ -20,8 +20,8 @@ class ListserversInfos(commands.Cog):
     )
     async def listservers_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -31,7 +31,7 @@ class ListserversInfos(commands.Cog):
         if not ctx.message.author.bot == True:
             if not ctx.message.guild.id == 264445053596991498: # DBL ID
                 # Get the raw data
-                data = await HandleData.get_data(self, "data")
+                data = await storage.get_data(self, "data")
                 # Get all the servers the bot is in
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []
@@ -53,13 +53,13 @@ class ListserversInfos(commands.Cog):
                     else:
                         content2 += "\n- " + str(self.client.get_guild(int(serv_id_exist[pos]))) + " | " + str(serv_pos[pos])
 
-                embed = discord.Embed(color=0xFF9111)
+                embed = nextcord.Embed(color=0xFF9111)
                 embed.title = cmd_tran["msg_servers"].format(len(self.client.guilds))
                 embed.description = content
                 await ctx.send(embed=embed)
                 # Second embed empty
                 if content2 != cmd_tran["msg_server_pos"]:
-                    embed2 = discord.Embed(color=0xFF9111)
+                    embed2 = nextcord.Embed(color=0xFF9111)
                     embed2.title = None
                     embed2.description = content2
                     await ctx.send(embed=embed2)

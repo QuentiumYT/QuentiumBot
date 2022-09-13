@@ -1,7 +1,7 @@
-import discord, requests
-from discord.ext import commands
+import nextcord, requests
+from nextcord.ext import commands
 from datetime import datetime
-from QuentiumBot import HandleData, get_translations, get_config
+from QuentiumBot import storage, get_translations, get_config
 
 # Basic command configs
 cmd_name = "weather"
@@ -21,8 +21,8 @@ class WeatherUtilities(commands.Cog):
     )
     async def weather_cmd(self, ctx, *, city=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -31,7 +31,7 @@ class WeatherUtilities(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Global embed
-            embed = discord.Embed(color=0x11FFFF)
+            embed = nextcord.Embed(color=0x11FFFF)
 
             # No city given
             if not city:
@@ -61,7 +61,7 @@ class WeatherUtilities(commands.Cog):
             except:
                 current_time = data_weather["dt"]
             # Get weather emojis for embed icon
-            emoji = discord.utils.get(self.client.emojis, name=data_weather["weather"][0]["icon"])
+            emoji = nextcord.utils.get(self.client.emojis, name=data_weather["weather"][0]["icon"])
 
             condition = data_weather["weather"][0]["main"]
             # Get translations for weather status

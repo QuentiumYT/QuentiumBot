@@ -1,6 +1,6 @@
-import discord, difflib
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+import nextcord, difflib
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "role"
@@ -21,8 +21,8 @@ class RoleISM(commands.Cog):
     @commands.guild_only()
     async def role_cmd(self, ctx, *, role=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
@@ -42,7 +42,7 @@ class RoleISM(commands.Cog):
                 if any(x == ctx.message.author.id for x in is_owner(ctx)):
                     if not role:
                         return await ctx.message.delete()
-                    role = discord.utils.get(ctx.message.guild.roles, name=role)
+                    role = nextcord.utils.get(ctx.message.guild.roles, name=role)
                     if role in ctx.message.author.roles:
                         return await ctx.message.author.remove_roles(role)
                     else:
@@ -66,7 +66,7 @@ class RoleISM(commands.Cog):
             # List of close matches
             rolename = [x for x in list_roles if x.lower() == lower_match[0]]
             # Get the role object with the first match
-            role = discord.utils.get(ctx.message.guild.roles, name=rolename[0])
+            role = nextcord.utils.get(ctx.message.guild.roles, name=rolename[0])
             if not role:
                 return await ctx.send(cmd_tran["msg_unknown_role"])
             # Role is in the available role list

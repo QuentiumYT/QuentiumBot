@@ -1,5 +1,5 @@
-import discord, os
-from discord.ext import commands
+import nextcord, os
+from nextcord.ext import commands
 
 class ManageCogs(commands.Cog):
     """Commands to load, unload, reload cogs for QuentiumYT (private)"""

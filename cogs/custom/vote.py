@@ -1,6 +1,6 @@
-import discord, os
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord, os
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "vote"
@@ -22,8 +22,8 @@ class VoteFLC(commands.Cog):
     @commands.guild_only()
     async def vote_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 
@@ -61,7 +61,7 @@ class VoteFLC(commands.Cog):
 
                     # Using voteresults command
                     if "voteresults" in ctx.message.content:
-                        embed = discord.Embed(color=0x11FF11)
+                        embed = nextcord.Embed(color=0x11FF11)
                         embed.title = cmd_tran["msg_results"]
                         final = []
                         with open(vote_file, "r", encoding="utf-8") as file:

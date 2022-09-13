@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, match_id
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, match_id
 
 # Basic command configs
 cmd_name = "msgtotal"
@@ -20,8 +20,8 @@ class MsgtotalUtilities(commands.Cog):
     )
     async def msgtotal_cmd(self, ctx, *args):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -37,14 +37,14 @@ class MsgtotalUtilities(commands.Cog):
             # If two args, first arg is member, second count type
             if len(args) == 2:
                 if match_id(args[1]):
-                    member = discord.utils.get(self.client.get_all_members(), id=match_id(args[1]))
+                    member = nextcord.utils.get(self.client.get_all_members(), id=match_id(args[1]))
                 else:
                     return await ctx.send(cmd_tran["msg_invalid_member"])
                 args = args[0]
             # If only one argument is given, check if member or count type
             elif len(args) == 1:
                 if match_id(args[0]):
-                    member = discord.utils.get(self.client.get_all_members(), id=match_id(args[0]))
+                    member = nextcord.utils.get(self.client.get_all_members(), id=match_id(args[0]))
                     args = "all"
                 else:
                     member = ctx.message.author
@@ -54,11 +54,11 @@ class MsgtotalUtilities(commands.Cog):
                 member = ctx.message.author
                 args = "all"
 
-            if not isinstance(ctx.channel, discord.TextChannel):
+            if not isinstance(ctx.channel, nextcord.TextChannel):
                 args = "channel"
             # Init the counter
             counter = 0
-            embed = discord.Embed(color=0xFFA511)
+            embed = nextcord.Embed(color=0xFFA511)
             embed.title = cmd_tran["msg_calculating"]
             tmp = await ctx.send(embed=embed)
 
@@ -66,7 +66,7 @@ class MsgtotalUtilities(commands.Cog):
             if args == "all":
                 msg_total = True
                 # Channels accessible by the bot
-                channel_list = [x for x in ctx.message.guild.channels if isinstance(x, discord.TextChannel)]
+                channel_list = [x for x in ctx.message.guild.channels if isinstance(x, nextcord.TextChannel)]
                 for channel in channel_list:
                     # Count all messages in channels
                     if ctx.message.guild.me.permissions_in(channel).read_messages:
@@ -88,7 +88,7 @@ class MsgtotalUtilities(commands.Cog):
             # Send the number of messages in an embed
             embed.title = cmd_tran["msg_number"]
             # All or Channel count type specified
-            if msg_total == True:
+            if msg_total:
                 embed.description = cmd_tran["msg_has_sent_total"].format(member, counter)
             else:
                 embed.description = cmd_tran["msg_has_sent_channel"].format(member, counter)

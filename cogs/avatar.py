@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "avatar"
@@ -18,10 +18,10 @@ class AvatarUtilities(commands.Cog):
         aliases=aliases,
         pass_context=True
     )
-    async def avatar_cmd(self, ctx, *, member: discord.Member = None):
+    async def avatar_cmd(self, ctx, *, member: nextcord.Member = None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -44,7 +44,7 @@ class AvatarUtilities(commands.Cog):
             # Send an embed
             title = member.name + "#" + member.discriminator
             content = "[Avatar URL]({})".format(avatar_url)
-            embed = discord.Embed(color=0x15F2C6)
+            embed = nextcord.Embed(color=0x15F2C6)
             embed.title = f"**{title}**"
             embed.description = content
             embed.set_image(url=avatar_url)

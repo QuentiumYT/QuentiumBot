@@ -1,6 +1,6 @@
-import discord, asyncio
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, exec_command, windows
+import nextcord, asyncio
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, exec_command, windows
 
 # Basic command configs
 cmd_name = "menu4tte"
@@ -21,8 +21,8 @@ class Menu4TTEQuentium(commands.Cog):
     @commands.is_owner()
     async def menu4tte_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
         lang_server = "fr"
         cmd_tran = tran[cmd_name][lang_server]
 

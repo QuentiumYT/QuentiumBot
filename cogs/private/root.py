@@ -1,5 +1,5 @@
-import discord, inspect
-from discord.ext import commands
+import nextcord, inspect
+from nextcord.ext import commands
 
 # Import more useful modules and every Bot functions
 from QuentiumBot import *

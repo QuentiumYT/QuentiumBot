@@ -1,6 +1,6 @@
-import discord, re
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+import nextcord, re
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "trigger"
@@ -21,8 +21,8 @@ class TriggerAdminConfig(commands.Cog):
     @commands.guild_only()
     async def trigger_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -33,10 +33,10 @@ class TriggerAdminConfig(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Global embed
-            embed = discord.Embed(color=0xBFFF11)
+            embed = nextcord.Embed(color=0xBFFF11)
 
             # Check user perms or owner
-            if not(ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
+            if not (ctx.message.author.guild_permissions.administrator or is_owner(ctx)):
                 # Allow trigger list without any permissions
                 if not any(x in args.lower().split() for x in ["list", "liste"]):
                     return await ctx.send(cmd_tran["msg_perm_admin_user"].format(ctx.message.author.name))
@@ -46,7 +46,7 @@ class TriggerAdminConfig(commands.Cog):
                 return await ctx.send(embed=embed)
 
             # Get all triggers
-            triggers = await HandleData.get_data(self, "triggers")
+            triggers = await storage.get_data(self, "triggers")
 
             # List server's triggers
             if any(x in args.lower().split() for x in ["list", "liste"]):
@@ -79,7 +79,7 @@ class TriggerAdminConfig(commands.Cog):
                     del triggers[str(ctx.guild.id)][remove]
                     self.data = triggers
                     # Save the triggers data
-                    await HandleData.dump_data(self, "triggers")
+                    await storage.dump_data(self, "triggers")
                     embed.title = cmd_tran["msg_reaction_deleted"]
                     embed.description = f"**{remove}**"
                 else:
@@ -90,7 +90,7 @@ class TriggerAdminConfig(commands.Cog):
             if any(x in args.lower().split() for x in ["removeall", "deleteall", "clearall"]):
                 del triggers[str(ctx.guild.id)]
                 self.data = triggers
-                await HandleData.dump_data(self, "triggers")
+                await storage.dump_data(self, "triggers")
                 embed.title = cmd_tran["msg_reaction_all_deleted"]
                 return await ctx.send(embed=embed)
 
@@ -145,7 +145,7 @@ class TriggerAdminConfig(commands.Cog):
 
             # Save the data in the file
             self.data = triggers
-            await HandleData.dump_data(self, "triggers")
+            await storage.dump_data(self, "triggers")
             embed.title = cmd_tran["msg_new_reaction"]
             # Send the trigger and the reply
             embed.add_field(name=cmd_tran["msg_trigger"],

@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner, match_id
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, is_owner, match_id
 
 # Basic command configs
 cmd_name = "autorole"
@@ -21,8 +21,8 @@ class AutoroleAdminConfig(commands.Cog):
     @commands.guild_only()
     async def autorole_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             autorole_server = data[2]
             prefix_server = data[3]
@@ -35,7 +35,7 @@ class AutoroleAdminConfig(commands.Cog):
         # Doesn't respond to bots
         if not ctx.message.author.bot == True:
             # Check user perms or owner
-            if not(ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):
+            if not (ctx.message.author.guild_permissions.manage_roles or is_owner(ctx)):
                 return await ctx.send(cmd_tran["msg_perm_roles_user"].format(ctx.message.author.name))
             # Check bot perms
             if not ctx.message.channel.guild.me.guild_permissions.manage_roles:
@@ -46,35 +46,35 @@ class AutoroleAdminConfig(commands.Cog):
 
             # Remove the autorole
             if any(x == args.lower() for x in ["remove", "delete"]):
-                await HandleData.change_autorole(self, ctx, None)
+                await storage.change_autorole(self, ctx, None)
                 return await ctx.send(cmd_tran["msg_role_deleted"])
             # See the autorole
             if any(x == args.lower() for x in ["show", "see"]):
-                if autorole_server == None:
+                if not autorole_server:
                     return await ctx.send(cmd_tran["msg_role_not_defined"])
                 # Get the role object
-                role = discord.utils.get(ctx.message.guild.roles, id=autorole_server)
-                if role == None:
+                role = nextcord.utils.get(ctx.message.guild.roles, id=autorole_server)
+                if not role:
                     # Delete the role if it was deleted from the server
-                    await HandleData.change_autorole(self, ctx, None)
+                    await storage.change_autorole(self, ctx, None)
                     return await ctx.send(cmd_tran["msg_unknown_role"])
                 return await ctx.send(cmd_tran["msg_current_role"].format(role.name))
 
             # If the role is any kind of ID
             if match_id(args):
-                role = discord.utils.get(ctx.message.guild.roles, id=match_id(args))
+                role = nextcord.utils.get(ctx.message.guild.roles, id=match_id(args))
             # Find the role using it's name
             else:
                 for role in ctx.message.guild.roles:
                     # Match the argument with all roles names
                     if args.lower() == role.name.lower():
-                        role = discord.utils.get(ctx.message.guild.roles, name=role.name)
+                        role = nextcord.utils.get(ctx.message.guild.roles, name=role.name)
                         break
                 else:
                     return await ctx.send(cmd_tran["msg_invalid_role"])
 
             # Modify the role in the config
-            await HandleData.change_autorole(self, ctx, role.id)
+            await storage.change_autorole(self, ctx, role.id)
             await ctx.send(cmd_tran["msg_role_set"].format(role.name))
 
 def setup(client):

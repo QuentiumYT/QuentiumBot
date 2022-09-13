@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations, is_owner
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations, is_owner
 
 # Basic command configs
 cmd_name = "help"
@@ -15,7 +15,7 @@ class HelpInfos(commands.Cog):
 
     # Function to turn a text emoji into its object
     def emo(self, text):
-        return str(discord.utils.get(self.client.emojis, name=text))
+        return str(nextcord.utils.get(self.client.emojis, name=text))
 
     @commands.command(
         name=cmd_name,
@@ -24,8 +24,8 @@ class HelpInfos(commands.Cog):
     )
     async def help_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -54,7 +54,7 @@ class HelpInfos(commands.Cog):
             commands_aliases = [{x: tran[x]["fr"]["aliases"]} for x in commands]
             # List all commands if no arguments
             if not args:
-                embed = discord.Embed(color=0x11FF11)
+                embed = nextcord.Embed(color=0x11FF11)
                 embed.url = tran["GLOBAL"]["website_url"]
                 embed.title = cmd_tran["msg_list_commands"]
                 embed.description = cmd_tran["msg_details"].format(prefix_server)
@@ -118,7 +118,7 @@ class HelpInfos(commands.Cog):
                     # Argument is not a command or subcommand
                     else:
                         return await ctx.send(cmd_tran["msg_no_command_found"])
-                embed = discord.Embed(color=0x03A678)
+                embed = nextcord.Embed(color=0x03A678)
                 embed.title = cmd_tran["msg_title"]
                 embed.url = tran["GLOBAL"]["website_url"]
                 desc_text = f"```{args}```\n"

@@ -1,12 +1,11 @@
-import discord, asyncio, json, os, requests, psutil
-from discord.ext import commands
+import nextcord, asyncio, json, os, requests, psutil
+from nextcord.ext import commands, tasks
 from datetime import datetime, date, timedelta
 from ftplib import FTP
 from subprocess import check_output
 
-__version__ = 2.0
 __author__ = "QuentiumYT"
-__filename__ = "QuentiumBot"
+__version__ = "3.0.0"
 
 debug = False
 windows = os.name == "nt"
@@ -54,7 +53,7 @@ def match_id(dis_id):
         return False
 
 def is_owner(ctx, user_id=False):
-    """Check if the user ID is one of the owner acccount"""
+    """Check if the user ID is one of the owner account"""
 
     # Quentium's user IDs
     if user_id:
@@ -87,7 +86,7 @@ class HandleData:
         """Get all parameters from the server or create new entry"""
 
         self.server_id = str(server.id)
-        self.data = await HandleData.get_data(self, "data")
+        self.data = await self.get_data("data")
 
         # Check if server id exists
         if any(x == self.server_id for x in self.data.keys()):
@@ -109,12 +108,12 @@ class HandleData:
             self.data[self.server_id]["prefix_server"] = self.prefix_server
 
         # Dump the parameters / stats of the server
-        if not isinstance(self, discord.ext.commands.bot.Bot):
+        if not isinstance(self, commands.Bot):
             self.commands_server += 1
             self.data[self.server_id]["name_server"] = server.name
             self.data[self.server_id]["commands_server"] = self.commands_server
 
-            await HandleData.dump_data(self, "data")
+            await self.dump_data("data")
 
         if debug:
             self.prefix_server = "-"
@@ -127,12 +126,12 @@ class HandleData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_prefix = new_prefix
-        self.data = await HandleData.get_data(self, "data")
+        self.data = await self.get_data("data")
 
         self.data[self.server_id]["prefix_server"] = self.new_prefix
 
         # Dump the prefix
-        await HandleData.dump_data(self, "data")
+        await self.dump_data("data")
 
         client.command_prefix = get_prefix(client, ctx.message)
 
@@ -141,31 +140,33 @@ class HandleData:
 
         self.server_id = str(ctx.message.guild.id)
         self.new_lang = new_lang
-        self.data = await HandleData.get_data(self, "data")
+        self.data = await self.get_data("data")
 
         self.data[self.server_id]["lang_server"] = self.new_lang
 
         # Dump the language
-        await HandleData.dump_data(self, "data")
+        await self.dump_data("data")
 
     async def change_autorole(self, ctx, new_role):
         """Change the language of the server"""
 
         self.server_id = str(ctx.message.guild.id)
         self.new_role = new_role
-        self.data = await HandleData.get_data(self, "data")
+        self.data = await self.get_data("data")
 
         self.data[self.server_id]["autorole_server"] = self.new_role
 
         # Dump the autorole
-        await HandleData.dump_data(self, "data")
+        await self.dump_data("data")
+
+storage = HandleData()
 
 # TYPE Bot init
 
 async def get_prefix(client, message):
     if message.guild:
         # Get the server custom prefix
-        data = await HandleData.retrieve_data(client, message.guild)
+        data = await storage.retrieve_data(message.guild)
         prefix_server = data[3]
     else:
         prefix_server = "+"
@@ -173,35 +174,37 @@ async def get_prefix(client, message):
     return commands.when_mentioned_or(prefix_server)(client, message)
 
 # Create a bot instance
-if not debug:
-    intents = discord.Intents.all()
-    intents.webhooks = False
-    intents.presences = False
-    intents.typing = False
-else:
-    intents = discord.Intents.default()
+intents = nextcord.Intents.all()
 
-client = commands.Bot(command_prefix=get_prefix,
-                      description="Quentium Public Bot",
-                      owner_ids=[246943045105221633, 324570532324442112],
-                      pm_help=True,
-                      help_command=None,
-                      case_insensitive=True,
-                      max_messages=999999,
-                      intents=intents)
+client = commands.Bot(
+    command_prefix=get_prefix,
+    description="Quentium Public Bot",
+    owner_ids=[246943045105221633, 324570532324442112],
+    help_command=None,
+    case_insensitive=True,
+    max_messages=999999,
+    intents=intents,
+)
 
 async def post_topgg_data():
     if not debug:
         # URL for top.gg
-        top_gg_url = "https://top.gg/api/bots/{" + str(client.user.id) + "}/stats"
+        top_gg_url = f"https://top.gg/api/bots/{client.user.id}/stats"
         # Token for authorization
-        headers = {"Authorization": get_config("GLOBAL", "token_dbl")}
+        headers = {
+            "Authorization": get_config("GLOBAL", "token_dbl"),
+        }
         # Guild count
-        payload = {"server_count": len(client.guilds)}
+        payload = {
+            "server_count": len(client.guilds),
+            "shard_count": 0,
+        }
         try:
-            requests.post(top_gg_url,
-                          data=payload,
-                          headers=headers)
+            requests.post(
+                top_gg_url,
+                data=payload,
+                headers=headers
+            )
         except:
             pass
 
@@ -213,7 +216,7 @@ async def on_ready():
 
     print("\n+--------------------------------------------+"
           "\n|              QuentiumBot ready!            |"
-          "\n|           © 2017 - 2020 QuentiumYT         |"
+          "\n|           © 2017 - 2022 QuentiumYT         |"
           "\n+--------------------------------------------+\n")
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
@@ -223,14 +226,14 @@ async def on_ready():
     else:
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
-    # Push the stats of the bot at start
-    await push_bot_stats()
+        # Push the stats of the bot at start
+        await push_bot_stats()
     # Change the bot presence
     await client.change_presence(
-        status=discord.Status.online,
-        activity=discord.Activity(
+        status=nextcord.Status.online,
+        activity=nextcord.Activity(
             name=presence,
-            type=discord.ActivityType.playing
+            type=nextcord.ActivityType.playing,
         )
     )
 
@@ -238,8 +241,8 @@ async def on_ready():
 async def on_message(message):
     """Bot on message listener"""
 
-    if isinstance(message.channel, discord.TextChannel):
-        data = await HandleData.retrieve_data(client, message.guild)
+    if isinstance(message.channel, nextcord.TextChannel):
+        data = await storage.retrieve_data(message.guild)
         server_id = message.guild.id
         lang_server = data[0]
         prefix_server = data[3]
@@ -256,7 +259,7 @@ async def on_message(message):
     # Doesn't respond to bots
     if not message.author.bot == True:
         # Respond with trigger reply
-        triggers = await HandleData.get_data(client, "triggers")
+        triggers = await storage.get_data("triggers")
         if server_id and any(x == str(server_id) for x in triggers.keys()):
             if any(x == message.content.lower() for x in triggers[str(server_id)].keys()):
                 response = triggers[str(server_id)].get(message.content.lower())
@@ -273,11 +276,11 @@ async def on_member_join(member):
     """Bot member join a server listener"""
 
     server_id = member.guild.id
-    autorole_server = await HandleData.retrieve_data(client, member.guild)
+    autorole_server = await storage.retrieve_data(member.guild)
 
     # Check if automatic role is set
     if autorole_server[2]:
-        role = discord.utils.get(member.guild.roles, id=autorole_server[2])
+        role = nextcord.utils.get(member.guild.roles, id=autorole_server[2])
         if role:
             try:
                 # Add the role to the new member
@@ -291,33 +294,33 @@ async def on_member_join(member):
             # Ban the ads account
             await member.ban()
             msg = "A bot has been banned because we don't like them :ok_hand:"
-            channel = discord.utils.get(member.guild.channels, id=290905147826110464)
+            channel = nextcord.utils.get(member.guild.channels, id=290905147826110464)
             await channel.send(msg)
         else:
             # Send the welcome message
             msg = f"Hey {member.mention} ! Welcome on ***{member.guild.name}***! Feel free to ask for a cookie :cookie:"
-            await discord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
+            await nextcord.utils.get(member.guild.channels, id=199189022894063627).send(msg)
 
     ### Welcome message on QuentiumBot support server
     elif server_id == 380373195473027074: # Support QB server ID
-        embed = discord.Embed(color=0x14F5F5)
+        embed = nextcord.Embed(color=0x14F5F5)
         embed.title = "Welcome " + member.name
         embed.url = get_translations("GLOBAL")["website_url"]
         embed.description = "You now have joined the testers of QuentiumBot! <a:happy:751103578957021264> Spend some good time with us!"
         embed.set_thumbnail(url=member.avatar_url)
         embed.set_footer(text="By QuentiumBot")
-        channel = discord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
+        channel = nextcord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
         await channel.send(embed=embed)
 
     ### Welcome message on SparseSneakers server
     elif server_id == 798511986559287297: # SparseSneakers server ID
-        embed = discord.Embed(color=0x158DEE)
+        embed = nextcord.Embed(color=0x158DEE)
         embed.title = "Welcome " + member.name + " !"
         embed.url = "https://www.instagram.com/sparsesneakers"
         embed.description = "Bienvenue sur notre serveur Discord, si tu as besoin d'aide n'hésite pas à te manifester ! :v_tone2:"
         embed.set_thumbnail(url="https://quentium.fr/+Files/discord/sparse.jpg")
         embed.set_footer(text="SparseSneakers")
-        channel = discord.utils.get(member.guild.channels, id=798514766188118047) # SparseSneakers accueil channel ID
+        channel = nextcord.utils.get(member.guild.channels, id=798514766188118047) # SparseSneakers accueil channel ID
         await channel.send(embed=embed)
 
 async def on_server_join(server):
@@ -339,8 +342,8 @@ if not debug:
     async def on_command_error(ctx, error):
         """Bot command error handler"""
 
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(client, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -375,7 +378,7 @@ if not debug:
         # Log other error types to a file
         file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
         infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
-        if isinstance(ctx.channel, discord.TextChannel):
+        if isinstance(ctx.channel, nextcord.TextChannel):
             infos.insert(0, ctx.message.guild.name)
         file.write(" --- ".join(map(str, infos)) + "\n")
         file.close()
@@ -408,7 +411,7 @@ async def do_tasks():
     kick_list_name = [x.name for x in [x for x in serv.members if not x.bot] if len(x.roles) <= 1]
     # Kick the inactive members
     for member in kick_list:
-        embed = discord.Embed(color=0x55EE33)
+        embed = nextcord.Embed(color=0x55EE33)
         embed.description = f"Hey {member}, tu t'es fais expulsé du serveur des Insoumis car \
                             tu ne t'es pas assigné de rôles :( Tu peux nous rejoindre à nouveau \
                             ici: https://discord.gg/bg6f6EV et n'oublies pas de lire les règles ;)"
@@ -420,7 +423,7 @@ async def do_tasks():
         content = "- " + "\n- ".join(kick_list_name)
     else:
         content = "Personne :smile:"
-    embed = discord.Embed(color=0xFF1111)
+    embed = nextcord.Embed(color=0xFF1111)
     embed.title = f"Membres expulsés : {len(kick_list_name)}"
     embed.description = content
     embed.set_footer(text=str(datetime.now().strftime("%d.%m.%Y - %H:%M:%S")))
@@ -429,7 +432,7 @@ async def do_tasks():
 async def push_bot_stats(client=client):
     """Send a JSON recap with data to the website using FTP"""
 
-    data = await HandleData.get_data(client, "data")
+    data = await storage.get_data("data")
 
     # Get all stats to show on the website
     stats = {}
@@ -490,6 +493,7 @@ async def push_bot_stats(client=client):
     file.close()
     ftp.close()
 
+@tasks.loop(seconds=5)
 async def loop_repeat():
     """Loop running for cron task at 7AM"""
 
@@ -504,6 +508,7 @@ async def loop_repeat():
             clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
     elif now.hour == clock.hour:
         clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
+
     while not client.is_closed():
         time_now = datetime.today().replace(microsecond=0)
         timer_finished = time_now
@@ -537,9 +542,6 @@ async def loop_repeat():
                 clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
         await asyncio.sleep(5)
 
-# Add the function to bot's task
-client.loop.create_task(loop_repeat())
-
 async def exec_command(args, msg):
     """Execute a command on the hosting server"""
 
@@ -565,17 +567,15 @@ async def exec_command(args, msg):
 
 # TYPE Start
 
-if __name__ == "__main__":
-    # Load extensions
-    for cat, exts in startup_cogs.items():
-        for ext in exts:
-            try:
-                client.load_extension("cogs." + cat + ext)
-            except Exception as e:
-                print(f"Failed to load extension {ext}\n{type(e).__name__}: {e}.")
+async def main():
+    for cat, cogs in startup_cogs.items():
+        for cog in cogs:
+            client.load_extension("cogs." + cat + cog)
 
-    # Run with the private bot or the public one
     if debug:
-        client.run(get_config("TEST", "token"))
+        await client.start(get_config("TEST", "token"))
     else:
-        client.run(get_config("PUBLIC", "token"))
+        await client.start(get_config("PUBLIC", "token"))
+
+if __name__ == "__main__":
+    asyncio.run(main())

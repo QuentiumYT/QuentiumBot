@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "userstats"
@@ -18,10 +18,10 @@ class UserstatsInfos(commands.Cog):
         aliases=aliases,
         pass_context=True
     )
-    async def userstats_cmd(self, ctx, *, member: discord.Member = None):
+    async def userstats_cmd(self, ctx, *, member: nextcord.Member = None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -48,7 +48,7 @@ class UserstatsInfos(commands.Cog):
             user_roles_list = ", ".join([x.name for x in member.roles])
 
             # Send an embed with details
-            embed = discord.Embed(color=0x1126FF)
+            embed = nextcord.Embed(color=0x1126FF)
             icon = str(member.avatar_url)
             icon1 = icon.split(".")
             icon2 = "".join(icon1[len(icon1) - 1])

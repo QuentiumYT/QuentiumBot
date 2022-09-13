@@ -1,6 +1,6 @@
-import discord, json, random, re, requests
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord, json, random, re, requests
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "embed"
@@ -28,8 +28,8 @@ class EmbedUtilities(commands.Cog):
     )
     async def embed_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             prefix_server = data[3]
         else:
@@ -105,7 +105,7 @@ class EmbedUtilities(commands.Cog):
                 color = self.random_color()
 
             # Send the personal embed
-            embed = discord.Embed(color=color)
+            embed = nextcord.Embed(color=color)
             embed.title = title
             embed.description = description
 

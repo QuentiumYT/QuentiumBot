@@ -1,7 +1,7 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 from datetime import datetime
-from QuentiumBot import HandleData, get_translations, start_time
+from QuentiumBot import storage, get_translations, start_time
 
 # Basic command configs
 cmd_name = "uptime"
@@ -21,8 +21,8 @@ class UptimeInfos(commands.Cog):
     )
     async def uptime_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"

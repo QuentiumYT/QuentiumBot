@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "listbans"
@@ -21,8 +21,8 @@ class ListbansInfos(commands.Cog):
     @commands.guild_only()
     async def listbans_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -38,7 +38,7 @@ class ListbansInfos(commands.Cog):
             else:
                 content = cmd_tran["msg_any"]
             # Send an embed
-            embed = discord.Embed(color=0x664211)
+            embed = nextcord.Embed(color=0x664211)
             embed.title = cmd_tran["msg_title"]
             embed.description = "- " + content
             await ctx.send(embed=embed)

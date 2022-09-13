@@ -1,7 +1,7 @@
-import discord, psutil
-from discord.ext import commands
+import nextcord, psutil
+from nextcord.ext import commands
 from datetime import datetime
-from QuentiumBot import HandleData, get_translations, start_time
+from QuentiumBot import storage, get_translations, start_time
 
 # Basic command configs
 cmd_name = "botstats"
@@ -21,8 +21,8 @@ class BotstatsInfos(commands.Cog):
     )
     async def botstats_cmd(self, ctx):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
             commands_server = data[1]
         else:
@@ -35,7 +35,7 @@ class BotstatsInfos(commands.Cog):
             # Get some informations
             bot_host = cmd_tran["msg_bot_host"]
             bot_os = cmd_tran["msg_bot_os"]
-            bot_owner = discord.utils.get(self.client.get_all_members(), id=self.client.owner_id)
+            bot_owner = nextcord.utils.get(self.client.get_all_members(), id=self.client.owner_id)
             time = round((datetime.now() - start_time).total_seconds())
             m, s = divmod(int(time), 60)
             h, m = divmod(m, 60)
@@ -46,7 +46,7 @@ class BotstatsInfos(commands.Cog):
             bot_commands_get_total = 0
 
             # Count commands and servers in data file
-            data = await HandleData.get_data(self, "data")
+            data = await storage.get_data(self, "data")
             for serv in data.keys():
                 bot_commands_get_total += data[serv]["commands_server"]
             users = 0
@@ -64,7 +64,7 @@ class BotstatsInfos(commands.Cog):
                     bot_lang_de += 1
 
             # Send an embed with details
-            embed = discord.Embed(color=0x1126FF)
+            embed = nextcord.Embed(color=0x1126FF)
             embed.url = tran["GLOBAL"]["website_url"]
             embed.set_thumbnail(url=tran["GLOBAL"]["logo_bot"])
             # Using translation list and append data

@@ -1,6 +1,6 @@
-import discord, json, re
-from discord.ext import commands
-from QuentiumBot import HandleData, get_translations
+import nextcord, json, re
+from nextcord.ext import commands
+from QuentiumBot import storage, get_translations
 
 # Basic command configs
 cmd_name = "letter"
@@ -18,7 +18,7 @@ class LetterUtilities(commands.Cog):
 
     # Function to turn a text emoji into its object
     def emo(self, text):
-        return str(discord.utils.get(self.client.emojis, name=text))
+        return str(nextcord.utils.get(self.client.emojis, name=text))
 
     # Function to cut a string of the specified length to a list
     def truncate(self, s, n):
@@ -31,8 +31,8 @@ class LetterUtilities(commands.Cog):
     )
     async def letter_cmd(self, ctx, *, args=None):
         # Get specific server data
-        if isinstance(ctx.channel, discord.TextChannel):
-            data = await HandleData.retrieve_data(self, ctx.message.guild)
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            data = await storage.retrieve_data(ctx.message.guild)
             lang_server = data[0]
         else:
             lang_server = "en"
@@ -62,7 +62,7 @@ class LetterUtilities(commands.Cog):
             # Find a user mention, keeps it without turning into letters
             is_mention = re.findall(r"<@\d*>", args)
             for mention in is_mention:
-                args = args.replace(mention, str(discord.utils.get(self.client.get_all_members(), id=int(mention[2:-1])).name))
+                args = args.replace(mention, str(nextcord.utils.get(self.client.get_all_members(), id=int(mention[2:-1])).name))
             # List letters and lower
             letter = list(str(args.lower()))
             for char in range(len(letter)):
@@ -109,7 +109,7 @@ class LetterUtilities(commands.Cog):
             embeds[-1] = embeds[-1] + "".join(cut_end_embed)
             # For each list of characters, send an embed
             for new_embed in embeds:
-                embed = discord.Embed(color=0xFFA952)
+                embed = nextcord.Embed(color=0xFFA952)
                 embed.description = new_embed
                 # If last embed, add a footer
                 if new_embed == embeds[-1]:
