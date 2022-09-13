@@ -1644,7 +1644,7 @@
         "type_emoji": "user_timetoeat",
         "fr": {
             "type_name": "TimeToEat",
-            "description": "Récupère et envoie les menus au projet (timetoeat.tk).",
+            "description": "Récupère et envoie les menus au projet (timetoeat.cf).",
             "usage": "",
             "aliases": "",
             "example": "",
@@ -1652,7 +1652,7 @@
         },
         "en": {
             "type_name": "TimeToEat",
-            "description": "Get and send menus to the project (timetoeat.tk).",
+            "description": "Get and send menus to the project (timetoeat.cf).",
             "usage": "",
             "aliases": "",
             "example": "",
@@ -1660,7 +1660,7 @@
         },
         "de": {
             "type_name": "TimeToEat",
-            "description": "Holen Sie sich Menüs und senden Sie sie an das Projekt (timetoeat.tk).",
+            "description": "Holen Sie sich Menüs und senden Sie sie an das Projekt (timetoeat.cf).",
             "usage": "",
             "aliases": "",
             "example": "",
@@ -1672,7 +1672,7 @@
         "type_emoji": "user_timetoeat",
         "fr": {
             "type_name": "TimeToEat",
-            "description": "Envoie des requêtes au projet (timetoeat.tk).",
+            "description": "Envoie des requêtes au projet (timetoeat.cf).",
             "usage": "[\"nombre\"]",
             "aliases": "",
             "example": "130",
@@ -1680,7 +1680,7 @@
         },
         "en": {
             "type_name": "TimeToEat",
-            "description": "Send requests to the project (timetoeat.tk).",
+            "description": "Send requests to the project (timetoeat.cf).",
             "usage": "[\"number\"]",
             "aliases": "",
             "example": "130",
@@ -1688,7 +1688,7 @@
         },
         "de": {
             "type_name": "TimeToEat",
-            "description": "Senden Sie Anfragen an das Projekt (timetoeat.tk).",
+            "description": "Senden Sie Anfragen an das Projekt (timetoeat.cf).",
             "usage": "[\"number\"]",
             "aliases": "",
             "example": "130",
