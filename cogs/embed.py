@@ -134,7 +134,7 @@ class EmbedUtilities(commands.Cog):
             else:
                 # Set author name and url in footer
                 embed.set_footer(text=ctx.message.author.name,
-                                 icon_url=ctx.message.author.avatar_url)
+                                 icon_url=ctx.message.author.avatar)
 
             await ctx.send(embed=embed)
 

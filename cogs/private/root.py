@@ -6,7 +6,7 @@ from QuentiumBot import *
 import os, psutil, time, datetime
 
 class RootQuentium(commands.Cog):
-    """Commands to evalute Python code and execute Windows | Unix commands on the host for QuentiumYT (private)"""
+    """Commands to evaluate Python code and execute Windows | Unix commands on the host for QuentiumYT (private)"""
 
     def __init__(self, client):
         self.client = client

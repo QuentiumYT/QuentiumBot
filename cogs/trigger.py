@@ -46,7 +46,7 @@ class TriggerAdminConfig(commands.Cog):
                 return await ctx.send(embed=embed)
 
             # Get all triggers
-            triggers = await storage.get_data(self, "triggers")
+            triggers = await storage.get_data("triggers")
 
             # List server's triggers
             if any(x in args.lower().split() for x in ["list", "liste"]):

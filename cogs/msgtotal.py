@@ -69,7 +69,7 @@ class MsgtotalUtilities(commands.Cog):
                 channel_list = [x for x in ctx.message.guild.channels if isinstance(x, nextcord.TextChannel)]
                 for channel in channel_list:
                     # Count all messages in channels
-                    if ctx.message.guild.me.permissions_in(channel).read_messages:
+                    if ctx.message.channel.permissions_for(ctx.message.author).read_messages:
                         async for log in channel.history(limit=999999):
                             if log.author == member:
                                 counter += 1
@@ -77,7 +77,7 @@ class MsgtotalUtilities(commands.Cog):
             elif args == "channel":
                 msg_total = False
                 # Count all messages in channels
-                if ctx.message.guild.me.permissions_in(ctx.message.channel).read_messages:
+                if ctx.message.channel.permissions_for(ctx.message.author).read_messages:
                     async for log in ctx.message.channel.history(limit=999999):
                         if log.author == member:
                             counter += 1
@@ -93,7 +93,7 @@ class MsgtotalUtilities(commands.Cog):
             else:
                 embed.description = cmd_tran["msg_has_sent_channel"].format(member, counter)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             # Edit the temp message
             await tmp.edit(embed=embed)
 

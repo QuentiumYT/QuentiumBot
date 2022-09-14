@@ -7,7 +7,7 @@ from subprocess import check_output
 __author__ = "QuentiumYT"
 __version__ = "3.0.0"
 
-debug = False
+debug = True
 windows = os.name == "nt"
 
 startup_cogs = {**{"": [c.replace(".py", "") for c in os.listdir("cogs") if os.path.isfile(os.path.join("cogs", c))]}, # Public cogs
@@ -29,9 +29,11 @@ def get_translations(*args):
 
     with open("data/translations.json", "r", encoding="utf-8", errors="ignore") as file:
         translations = json.loads(file.read(), strict=False)
+
     if args:
         for subkey in args:
             translations = translations[subkey]
+
     return translations
 
 def match_id(dis_id):
@@ -175,6 +177,8 @@ async def get_prefix(client, message):
 
 # Create a bot instance
 intents = nextcord.Intents.all()
+# intents.presences = False
+# intents.message_content = False
 
 client = commands.Bot(
     command_prefix=get_prefix,
@@ -205,7 +209,7 @@ async def post_topgg_data():
                 data=payload,
                 headers=headers
             )
-        except:
+        except Exception:
             pass
 
 # TYPE Global bot events
@@ -221,13 +225,16 @@ async def on_ready():
     print("Logged in as %s#%s" % (client.user.name, client.user.discriminator))
     print("ID: " + str(client.user.id))
     print("\nStarting at: " + start_time.strftime("%d.%m.%Y - %H:%M:%S"))
+
     if debug:
         presence = "Oh, a QuentiumBot update!?"
     else:
         presence = "+help | bot.quentium.fr"
         await post_topgg_data()
-        # Push the stats of the bot at start
-        await push_bot_stats()
+
+    # Push the stats of the bot at start
+    await push_bot_stats()
+
     # Change the bot presence
     await client.change_presence(
         status=nextcord.Status.online,
@@ -238,7 +245,7 @@ async def on_ready():
     )
 
 @client.listen()
-async def on_message(message):
+async def on_message(message: nextcord.Message):
     """Bot on message listener"""
 
     if isinstance(message.channel, nextcord.TextChannel):
@@ -257,7 +264,7 @@ async def on_message(message):
         await message.channel.send(tran["bot_prefix"].format(prefix_server, prefix_server))
 
     # Doesn't respond to bots
-    if not message.author.bot == True:
+    if not message.author.bot:
         # Respond with trigger reply
         triggers = await storage.get_data("triggers")
         if server_id and any(x == str(server_id) for x in triggers.keys()):
@@ -285,7 +292,7 @@ async def on_member_join(member):
             try:
                 # Add the role to the new member
                 await member.add_roles(role)
-            except:
+            except Exception:
                 pass
 
     ### Welcome message and ban ads accounts on TheSweMaster server
@@ -307,7 +314,7 @@ async def on_member_join(member):
         embed.title = "Welcome " + member.name
         embed.url = get_translations("GLOBAL")["website_url"]
         embed.description = "You now have joined the testers of QuentiumBot! <a:happy:751103578957021264> Spend some good time with us!"
-        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar)
         embed.set_footer(text="By QuentiumBot")
         channel = nextcord.utils.get(member.guild.channels, id=380373687284793344) # Support QB general channel ID
         await channel.send(embed=embed)
@@ -376,12 +383,11 @@ if not debug:
             return await ctx.send(tran["msg_command_cooldown"].format(time_left))
 
         # Log other error types to a file
-        file = open("errors.txt", "a", encoding="utf-8", errors="ignore")
-        infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
-        if isinstance(ctx.channel, nextcord.TextChannel):
-            infos.insert(0, ctx.message.guild.name)
-        file.write(" --- ".join(map(str, infos)) + "\n")
-        file.close()
+        with open("errors.txt", "a", encoding="utf-8", errors="ignore") as file:
+            infos = [ctx.message.author, datetime.now().strftime("%d.%m.%Y - %H:%M:%S"), ctx.message.content, error]
+            if isinstance(ctx.channel, nextcord.TextChannel):
+                infos.insert(0, ctx.message.guild.name)
+            file.write(" --- ".join(map(str, infos)) + "\n")
 
 # TYPE Global functions
 
@@ -392,13 +398,13 @@ async def do_tasks():
     await push_bot_stats()
 
     # TimeToEat project menu upload
-    if datetime.today().weekday() == 6:
+    if datetime.now().weekday() == 6:
         if windows:
             await exec_command("python scripts/menu4tte.py", None)
         else:
             await exec_command("python3 scripts/menu4tte.py", None)
     # TimeToEat project data generation
-    if datetime.today().weekday() < 5:
+    if datetime.now().weekday() < 5:
         if windows:
             await exec_command("python scripts/data4tte.py 130", None)
         else:
@@ -439,7 +445,7 @@ async def push_bot_stats(client=client):
     stats["hosted"] = "VPS Oserya.fr"
     stats["owner"] = "QuentiumYT#0207"
     stats["helper"] = "Microsoft Visual Studio#1943"
-    stats["linux"] = "Ubuntu 20.04.3 (Focal Fossa) x64"
+    stats["linux"] = "Ubuntu 20.04.5 (Focal Fossa)"
     time = round((datetime.now() - start_time).total_seconds())
     m, s = divmod(int(time), 60)
     h, m = divmod(m, 60)
@@ -449,17 +455,13 @@ async def push_bot_stats(client=client):
     stats["creation_date"] = "16/08/2017 | 17h46"
     creation_date = date(2017, 8, 16)
     stats["creation_days"] = (date.today() - creation_date).days
-    stats["lines_count"] = sum(1 for line in open("QuentiumBot.py"))
+    stats["lines_count"] = sum(1 for _ in open("QuentiumBot.py"))
     # Get RAM + size and shift bytes
     stats["memory"] = psutil.virtual_memory().used >> 20
     stats["storage"] = (os.stat("QuentiumBot.py").st_size >> 10) # + (os.stat("Quentium67Bot.py").st_size >> 10)
-    bot_commands_get_total = 0
-    for serv in data.keys():
-        bot_commands_get_total += data[serv]["commands_server"]
+    bot_commands_get_total = sum(data[serv]["commands_server"] for serv in data.keys())
     stats["cmd_total"] = bot_commands_get_total
-    users = 0
-    for serv in client.guilds:
-        users += len(serv.members)
+    users = sum(len(serv.members) for serv in client.guilds)
     stats["users_total"] = users
     stats["emojis_total"] = len(client.emojis)
     stats["servers_total"] = len(client.guilds)
@@ -487,10 +489,8 @@ async def push_bot_stats(client=client):
     ftp.login(ftp_bot["login"],
               ftp_bot["passwd"])
 
-    file = open("data/botstats.json", "rb")
-    # Store the file
-    ftp.storbinary("STOR botstats.json", file)
-    file.close()
+    with open("data/botstats.json", "rb") as file:
+        ftp.storbinary("STOR botstats.json", file)
     ftp.close()
 
 @tasks.loop(seconds=5)
@@ -498,7 +498,7 @@ async def loop_repeat():
     """Loop running for cron task at 7AM"""
 
     await client.wait_until_ready()
-    now = datetime.today().replace(microsecond=0)
+    now = datetime.now().replace(microsecond=0)
     num_days_month = (date(now.year + now.month // 12, now.month % 12 + 1, 1) - timedelta(days=1)).day
     clock = now.replace(day=now.day, hour=7, minute=0, second=0, microsecond=0)
     if now.hour > clock.hour:
@@ -510,7 +510,7 @@ async def loop_repeat():
         clock = now.replace(day=now.day + 1, hour=7, minute=0, second=0, microsecond=0)
 
     while not client.is_closed():
-        time_now = datetime.today().replace(microsecond=0)
+        time_now = datetime.now().replace(microsecond=0)
         timer_finished = time_now
         sec_time = int(time_now.strftime("%S"))
         min_time = int(time_now.strftime("%M"))
@@ -532,7 +532,7 @@ async def loop_repeat():
                 timer_finished = time_now.replace(minute=time_now.minute + 1, second=0)
         if timer_finished == clock:
             await do_tasks()
-            now = datetime.today().replace(microsecond=0)
+            now = datetime.now().replace(microsecond=0)
             if day_time == num_days_month:
                 if now.month == 12:
                     clock = now.replace(year=now.year + 1, month=1, day=1, hour=7, minute=0, second=0, microsecond=0)
@@ -555,13 +555,13 @@ async def exec_command(args, msg):
 
     if msg:
         try:
-            # Try to format with linux cp1252 encoding
+            # Try to format with Linux cp1252 encoding
             await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("cp1252")))
-        except:
+        except UnicodeDecodeError:
             try:
                 # Try to format with global ISO-8859-1 encoding
                 await msg.channel.send("```autohotkey\n{}\n```".format(result.decode("ISO-8859-1")))
-            except:
+            except UnicodeDecodeError:
                 # Else print string bytes
                 await msg.channel.send("```autohotkey\n{}\n```".format(str(result)))
 

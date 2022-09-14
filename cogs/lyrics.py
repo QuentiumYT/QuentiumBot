@@ -99,7 +99,7 @@ class LyricsUtilities(commands.Cog):
                         # Filed contains nothing add notes
                         embed.add_field(name=splitted[0], value=":notes:" * 6)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             await ctx.send(embed=embed)
 
 def setup(client):

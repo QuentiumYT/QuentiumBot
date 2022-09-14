@@ -58,14 +58,13 @@ class ServerstatsInfos(commands.Cog):
             # Send an embed with details
             embed = nextcord.Embed(color=0x1126FF)
             embed.url = tran["GLOBAL"]["website_url"]
-            icon = str(serv.icon_url)
+            icon = str(serv.icon)
             icon1 = icon.split(".")
             icon2 = "".join(icon1[len(icon1) - 1])
             icon3 = icon.replace(icon2, "")
-            icon_url = icon3 + "png?size=1024"
-            # If icon_url is not found
-            if len(serv.icon_url):
-                embed.set_thumbnail(url=icon_url)
+            logo = icon3 + "png?size=1024"
+            if serv.icon:
+                embed.set_thumbnail(url=logo)
             else:
                 embed.set_thumbnail(url=tran["GLOBAL"]["logo_question"])
             # Using translation list and append data
@@ -75,10 +74,10 @@ class ServerstatsInfos(commands.Cog):
                                                           serv_text_channels, serv_voice_channels, serv_afk_channel,
                                                           serv_afk_time, serv_verif_lvl, serv_roles, serv_roles_list)
             embed.add_field(name=cmd_tran["msg_stats"].format(serv_name),
-                            value=content + cmd_tran["msg_link_icon"].format(icon_url),
+                            value=content + cmd_tran["msg_link_icon"].format(logo),
                             inline=True)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             await ctx.send(embed=embed)
 
 def setup(client):

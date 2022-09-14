@@ -85,7 +85,7 @@ class LetterUtilities(commands.Cog):
                 elif any(x in letter[char] for x in ["û", "ü", "ù", "ú"]):
                     lst += ":regional_indicator_u:"
                 # Normal alphabet
-                elif letter[char].isalpha() == True:
+                elif letter[char].isalpha():
                     lst += ":regional_indicator_" + letter[char] + ":"
                 # If the char is an known emoji, replace it back here
                 elif letter[char] == "☺":
@@ -114,7 +114,7 @@ class LetterUtilities(commands.Cog):
                 # If last embed, add a footer
                 if new_embed == embeds[-1]:
                     embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                                     icon_url=ctx.message.author.avatar_url)
+                                     icon_url=ctx.message.author.avatar)
                 await ctx.send(embed=embed)
 
 def setup(client):

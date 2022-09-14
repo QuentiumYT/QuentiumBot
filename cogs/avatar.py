@@ -33,23 +33,23 @@ class AvatarUtilities(commands.Cog):
             if not member:
                 member = ctx.message.author
             # Retrieve the biggest avatar size
-            icon = str(member.avatar_url)
+            icon = str(member.avatar)
             icon1 = icon.split(".", 999)
             icon2 = "".join(icon1[len(icon1) - 1])
             icon3 = icon.replace(icon2, "")
             if "gif" in icon:
-                avatar_url = icon3 + "gif?size=1024"
+                avatar = icon3 + "gif?size=1024"
             else:
-                avatar_url = icon3 + "png?size=1024"
+                avatar = icon3 + "png?size=1024"
             # Send an embed
             title = member.name + "#" + member.discriminator
-            content = "[Avatar URL]({})".format(avatar_url)
+            content = "[Avatar URL]({})".format(avatar)
             embed = nextcord.Embed(color=0x15F2C6)
             embed.title = f"**{title}**"
             embed.description = content
-            embed.set_image(url=avatar_url)
+            embed.set_image(url=avatar)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             await ctx.send(embed=embed)
 
 def setup(client):

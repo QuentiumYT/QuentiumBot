@@ -49,25 +49,25 @@ class UserstatsInfos(commands.Cog):
 
             # Send an embed with details
             embed = nextcord.Embed(color=0x1126FF)
-            icon = str(member.avatar_url)
+            icon = str(member.avatar)
             icon1 = icon.split(".")
             icon2 = "".join(icon1[len(icon1) - 1])
             icon3 = icon.replace(icon2, "")
-            avatar_url = icon3 + "png?size=1024"
+            avatar = icon3 + "png?size=1024"
             # If member avatar is not found use the default avatar
-            if member.avatar_url is not None:
-                embed.set_thumbnail(url=avatar_url)
+            if member.avatar:
+                embed.set_thumbnail(url=avatar)
             else:
-                embed.set_thumbnail(url=member.default_avatar_url)
+                embed.set_thumbnail(url=member.default_avatar)
              # Using translation list and append data
             content = "".join(cmd_tran["msg_content"]) % (user_name, user_nickname, user_id, user_tag, user_mention,
                                                           user_is_bot, user_status, user_game, user_joinserv,
                                                           user_joindiscord, user_best_role, user_roles, user_roles_list)
             embed.add_field(name=cmd_tran["msg_stats"].format(user_name),
-                            value=content + cmd_tran["msg_link_icon"].format(avatar_url),
+                            value=content + cmd_tran["msg_link_icon"].format(avatar),
                             inline=True)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(user_name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             await ctx.send(embed=embed)
 
 def setup(client):

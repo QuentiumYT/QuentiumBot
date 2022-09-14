@@ -765,7 +765,7 @@
             "msg_min": "Minute(s)",
             "msg_sec": "Seconde(s)",
             "msg_bot_host": "VPS Oserya.fr",
-            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_bot_os": "Ubuntu 20.04.5 (Focal Fossa)",
             "msg_not_available": "Indisponible en MP.",
             "msg_content": [
                 "```autohotkey\n",
@@ -795,7 +795,7 @@
             "msg_min": "Minute(s)",
             "msg_sec": "Second(s)",
             "msg_bot_host": "VPS Oserya.fr",
-            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_bot_os": "Ubuntu 20.04.5 (Focal Fossa)",
             "msg_not_available": "Not available in PM.",
             "msg_content": [
                 "```autohotkey\n",
@@ -825,7 +825,7 @@
             "msg_min": "Minuten",
             "msg_sec": "Sekunden",
             "msg_bot_host": "VPS Oserya.fr",
-            "msg_bot_os": "Debian GNU/Linux 10 (buster)",
+            "msg_bot_os": "Ubuntu 20.04.5 (Focal Fossa)",
             "msg_not_available": "In PN nicht verfügbar.",
             "msg_content": [
                 "```autohotkey\n",

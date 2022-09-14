@@ -46,7 +46,7 @@ class BotstatsInfos(commands.Cog):
             bot_commands_get_total = 0
 
             # Count commands and servers in data file
-            data = await storage.get_data(self, "data")
+            data = await storage.get_data("data")
             for serv in data.keys():
                 bot_commands_get_total += data[serv]["commands_server"]
             users = 0
@@ -75,7 +75,7 @@ class BotstatsInfos(commands.Cog):
                             value=content,
                             inline=True)
             embed.set_footer(text=tran["GLOBAL"][lang_server]["requested_by"].format(ctx.message.author.name),
-                             icon_url=ctx.message.author.avatar_url)
+                             icon_url=ctx.message.author.avatar)
             await ctx.send(embed=embed)
 
 def setup(client):

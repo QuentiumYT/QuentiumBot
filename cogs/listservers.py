@@ -31,7 +31,7 @@ class ListserversInfos(commands.Cog):
         if not ctx.message.author.bot == True:
             if not ctx.message.guild.id == 264445053596991498: # DBL ID
                 # Get the raw data
-                data = await storage.get_data(self, "data")
+                data = await storage.get_data("data")
                 # Get all the servers the bot is in
                 serv_id = [str(server.id) for server in self.client.guilds]
                 serv_id_exist = []
