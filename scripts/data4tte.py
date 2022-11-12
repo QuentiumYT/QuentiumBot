@@ -2,13 +2,15 @@ import random, requests, sys
 from _tte import cypher, alpha, url
 
 # Send random requests to TimeToEat website
+headers = {
+    "User-Agent": "TimeToEat Data"
+}
 
 # 130 for 11h30 to 13h30 (10 per 10 minutes)
 number_request = 130
 # Send the specified number
-if len(sys.argv) > 1:
-    if sys.argv[1].isdigit():
-        number_request = int(sys.argv[1])
+if len(sys.argv) > 1 and sys.argv[1].isdigit():
+    number_request = int(sys.argv[1])
 
 # Generates the random numbers
 for i in range(number_request):
@@ -37,6 +39,6 @@ for i in range(number_request):
     debit_crypt = cypher(str(count_debit), key)
     # Pass the args with the GET method
     args = "?count=" + count_crypt + "&debit=" + debit_crypt + "&key=" + str(key)
-    requests.get(url + args)
+    requests.get(url + args, headers=headers)
 
 print("All requests have been sent successfully!")
